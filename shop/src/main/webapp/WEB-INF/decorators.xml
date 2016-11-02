@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 包含文件，类似header，include -->
+<decorators defaultdir="/WEB-INF/decorators">
+	<excludes>
+		<pattern>/app/*</pattern>
+		<pattern>/login</pattern>
+		<pattern>/management/login</pattern>
+	</excludes>
+	<decorator name="home" page="home.jsp">
+		<pattern>/home/*</pattern>
+	</decorator>
+	<decorator name="management" page="management.jsp">
+		<pattern>/management/*</pattern>
+	</decorator>
+	<decorator name="mobile" page="mobile.jsp">
+		<pattern>/mobile/*</pattern>
+	</decorator>
+</decorators>

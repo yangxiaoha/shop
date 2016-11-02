@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.BrandMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="brand" id="resultMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="content" column="content" />	
+		<result property="supplierId" column="supplierId" />	
+		<result property="suppliername" column="suppliername" />
+	</resultMap>
+	
+	
+	<sql id="queryCondition">
+		where 1 = 1
+		<if test="obj.name != null and obj.name != ''">
+			and brand.name like CONCAT('%',#{obj.name},'%')
+		</if>
+		<if test="obj.content != null and obj.content != ''">
+			and content like CONCAT('%',#{obj.content},'%')
+		</if>
+		<if test="obj.suppliername != null and obj.suppliername != ''">
+			and supplier.name like CONCAT('%',#{obj.suppliername},'%')
+		</if>		
+		<if test="search != null and search != ''">
+			and (brand.name like CONCAT('%',#{search},'%') or 
+			brand.content like CONCAT('%',#{search},'%') 
+			or supplier.name like CONCAT('%',#{search},'%'))
+		</if>		
+	</sql>
+	
+	<sql id="validateCondition">
+		where 1 = 1
+		<if test="id != null and id != ''">
+			and id != #{id}
+		</if>
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>
+		<if test="supplierId != null and supplierId != ''">
+			and supplierId = #{supplierId}
+		</if>						
+	</sql>	
+		
+	<select id="listBrand" resultMap="resultMap" parameterType="query">
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
+		select brand.id as id,brand.name as name,brand.content as content,brand.supplierId as supplierId,supplier.name as suppliername 
+		 from t_goods_brand as brand left join t_goods_supplier as supplier on brand.supplierId=supplier.id
+		<include refid="queryCondition"/>
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
+	</select>
+	
+	<select id="countBrand" resultType="java.lang.Integer" parameterType="query">
+		select count(brand.id) from t_goods_brand as brand left join t_goods_supplier as supplier on brand.supplierId=supplier.id
+		<include refid="queryCondition"/>
+	</select>
+	
+	<select id="validate" resultMap="resultMap" parameterType="brand">
+		select * from t_goods_brand
+		<include refid="validateCondition"/>
+	</select>
+	
+	<select id="getBrandBySupplierId" resultMap="resultMap">
+		select * from t_goods_brand where supplierId = #{supplierId}
+	</select>
+	
+	<select id="getAllBrand" resultMap="resultMap">
+	    select * from t_goods_brand
+	</select>
+	
+	<insert id="insertBrand" parameterType="brand">
+		insert into t_goods_brand(name,content,supplierId) values(#{name},#{content},#{supplierId})
+	</insert>	
+
+	<delete id="deleteBrand">
+		delete from t_goods_brand where id in (${ids})	
+	</delete>
+	
+	<update id="updateBrand" parameterType="brand">
+		update t_goods_brand set name = #{name},content = #{content},supplierId = #{supplierId} where id = #{id}
+	</update>
+
+</mapper>

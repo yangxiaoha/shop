@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.SupplierMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="supplier" id="resultMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="brief" column="brief" />		
+	</resultMap>
+	
+	<sql id="queryCondition">
+		where 1 = 1
+		<if test="obj.name != null and obj.name != ''">
+			and name like CONCAT('%',#{obj.name},'%')
+		</if>
+		<if test="obj.brief != null and obj.brief != ''">
+			and brief like CONCAT('%',#{obj.brief},'%')
+		</if>
+		<if test="search != null and search != ''">
+			and (name like CONCAT('%',#{search},'%') or			
+			brief like CONCAT('%',#{search},'%'))
+		</if>
+	</sql>
+	
+	<sql id="validateCondition">
+		where 1 = 1
+		<if test="id != null and id != ''">
+			and id != #{id}
+		</if>
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>		
+	</sql>
+	
+	<select id="listSupplier" resultMap="resultMap" parameterType="query">
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
+		select * from t_goods_supplier
+		<include refid="queryCondition"/>
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
+	</select>
+	
+	<select id="countSupplier" resultType="java.lang.Integer" parameterType="query">
+		select count(id) from t_goods_supplier
+		<include refid="queryCondition"/>
+	</select>
+	
+	<select id="validate" resultMap="resultMap" parameterType="supplier">
+		select * from t_goods_supplier
+		<include refid="validateCondition"/>
+	</select>
+	
+	<select id="getAllSupplier" resultMap="resultMap">
+	    select * from t_goods_supplier
+	</select>
+	
+	<insert id="insertSupplier" parameterType="supplier">
+		insert into t_goods_supplier(name,brief) values(#{name},#{brief})
+	</insert>	
+		
+	<delete id="deleteSupplier">
+		delete from t_goods_supplier where id in (${ids})	
+	</delete>
+	
+	<update id="updateSupplier" parameterType="supplier">
+		update t_goods_supplier set name = #{name},brief = #{brief} where id = #{id}
+	</update>
+	
+</mapper>

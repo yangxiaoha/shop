@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 配置实体类别名 -->
+	<typeAliases>
+ 		<typeAlias type="com.zpt.shop.main.entities.User" alias="user"/>
+ 		<typeAlias type="com.zpt.shop.main.entities.Supplier" alias="supplier"/> 	
+ 		<typeAlias type="com.zpt.shop.main.entities.Brand" alias="brand"/> 	
+ 		<typeAlias type="com.zpt.shop.main.entities.Goods" alias="goods"/> 	
+ 		<typeAlias type="com.zpt.shop.main.entities.GoodsType" alias="goodstype"/> 	
+ 		<typeAlias type="com.zpt.shop.main.entities.Sku" alias="sku"/> 	
+ 		<typeAlias type="com.zpt.shop.main.entities.Pro" alias="pro"/> 	
+ 		<typeAlias type="com.zpt.shop.common.pojo.Query" alias="query"/>
+ 	</typeAliases>
+
+</configuration>

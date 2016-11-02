@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.ProMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="pro" id="resultMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />		
+		<result property="typeId" column="typeId" />								
+	</resultMap>
+	
+	
+	<sql id="queryCondition">
+		where 1 = 1
+		<if test="obj.name != null and obj.name != ''">
+			and pro.name like CONCAT('%',#{obj.name},'%')
+		</if>
+		<if test="obj.typeId != null and obj.typeId != ''">
+			and pro.typeId = #{obj.typeId}
+		</if>
+		<if test="search != null and search != ''">
+			and pro.name like CONCAT('%',#{search},'%')
+		</if>	
+	</sql>
+	
+	<sql id="validateCondition">
+		where 1 = 1
+		<if test="id != null and id != ''">
+			and id != #{id}
+		</if>
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>							
+	</sql>	
+		
+	<select id="listPro" resultMap="resultMap" parameterType="query">
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
+		select pro.id as id,pro.name as name,pro.typeId as typeId,type.name as typeName 
+		from t_goods_pro as pro left join t_goods_type as type on pro.typeId = type.Id
+		<include refid="queryCondition"/>
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
+	</select>
+	
+	<select id="countPro" resultType="java.lang.Integer" parameterType="query">
+		select count(pro.id) from t_goods_pro as pro left join t_goods_type as type on pro.typeId = type.id
+		<include refid="queryCondition"/>
+	</select>	
+	
+	<select id="validate" resultMap="resultMap" parameterType="pro">
+		select * from t_goods_pro
+		<include refid="validateCondition"/>
+	</select>
+		
+	<insert id="insertPro" parameterType="pro">
+		insert into t_goods_pro(name,typeId) values(#{name},#{typeId})
+	</insert>
+	<delete id="deletePro">
+		delete from t_goods_pro where id in (${ids})	
+	</delete>
+	<update id="updatePro" parameterType="Pro">
+		update t_goods_pro set name = #{name},typeId = #{typeId} where id = #{id}
+	</update>	
+</mapper>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.GoodsMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="goods" id="resultMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="exp_name" column="exp_name" />			
+		<result property="quantity" column="quantity" />			
+		<result property="content" column="content" />			
+		<result property="code" column="code" />			
+		<result property="brandId" column="brandId" />			
+		<result property="store" column="store" />	
+		<result property="typeId" column="typeId" />						
+		<result property="brandName" column="brandName" />						
+		<result property="top" column="top" />						
+	</resultMap>
+	
+	
+	<sql id="queryCondition">
+		where 1 = 1
+		<if test="obj.name != null and obj.name != ''">
+			and goods.name like CONCAT('%',#{obj.name},'%')
+		</if>
+		<if test="obj.content != null and obj.content != ''">
+			and goods.content like CONCAT('%',#{obj.content},'%')			
+		</if>			
+		<if test="obj.code != null and obj.code != ''">
+			and goods.code like CONCAT('%',#{obj.code},'%')
+		</if>
+		<if test="obj.typeId != null and obj.typeId != ''">
+			and goods.typeId = #{obj.typeId}
+		</if>		
+		<if test="search != null and search != ''">
+			and (goods.name like CONCAT('%',#{search},'%') or
+			goods.exp_name like CONCAT('%',#{search},'%') or
+			goods.quantity like CONCAT('%',#{search},'%') or
+			goods.content like CONCAT('%',#{search},'%') or
+			goods.code like CONCAT('%',#{search},'%') or
+			brand.name like CONCAT('%',#{search},'%') or
+			goods.store like CONCAT('%',#{search},'%'))
+		</if>	
+							
+	</sql>
+	
+	<sql id="validateCondition">
+		where 1 = 1
+		<if test="id != null and id != ''">
+			and id != #{id}
+		</if>
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>						
+		<if test="exp_name != null and exp_name != ''">
+			and exp_name = #{exp_name}
+		</if>							
+		<if test="code != null and code != ''">
+			and code = #{code}
+		</if>										
+	</sql>	
+		
+	<select id="listGoods" resultMap="resultMap" parameterType="query">
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
+		select goods.id as id,goods.name as name,goods.exp_name as exp_name,goods.typeId as typeId,goods.top as top,
+		goods.quantity as quantity,goods.content as content,goods.code as code,goods.searchval as searchval,
+		goods.brandId as brandId,brand.name as brandName,type.name as typename,goods.store as store 
+		from t_goods as goods left join t_goods_brand as brand on goods.brandId = brand.id left join 
+		t_goods_type as type on goods.typeId = type.Id
+		<include refid="queryCondition"/>
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
+	</select>
+	
+	<select id="countGoods" resultType="java.lang.Integer" parameterType="query">
+		select count(goods.id) from t_goods as goods left join t_goods_brand as brand on 
+		goods.brandId = brand.id left join t_goods_type as type on goods.typeId = type.id
+		<include refid="queryCondition"/>
+	</select>
+	
+	<select id="getGoodsId" resultMap="resultMap">
+		select goods.id as id,goods.name as name,goods.exp_name as exp_name,goods.typeId as typeId,goods.top as top,
+		goods.quantity as quantity,goods.content as content,goods.code as code,goods.searchval as searchval,
+		goods.brandId as brandId,brand.name as brandName,type.name as typename,goods.store as store 
+		from t_goods as goods left join t_goods_brand as brand on goods.brandId = brand.id left join 
+		t_goods_type as type on goods.typeId = type.Id where goods.id = #{goodsId}
+	</select>
+	
+	<select id="validate" resultMap="resultMap" parameterType="goods">
+		select * from t_goods
+		<include refid="validateCondition"/>
+	</select>
+		
+	<insert id="insertGoods" parameterType="goods">
+		insert into t_goods(name,exp_name,quantity,content,code,brandId,store,typeId) 
+		values(#{name},#{exp_name},#{quantity},#{content},#{code},#{brandId},#{store},#{typeId})
+	</insert>
+	<delete id="deleteGoods">
+		delete from t_goods where id in (${ids})	
+	</delete>
+	<update id="updateGoods" parameterType="goods">
+		update t_goods set name = #{name},exp_name = #{exp_name},quantity = #{quantity},
+		content = #{content},code = #{code},brandId = #{brandId},store = #{store},
+		typeId = #{typeId} where id = #{id}
+	</update>
+	<update id="stickGoods" parameterType="goods">
+		update t_goods set top = #{top} where id = #{id}
+	</update>
+</mapper>
