@@ -4,7 +4,7 @@ public class AdminUser {
 	
 	private Integer id;
 	
-	private String usernmae;
+	private String username;
 	
 	private String password;
 
@@ -16,12 +16,12 @@ public class AdminUser {
 		this.id = id;
 	}
 
-	public String getUsernmae() {
-		return usernmae;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUsernmae(String usernmae) {
-		this.usernmae = usernmae;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

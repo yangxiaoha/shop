@@ -8,6 +8,6 @@ public interface AdminUserService {
 	
 	public AdminUser selectUser(String username,String password);
 	
-	public AdminUser updatePassword(String username,String password);
+	public AdminUser updatePassword(String username,String password,String newPassword);
 
 }

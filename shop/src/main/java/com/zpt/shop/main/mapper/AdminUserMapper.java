@@ -12,5 +12,5 @@ public interface AdminUserMapper {
 
 	public List<AdminUser> selectAdminUser(@Param("username") String username,@Param("password") String password);
 	
-	public void updateAdminUser(@Param("username") String username,@Param("password") String password);
+	public void updatePassword(@Param("username") String username,@Param("password") String password,@Param("newPassword") String newPassword);
 }

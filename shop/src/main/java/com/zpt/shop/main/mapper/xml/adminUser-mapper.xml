@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.AdminUserMapper">
+
+	<!-- ********** ResultMap ********** -->	
+	<resultMap type="adminuser" id="resultMap">
+		<id property="id" column="id" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />	
+	</resultMap>
+	
+	<select id="login" resultMap="resultMap">
+		select * from t_adminuser where username=#{username} and password=#{password}
+	</select>
+	
+	<select id="selectAdminUser" resultMap="resultMap">
+		select * from t_adminuser where username=#{username} and password=#{password}
+	</select>
+	
+	<update id="updatePassword">
+		update t_adminuser set password=#{newPassword} where username=#{username} and password=#{password}
+	</update>
+	
+
+</mapper>
