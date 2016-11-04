@@ -16,7 +16,7 @@ public class AdminUserMsgServiceImpl implements AdminUserMsgService {
 	@Override
 	public void insertAdminUserMsg(AdminUserMsg adminUserMsg) {
 		// TODO Auto-generated method stub
-		adminUserMsgMapper.inserAdminUserMsgMapper(adminUserMsg);
+		adminUserMsgMapper.insertAdminUserMsg(adminUserMsg);
 	}
 
 }

@@ -4,6 +4,6 @@ import com.zpt.shop.main.entities.AdminUserMsg;
 
 public interface AdminUserMsgMapper {
 	
-	public void inserAdminUserMsgMapper(AdminUserMsg adminUserMsg);
+	public void insertAdminUserMsg(AdminUserMsg adminUserMsg);
 
 }
