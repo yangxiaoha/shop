@@ -12,7 +12,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>品牌管理</title>
 <script type="text/javascript">
- 	var goodsId = ${goodsM.id};
+ 	var goodsId = ${goodsM.id}; 
 </script>
 <script
 	src="<%=basePath%>assets/management/datatablejs/sku.js"
@@ -41,21 +41,13 @@
 					</div>
 					<div class="col-lg-9">
 						<div class="heading">
-							<i class="icon-table"></i>商品管理 <a
-								class="btn btn-sm btn-primary-outline pull-right"
-								data-toggle="modal" href="javascript:void(0)" id="delete-row"><i
-								class="icon-trash"></i>删除</a> <a
-								class="btn btn-sm btn-primary-outline pull-right"
-								data-toggle="modal" href="#addModal" id="add-row"><i
-								class="icon-plus"></i>添加</a>
+							<i class="icon-table"></i>商品管理 
+							<a class="btn btn-sm btn-primary-outline pull-right" data-toggle="modal" href="#addModal" id="add-row"><i class="icon-plus"></i>添加</a>
 						</div>
 						<div class="widget-content padded clearfix">
 							<div class="col-lg-12">
 								<table class="table table-bordered table-striped table-hover">
 									<tr>
-										<td>特征量组合:</td>
-										<td><input class="form-control" type="text" id="dids"
-											name="ids"></td>
 										<td>特征量编码:</td>
 										<td><input class="form-control" type="text" id="code"
 											name="code"></td>							
@@ -72,7 +64,6 @@
 									</th>									
 									<th>商品数量</th>
 									<th>商品价格</th>
-									<th>特征量组合</th>
 									<th>特征量编码</th>									
 									<th></th>																	
 									<th></th>																	
@@ -85,9 +76,9 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<jsp:include page="add.jsp"/>
-	<jsp:include page="delete.jsp"/>
+	</div>	
 	<jsp:include page="update.jsp"/>
+	<jsp:include page="add.jsp"/>	
+	<jsp:include page="updateAdd.jsp"/>	
 </body>
 </html>

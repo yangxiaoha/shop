@@ -1,13 +1,14 @@
 package com.zpt.shop.main.service.impl;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zpt.shop.common.pojo.Page;
-import com.zpt.shop.common.pojo.Query;
+import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.entities.Stock;
+import com.zpt.shop.main.mapper.SkuMapper;
 import com.zpt.shop.main.mapper.StockMapper;
 import com.zpt.shop.main.service.StockService;
 
@@ -16,36 +17,25 @@ public class StockServiceImpl implements StockService {
 	
 	@Autowired
 	private StockMapper stockMapper;
+	
+	@Autowired
+	private SkuMapper skuMapper;
 
 	@Override
-	public void insertStock(Stock stock) {
+	public void insertStock(Integer skuId,Integer num,String batch) {
 		// TODO Auto-generated method stub
+		Date now = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		String time = dateFormat.format(now);
+		Stock stock = new Stock();
+		Sku sku = new Sku();
+		stock.setBatch(batch);
+		stock.setNum(num);
+		stock.setSkuId(skuId);
+		stock.setTtime(time);
+		System.out.println(num);
 		stockMapper.insertStock(stock);
-
-	}
-
-	@Override
-	public Page<Stock> page(Query<Stock> query) {
-		// TODO Auto-generated method stub
-		Page<Stock> page = new Page<>();
-		List<Stock> list = stockMapper.listStock(query);
-		Integer count = stockMapper.countStock(query);
-		page.setAaData(list);
-		page.setDraw(query.getDraw());
-		page.setiTotalDisplayRecords(count);
-		page.setiTotalRecords(count);
-		return page;
-	}
-
-	@Override
-	public boolean validate(Stock stock) {
-		// TODO Auto-generated method stub
-		List<Stock> list = stockMapper.validate(stock);
-		if (list != null && list.size()>0) {
-			return false;
-		} else {
-			return true;
-		}
+		skuMapper.updateStock(num, skuId);
 	}
 
 }

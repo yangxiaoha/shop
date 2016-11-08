@@ -7,8 +7,8 @@
 	}
 </style>
 <div class="modal fade" id="addModal">
-	<div class="modal-dialog">
-		<div class="modal-content">
+	<div class="modal-dialog"  style="width:800px;">
+		<div class="modal-content" >
 			<div class="modal-header">
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
@@ -32,7 +32,7 @@
 									</tr>
 								</table>
 							</div>
-							<div class="col-lg-9">
+							<div class="col-lg-6">
 								<div class="row">
 									<div class="row">
 									<div class="col-md-12">
@@ -100,6 +100,12 @@
 										</div>
 									</div>
 								</div>
+							</div>
+							<div class="col-lg-3">
+								 <label class="checkbox"><input type="checkbox"><span>Checkbox 1</span></label>
+								 <label class="checkbox"><input type="checkbox"><span>Checkbox 2</span></label>
+								 <label class="checkbox"><input type="checkbox"><span>Checkbox 3</span></label>
+								 <label class="checkbox"><input type="checkbox"><span>Checkbox 4</span></label>
 							</div>
 						</div>
 					</fieldset>

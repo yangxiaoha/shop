@@ -16,6 +16,8 @@ public interface SkuMapper {
 	
 	public void updateSku(Sku sku);
 	
+	public void updateStock(@Param("num")Integer num,@Param("id")Integer id);
+	
 	public List<Sku> listSku(Query<Sku> query);
 	
 	public Integer countSku(Query<Sku> query);

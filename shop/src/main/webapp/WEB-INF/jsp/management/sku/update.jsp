@@ -15,25 +15,13 @@
 				<form action="update" id="update" method="post">
 					<fieldset>
 						<div class="row">
-						<input type="hidden" id="uid" name="id" >
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="num">商品数量</label><input class="form-control"
-										placeholder="请输入商品数量" id="unum" name="num" type="text">
-								</div>
-							</div>
+						<input type="hidden" id="uid" name="id" >							
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="price">商品价格</label><input class="form-control"
 										placeholder="请输入商品价格" id="uprice" name="price" type="text">
 								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="ids">特征量组合</label><input class="form-control"
-										placeholder="请输入特征量组合" id="uids" name="ids" type="text">
-								</div>
-							</div>							
+							</div>														
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="code">特征量编码</label><input class="form-control"
@@ -60,28 +48,16 @@
 </div>
 <script>
 	$(document).ready(function(){
+		$('.datepicker').datepicker();
 		$("#updatesubmit").click(function(){			
 			$("#update").submit();
 		});
 		
 	    $("#update").validate({
 	        rules: {
-	          ids: {
-	        	 required:true,
-	        	 remote: {
-	        		    url: "validate",     //后台处理程序
-	        		    type: "post",               //数据发送方式
-	        		    dataType: "json",           //接受数据格式   
-	        		    data: {                     //要传递的数据
-	        		    	ids: function() {
-	        		            return $("#uids").val();
-	        		       },
-	        		       id:function(){
-	    				    	return $("#uid").val();
-	    				   }
-	        		  }
-	        	  }
-	          },
+	        	price:{
+	        		required:true,
+	        	},
 	          code: {
 		        	 required:true,
 		        	 remote: {
@@ -99,17 +75,10 @@
 		        	  }
 		          },
 	        },
-	        messages: {
-	          ids: {
-		        	 required:"请输入特征量组合编码",
-		        	 remote:"该编码已存在"
-		      },
+	        messages: {	         
 		      code: {
 		        	 required:"请输入商品编码",
 		        	 remote:"该编码已存在"
-		      },
-		      num: {
-		        	 required:"请输入商品数量",		        	
 		      },
 		      price: {
 		        	 required:"请输入商品价格",		        	

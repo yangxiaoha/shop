@@ -39,8 +39,18 @@ public class Goods {
 	private String brandName;
 	
 	private long top;
+	
+	private Integer ids;
 
 	
+	public Integer getIds() {
+		return ids;
+	}
+
+	public void setIds(Integer ids) {
+		this.ids = ids;
+	}
+
 	public Integer getId() {
 		return id;
 	}

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<div class="modal fade" id="addModal">
+<div class="modal fade" id="updateAddModal">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -12,9 +12,10 @@
 				</h4>
 			</div>
 			<div class="modal-body">
-				<form action="add" id="add" method="post">
+				<form action="updateAdd" id="updateAdd" method="post">
 					<fieldset>
 						<div class="row">
+						<input type="hidden" id="aid" name="skuId" >											
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="num">商品数量</label><input class="form-control"
@@ -23,28 +24,16 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="price">商品价格</label><input class="form-control"
-										placeholder="请输入商品价格" id="aprice" name="price" type="text">
+									<label for="batch">商品批次</label><input class="form-control"
+										placeholder="请输入商品批次" id="abatch" name="batch" type="text">
 								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="code">特征量编码</label><input class="form-control"
-										placeholder="请输入特征量编码" id="acode" name="code" type="text">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type = "hidden"	id="" name="goodsId" 
-										value = "${goodsM.id }" type="text">
-								</div>
-							</div>
+							</div>							
 						</div>
 					</fieldset>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-primary" id="addsubmit" type="button">保存</button>
+				<button class="btn btn-primary" id="updateAddsubmit" type="button">保存</button>
 				<button class="btn btn-default-outline" data-dismiss="modal"
 					type="button">取消</button>
 			</div>
@@ -52,43 +41,17 @@
 	</div>
 </div>
 <script>
-	$(document).ready(function(){
-		$('.datepicker').datepicker();
-		$("#addsubmit").click(function(){
-			$("#add").submit();
+	$(document).ready(function(){		
+		$("#updateAddsubmit").click(function(){
+			$("#updateAdd").submit();
 		});
-	    $("#add").validate({
-	        rules: {
-	        	price:{
-	        		required:true,
-	        	},
-	        	num:{
-	        		required:true,
-	        	},
-	          code: {
-	        	 required:true,
-	        	 remote: {
-	        		    url: "validate",     //后台处理程序
-	        		    type: "post",               //数据发送方式
-	        		    dataType: "json",           //接受数据格式   
-	        		    data: {                     //要传递的数据
-	        		    	schoolName: function() {
-	        		            return $("#acode").val();
-	        		       }
-	        		  }
-	        	  }
-	          },	       
-	        },
+	    $("#updateAdd").validate({	    	  
 	        messages: {
-	          code: {
-		        	 required:"请输入特征量编码",
-		        	 remote:"该编码已存在"
-		      },
 		      num: {
-		        	 required:"请输入商品数量"
+		        	 required:"请输入商品数量",		        	 
 		      },
-		      price: {
-		        	 required:"请输入商品价格"
+		      batch: {
+		        	 required:"请输入商品批次",
 		      }
 	        },
 	        submitHandler: function(form) {   
@@ -103,17 +66,18 @@
 	        		   }
 	        		   setTimeout(function(){
 	        			   $("#loading").html("");
-	        			   $("#addsubmit").removeAttr("disabled"); 
+	        			   $("#updateAddsubmit").removeAttr("disabled"); 
 	        		   },1000);
 	        		   reset(form);
-	        		   $("#addModal").modal("hide");
+	        		   $("#updateAddModal").modal("hide");
 	        		   tableI.table().draw();
+	        		   
 	        	   },
 	        	   error:function(){
 	        		   $("#loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
 	        		   setTimeout(function(){
 	        			   $("#loading").html("");
-	        			   $("#addsubmit").removeAttr("disabled"); 
+	        			   $("#updateAddsubmit").removeAttr("disabled"); 
 	        		   },1000);
 	        	   }
 	           });     

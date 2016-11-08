@@ -9,6 +9,16 @@ public class Stock {
 	private Integer num;
 	
 	private Integer skuId;
+	
+	private Integer id;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getTtime() {
 		return ttime;

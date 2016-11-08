@@ -15,6 +15,7 @@ $(document).ready(function(){
                     { "data": "code" },
                     { "data": "brandName" },
                     { "data": "store" }, 
+                    { "data": "ids" }, 
                     { "data":"id","className": "actions","orderable":false },                   
                     { "data": "top","orderable":false,"visible":false }, 
                     { "data": "typeId","orderable":false,"visible":false },
@@ -29,7 +30,7 @@ $(document).ready(function(){
              }
            },          
            {
-               "targets": [9],
+               "targets": [10],
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+

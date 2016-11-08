@@ -1,6 +1,4 @@
 package com.zpt.shop.main.ctrler.management;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +14,7 @@ import com.zpt.shop.main.entities.Goods;
 import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.SkuService;
+import com.zpt.shop.main.service.StockService;
 
 @Controller
 @RequestMapping("/management/sku")
@@ -27,6 +26,9 @@ public class SkuCtrler {
 	@Autowired
 	private SkuService skuService;
 	
+	@Autowired
+	private StockService stockService;
+
 	@RequestMapping(value = "index",method = RequestMethod.GET)
 	public ModelAndView index(Integer goodsId){
 		ModelAndView mv = new ModelAndView();
@@ -74,13 +76,31 @@ public class SkuCtrler {
 			return msg;			
 		}
 	}
+//	
+//	@ResponseBody
+//	@RequestMapping(value ="/delete",method = RequestMethod.POST)
+//	public Msg delete(String ids){
+//		Msg msg = new Msg();
+//		try {
+//			skuService.deleteSku(ids);
+//			msg.setState(Contants.RETURN_INT_SUCCESS);
+//			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
+//			return msg;
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//			msg.setState(Contants.RETURN_INT_FAIL);
+//			msg.setMsg(Contants.RETURN_STRING_EXCEPTION_FAIL);			
+//			return msg;
+//		}
+//	}
 	
 	@ResponseBody
-	@RequestMapping(value ="/delete",method = RequestMethod.POST)
-	public Msg delete(String ids){
+	@RequestMapping(value = "/updateAdd",method = RequestMethod.POST)
+	public Msg updateAdd(Integer skuId,Integer num,String batch){
 		Msg msg = new Msg();
 		try {
-			skuService.deleteSku(ids);
+			stockService.insertStock(skuId,num,batch);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
 			return msg;
@@ -91,7 +111,8 @@ public class SkuCtrler {
 			msg.setMsg(Contants.RETURN_STRING_EXCEPTION_FAIL);			
 			return msg;
 		}
-	}
+	}	
+	
 	@ResponseBody
 	@RequestMapping(value = "/update",method = RequestMethod.POST)
 	public Msg update(Sku sku){

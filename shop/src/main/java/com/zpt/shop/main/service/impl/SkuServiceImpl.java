@@ -11,8 +11,9 @@ import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.mapper.SkuMapper;
 import com.zpt.shop.main.service.SkuService;
 
+
 @Service
-public class SkuServiceImpl implements SkuService {
+public class SkuServiceImpl implements SkuService{
 	
 	@Autowired
 	private SkuMapper skuMapper;
@@ -20,7 +21,7 @@ public class SkuServiceImpl implements SkuService {
 	@Override
 	public void insertSku(Sku sku) {
 		// TODO Auto-generated method stub
-		skuMapper.insertSku(sku);
+		skuMapper.insertSku(sku);	
 		
 	}
 
@@ -72,5 +73,6 @@ public class SkuServiceImpl implements SkuService {
 			return null;
 		}
 	}
+
 
 }

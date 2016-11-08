@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.StockMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="stock" id="resultMap">
+		<id property="id" column="id" />
+		<result property="num" column="num"/>
+		<result property="batck" column="batck" />
+		<result property="skuId" column="skuId"/>
+		<result property="ttime" column="ttime"/>
+	</resultMap>
+	
+	<insert id="insertStock" parameterType="stock" useGeneratedKeys="true"
+		keyProperty="id">
+		insert into t_goods_stock (num,batch,skuId,ttime) values (#{num},#{batch},#{skuId},#{ttime})
+	</insert>
+
+</mapper>
