@@ -80,4 +80,3 @@ public class LoginCtrler {
 		return Contants.REDIRECT + "login";
 	}
 }
-

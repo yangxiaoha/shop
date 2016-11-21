@@ -1,0 +1,50 @@
+<ion-view>
+    <ion-content>
+	    <ion-slide-box does-continue="true" show-pager="false" auto-play="true" slide-interval="3000">
+	        <ion-slide>
+	            <div class="box slide-img">
+	                <img src="img/slide-img1.jpg" />
+	            </div>
+	        </ion-slide>
+	        <ion-slide>
+	            <div class="box slide-img">
+	                <img src="img/slide-img2.jpg" />
+	            </div>
+	        </ion-slide>
+	    </ion-slide-box>
+	    <div style="position: relative;" ng-controller="CategoryController">
+	        <ul class="row list menu">	  
+		        <li class="col-15" ng-click="showNotice()">公告</li>
+		        <li class="col-15">最新<span class="goods-choice"></span></li>
+		        <li class="col-15">人气</li>
+		        <li class="col-15">现货</li>
+		        <li class="col-40">
+		        	<div ng-click="type()" style="float: left; width: 60%; color: #000;">
+			        	<span class="iconfont icon-shaixuan fl"></span>
+			        	<span>筛选</span>
+		        	</div>	
+		        	<div style="width: 40%; float: left;" ng-click="search()">
+		        		<span class="ion-ios-search fr"></span>
+		        	</div>	        			        	
+		        </li>
+	        </ul>
+	        <ul class="goods-type" ng-hide="myType">
+	        	<li ng-repeat="goodsType in types">{{goodsType.name}}</li>
+	        </ul>
+	        <div class="search" ng-hide="mySearch">
+	        	<input class="search-input" placeholder="请输入关键字" />
+	        	<button class="btn-search">搜索</button>
+	        </div>
+	    </div>
+	    <div class="commodity">
+	  	    <a class="commodity-list" href="#/tabCart/details" ng-repeat="commodity in commoditys">
+	  	  	    <img ng-src="../{{commodity.url}}" />
+	  	  	    <span>{{commodity.name}}</span>
+	  	  	    <span class="fcC4AE86">{{commodity.price | currency:"￥"}}</span>
+	  	    </a>
+	    </div>
+    </ion-content>
+    <a class="shopping-cart" href="#/cart">
+ 		<span class="shopping-num">0</span>
+    </a>
+</ion-view>
