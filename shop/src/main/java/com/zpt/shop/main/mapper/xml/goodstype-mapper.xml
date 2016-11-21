@@ -14,5 +14,9 @@
 	<select id="selectTypeTree" resultMap="resultMap">
 		select * from t_goods_type where pid = #{pid}
 	</select>
+	
+	<select id="getGoodsType" resultMap="resultMap">
+		select * from t_goods_type
+	</select>
 
 </mapper>

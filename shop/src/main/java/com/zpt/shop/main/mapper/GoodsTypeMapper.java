@@ -9,4 +9,6 @@ import com.zpt.shop.main.entities.GoodsType;
 public interface GoodsTypeMapper {
 
 	public List<GoodsType> selectTypeTree(@Param("pid")Integer pid);
+
+	public List<GoodsType> getGoodsType();
 }

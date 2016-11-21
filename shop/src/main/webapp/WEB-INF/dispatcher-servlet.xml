@@ -69,6 +69,8 @@
 		cache-period="31556926" />
 	<mvc:resources mapping="/test/**" location="/test/"
 		cache-period="31556926" />
+	<mvc:resources mapping="/page/**" location="/page/"
+		cache-period="31556926" />
 
 	<mvc:annotation-driven />
 </beans>

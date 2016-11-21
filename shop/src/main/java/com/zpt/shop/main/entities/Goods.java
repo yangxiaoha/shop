@@ -1,5 +1,8 @@
 package com.zpt.shop.main.entities;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 public class Goods {
 	
 	//主键id
@@ -37,10 +40,39 @@ public class Goods {
 	
 	//品牌名称
 	private String brandName;
-	
-	private long top;
 
+	private List<Pro> pros;
 	
+	public List<Pro> getPros() {
+		return pros;
+	}
+
+	public void setPros(List<Pro> pros) {
+		this.pros = pros;
+	}
+
+	private long top;
+	
+	private String ids;
+	
+	private List<String> idstemp;
+
+	public List<String> getIdstemp() {
+		return idstemp;
+	}
+
+	public void setIdstemp(List<String> idstemp) {
+		this.idstemp = idstemp;
+	}
+
+	public String getIds() {
+		return ids;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -143,6 +175,39 @@ public class Goods {
 
 	public void setTop(long top) {
 		this.top = top;
-	}	
+	}
+	
+	//商品价格
+	private BigDecimal price;
+		
+	//商品图片
+	private String url;
+	
+	//商品购买人数
+	private Long purchaseNum;
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public Long getPurchaseNum() {
+		return purchaseNum;
+	}
+
+	public void setPurchaseNum(Long purchaseNum) {
+		this.purchaseNum = purchaseNum;
+	}		
 	
 }

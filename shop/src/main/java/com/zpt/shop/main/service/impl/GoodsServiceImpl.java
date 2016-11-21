@@ -20,6 +20,16 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public void insertGoods(Goods goods) {
 		// TODO Auto-generated method stub
+		StringBuffer ids = new StringBuffer();
+		if(goods.getIdstemp()!= null&&goods.getIdstemp().size()>0){			
+			for (int i = 0; i < goods.getIdstemp().size(); i++) {
+				ids.append(goods.getIdstemp().get(i));
+				if(i != goods.getIdstemp().size() -1){					
+					ids.append(",");
+				}
+			}
+		}
+		goods.setIds(ids.toString());
 		goodsMapper.insertGoods(goods);
 
 	}
@@ -87,6 +97,28 @@ public class GoodsServiceImpl implements GoodsService {
 		Goods goods = goodsMapper.getGoodsId(goodsId);		
 		return goods;		
 		
+	}
+
+	@Override
+	public List<Goods> getGoods() {
+		// TODO Auto-generated method stub
+		List<Goods> list = goodsMapper.getGoods();
+		if(list != null && list.size() > 0){
+			return list;
+		}else{
+			return null;			
+		}
+	}
+
+	@Override
+	public List<Goods> getGoodsByType(String typeId) {
+		// TODO Auto-generated method stub
+		List<Goods> list = goodsMapper.getGoodsByType(typeId);
+		if(list != null && list.size() > 0){
+			return list;
+		}else{
+			return null;			
+		}
 	}
 
 }

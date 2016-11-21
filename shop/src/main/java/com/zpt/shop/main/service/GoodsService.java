@@ -25,4 +25,15 @@ public interface GoodsService {
 	
 	public Goods getGoodsId(Integer goodsId);
 
+	/**
+	 * 查询商品（价格最低）数据
+	 * */
+	public List<Goods> getGoods();
+
+	/**
+	 * 根据商品类型查找商品数据
+	 * @param typeId 商品类型id
+	 * */
+	public List<Goods> getGoodsByType(String typeId);
+
 }
