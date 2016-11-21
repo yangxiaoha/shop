@@ -31,7 +31,7 @@ public class StockServiceImpl implements StockService {
 		stock.setNum(num);
 		stock.setSkuId(skuId);
 		stock.setTtime(time);
-		System.out.println(num);
+//		System.out.println(num);
 		stockMapper.insertStock(stock);
 		skuMapper.updateStock(num, skuId);
 	}

@@ -24,10 +24,10 @@ public class SkuServiceImpl implements SkuService{
 	private ProValMapper proValMapper;
 
 	@Override
-	public void insertSku(Sku sku) {
+	public void insertSku(Sku sku,ProVal proVal) {
 		// TODO Auto-generated method stub
 		skuMapper.insertSku(sku);
-//		proValMapper.insertProVal(proVal);
+		proValMapper.insertProVal(proVal);
 		
 	}
 

@@ -79,8 +79,8 @@ $(document).ready(function(){
         		var rowid = $(this).data("rowid");
         		var api = new $.fn.dataTable.Api( settings );
                 var obj = api.rows(rowid).data()[0];
-        		$("#uid").val(obj.id);
-        		$("#uname").val(obj.name);
+//        		$("#uid").val(obj.id);
+//        		$("#uname").val(obj.name);
         		$("#seeModal").modal("show");
         	});
         },

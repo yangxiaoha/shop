@@ -11,6 +11,7 @@ import com.zpt.shop.common.pojo.Msg;
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Goods;
+import com.zpt.shop.main.entities.ProVal;
 import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.SkuService;
@@ -28,7 +29,7 @@ public class SkuCtrler {
 	
 	@Autowired
 	private StockService stockService;
-
+	
 	@RequestMapping(value = "index",method = RequestMethod.GET)
 	public ModelAndView index(Integer goodsId){
 		ModelAndView mv = new ModelAndView();
@@ -61,10 +62,10 @@ public class SkuCtrler {
 	
 	@ResponseBody
 	@RequestMapping(value = "/add",method = RequestMethod.POST)
-	public Msg add(Sku sku){
+	public Msg add(Sku sku,ProVal proVal){
 		Msg msg = new Msg();
 		try {			
-			skuService.insertSku(sku);
+			skuService.insertSku(sku,proVal);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.ADD_GOODS_NAME);
 			return msg;

@@ -19,49 +19,55 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label for="name">商品名称</label><input
-										class="form-control" placeholder="请输入品牌名称" id="ename" name="name"
+										class="form-control" placeholder="请输入品牌名称" id="" name=""
 										type="text">
 								</div>								
 							</div>
 							<div class="col-md-12">
-								<div class="form-group">
-									<label for="name">商品编码</label><input
-										class="form-control" placeholder="请输入品牌名称" id="ename" name="name"
-										type="text">
-								</div>								
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="name">商品编码</label><input
+											class="form-control" placeholder="请输入品牌名称" id="" name=""
+											type="text">
+									</div>								
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="name">商品特征</label><input
+											class="form-control" placeholder="请输入品牌名称" id="" name=""
+											type="text">
+									</div>
+								</div>	
 							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="name">商品特征</label><input
-										class="form-control" placeholder="请输入品牌名称" id="ename" name="name"
-										type="text">
-								</div>
-							</div>	
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="name">商品品牌</label><input
-										class="form-control" placeholder="请输入品牌名称" id="ename" name="name"
-										type="text">
-								</div>
-							</div>						
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="name">商品供应商</label><input
-										class="form-control" placeholder="请输入品牌名称" id="ename" name="name"
-										type="text">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="name">商品数量</label><input
-										class="form-control" placeholder="请输入品牌名称" id="ename" name="name"
-										type="text">
+							<div class="col-md-12">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="name">商品品牌</label><input
+											class="form-control" placeholder="请输入品牌名称" id="" name=""
+											type="text">
+									</div>
+								</div>						
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="name">商品供应商</label><input
+											class="form-control" placeholder="请输入品牌名称" id="" name=""
+											type="text">
+									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="content">商品单价</label><input
-										class="form-control" placeholder="请输入品牌简介" id="econtent" name="content" type="text">
+							<div class="col-md-12">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="name">商品数量</label><input
+											class="form-control" placeholder="请输入品牌名称" id="" name=""
+											type="text">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="content">商品单价</label><input
+											class="form-control" placeholder="请输入品牌简介" id="" name="" type="text">
+									</div>
 								</div>
 							</div>
 						</div>

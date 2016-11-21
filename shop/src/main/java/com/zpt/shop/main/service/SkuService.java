@@ -9,7 +9,7 @@ import com.zpt.shop.main.entities.Sku;
 
 public interface SkuService {
 	
-	public void insertSku(Sku sku);
+	public void insertSku(Sku sku,ProVal proVal);
 	
 	public void deleteSku(String ids);
 	
