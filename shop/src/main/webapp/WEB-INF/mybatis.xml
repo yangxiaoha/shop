@@ -11,8 +11,10 @@
  		<typeAlias type="com.zpt.shop.main.entities.GoodsType" alias="goodstype"/> 	
  		<typeAlias type="com.zpt.shop.main.entities.Sku" alias="sku"/> 	
  		<typeAlias type="com.zpt.shop.main.entities.Pro" alias="pro"/> 	
- 		<typeAlias type="com.zpt.shop.main.entities.AdminUserMsg" alias="AdminUserMsg"/> 	
- 		<typeAlias type="com.zpt.shop.main.entities.AdminUser" alias="AdminUser"/> 	
+ 		<typeAlias type="com.zpt.shop.main.entities.AdminUser" alias="adminUser"/> 	
+ 		<typeAlias type="com.zpt.shop.main.entities.AdminUserMsg" alias="adminUserMsg"/> 	
+ 		<typeAlias type="com.zpt.shop.main.entities.Stock" alias="stock"/> 	
+ 		<typeAlias type="com.zpt.shop.main.entities.Order" alias="order"/> 	
  		<typeAlias type="com.zpt.shop.common.pojo.Query" alias="query"/>
  	</typeAliases>
 

@@ -27,8 +27,4 @@ public interface GoodsMapper {
 	
 	public Goods getGoodsId(@Param("goodsId")Integer goodsId);	
 
-	public List<Goods> getGoods();
-
-	public List<Goods> getGoodsByType(@Param("typeId")String typeId);
-
 }

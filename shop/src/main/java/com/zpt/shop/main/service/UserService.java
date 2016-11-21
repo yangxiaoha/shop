@@ -8,5 +8,6 @@ public interface UserService {
 
 	public Page<User> page(Query<User> query); 
 	
-	public void insertUser(User user);
+	public User getUserId(Integer id);
+
 }

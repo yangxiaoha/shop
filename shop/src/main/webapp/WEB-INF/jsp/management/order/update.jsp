@@ -1,38 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<div class="modal fade" id="addModal">
+<div class="modal fade" id="updateModal">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
-				<h4 class="modal-title">
-					添加品牌 <span id="loading" style=""></span>
+				<h4 class="modal-title">修改品牌
+				<span class="loading" style=""></span>
 				</h4>
 			</div>
 			<div class="modal-body">
-				<form action="add" id="add" method="post">
+				<form action="update" id="update" method="post">
 					<fieldset>
-						<div class="row">					
+						<div class="row">
+							<input type="hidden" id="eid" name="id" >
 							<div class="col-md-12">
-								<label for="name">供应商名称</label>							
-								<select class="reg-sel form-control" name="supplierId" id="asupplierId">
+								<label for="supplierId">供应商名称</label>							
+								<select class="reg-sel form-control" id="esupplierId" name="supplierId">
 									<c:forEach items="${supplierMsg}" var="supplierList">
 										<option value="${supplierList.id}">${supplierList.name}</option>
 									</c:forEach>
 								</select>								
-							</div>					
+							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="name">品牌名称</label><input class="form-control"
-										placeholder="请输入品牌名称" id="aname" name="name" type="text">
+									<label for="name">品牌名称</label><input
+										class="form-control" placeholder="请输入品牌名称" id="ename" name="name"
+										type="text">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="content">品牌简介</label><input class="form-control"
-										placeholder="请输入品牌简介" id="acontent" name="content" type="text">
+									<label for="content">品牌简介</label><input
+										class="form-control" placeholder="请输入品牌简介" id="econtent" name="content" type="text">
 								</div>
 							</div>
 						</div>
@@ -40,7 +42,7 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-primary" id="addsubmit" type="button">保存</button>
+				<button class="btn btn-primary" id="updatesubmit" type="button">保存</button>
 				<button class="btn btn-default-outline" data-dismiss="modal"
 					type="button">取消</button>
 			</div>
@@ -49,15 +51,12 @@
 </div>
 <script>
 	$(document).ready(function(){
-		$('.datepicker').datepicker();
-		$("#addsubmit").click(function(){
-			$("#add").submit();
+		$("#updatesubmit").click(function(){			
+			$("#update").submit();
 		});
-	    $("#add").validate({
+		
+	    $("#update").validate({
 	        rules: {
-	        	supplierId:{
-	        		required:true,	        		
-	        	},
 	          name: {
 	        	 required:true,
 	        	 remote: {
@@ -65,47 +64,47 @@
 	        		    type: "post",               //数据发送方式
 	        		    dataType: "json",           //接受数据格式   
 	        		    data: {                     //要传递的数据
-	        		    	schoolName: function() {
-	        		            return $("#aname").val();
-	        		       }
+	        		    	name: function() {
+	        		            return $("#ename").val();
+	        		       },
+	        		       id:function(){
+	    				    	return $("#eid").val();
+	    				   }
 	        		  }
 	        	  }
 	          },	       
 	        },
 	        messages: {
-	        	supplierId:{
-	        		required:"该选择供应商"
-	        	},
 	          name: {
 		        	 required:"请输入品牌名称",
-		        	 remote:"该品牌已存在"
+		        	 remote:"品牌已存在"
 		      },
 		      content: {
-		        	 required:"请输入品牌简介"
+		        	 required:"请输入品牌简介",		        	
 		      }
 	        },
-	        submitHandler: function(form) {   
+	        submitHandler: function(form) { 
 	           $(this).attr("disabled","disabled"); 
-			   $("#loading").html("<i class=\"icon-spinner icon-spin\"></i>");
+			   $(".loading").html("<i class=\"icon-spinner icon-spin\"></i>");
 	           $(form).ajaxSubmit({
 	        	   success:function(data){
 	        		   if(data.state == 1){
-	        			   $("#loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
+	        			   $(".loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
 	        		   }else{
-	        			   $("#loading").html("<span class=\"label label-danger\">"+data.msg+"</span>");
+	        			   $(".loading").html("<span class=\"label label-danger\">"+data.msg+"</span>");
 	        		   }
 	        		   setTimeout(function(){
-	        			   $("#loading").html("");
-	        			   $("#addsubmit").removeAttr("disabled"); 
+	        			   $(".loading").html("");
+	        			   $("#updatesubmit").removeAttr("disabled"); 
+	        			   $("#updateModal").modal('hide');
 	        		   },1000);
-	        		   reset(form);
 	        		   tableI.table().draw();
 	        	   },
 	        	   error:function(){
-	        		   $("#loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
+	        		   $(".loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
 	        		   setTimeout(function(){
-	        			   $("#loading").html("");
-	        			   $("#addsubmit").removeAttr("disabled"); 
+	        			   $(".loading").html("");
+	        			   $("#updatesubmit").removeAttr("disabled"); 
 	        		   },1000);
 	        	   }
 	           });     

@@ -99,26 +99,4 @@ public class GoodsServiceImpl implements GoodsService {
 		
 	}
 
-	@Override
-	public List<Goods> getGoods() {
-		// TODO Auto-generated method stub
-		List<Goods> list = goodsMapper.getGoods();
-		if(list != null && list.size() > 0){
-			return list;
-		}else{
-			return null;			
-		}
-	}
-
-	@Override
-	public List<Goods> getGoodsByType(String typeId) {
-		// TODO Auto-generated method stub
-		List<Goods> list = goodsMapper.getGoodsByType(typeId);
-		if(list != null && list.size() > 0){
-			return list;
-		}else{
-			return null;			
-		}
-	}
-
 }

@@ -51,7 +51,7 @@
 									<tr>
 										<td>商品属性名称:</td>
 										<td><input class="form-control" type="text" id="name"
-											name="name"></td>										
+											name="name" >	
 									</tr>
 								</table>
 							</div>
@@ -100,7 +100,7 @@
 		};
 	
 	function zTreeOnClick(event, treeId, treeNode) {
-		tableI.table().columns(11).search(treeNode.id).draw();
+		tableI.table().columns(4).search(treeNode.id).draw();
 	};
 	
 	function filter(treeId, parentNode, childNodes) {

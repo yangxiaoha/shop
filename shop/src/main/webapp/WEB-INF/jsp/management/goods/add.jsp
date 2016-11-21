@@ -7,8 +7,8 @@
 	}
 </style>
 <div class="modal fade" id="addModal">
-	<div class="modal-dialog">
-		<div class="modal-content">
+	<div class="modal-dialog"  style="width:800px;">
+		<div class="modal-content" >
 			<div class="modal-header">
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
@@ -32,7 +32,7 @@
 									</tr>
 								</table>
 							</div>
-							<div class="col-lg-9">
+							<div class="col-lg-6">
 								<div class="row">
 									<div class="row">
 									<div class="col-md-12">
@@ -93,13 +93,15 @@
 										<div class="col-md-6">
 											<div class="form-group divb0">
 												<label for="typeId">商品类型</label> <input class="form-control"
-													placeholder="请输入类型" readonly="readonly" id="atypename"
+													placeholder="" readonly="readonly" id="atypename"
 													name="typeName" type="text"> <input type="hidden"
-													placeholder="" id="typeId" name="typeId" type="text">
+													placeholder="" id="typeId" name="typeId" type="text">																									
 											</div>
 										</div>
 									</div>
 								</div>
+							</div>
+							<div class="col-lg-3" id="checkbok">
 							</div>
 						</div>
 					</fieldset>
@@ -136,7 +138,25 @@
 		console.log(treeNode);
 		$("#typeId").val(treeNode.id);
 		$("#atypename").val(treeNode.name);
-	   //alert(treeNode.id + ", " + treeNode.name);
+		$.ajax({
+			url:"getPro",
+			type:"post",
+			data:{typeId: treeNode.id},
+			dataType:"json",
+			async:true,
+			success:function(res){
+			//	alert(treeNode.name);
+				var checkboxhtml = "";									
+				for (var i=0;i<res.length;i++){
+					checkboxhtml = checkboxhtml + "<label class=\"checkbox\"><input name=\"idstemp\" value="+res[i].id+" type=\"checkbox\"><span>"+res[i].name+"</span></label>"
+				}
+				$("#checkbok").html(checkboxhtml);
+			},
+			error:function(res){
+				
+			}
+		});
+	// 	 alert(treeNode.id + ", " + treeNode.name);
 	};
 	function filter(treeId, parentNode, childNodes) {
 		if (!childNodes) return null;
@@ -165,6 +185,7 @@
 			h = 530;
 		domeIframeAdd.height(h);
 	}
+	
 	$(document).ready(function(){
 		$('.datepicker').datepicker();
 		$("#addsubmit").click(function(){
@@ -172,6 +193,15 @@
 		});
 	    $("#add").validate({
 	        rules: {
+	        	typeName:{
+	        		required:true,
+	        	},
+	        	brandId:{
+	        		required:true,
+	        	},
+	        	quantity:{
+	        		required:true,	        		
+	        	},
 	          name: {
 	        	 required:true,
 	        	 remote: {
@@ -221,7 +251,7 @@
 		        	 required:"请输入商品扩充名称",
 		        	 remote:"该名称已存在"
 		      },
-		      quantity: {
+		      quantity: {		    	  
 		        	 required:"请输入商品数量",		        	 
 		      },
 		      content: {
@@ -230,6 +260,12 @@
 		      code: {
 		        	 required:"请输入商品编码",
 		        	 remote:"该编码已存在"
+		      },
+		      brandId: {
+		        	 required:"请输入商品品牌",		        	
+		      },
+		      typeName: {
+		        	 required:"请选择商品类型",		        	
 		      },
 		      store: {
 		        	 required:"请输入所属门店",		        	 
@@ -251,6 +287,7 @@
 	        		   },1000);
 	        		   reset(form);
 	        		   tableI.table().draw();
+	        		   $("#checkbok").html("");
 	        	   },
 	        	   error:function(){
 	        		   $("#loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");

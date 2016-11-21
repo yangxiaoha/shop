@@ -115,23 +115,4 @@
 	<update id="stickGoods" parameterType="goods">
 		update t_goods set top = #{top} where id = #{id}
 	</update>
-	
-	<select id="getGoods" resultMap="resultMap">
-		select goods.id, goods.name, t.price, t.url from t_goods as goods left join 
-		(select sku.goodsid, sku.price, image.url from
-		(select * from t_goods_sku as t where exists(
-		select 1 from t_goods_sku where t.goodsid = goodsid
-		group by goodsid
-		having min(price)=t.price
-		)) as sku left join t_goods_image as image 
-		on sku.id = image.skuid) as t
-		on goods.id = t.goodsid  
-	</select>
-	
-	<select id="getGoodsByType" resultMap="resultMap">
-		select t_goods.* from t_goods
-		left join t_goods_type on
-		t_goods.typeid = t_goods_type.id 
-	</select>
-	
 </mapper>

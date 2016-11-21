@@ -14,7 +14,7 @@ $(document).ready(function(){
                     { "data": "content" },
                     { "data": "code" },
                     { "data": "brandName" },
-                    { "data": "store" }, 
+                    { "data": "store" },
                     { "data":"id","className": "actions","orderable":false },                   
                     { "data": "top","orderable":false,"visible":false }, 
                     { "data": "typeId","orderable":false,"visible":false },
@@ -51,8 +51,7 @@ $(document).ready(function(){
         		$("#tid").val($(this).data("id"));
         		$("#stickModal").modal('show');
         	});
-        	
-        	
+        	        
         	$(".update").click(function(){
         		var rowid = $(this).data("rowid");
         		var api = new $.fn.dataTable.Api( settings );
@@ -66,6 +65,31 @@ $(document).ready(function(){
         		$("#ustore").val(obj.store);
         		$("#utypename").val(obj.typename);
         		$("#utypeId").val(obj.typeId);
+        		$("#uids").val(obj.ids); 
+        		$.ajax({
+        			url:"getPro",
+        			type:"post",
+        			data:{typeId: obj.typeId},
+        			dataType:"json",
+        			async:true,
+        			success:function(res){
+        				var checkboxhtml = "";	
+        				var idstemp = ","+obj.ids+",";
+        				for (var i=0;i<res.length;i++){
+        					var restemp = idstemp.indexOf(","+res[i].id+",");
+//        					alert(idstemp);
+        					if(restemp != -1){        						
+        						checkboxhtml = checkboxhtml + "<label class=\"checkbox\"><input name=\"idstemp\" value="+res[i].id+" type=\"checkbox\" checked=\"checked\"><span>"+res[i].name+"</span></label>"
+        					}else{        							
+        						checkboxhtml = checkboxhtml + "<label class=\"checkbox\"><input name=\"idstemp\" value="+res[i].id+" type=\"checkbox\"><span>"+res[i].name+"</span></label>"
+        					}        				
+        				}
+        				$("#ucheckbok").html(checkboxhtml);
+        			},
+        			error:function(res){
+        				
+        			}
+        		});
         		$("#ubrandId option").each(function (){  
 	        		  var a = $(this).text();
 	          		  if ($(this).text() == obj.brandName) {

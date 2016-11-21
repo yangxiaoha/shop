@@ -5,9 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.zpt.shop.common.pojo.Contants;
-import com.zpt.shop.common.pojo.Msg;
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.User;
@@ -21,31 +20,28 @@ public class UserCtrler {
 	private UserService userService;
 	
 	@RequestMapping(value="index",method=RequestMethod.GET)
-	public String index(){
-		return "/management/user/index";
+	public ModelAndView index(Integer userId){
+		ModelAndView mv = new ModelAndView();
+		if(userId != null){
+			User user = userService.getUserId(userId);
+			mv.addObject("user", user);
+			mv.addObject("id", userId);
+		}else{
+			mv.addObject("id", 0);
+		}
+		mv.setViewName("/management/user/index");
+		return mv;
 	}
 	
 	@RequestMapping(value="listData",method=RequestMethod.POST)
 	@ResponseBody
-	public Page<User> listData(Query<User> query){
+	public Page<User> listData(Query<User> query,Integer userId){
+		if(userId != null && userId != 0){
+			query.getObj().setId(userId);
+		}else{
+			query.getObj().setId(null);
+		}
 		Page<User> page = userService.page(query);
 		return page;
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public Msg add(User user){
-		Msg msg = new Msg();
-		try{
-			userService.insertUser(user);
-			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
-			return msg;
-		}catch(Exception e){
-			e.printStackTrace();
-			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.RETURN_STRING_EXCEPTION_FAIL);
-			return msg;
-		}
 	}
 }

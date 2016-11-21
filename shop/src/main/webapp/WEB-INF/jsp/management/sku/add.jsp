@@ -8,13 +8,13 @@
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
 				<h4 class="modal-title">
-					添加品牌 <span id="loading" style=""></span>
+					添加商品 <span id="loading" style=""></span>
 				</h4>
 			</div>
 			<div class="modal-body">
 				<form action="add" id="add" method="post">
 					<fieldset>
-						<div class="row">												
+						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="num">商品数量</label><input class="form-control"
@@ -27,12 +27,6 @@
 										placeholder="请输入商品价格" id="aprice" name="price" type="text">
 								</div>
 							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="ids">特征量组合</label><input class="form-control"
-										placeholder="请输入特征量组合" id="aids" name="ids" type="text">
-								</div>
-							</div>							
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="code">特征量编码</label><input class="form-control"
@@ -63,46 +57,35 @@
 		$("#addsubmit").click(function(){
 			$("#add").submit();
 		});
-	    $("#add").validate({	       
+	    $("#add").validate({
 	        rules: {
-	        	  ids: {
-		        	 required:true,
-		        	 remote: {
-		        		    url: "validate",     //后台处理程序
-		        		    type: "post",               //数据发送方式
-		        		    dataType: "json",           //接受数据格式   
-		        		    data: {                     //要传递的数据
-		        		    	schoolName: function() {
-		        		            return $("#aids").val();
-		        		       }
-		        		  }
-		        	  }
-		          },
-		          code: {
-			        	 required:true,
-			        	 remote: {
-			        		    url: "validate",     //后台处理程序
-			        		    type: "post",               //数据发送方式
-			        		    dataType: "json",           //接受数据格式   
-			        		    data: {                     //要传递的数据
-			        		    	schoolName: function() {
-			        		            return $("#acode").val();
-			        		       }
-			        		  }
-			        	  }
-			          },	
+	        	price:{
+	        		required:true,
+	        	},
+	        	num:{
+	        		required:true,
+	        	},
+	          code: {
+	        	 required:true,
+	        	 remote: {
+	        		    url: "validate",     //后台处理程序
+	        		    type: "post",               //数据发送方式
+	        		    dataType: "json",           //接受数据格式   
+	        		    data: {                     //要传递的数据
+	        		    	schoolName: function() {
+	        		            return $("#acode").val();
+	        		       }
+	        		  }
+	        	  }
+	          },	       
 	        },
 	        messages: {
-		      ids: {
-		        	 required:"请输入特征量组合编码",
-		        	 remote:"该编码已存在"
-		      },
-		      code: {
-		        	 required:"请输入商品编码",
+	          code: {
+		        	 required:"请输入特征量编码",
 		        	 remote:"该编码已存在"
 		      },
 		      num: {
-		        	 required:"请输入商品数量",		        	 
+		        	 required:"请输入商品数量"
 		      },
 		      price: {
 		        	 required:"请输入商品价格"
@@ -123,6 +106,7 @@
 	        			   $("#addsubmit").removeAttr("disabled"); 
 	        		   },1000);
 	        		   reset(form);
+	        		   $("#addModal").modal("hide");
 	        		   tableI.table().draw();
 	        	   },
 	        	   error:function(){

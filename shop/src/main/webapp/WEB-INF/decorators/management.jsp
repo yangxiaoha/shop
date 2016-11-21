@@ -246,16 +246,15 @@
 							</ul></li>
 						<li class="dropdown user hidden-xs"><a data-toggle="dropdown"
 							class="dropdown-toggle" href="#"> <img width="34" height="34"
-								src="../../assets/management/images/avatar-male.jpg" />John
-								Smith<b class="caret"></b></a>
+								src="../../assets/management/images/avatar-male.jpg" />用户信息
+								<b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a data-toggle="modal" data-target="#myModal"> <i
-										class="icon-user"></i>My Account
+										class="icon-user"></i>修改密码
 								</a></li>
-								<li><a href="#"> <i class="icon-gear"></i>Account
-										Settings
+								<li><a href="#"> <i class="icon-gear"></i>账号信息设置
 								</a></li>
-								<li><a href="login1.html"> <i class="icon-signout"></i>Logout
+								<li><a href="../exit"> <i class="icon-signout"></i>退出
 								</a></li>
 							</ul></li>
 					</ul>
@@ -264,23 +263,21 @@
 					<span class="icon-bar"></span><span class="icon-bar"></span><span
 						class="icon-bar"></span>
 				</button>
-				<a class="logo" href="index-2.html">会计实训平台</a>
+				<a class="logo" href="index-2.html">单品商城平台</a>
 			</div>
 			<div class="container-fluid main-nav clearfix">
 				<div class="nav-collapse">
 					<ul class="nav">
 						<li><a class="current" href="../dashborad/index"><span
 								aria-hidden="true" class="se7en-home"></span>首页</a></li>
-						<li class="dropdown">
-							<a data-toggle="dropdown" href="#">
+						<li class="dropdown"><a data-toggle="dropdown" href="#">
 								<span aria-hidden="true" class="se7en-star"></span>会员管理<b
 								class="caret"></b>
-							</a>
+						</a>
 							<ul class="dropdown-menu">
-								<li><a href="../platuser/index">会员信息</a></li>
+								<li><a href="../user/index">会员信息</a></li>
 								<li><a href="../supplier/index">会员下线查询</a></li>
-							</ul>
-						</li>
+							</ul></li>
 						<li class="dropdown"><a data-toggle="dropdown" href="#">
 								<span aria-hidden="true" class="se7en-forms"></span>商品管理<b
 								class="caret"></b>
@@ -295,19 +292,17 @@
 							</ul></li>
 						<li><a class="current" href="../dashborad/index"><span
 								aria-hidden="true" class="se7en-home"></span>结算管理</a></li>
-						<li class="dropdown">
-							<a data-toggle="dropdown" href="#">
+						<li class="dropdown"><a data-toggle="dropdown" href="#">
 								<span aria-hidden="true" class="se7en-pages"></span>系统管理<b
 								class="caret"></b>
-							</a>
+						</a>
 							<ul class="dropdown-menu">
 								<li><a href="../testbuy/index">系统参数配置</a></li>
 								<li><a href="../platrecharge/index">公告发布</a></li>
 								<li><a href="../couponuse/index">公众号菜单修改</a></li>
 								<li><a href="../distribution/index">自定义回复</a></li>
 								<li><a href="../distribution/index">首页banner</a></li>
-							</ul>
-						</li>
+							</ul></li>
 					</ul>
 				</div>
 			</div>
@@ -322,18 +317,18 @@
 			<div class="modal-content">
 				<div class="modal-body">
 					<div class="alert alert-danger" style="display: none;"></div>
-					<form id="login_form2" action="index" method="post">
+					<form id="login_form2" action="" method="post">
 						<div class="form-group">
 							<input class="form-control" id="username" placeholder="用户名"
 								name="username" type="text">
 						</div>
 						<div class="form-group">
 							<input class="form-control" id="password" placeholder="密码"
-								name="password" type="text">
+								name="password" type="password">
 						</div>
 						<div class="form-group">
 							<input class="form-control" id="newPassword"
-								placeholder="请输入新的密码" name="newPassword" type="text">
+								placeholder="请输入新的密码" name="newPassword" type="password">
 						</div>
 					</form>
 				</div>
@@ -360,7 +355,7 @@
 			} else {
 				$.ajax({
 					type : 'POST',
-					url : 'management',
+					url : '<%=basePath%>management/modify',
 					data : {
 						username : username,
 						password : hash,

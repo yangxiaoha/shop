@@ -7,7 +7,7 @@
 	}
 </style>
 <div class="modal fade" id="updateModal">
-	<div class="modal-dialog">
+	<div class="modal-dialog" style="width:800px;">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button aria-hidden="true" class="close" data-dismiss="modal"
@@ -32,7 +32,7 @@
 									</tr>
 								</table>
 							</div>
-							<div class="col-lg-9">
+							<div class="col-lg-6">
 								<div class="row">
 									<div class="row">
 										<div class="col-md-12">
@@ -96,11 +96,15 @@
 												<label for="typeId">商品类型</label> <input class="form-control"
 													placeholder="请输入类型" readonly="readonly" id="utypename"
 													name="typename" type="text"> <input type="hidden"
-													placeholder="" id="utypeId" name="typeId" type="text">
+													placeholder="" id="utypeId" name="typeId" type="text">	
+													<input type="hidden"
+													placeholder="" id="uids" name="ids" type="text">												
 											</div>
 										</div>
 									</div>
 								</div>
+							</div>
+							<div class="col-lg-3" id="ucheckbok">
 							</div>
 						</div>
 					</fieldset>
@@ -117,7 +121,7 @@
 <script>
 	var zTreeUpdate;
 	var domeIframeUpdate;
-
+	
 	var settingUpdate = {
 			view: {
 				selectedMulti: false
@@ -133,10 +137,34 @@
 				onClick: zTreeOnClickUpdate
 			}
 	};
-	function zTreeOnClickUpdate(event, treeId, treeNode) {
-		console.log(treeNode);
+	function zTreeOnClickUpdate(event, treeId, treeNode) {		
+		console.log(treeNode);		
 		$("#utypeId").val(treeNode.id);
 		$("#utypename").val(treeNode.name);
+		$.ajax({
+			url:"getPro",
+			type:"post",
+			data:{typeId: treeNode.id},
+			dataType:"json",
+			async:true,
+			success:function(res){
+				var checkboxhtml = "";				
+				//	alert(res.length);
+				for (var i=0;i<res.length;i++){
+					var restemp = (","+uids.value+",").indexOf(","+res[i].id+",");
+					if(restemp != -1){
+						checkboxhtml = checkboxhtml + "<label class=\"checkbox\"><input name=\"idstemp\" value="+res[i].id+" type=\"checkbox\" checked=\"checked\"><span>"+res[i].name+"</span></label>"
+					}else{
+						checkboxhtml = checkboxhtml + "<label class=\"checkbox\"><input name=\"idstemp\" value="+res[i].id+" type=\"checkbox\"><span>"+res[i].name+"</span></label>"
+						
+					}
+				}
+				$("#ucheckbok").html(checkboxhtml);
+			},
+			error:function(res){
+				
+			}
+		});
 	   //alert(treeNode.id + ", " + treeNode.name);
 	};
 	function filter(treeId, parentNode, childNodes) {
@@ -173,6 +201,15 @@
 		});
  	   $("#update").validate({
  	       rules: {
+ 	    	  typeId:{
+	        		required:true,
+	        	},
+	        	brandId:{
+	        		required:true,
+	        	},
+	        	quantity:{
+	        		required:true,	        		
+	        	},
  	         name: {
  		       	 required:true,
   		      	 remote: {
@@ -240,6 +277,9 @@
 	      code: {
 	        	 required:"请输入商品编码",
 	        	 remote:"该编码已存在"
+	      },
+	      brandId: {
+	        	 required:"请输入商品品牌",	        	
 	      },
 	      store: {
 	        	 required:"请输入所属门店",		        	 
