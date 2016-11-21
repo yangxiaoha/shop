@@ -20,5 +20,7 @@ public interface ProMapper {
 	public List<Pro> listPro(Query<Pro> query);
 	
 	public List<Pro> validate(Pro pro);
+	
+	public List<Pro> getAllPro(@Param("typeId")Integer typeId);
 
 }

@@ -7,6 +7,16 @@ public class AdminUser {
 	private String username;
 	
 	private String password;
+	
+	private String newPassword;
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
 
 	public Integer getId() {
 		return id;

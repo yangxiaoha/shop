@@ -56,28 +56,31 @@
 <title>单品商城</title>
 </head>
 <body class = "login1">
-	<div class = "login-wrapper">
-		<div class = "login-container">
-			<img width="154" height="40" src="<%=basePath%>assets/management/images/logo.png" />
+	<div class="login-wrapper">
+		<div class="login-container">
+			<img width="154" height="40"
+				src="<%=basePath%>assets/management/images/logo.png" />
 			<c:if test="${!empty msg}">
-				<div class="alert alert-danger">
-	 			${msg}
-	        </div>
+				<div class="alert alert-danger">${msg}</div>
 			</c:if>
-			 <div class="alert alert-danger" style="display: none;"></div>
-        <form id="login_form" action="login" method="post">
-          <div class="form-group">
-            <input class="form-control" id="username" placeholder="用户名" name="username" type="text">
-          </div>
-          <div class="form-group">
-          	<input class="form-control" id="noencryptpassword" placeholder="密码" name="noencryptpassword" type="password">
-            <input class="form-control" id="password" name="password" type="hidden">
-          </div>
-          <input class="btn btn-lg btn-info" style="width: 100%; margin-top: 10px" type="button" value="登录" onclick="submitForm()">
-        </form>
-      </div>
-    </div>
-    <!-- End Login Screen -->
+			<div class="alert alert-danger" style="display: none;"></div>
+			<form id="login_form" action="login" method="post">
+				<div class="form-group">
+					<input class="form-control" id="username" placeholder="用户名"
+						name="username" type="text">
+				</div>
+				<div class="form-group">
+					<input class="form-control" id="noencryptpassword" placeholder="密码"
+						name="noencryptpassword" type="password"> <input
+						class="form-control" id="password" name="password" type="hidden">
+				</div>
+				<input class="btn btn-lg btn-info"
+					style="width: 100%; margin-top: 10px" type="button" value="登录"
+					onclick="submitForm()">
+			</form>
+		</div>
+	</div>
+	<!-- End Login Screen -->
    	<script type="text/javascript">
 	  $(document).ready(function(){
     	  $(document).keypress(function(e) {  

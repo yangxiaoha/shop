@@ -6,7 +6,7 @@
 			<div class="modal-header">
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
-				<h4 class="modal-title">删除该商品
+				<h4 class="modal-title">删除该品牌
 				<span id="loading" style=""></span>
 				</h4>
 			</div>

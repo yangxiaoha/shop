@@ -24,5 +24,5 @@ public interface GoodsService {
 	public List<Goods> getGoodsByBrandId(String brandId);
 	
 	public Goods getGoodsId(Integer goodsId);
-
+	
 }

@@ -7,4 +7,5 @@ import com.zpt.shop.main.entities.GoodsType;
 public interface GoodsTypeService {
 
 	public List<GoodsType> selectTypeTree(Integer pid);
+	
 }

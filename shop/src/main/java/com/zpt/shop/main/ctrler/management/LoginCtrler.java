@@ -56,15 +56,15 @@ public class LoginCtrler {
 		}
 	}
 	
-	@RequestMapping(value="/management",method=RequestMethod.GET)
-	public String updatePassword() {
-		return "/management/login";
-	}
+//	@RequestMapping(value="/modify",method=RequestMethod.GET)
+//	public String updatePassword() {
+//		return "/management/login";
+//	}
 	
 	@ResponseBody
-	@RequestMapping(value="/management",method=RequestMethod.POST)
+	@RequestMapping(value="/modify",method=RequestMethod.POST)
 	public Integer updatePassword(String username,String password,String newPassword){
-		AdminUser adminUser = adminUserService.selectUser(username, newPassword);
+		AdminUser adminUser = adminUserService.selectUser(username, password);
 		if (adminUser != null) {
 			adminUserService.updatePassword(username, password, newPassword);
 			return 1;
@@ -72,6 +72,12 @@ public class LoginCtrler {
 		}else{			
 			return 0;
 		}
+	}
+	
+	@RequestMapping("/exit")
+	public String exit(HttpSession session){
+		session.removeAttribute("adminUser");	
+		return Contants.REDIRECT + "login";
 	}
 }
 

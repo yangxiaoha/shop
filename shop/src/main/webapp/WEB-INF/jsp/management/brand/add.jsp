@@ -17,7 +17,7 @@
 						<div class="row">					
 							<div class="col-md-12">
 								<label for="name">供应商名称</label>							
-								<select class="reg-sel form-control" name="supplierId">
+								<select class="reg-sel form-control" name="supplierId" id="asupplierId">
 									<c:forEach items="${supplierMsg}" var="supplierList">
 										<option value="${supplierList.id}">${supplierList.name}</option>
 									</c:forEach>
@@ -55,6 +55,9 @@
 		});
 	    $("#add").validate({
 	        rules: {
+	        	supplierId:{
+	        		required:true,	        		
+	        	},
 	          name: {
 	        	 required:true,
 	        	 remote: {
@@ -70,6 +73,9 @@
 	          },	       
 	        },
 	        messages: {
+	        	supplierId:{
+	        		required:"该选择供应商"
+	        	},
 	          name: {
 		        	 required:"请输入品牌名称",
 		        	 remote:"该品牌已存在"

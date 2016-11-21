@@ -6,7 +6,6 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.entities.Stock;
 import com.zpt.shop.main.mapper.SkuMapper;
 import com.zpt.shop.main.mapper.StockMapper;
@@ -28,7 +27,6 @@ public class StockServiceImpl implements StockService {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		String time = dateFormat.format(now);
 		Stock stock = new Stock();
-		Sku sku = new Sku();
 		stock.setBatch(batch);
 		stock.setNum(num);
 		stock.setSkuId(skuId);

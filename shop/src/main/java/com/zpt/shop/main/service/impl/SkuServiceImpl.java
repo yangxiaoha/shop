@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
+import com.zpt.shop.main.entities.ProVal;
 import com.zpt.shop.main.entities.Sku;
+import com.zpt.shop.main.mapper.ProValMapper;
 import com.zpt.shop.main.mapper.SkuMapper;
 import com.zpt.shop.main.service.SkuService;
 
@@ -17,11 +19,15 @@ public class SkuServiceImpl implements SkuService{
 	
 	@Autowired
 	private SkuMapper skuMapper;
+	
+	@Autowired
+	private ProValMapper proValMapper;
 
 	@Override
 	public void insertSku(Sku sku) {
 		// TODO Auto-generated method stub
-		skuMapper.insertSku(sku);	
+		skuMapper.insertSku(sku);
+//		proValMapper.insertProVal(proVal);
 		
 	}
 
@@ -73,6 +79,5 @@ public class SkuServiceImpl implements SkuService{
 			return null;
 		}
 	}
-
 
 }

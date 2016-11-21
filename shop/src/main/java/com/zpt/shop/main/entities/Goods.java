@@ -1,5 +1,7 @@
 package com.zpt.shop.main.entities;
 
+import java.util.List;
+
 public class Goods {
 	
 	//主键id
@@ -37,17 +39,36 @@ public class Goods {
 	
 	//品牌名称
 	private String brandName;
+
+	private List<Pro> pros;
 	
+	public List<Pro> getPros() {
+		return pros;
+	}
+
+	public void setPros(List<Pro> pros) {
+		this.pros = pros;
+	}
+
 	private long top;
 	
-	private Integer ids;
-
+	private String ids;
 	
-	public Integer getIds() {
+	private List<String> idstemp;
+
+	public List<String> getIdstemp() {
+		return idstemp;
+	}
+
+	public void setIdstemp(List<String> idstemp) {
+		this.idstemp = idstemp;
+	}
+
+	public String getIds() {
 		return ids;
 	}
 
-	public void setIds(Integer ids) {
+	public void setIds(String ids) {
 		this.ids = ids;
 	}
 

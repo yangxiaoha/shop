@@ -7,7 +7,7 @@
 			<div class="modal-header">
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
-				<h4 class="modal-title">修改商品Sku
+				<h4 class="modal-title">修改品牌
 				<span class="loading" style=""></span>
 				</h4>
 			</div>
@@ -15,35 +15,26 @@
 				<form action="update" id="update" method="post">
 					<fieldset>
 						<div class="row">
-						<input type="hidden" id="uid" name="id" >
+							<input type="hidden" id="eid" name="id" >
+							<div class="col-md-12">
+								<label for="supplierId">供应商名称</label>							
+								<select class="reg-sel form-control" id="esupplierId" name="supplierId">
+									<c:forEach items="${supplierMsg}" var="supplierList">
+										<option value="${supplierList.id}">${supplierList.name}</option>
+									</c:forEach>
+								</select>								
+							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="num">商品数量</label><input class="form-control"
-										placeholder="请输入商品数量" id="unum" name="num" type="text">
+									<label for="name">品牌名称</label><input
+										class="form-control" placeholder="请输入品牌名称" id="ename" name="name"
+										type="text">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="price">商品价格</label><input class="form-control"
-										placeholder="请输入商品价格" id="uprice" name="price" type="text">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="ids">特征量组合</label><input class="form-control"
-										placeholder="请输入特征量组合" id="uids" name="ids" type="text">
-								</div>
-							</div>							
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="code">特征量编码</label><input class="form-control"
-										placeholder="请输入特征量编码" id="ucode" name="code" type="text">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type = "hidden"	id="" name="goodsId" 
-										value = "${goodsM.id }" type="text">
+									<label for="content">品牌简介</label><input
+										class="form-control" placeholder="请输入品牌简介" id="econtent" name="content" type="text">
 								</div>
 							</div>
 						</div>
@@ -66,53 +57,30 @@
 		
 	    $("#update").validate({
 	        rules: {
-	          ids: {
+	          name: {
 	        	 required:true,
 	        	 remote: {
 	        		    url: "validate",     //后台处理程序
 	        		    type: "post",               //数据发送方式
 	        		    dataType: "json",           //接受数据格式   
 	        		    data: {                     //要传递的数据
-	        		    	ids: function() {
-	        		            return $("#uids").val();
+	        		    	name: function() {
+	        		            return $("#ename").val();
 	        		       },
 	        		       id:function(){
-	    				    	return $("#uid").val();
+	    				    	return $("#eid").val();
 	    				   }
 	        		  }
 	        	  }
-	          },
-	          code: {
-		        	 required:true,
-		        	 remote: {
-		        		    url: "validate",     //后台处理程序
-		        		    type: "post",               //数据发送方式
-		        		    dataType: "json",           //接受数据格式   
-		        		    data: {                     //要传递的数据
-		        		    	code: function() {
-		        		            return $("#ucode").val();
-		        		       },
-		        		       id:function(){
-		    				    	return $("#uid").val();
-		    				   }
-		        		  }
-		        	  }
-		          },
+	          },	       
 	        },
 	        messages: {
-	          ids: {
-		        	 required:"请输入特征量组合编码",
-		        	 remote:"该编码已存在"
+	          name: {
+		        	 required:"请输入品牌名称",
+		        	 remote:"品牌已存在"
 		      },
-		      code: {
-		        	 required:"请输入商品编码",
-		        	 remote:"该编码已存在"
-		      },
-		      num: {
-		        	 required:"请输入商品数量",		        	
-		      },
-		      price: {
-		        	 required:"请输入商品价格",		        	
+		      content: {
+		        	 required:"请输入品牌简介",		        	
 		      }
 	        },
 	        submitHandler: function(form) { 

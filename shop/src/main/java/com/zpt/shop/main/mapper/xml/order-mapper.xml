@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.OrderMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="order" id="resultMap">
+		<id property="id" column="id" />
+		<result property="userId" column="userId" />
+		<result property="address" column="address" />
+		<result property="ordertime" column="ordertime" />
+		<result property="logisticsnum" column="logisticsnum" />
+		<result property="logistics" column="logistics" />
+		<result property="state" column="state" />
+		<result property="name" column="name" />
+		<result property="phone" column="phone" />
+	</resultMap>
+	
+	
+	<sql id="queryCondition">
+		where 1 = 1
+		<if test="obj.name != null and obj.name != ''">
+			and torder.name like CONCAT('%',#{obj.name},'%')
+		</if>
+	</sql>
+	
+	<sql id="validateCondition">
+		where 1 = 1
+		<if test="id != null and id != ''">
+			and id != #{id}
+		</if>										
+	</sql>	
+		
+	<select id="listOrder" resultMap="resultMap" parameterType="query">
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
+		select torder.id as id,torder.userId as userId,torder.address as address,torder.ordertime as ordertime,
+		torder.logisticsnum as logisticsnum,torder.logistics as logistics,torder.state as state,
+		torder.name as name,torder.phone as phone,orderdetail.num as num,orderdetail.price as price,
+		goods.name as goodsName
+		from t_order as torder left join t_user as tuser on torder.userId = tuser.id left join t_order_detail
+		as orderdetail on torder.id = orderdetail.orderId left join t_goods_sku as sku on 
+		sku.id = orderdetail.skuId left join t_goods as goods on sku.goodsid = goods.id		
+		<include refid="queryCondition"/>
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
+	</select>
+	
+	<select id="countOrder" resultType="java.lang.Integer" parameterType="query">
+		select count(torder.id) from t_order as torder left join t_user as tuser on 
+		torder.userId = tuser.id
+		<include refid="queryCondition"/>
+	</select>	
+	
+	<!-- 验证当前数据是否存在 -->
+	<select id="validate" resultMap="resultMap" parameterType="order">
+		select * from t_order
+		<include refid="validateCondition"/>
+	</select>
+
+</mapper>

@@ -22,6 +22,5 @@ public class GoodsTypeServiceImpl implements GoodsTypeService {
 			pid = 0;
 		}
 		return goodsTypeMapper.selectTypeTree(pid);
-	}
-
+	}	
 }

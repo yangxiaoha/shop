@@ -11,9 +11,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>品牌管理</title>
-<script type="text/javascript">
- 	var typeid = ${typeM.id}; 
-</script>
 <script type="text/javascript"
 	src="<%=basePath%>assets/management/javascripts/jquery.ztree.core.js"></script>
 <script
@@ -22,8 +19,8 @@
 
 <link rel="stylesheet"
 	href="<%=basePath%>assets/management/images/zTreeStyle.css"	type="text/css">
-	
-	<script type="text/javascript">
+
+<script type="text/javascript">
 	var zTree;
 	
 	var demoIframe;
@@ -139,7 +136,6 @@
 									<th>商品编码</th>
 									<th>商品品牌</th>
 									<th>所属门店</th>
-									<th>特征量组合</th>
 									<th></th>
 									<th></th>
 									<th></th>																	

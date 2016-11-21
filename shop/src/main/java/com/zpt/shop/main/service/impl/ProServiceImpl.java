@@ -61,4 +61,13 @@ public class ProServiceImpl implements ProService {
 		}
 	}
 
+	@Override
+	public List<Pro> getAllPro(Integer typeId) {
+		// TODO Auto-generated method stub
+		if(typeId == null){
+			typeId = 0;
+		}
+		return proMapper.getAllPro(typeId);
+	}
+
 }

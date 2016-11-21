@@ -47,7 +47,7 @@
 										<div class="col-md-12">
 											<div class="form-group divb0">
 												<label for="typeId">商品类型</label> <input class="form-control"
-													placeholder="请输入类型" readonly="readonly" id="atypeName"
+													placeholder="" readonly="readonly" id="atypeName"
 													name="typeName" type="text"> <input type="hidden"
 													placeholder="" id="atypeId" name="typeId" type="text">
 											</div>
@@ -88,7 +88,7 @@
 	};
 	function zTreeOnClickAdd(event, treeId, treeNode) {
 		console.log(treeNode);
-		$("#typeId").val(treeNode.id);
+		$("#atypeId").val(treeNode.id);
 		$("#atypeName").val(treeNode.name);
 	   //alert(treeNode.id + ", " + treeNode.name);
 	};
