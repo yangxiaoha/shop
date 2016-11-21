@@ -1,0 +1,42 @@
+<!--结算（确认订单）-->
+<ion-view style="background-color: #F2F2F2;">
+    <ion-header-bar align-title="center" class="bar-light">
+	    <div class="buttons">
+	        <a class="button button-clear button-dark" ng-href="#/cart">
+	        	<i class="ion-chevron-left" style="margin-right: 5px;"></i>返回
+	      	</a>
+	    </div>
+	    <h3 class="title">填写订单</h3>
+	</ion-header-bar>
+    <ion-content class="padding">
+    	<!-- 地址不存在时 -->
+    	<p class="add-receipt-addr">添加收货地址</>
+    	<!-- 地址存在时 -->
+    	<div class="item item-icon-right receipt-addr">
+      		<div class="clearfix"><p class="fl mr15">用户名</p><p class="fl">电话号码</p></div>
+      		<p>地址</p>
+      		<i class="icon ion-edit"></i>
+    	</div>
+    	<div class="goods-total ph10"><p class="fl mv0">商品合计：</p><p class="fr fcFEA977 mv0">￥499（含运费0元）</p></div>
+	    <form class="goods-settlement">
+		    <div class="item item-thumbnail-left goods-info">
+		        <img src="img/commodity-img.jpg">
+		        <div class="cart-goods-details">
+		      		<h2>商品名称商品名称商品名称商品名称商品名称</h2>
+		      		<p>商品规格:<span>S</span></p>
+		      		<div><p class="fl fcFEA977">￥399</p><p class="fr fcFEA977">x1</p></div>
+		      	</div>	      
+		    </div>
+		    <div class="goods-remarks">
+		    	<label for="remarks">备注：</label>
+		    	<textarea rows="3" cols="20" class="fr" id="remarks"></textarea>
+		    </div>
+		</form>
+    </ion-content>
+	<ion-footer-bar align-title="right" class="bar-light">
+	    <h1 class="title"><span class="fl">实付款</span><span class="fr fcFEA977">￥0.00</span></h1>
+	    <div class="buttons" ng-click="doSomething()">
+	    	<button class="button button-dark">付款</button>
+	    </div>
+	</ion-footer-bar>
+</ion-view>

@@ -1,0 +1,708 @@
+/* Empty. Add your own CSS if you like */
+
+/*----------------------------------公用样式开始----------------------------------*/
+a {
+	text-decoration: none;
+}
+ul {
+	margin: 0 !important;
+}
+.col-15 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 15%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 15%;
+    -ms-flex: 0 0 15%;
+    flex: 0 0 15%;
+    max-width: 15%;
+}
+.fl {
+	float: left;
+}
+.fr {
+	float: right;
+}
+.p0 {
+	padding: 0 !important;
+}
+.p10 {
+	padding: 10px !important;
+}
+.p15 {
+	padding: 15px !important;
+}
+.pt1 {
+	padding-top: 1px;
+}
+.ph0 {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+.ph10 {
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}
+.pv10 {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.pv20 {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.mt10 {
+	margin-top: 10px;
+}
+.mb0 {
+	margin-bottom: 0 !important;
+}
+.mt15 {
+	margin-top: 15px;
+}
+.mt30 {
+	margin-top: 30px;
+}
+.mb10 {
+	margin-bottom: 10px;
+}
+.mb15 {
+	margin-bottom: 15px;
+}
+.mr15 { 
+	margin-right: 15px;
+}
+.mr20 { 
+	margin-right: 20px;
+}
+.mv0 { 
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+}
+.mv5 { 
+	margin-top: 5px !important;
+	margin-bottom: 5px !important;
+}
+.mv15 { 
+	margin-top: 15px !important;
+	margin-bottom: 15px !important;
+}
+.mh0 { 
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+.mh10 { 
+	margin-left: 10px !important;
+	margin-right: 10px !important;
+}
+.fcC4AE86 {
+	color: #C4AE86;
+}
+.fcef473a {
+	color: #ef473a !important;
+}
+.fcFEA977 {
+	color: #FEA977 !important;
+}
+.fcD19E6B {
+	color: #D19E6B !important;
+}
+.fc444 {
+	color: #444;
+}
+.fcfff {
+	color: #fff;
+}
+.bcfff {
+	background-color: #fff;
+}
+.border-bot {
+	border-bottom: 1px solid #D7D7D7;
+}
+/*页面留白*/
+.blank1 {
+	margin: 0;
+	padding: 0;
+	height: 1px;
+	line-height: 1px;
+	clear: both;
+	visibility: hidden;
+	font-size: 0px;
+}
+/*自动高对齐*/
+.clearfix:after {
+	content:".";
+	display:block; 
+	height:0; 
+	clear:both;
+	visibility:hidden;
+}
+/*自定义模态框*/
+.my-modal .my-modal-bac {
+	position: absolute;
+    top: 0;
+    left: 0;
+	width: 100%;
+    height: 100%;
+    background-color: #444;
+    opacity: 0.2;
+    z-index: 999;    
+}
+.my-modal .purchase-information {
+	position: absolute;
+    bottom: 0; 
+    left: 0;   
+	width: 100%;
+    height: 350px;
+    transition: all 1s;
+    background-color: #fff;
+    z-index: 999;
+}
+.my-modal .information-footer {
+    padding: 0 12px;
+    width: 100%;
+    min-height: 47px;
+    color: #fff;
+    font-size: 16px;
+    line-height: 42px;   
+    text-align: center;
+    vertical-align: top;  
+    cursor: pointer;      
+    text-overflow: ellipsis;        
+    border: 1px solid #ef473a;
+    background-color: #ef473a;   
+}
+.purchase-information.ng-enter {
+	height: 0px;
+}
+.purchase-information.ng-enter-active {
+	height: 350px;
+}
+.purchase-information.ng-leave {
+	height: 350px;
+}
+.purchase-information.ng-leave-active {
+	height: 0px;
+}
+/*----------------------------------公用样式结束----------------------------------*/
+
+/*----------------------------------首页开始----------------------------------*/
+.slide-img img {
+	width: 100%;
+}
+.menu {
+	height: 60px;
+    padding: 10px 0px;
+    line-height: 40px;
+    text-align: center; 
+    border-bottom: 2px solid #929292;  
+}
+.menu li {
+	position: relative;
+}
+.menu li:last-child {
+	padding: 0 15px;
+	border-left: 2px solid #979797;
+}
+.menu .goods-choice {	
+	position: absolute;
+    left: 0;
+    bottom: -9px;
+    display: block;
+    height: 4px;
+    width: 100%;
+    background-color: red;    
+}
+.commodity {
+	 width: 100%;
+	 padding: 10px;
+	 overflow: hidden;
+}
+.commodity .commodity-list {
+	width: 48%;
+	float: left;
+	margin: 1%;
+	color: #686868;
+	border: 1px solid #cacaca;
+}
+.commodity .commodity-list img {
+	width: 100%;
+}
+.commodity .commodity-list span {
+	display: block; 
+	text-align: center;
+}
+.shopping-cart {
+	position: fixed;
+    bottom: 100px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #c8161d;
+    border-radius: 45px;   
+    background-image: url(../img/car.png);
+    background-size: 39px 39px;
+    background-position: 3px 6px;
+    background-color: #fff;
+    z-index: 999;
+}
+.shopping-cart .shopping-icon {
+	display: block;
+	position: relative;
+	width: 100%;
+    height: 50px;
+    line-height: 50px;
+    color: #4E4E4E;
+    font-size: 30px;
+    text-align: center;  
+}
+.shopping-cart .shopping-num {
+	display: block;
+	position: absolute;
+    top: -4px;
+    right: 0;
+	width: 20px;
+    height: 20px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;  
+    border-radius: 45px;
+    background-color: red;
+}
+.goods-type {
+	position: absolute;
+    top: 60px;
+    right: 0;
+    width: 40%;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #CCCAC8;
+    z-index: 999; 
+}
+.goods-type > li {
+	height: 30px;
+	padding: 3px; 
+	text-align: left;
+    line-height: 24px;    
+    border-bottom: 1px solid #CCCAC8; 
+}
+.goods-type > li:last-child { 
+    border-bottom: 0px; 
+}
+.search {
+	position: absolute;
+    top: 63px;
+    left: 0;
+    width: 60%;
+    padding: 0 5px;
+    background-color: #fff;
+    z-index: 999; 
+}
+.search .search-input {	
+	float: left;
+	width: 60%;
+	margin-right: 5%;
+    padding: 2px 3px;
+    border: 1px solid #929292;
+}
+.search .btn-search {
+	float: left;
+	width: 30%;
+	margin-right: 5%;
+	padding: 2px 6px;
+	background: #fff;
+    border: 1px solid #929292;
+}
+/*----------------------------------首页结束----------------------------------*/
+
+/*----------------------------------商品类别开始----------------------------------*/
+.commodity-category {
+	float: left;
+	width: 20%;	
+	height: 100%; 
+	background-color: #fff;
+	overflow: auto;
+}
+.commodity-category li {
+	position: relative;
+	height: 10%;
+	text-align: center;
+	border-right: 1px solid #F3F3F3;
+	border-bottom: 1px solid #F3F3F3;
+}
+.commodity-category li > i{
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+}
+.commodity-category .active {
+	color: red;	
+	background-color: #F4F5F7;
+	border-right: 1px solid #F4F5F7;
+}
+.commodity-details {
+	float: right;
+	width: 80%;
+	height: 100%;
+	padding: 3%;
+	overflow: auto;
+}
+.commodity-details > div > ul {
+	overflow: hidden;
+	background-color: #fff;
+}
+.commodity-details .commodity-show {
+	float: left;
+	width: 33.33%;
+	padding: 3px;
+	margin-bottom: 3px;
+	text-align: center;
+}
+.commodity-details .commodity-show img {
+	width: 100%;
+}
+/*----------------------------------商品类别结束----------------------------------*/
+
+/*-----------------------------------公告开始-----------------------------------*/
+    
+.notice {
+	height: auto;
+	padding: 5px;
+	margin-top: 20px;
+    border: 1px solid #000;  
+    border-radius: 5px;
+}
+.notice .item {
+	border: none;
+}
+.notice > div > i {
+	font-size: 12px !important;
+}
+.notice .notice-content {
+	padding: 5px 15px;
+    text-indent: 24px;
+}
+/*-----------------------------------公告结束-----------------------------------*/
+
+/*----------------------------------商品详情开始----------------------------------*/
+.product-detail-img > img {
+	width: 100%;
+}
+/*----------------------------------商品详情结束----------------------------------*/
+
+/*----------------------------------购物车开始----------------------------------*/
+.no-goods {
+	text-align: center;
+}
+.no-goods .cart-img {
+	width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+.no-goods .cart-img > img {
+	width: 100%;
+}
+.cart-goods-details {
+	overflow: hidden;
+}
+.cart-goods-details h2, 
+.cart-goods-details p {
+	margin-bottom: 5px;
+}
+.cart-goods-details a {
+	color: #444;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.cart-goods-edit {
+	position: absolute;
+    top: 8px;
+    right: 10px;
+    text-align: center;
+}
+.cart-goods-edit .delete-icon {
+	width: 40px;
+    height: 40px;
+    display: block;
+    font-size: 30px;  
+    line-height: 40px;
+}
+.goods-classification .active {
+	color: #fff;
+    background-color: #ef473a;
+}
+.goods-classification ul li {
+	float: left;
+	padding: 3px 6px;
+	margin-right: 8px;
+	margin-bottom: 8px;
+	height: 30px;
+    min-width: 30px;
+    color: #10191E; 
+    line-height: 24px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #e0dddd;
+}
+.my-modal .information-header img {
+	border-radius: 5px;
+	border: 1px solid #E7E7E7;
+}
+.information-header .item {
+	border: none;
+}
+.my-modal .information-content {
+	padding: 0 10px;
+    height: 203px;
+    overflow-y: auto;
+}
+.information-content .goods-classification {
+	padding-top: 10px;
+	padding-bottom: 2px;
+	border-bottom: 1px solid #F2F2F2;
+} 
+.information-content .goods-number {
+	padding: 10px 0;
+	height: 61px;
+	line-height: 40px;
+	border-bottom: 1px solid #F2F2F2;
+}
+.goods-number > div p {
+	display: inline-block;
+}
+.goods-number > div span {
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+	text-align: center;
+}
+.goods-number > div span:first-child,
+.goods-number > div span:last-child {
+	color: #CCC;
+    background-color: #F5F5F5;
+}
+.goods-number > div span:first-child {
+	border-radius: 8px 0px 0px 8px;
+}
+.goods-number > div span:last-child {
+	border-radius: 0px 8px 8px 0px;
+}
+.modal-delete {
+	width: 25px;
+	height: 25px !important;
+	margin-top: 8px;
+    color: #636468;
+    font-size: 14px !important;
+    border: 2px solid #636468;
+    border-radius: 45px;   
+}
+/*----------------------------------购物车结束----------------------------------*/
+
+/*------------------------------结算（确定收货）开始------------------------------*/
+.add-receipt-addr,
+.receipt-addr,
+.goods-total,
+.goods-settlement {
+	margin: 0 0 10px;
+	background-color: #fff;
+	box-shadow: 0 0 0 red, /*左边阴影*/ 
+   	0 0 0 yellow, /*右边阴影*/ 
+   	0 0 0 blue, /*顶部阴影*/ 
+   	0 2px 10px #afaeae; /*底部阴影*/
+}
+.add-receipt-addr {
+	padding: 5px 10px;
+	height: 40px;
+    line-height: 30px;   
+}
+.receipt-addr {
+	padding: 10px 10px;
+	height: 60px;
+	color: #000;
+}
+.goods-total {
+	height: 30px;
+	line-height: 30px;
+}
+.goods-remarks {
+	padding: 5px 10px;
+	height: 70px;
+	line-height: 60px;
+}
+.goods-remarks > textarea {
+	padding: 5px;
+	width: 80%;
+	height: 100%;
+    border: 1px solid #AEAEAE;    
+    resize: none;
+}
+/*------------------------------结算（确定收货）结束------------------------------*/
+
+/*------------------------------订单详情、订单支付开始------------------------------*/
+.title-span {
+	display: block;
+    position: absolute;
+    left: -1px;
+    top: 7px;
+    width: 10px;
+    height: 30px;
+    background-color: #D7BA96;  
+}
+.order-detail {
+	padding: 10px;  
+	margin-bottom: 10px; 
+	color: #838383; 
+    border: 1px solid #DBDBDB;   
+    border-radius: 5px;   
+    overflow: hidden;
+    background-color: #fff;
+}
+.order-detail ul li {
+	padding: 3px;   
+}
+.order-pay-info { 
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #D0D0D0;   
+    background-color: #fff;
+}
+.order-pay-info .pay-info-header { 
+	margin: 0;
+    padding: 6px 10px;
+    border-radius: 5px 5px 0px 0;
+    border-bottom: 1px solid #D0D0D0;
+    background: -webkit-linear-gradient(#F6F6F6, #E8E8E8); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#F6F6F6, #E8E8E8); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#F6F6F6, #E8E8E8); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#F6F6F6, #E8E8E8); /* 标准的语法 */
+}
+.order-pay-info ul li {
+	padding: 3px 0;
+}
+/*------------------------------订单详情、订单支付结束------------------------------*/
+
+/*---------------------------------会员中心开始---------------------------------*/
+.member-info .member-info-detail {
+	position: relative;
+	width: 100%;
+	height: 140px;
+	padding: 20px 30px 20px 120px;
+	color: #fff;
+	background-image: url(../img/member-bg.jpg);
+	background-size: 512px 160px;
+}
+.member-info .member-info-detail img {
+	position: absolute;
+    left: 10px;
+	width: 100px;
+    height: 100px;
+    border-radius: 90px;
+    border: 1px solid #000;
+}
+.member-info .member-info-detail .set-up {
+	position: absolute;
+	top: 20px;
+    right: 10px;
+    font-size: 30px;
+}
+.member-info .recommend-info {
+	margin: 0;
+	padding: 10px;
+	height: 40px;
+    line-height: 20px;    
+    text-align: center;
+}
+.member-info .member-reward {
+	padding: 10px;
+	height: 70px;
+	text-align: center;
+	border-top: 1px solid #DADADA;
+	border-bottom: 1px solid #DADADA;
+}
+.member-info .member-reward > li:first-child {
+	border-right: 1px solid #DADADA;
+}
+.member-info .member-reward > li > span {
+	display: block;
+	margin-bottom: 5px;
+}
+.member-power > li {
+	padding: 10px;
+	line-height: 30px;
+	border-top: 1px solid #DADADA;
+}
+.member-power > li i {
+	width: 30px;
+    height: 30px;    
+    margin-top: 5px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    display: inline-block;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #DADADA;
+}
+.member-power > li > span {
+	padding: 5px 10px;
+	color: #fff;
+    background-color: #000; 
+    border-radius: 5px;
+}
+.member-info .btn {
+	margin: 10px 10%;
+	width: 80%;
+	min-height: 35px;
+	color: #444;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #CBCBCB;  
+}
+.member-info .withdrawals-money {
+	padding: 5px;
+	min-height: 35px;
+	border-radius: 5px;
+    border: 1px solid #CBCBCB; 
+}
+.member-withdrawals {
+	width: 100%;
+	text-align: center;
+}
+.member-withdrawals tr {
+	height: 35px;
+	line-height: 35px;
+}
+.member-id {
+	width: 70%;
+    min-height: 45px;
+    padding: 5px; 
+    margin-right: 10px;
+    border: 1px solid #CBCBCB;
+}
+.member-search {
+	min-width: 55px;
+    min-height: 45px;
+    padding: 5px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #CBCBCB;    
+}
+.info-edit li {
+	padding: 5px;
+	line-height: 50px;
+	text-align: center;
+}
+.info-edit li label {
+	width: 30%;
+	text-align: left;
+	display: inline-block;
+}
+.info-edit li input {
+	width: 60%;
+	height: 50px;
+	padding: 5px;
+	border: 1px solid #CBCBCB;
+}
+/*---------------------------------会员中心结束---------------------------------*/

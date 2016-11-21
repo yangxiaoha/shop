@@ -1,0 +1,93 @@
+<!--购物车-->
+<ion-view hide-tabs>
+	<ion-header-bar align-title="left" class="bar-light">
+	    <div class="buttons">
+	        <a class="button button-dark" ng-href="#/tab/dash">继续购买</a>
+	    </div>
+	    <h3 class="title">购物车：立即结算，抢回还有货的商品</h3>
+	</ion-header-bar>
+    <ion-content>
+    	<div class="no-goods" ng-if="goods == null">
+    		<div class="cart-img"><img src="img/cart.jpg" /></div>
+    		<p>暂无商品</p>
+    		<a class="button button-dark" ng-href="#/tab/dash">去逛逛</a>
+    	</div> 
+    	<div class="goods list" ng-if="goods != null">
+    		<div class="item item-thumbnail-left item-icon-right" ng-repeat="good in goods">
+		        <img ng-src="{{good.face}}">
+		        <div class="cart-goods-details">
+		      		<h2><a href="#">{{good.name}}</a></h2>
+		      		<p>商品规格:<span>{{good.specifications}}</span></p>
+		      		<div><p class="fl">{{good.price | currency:"￥"}}</p><p class="fr">x{{good.num}}</p></div>
+		      	</div>
+			    <div class="cart-goods-edit">
+			      	<span ng-click="showModal()">修改</span>
+			      	<span class="ion-ios-trash-outline delete-icon" ng-click="remove(good)"></span>
+			    </div>		      
+		    </div>
+    	</div> 	
+    </ion-content>
+	<ion-footer-bar align-title="right" class="bar-light">
+	    <h1 class="title"><span>合计：</span><span>￥0.00</span></h1>
+	    <a class="buttons" ng-href="#/settlement">
+	    	<button class="button button-dark">结算<span>(0)</span></button>
+	    </a>
+	</ion-footer-bar>
+	<div class="my-modal">
+		<div class="my-modal-bac" ng-if="myModal" ng-click="hideModal()"></div>
+		<div class="purchase-information" ng-if="myModal">
+			<div class="show-information" style="position: relative; height: 100%;">
+				<div class="information-header">
+					<div class="item item-thumbnail-left item-icon-right">
+				        <img src="img/commodity-img.jpg">
+				        <p class="fcef473a">￥19</p>
+				        <p>库存<span>17</span>件</p>
+				        <p>已选：<span>红色</span><span>金色</span></p>
+				        <i class="icon ion-close modal-delete" ng-click="hideModal()"></i>
+				    </div>
+				</div> 
+				<div class="information-content">
+					<div class="goods-classification clearfix">
+						<p>颜色分类</p>
+						<ul>
+							<li class="active">金色金色金色</li>
+							<li>红色</li>
+							<li>金色</li>
+							<li>红色</li>
+							<li>金色</li>
+							<li>红色红色</li>
+							<li>金色</li>
+							<li>红色</li>
+							<li>金色</li>
+							<li>红色</li>
+						</ul>
+					</div>
+					<div class="goods-classification clearfix">
+						<p>颜色分类</p>
+						<ul>
+							<li class="active">金色金色金色</li>
+							<li>红色</li>
+							<li>金色</li>
+							<li>红色</li>
+							<li>金色</li>
+							<li>红色红色</li>
+							<li>金色</li>
+							<li>红色</li>
+							<li>金色</li>
+							<li>红色</li>
+						</ul>
+					</div>
+					<div class="goods-number clearfix">
+						<p class="fl">购买数量</p>
+						<div class="fr">
+							<span class="ion-minus" ng-click="minusNum()"></span>					
+							<span class="purchase-quantity">{{num}}</span>
+							<span class="ion-plus" ng-click="plusNum()"></span>
+						</div>
+					</div>
+				</div>
+				<button class="information-footer">确定</button>
+			</div>
+		</div>
+	</div>
+</ion-view>

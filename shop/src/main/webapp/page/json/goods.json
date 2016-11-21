@@ -1,0 +1,36 @@
+{
+    "goods": [
+        {
+            "id": "0",
+            "name": "商品名称0",
+            "specifications": "M",
+            "price": "222",
+            "num": "1",
+            "img": "img/goods-img.jpg"
+        },
+        {
+            "id": "1",
+            "name": "商品名称1",
+            "specifications": "M",
+            "price": "222",
+            "num": "1",
+            "img": "img/goods-img.jpg"
+        },
+        {
+            "id": "2",
+            "name": "商品名称2",
+            "specifications": "M",
+            "price": "222",
+            "num": "1",
+            "img": "img/goods-img.jpg"
+        },
+        {
+            "id": "3",
+            "name": "商品名称3",
+            "specifications": "M",
+            "price": "222",
+            "num": "1",
+            "img": "img/goods-img.jpg"
+        }
+    ]
+}

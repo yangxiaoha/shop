@@ -1,0 +1,58 @@
+/* Empty. Add your own CSS if you like */
+
+/*----------------------------------字体样式开始----------------------------------*/
+@font-face {font-family: 'iconfont';
+    src: url('../font/iconfont.eot'); /* IE9*/
+    src: url('../font/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../font/iconfont.woff') format('woff'), /* chrome、firefox */
+    url('../font/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('../font/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont{
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}  
+
+.icon-shouyeshouye:before,
+.icon-shouyeshouye-active:before,
+.icon-kefu:before,
+.icon-kefu-active:before,
+.icon-icon:before,
+.icon-icon-active:before,
+.icon-dingdan:before,
+.icon-dingdan-active:before,
+.icon-member:before,
+.icon-member-active:before,
+.icon-erweima:before,
+.icon-erweima-active:before,
+.icon-erweima1:before,
+.icon-erweima1-active:before {
+	display: inline-block;
+	font-family: "iconfont";
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	text-rendering: auto;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shaixuan:before { content: "\e6a9"; }
+.icon-shouyeshouye:before,.icon-shouyeshouye-active:before { content: "\e653"; }
+.icon-kefu:before,.icon-kefu-active:before { content: "\e60b"; }
+.icon-icon:before,.icon-icon-active:before { content: "\e61d"; }
+.icon-dingdan:before,.icon-dingdan-active:before { content: "\e616"; }
+.icon-member:before,.icon-member-active:before { content: "\e621"; }
+.icon-erweima:before,.icon-erweima-active:before { content: "\e626"; }
+.icon-erweima1:before,.icon-erweima1-active:before { content: "\e68b"; }
+
+
+/*----------------------------------字体样式结束----------------------------------*/
