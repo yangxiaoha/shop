@@ -17,11 +17,15 @@
 		<if test="obj.openid != null and obj.openid != ''">
 			and openid like CONCAT('%',#{obj.openid},'%')
 		</if>
-		<if test="obj.regtime != null and obj.regtime != ''">
-			and regtime = #{obj.regtime}
-		</if>
 		<if test="obj.money != null and obj.money != ''">
 			and money like CONCAT('%',#{obj.money},'%')
+		</if>
+		<if test="obj.id != null and obj.id != ''">
+			and pid = #{obj.id}
+		</if>
+		<if test="search != null and search != ''">
+			and (money like CONCAT('%',#{obj.search},'%') or
+			openid like CONCAT('%',#{obj.search},'%'))
 		</if>
 	</sql>
 	
@@ -36,10 +40,9 @@
 		select count(id) from t_user
 		<include refid="queryCondition"/>
 	</select>
-		
-		
-	<insert id="insertUser" parameterType="user">
-		insert into t_user(openid,money) values(#{openid},#{money})
-	</insert>
+
+	<select id="gerUserId" resultMap="resultMap">
+		select * from t_user where id=#{id}
+	</select>
 	
 </mapper>

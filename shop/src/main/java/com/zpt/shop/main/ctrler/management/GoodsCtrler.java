@@ -17,9 +17,11 @@ import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Brand;
 import com.zpt.shop.main.entities.Goods;
 import com.zpt.shop.main.entities.GoodsType;
+import com.zpt.shop.main.entities.Pro;
 import com.zpt.shop.main.service.BrandService;
 import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.GoodsTypeService;
+import com.zpt.shop.main.service.ProService;
 
 @Controller
 @RequestMapping("/management/goods")
@@ -32,14 +34,19 @@ public class GoodsCtrler {
 	private BrandService brandService;
 	
 	@Autowired
+	private ProService proService;
+	
+	@Autowired
 	private GoodsTypeService goodsTypeService;
 	
 	@RequestMapping(value = "index",method = RequestMethod.GET)
 	public ModelAndView index(){
 		ModelAndView mv = new ModelAndView();
 		List<Brand> brandList = brandService.getAllBrand();
+//		GoodsType goodsType = goodsTypeService.getTypeId(typeId);
 		mv.setViewName("/management/goods/index");
 		mv.addObject("brandMsg", brandList);
+//		mv.addObject("typeMsg", goodsType);
 		return mv;
 	}
 	
@@ -61,6 +68,19 @@ public class GoodsCtrler {
 			e.printStackTrace();
 		}
 		return flag;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value ="/getPro", method = RequestMethod.POST)
+	public List<Pro> getPro(Integer typeId){
+		List<Pro> list = null;
+		try {
+			list = proService.getAllPro(typeId);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 	@ResponseBody

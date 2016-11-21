@@ -6,7 +6,6 @@
 	<!-- ********** ResultMap ********** -->
 	<resultMap type="sku" id="resultMap">
 		<id property="id" column="id" />
-		<result property="ids" column="ids" />
 		<result property="num" column="num" />			
 		<result property="price" column="price" />			
 		<result property="goodsId" column="goodsId" />			
@@ -16,10 +15,7 @@
 	
 	
 	<sql id="queryCondition">
-		where 1 = 1
-		<if test="obj.ids != null and obj.ids != ''">
-			and sku.ids like CONCAT('%',#{obj.ids},'%')
-		</if>
+		where 1 = 1		
 		<if test="obj.code != null and obj.code != ''">
 			and sku.code like CONCAT('%',#{obj.code},'%')			
 		</if>
@@ -27,8 +23,7 @@
 			and sku.goodsId like CONCAT('%',#{obj.goodsId},'%')			
 		</if>
 		<if test="search != null and search != ''">
-			and (sku.ids like CONCAT('%',#{search},'%') or			
-			sku.code like CONCAT('%',#{search},'%'))
+			and sku.code like CONCAT('%',#{search},'%'))
 		</if>					
 	</sql>
 	
@@ -36,9 +31,6 @@
 		where 1 = 1
 		<if test="id != null and id != ''">
 			and id != #{id}
-		</if>
-		<if test="ids != null and ids != ''">
-			and ids = #{ids}
 		</if>
 		<if test="code != null and code != ''">
 			and code = #{code}
@@ -48,8 +40,8 @@
 		
 	<select id="listSku" resultMap="resultMap" parameterType="query">
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
-		select sku.id as id,sku.ids as ids,sku.num as num,sku.price as price,sku.code as code
-		from t_goods_sku as sku left join t_goods as goods on sku.goodsId = goods.id 		
+		select sku.id as id,sku.num as num,sku.price as price,sku.code as code
+		from t_goods_sku as sku left join t_goods as goods on sku.goodsId = goods.id		
 		<include refid="queryCondition"/>
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>
@@ -66,13 +58,13 @@
 	</select>
 		
 	<insert id="insertSku" parameterType="sku">
-		insert into t_goods_sku(ids,num,price,code,goodsId) values(#{ids},#{num},#{price},#{code},#{goodsId})
+		insert into t_goods_sku(num,price,code,goodsId) values(#{num},#{price},#{code},#{goodsId})
 	</insert>
-	<delete id="deleteSku">
-		delete from t_goods_sku where id in (${ids})	
-	</delete>
+	
 	<update id="updateSku" parameterType="sku">
-		update t_goods_sku set ids = #{ids},num = #{num},price = #{price},
-		goodsId = #{goodsId},code = #{code} where id = #{id}
+		update t_goods_sku set price = #{price},goodsId = #{goodsId},code = #{code} where id = #{id}
+	</update>
+	<update id="updateStock" parameterType="sku">
+		update t_goods_sku set num = (#{num}+t_goods_sku.num) where id = #{id}
 	</update>
 </mapper>

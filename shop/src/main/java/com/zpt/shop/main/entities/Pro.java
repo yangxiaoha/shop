@@ -9,6 +9,26 @@ public class Pro {
 	private Integer typeId;
 	
 	private String typeName;
+	
+	private Integer proId;
+	
+	private String proname;
+
+	public Integer getProId() {
+		return proId;
+	}
+
+	public void setProId(Integer proId) {
+		this.proId = proId;
+	}
+
+	public String getProname() {
+		return proname;
+	}
+
+	public void setProname(String proname) {
+		this.proname = proname;
+	}
 
 	public Integer getId() {
 		return id;

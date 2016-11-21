@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
+import com.zpt.shop.main.entities.ProVal;
 import com.zpt.shop.main.entities.Sku;
 
 public interface SkuService {
@@ -18,6 +19,6 @@ public interface SkuService {
 	
 	public boolean validate(Sku sku);
 	
-	public List<Sku> getSkuByGoods(String goodsId);
+	public List<Sku> getSkuByGoods(String goodsId);	
 
 }

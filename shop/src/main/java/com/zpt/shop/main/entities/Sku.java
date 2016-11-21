@@ -4,8 +4,6 @@ public class Sku {
 	
 	public Integer id;
 	
-	public String ids;
-	
 	public Integer num;
 	
 	public long price;
@@ -21,15 +19,7 @@ public class Sku {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public String getIds() {
-		return ids;
-	}
-
-	public void setIds(String ids) {
-		this.ids = ids;
-	}
-
+	
 	public Integer getNum() {
 		return num;
 	}
