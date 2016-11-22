@@ -57,9 +57,9 @@
 		<div class="index-menu" style="position: relative;">
 		  	<ul class="menu">
 				<li class="menu-title menu-title-notice" data-toggle="modal" data-target="#myModal">公告</li>
-				<li class="menu-title">最新</li>
-				<li class="menu-title">人气</li>
-				<li class="menu-title">现货</li>
+				<li class="menu-title">最新<input type="hidden" value="1"></li>
+				<li class="menu-title">人气<input type="hidden" value="2"></li>
+				<li class="menu-title">现货<input type="hidden" value="3"></li>
 				<li class="menu-title menu-title-search">
 					<p class="fl screen clearfloat"><span class="glyphicon glyphicon-filter"></span>筛选</p>
 					<p class="fr search clearfloat"><span class="glyphicon glyphicon-search"></span></p>
@@ -67,21 +67,22 @@
 		    </ul>	    
 		    <ul class="goods-type" style="display: none;">
 		    	<c:forEach items="${goodsTypeMsg}" var="goodsTypeList">
-					<li data-type="${goodsTypeList.id}">${goodsTypeList.name}</li>
+					<li>${goodsTypeList.name}<input type="hidden" value="${goodsTypeList.id}"></li>
 				</c:forEach>
 		    </ul>
 		    <div class="goods-search" style="display: none;">
-		    	<input placeholder="请输入关键词">
-		    	<button>搜索</button>
+		    	<input id="keyword" placeholder="请输入关键词">
+		    	<button type="button" id="searchKeyword">搜索</button>
 		    </div>
 		</div>
 
 		<div class="goods-detail">
 			<c:forEach items="${goodsMsg}" var="goodsList">
 			    <div class="goods-show">
-					<img src="<%=basePath%>/${goodsList.url}">
+			    	<input type="hidden" value="${goodsList.id}">
+					<img src="<%=basePath%>${goodsList.url}">
 					<p class="p5">${goodsList.name}</p>
-					<p class="mb5 fc-c8161d">${goodsList.price}</p>
+					<p class="mb5 fc-c8161d">${goodsList.lowprice}</p>
 				</div>
 			</c:forEach>
 		</div>
@@ -148,6 +149,11 @@
 				$(this).siblings().css("border-bottom", "0");
 				if(!($(this).hasClass('menu-title-notice')) && !($(this).hasClass('menu-title-search'))) {
 					$(this).css("border-bottom", "1px solid #c8161d");
+					var flag = $(this).children("input[type=hidden]").val();
+					var keyword = "";
+					var typeId = "";
+					console.log("1");
+					showGoods(flag, keyword, typeId);
 				}				    
 			});
 			$(".menu-title-search .screen").click(function() {
@@ -160,25 +166,53 @@
     </script>
     <script>
 	    $(document).ready(function(){
+	    	//根据类型查找商品
 			$(".goods-type li").click(function() {
-				var typeId = $(this).data("type");
-		    	$.ajax({
-			   	    url: "goodsType",
-			   		type: "Post",
-			   	    data: {
-			   	    	typeId:typeId
-			   	    },
-			   	    dataType: "json",
-			   	    success: function(data) {
-			   	    	if(data.state == 1){
-			   	    		window.location.reload();
-			   			}else{
-			   			    alert("网络故障，稍后重试");
-			   			}
-			   	    }
-		        })
+				var flag = 0;
+				var keyword = "";
+				var typeId = $(this).children("input[type=hidden]").val();
+				alert("2");
+				showGoods(flag, keyword, typeId);
 			});
-		});    	
+			//商品搜索
+			$("#searchKeyword").click(function() {				
+				var flag = 0;
+				var keyword = $("#keyword").val();
+				var typeId = "";
+		    	alert("3");
+				showGoods(flag, keyword, typeId);
+			});
+		}); 
+	    function showGoods(flag, keyword, typeId) {
+	    	console.log("4");
+	    	$.ajax({
+		   	    url: "selectGoods",
+		   		type: "Post",
+		   	    data: {
+		   	    	flag:flag,
+		   	    	keyword:keyword,
+		   	    	typeId:typeId
+		   	    },
+		   	    dataType: "json",
+		   	    success: function(data) {
+		   	    	if(data.state){
+		   	    		$(".goods-detail").html("");
+		   	    		$.each(data.goodsMsg, function(i, goodsList) {   
+		   	    			$(".goods-detail").append( 
+		   	    				'<div class="goods-show">'+
+   			          	  	    '<input type="hidden" value="'+goodsList.id+'">'+
+   					            '<img src="<%=basePath%>'+goodsList.url+'">'+
+								'<p class="p5">'+goodsList.name+'</p>'+
+								'<p class="mb5 fc-c8161d">'+goodsList.lowprice+'</p>'+
+								'</div>'
+		    				);
+	   		  			});
+		   			}else{
+		   			    alert("网络故障，稍后重试");
+		   			}
+		   	    }
+	        })
+	    }
     </script>
 </body>
 </html>

@@ -24,5 +24,13 @@ public interface GoodsService {
 	public List<Goods> getGoodsByBrandId(String brandId);
 	
 	public Goods getGoodsId(Integer goodsId);
+
+	public List<Goods> getGoods();
+
+	/**
+	 * 通过商品类型查找商品
+	 * @param String typeId
+	 * */
+	public List<Goods> getGoodsByCondition(String flag, String keyword, String typeId);
 	
 }

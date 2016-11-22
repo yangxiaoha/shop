@@ -18,5 +18,4 @@
  		<typeAlias type="com.zpt.shop.main.entities.ProVal" alias="proVal"/> 	
  		<typeAlias type="com.zpt.shop.common.pojo.Query" alias="query"/>
  	</typeAliases>
-
 </configuration>

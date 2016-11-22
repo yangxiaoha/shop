@@ -22,5 +22,16 @@ public class GoodsTypeServiceImpl implements GoodsTypeService {
 			pid = 0;
 		}
 		return goodsTypeMapper.selectTypeTree(pid);
+	}
+
+	@Override
+	public List<GoodsType> getGoodsType() {
+		// TODO Auto-generated method stub
+		List<GoodsType> list = goodsTypeMapper.getGoodsType();
+		if(list != null && list.size() > 0) {
+			return list;	
+		}else {
+			return null;
+		}
 	}	
 }
