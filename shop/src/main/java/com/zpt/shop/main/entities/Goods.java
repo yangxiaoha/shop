@@ -1,5 +1,6 @@
 package com.zpt.shop.main.entities;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class Goods {
@@ -175,5 +176,49 @@ public class Goods {
 	public void setTop(long top) {
 		this.top = top;
 	}	
+	
+	//商品购买人数
+	private Long num;
+	
+	//商品的最低价格
+	private BigDecimal lowprice;
+	
+	//商品的最高价格
+	private BigDecimal highprice;
+	
+	//商品图片路径
+	private String url;
+	
+	public Long getNum() {
+		return num;
+	}
+
+	public void setNum(Long num) {
+		this.num = num;
+	}
+
+	public BigDecimal getLowprice() {
+		return lowprice;
+	}
+
+	public void setLowprice(BigDecimal lowprice) {
+		this.lowprice = lowprice;
+	}
+
+	public BigDecimal getHighprice() {
+		return highprice;
+	}
+
+	public void setHighprice(BigDecimal highprice) {
+		this.highprice = highprice;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	
 }

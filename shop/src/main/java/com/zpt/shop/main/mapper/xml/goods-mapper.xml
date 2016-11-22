@@ -18,6 +18,9 @@
 		<result property="brandName" column="brandName" />						
 		<result property="top" column="top" />	
 		<result property="ids" column="ids" />	
+		<result property="num" column="num" />
+		<result property="lowprice" column="lowprice" />
+		<result property="url" column="url" />
 		<collection property="pros" column="pros" ofType="Pro">    
             <id property="proId" column="proId" />
             <result property="proname" column="proname" />
@@ -115,4 +118,44 @@
 	<update id="stickGoods" parameterType="goods">
 		update t_goods set top = #{top} where id = #{id}
 	</update>
+	
+	<select id="getGoods" resultMap="resultMap">
+		select * from t_goods left join
+		(select sku.goodsid, sku.price as lowprice, image.url from
+		(select * from t_goods_sku as t where exists(
+		select 1 from t_goods_sku where t.goodsid=goodsid
+		group by goodsid
+		having min(price)=t.price
+		)) as sku left join t_goods_image as image 
+		on sku.id = image.skuid) as g 
+		on t_goods.id = g.goodsid
+	</select>
+	
+	<select id="getGoodsByCondition" resultMap="resultMap">
+		select * from t_goods left join
+		(select sku.goodsid, sku.price as lowprice, image.url from
+		(select * from t_goods_sku as t where exists(
+		select 1 from t_goods_sku where t.goodsid=goodsid
+		group by goodsid
+		having min(price)=t.price
+		)) as sku left join t_goods_image as image 
+		on sku.id = image.skuid) as g 
+		on t_goods.id = g.goodsid 
+		<if test="flag == 1">
+			ORDER BY t_goods.id DESC
+		</if>
+		<if test="flag == 2">
+			ORDER BY t_goods.num DESC
+		</if>
+		<if test="flag == 3">
+			where t_goods.quantity &gt; 0
+		</if>
+		<if test="keyword != null and keyword != ''">
+			where t_goods.name like CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="typeId != null and typeId != ''">
+			where t_goods.typeid = #{typeId}
+		</if>
+	</select>
+	
 </mapper>

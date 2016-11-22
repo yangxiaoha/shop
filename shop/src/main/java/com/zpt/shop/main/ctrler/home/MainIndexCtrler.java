@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,25 +53,15 @@ public class MainIndexCtrler {
 		return mv;
 	}
 	
-	@RequestMapping(value="/goodsAttr", method=RequestMethod.POST)
-	public ModelAndView goodsAttr(String flag) {
-		ModelAndView mv = new ModelAndView("home/index");
-		//商品类型数据
-		List<GoodsType> goodsTypeList = goodsTypeService.getGoodsType();
-		//商品数据
-		List<Goods> goodsList = goodsService.getGoods();
-		mv.addObject("goodsTypeMsg", goodsTypeList);
-		mv.addObject("goodsMsg", goodsList);
-		return mv;
-	}
-	
-	@RequestMapping(value="/goodsType", method=RequestMethod.GET)
-	public Map<String,Object> goodsType(String typeId) {
+	@ResponseBody
+	@RequestMapping(value="/selectGoods", method=RequestMethod.POST)
+	public Map<String,Object> selectGoods(String flag, String keyword, String typeId) {
 		Map<String,Object> map = new HashMap<String, Object>();
-		//根据商品类型查找商品数据
-		List<Goods> goodsList = goodsService.getGoodsByType(typeId);
+		//根据商品类型查询商品数据
+		List<Goods> goodsList = goodsService.getGoodsByCondition(flag, keyword, typeId);
 		map.put("state", true);
 		map.put("goodsMsg", goodsList);
 		return map;
 	}
+
 }

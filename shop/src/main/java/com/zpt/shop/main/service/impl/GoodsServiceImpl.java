@@ -95,8 +95,28 @@ public class GoodsServiceImpl implements GoodsService {
 	public Goods getGoodsId(Integer goodsId) {
 		// TODO Auto-generated method stub
 		Goods goods = goodsMapper.getGoodsId(goodsId);		
-		return goods;		
-		
+		return goods;				
+	}
+
+	@Override
+	public List<Goods> getGoods() {
+		List<Goods> list = goodsMapper.getGoods();
+		if(list != null && list.size() > 0){
+			return list;
+		}else{
+			return null;			
+		}
+	}
+
+	@Override
+	public List<Goods> getGoodsByCondition(String flag, String keyword, String typeId) {
+		// TODO Auto-generated method stub
+		List<Goods> list = goodsMapper.getGoodsByCondition(flag, keyword, typeId);
+		if(list != null && list.size() > 0){
+			return list;
+		}else{
+			return null;			
+		}
 	}
 
 }
