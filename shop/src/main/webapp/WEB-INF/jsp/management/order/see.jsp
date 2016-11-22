@@ -15,15 +15,14 @@
 				<form action="see" id="see" method="post">
 					<fieldset>
 						<div class="row">
-							<input type="hidden" id="eid" name="id" >
-							<div class="col-md-12">
+							<div class="row">
 								<div class="form-group">
 									<label for="name">商品名称</label><input
 										class="form-control" placeholder="请输入品牌名称" id="" name=""
 										type="text">
 								</div>								
 							</div>
-							<div class="col-md-12">
+							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="name">商品编码</label><input
@@ -39,7 +38,7 @@
 									</div>
 								</div>	
 							</div>
-							<div class="col-md-12">
+							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="name">商品品牌</label><input
@@ -55,7 +54,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-12">
+							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="name">商品数量</label><input
@@ -75,7 +74,7 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-primary" id="seesubmit" type="button">修改订单</button>
+				<button class="btn btn-primary" id="seesubmit" type="button">确定</button>
 				<button class="btn btn-default-outline" data-dismiss="modal"
 					type="button">取消</button>
 			</div>

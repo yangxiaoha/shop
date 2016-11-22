@@ -1,4 +1,7 @@
 package com.zpt.shop.main.ctrler.management;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,10 +65,10 @@ public class SkuCtrler {
 	
 	@ResponseBody
 	@RequestMapping(value = "/add",method = RequestMethod.POST)
-	public Msg add(Sku sku,ProVal proVal){
+	public Msg add(Sku sku,	Integer[] proId,String[] value){
 		Msg msg = new Msg();
 		try {			
-			skuService.insertSku(sku,proVal);
+			skuService.insertSku(sku,proId,value);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.ADD_GOODS_NAME);
 			return msg;

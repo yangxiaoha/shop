@@ -4,12 +4,11 @@ import java.util.List;
 
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
-import com.zpt.shop.main.entities.ProVal;
 import com.zpt.shop.main.entities.Sku;
 
 public interface SkuService {
 	
-	public void insertSku(Sku sku,ProVal proVal);
+	public void insertSku(Sku sku,Integer[] proId,String[] value);
 	
 	public void deleteSku(String ids);
 	

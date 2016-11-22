@@ -11,7 +11,7 @@ public class Sku {
 	public Integer goodsId;
 	
 	public String code;
-
+	
 	public Integer getId() {
 		return id;
 	}

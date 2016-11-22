@@ -57,7 +57,7 @@
 		<include refid="validateCondition"/>
 	</select>
 		
-	<insert id="insertSku" parameterType="sku">
+	<insert id="insertSku" parameterType="sku" useGeneratedKeys="true" keyProperty="id">
 		insert into t_goods_sku(num,price,code,goodsId) values(#{num},#{price},#{code},#{goodsId})
 	</insert>
 	

@@ -5,9 +5,11 @@
 
 	<!-- ********** ResultMap ********** -->
 	
-	<insert id="insertSku" parameterType="proVal" useGeneratedKeys="true"
-		keyProperty="id">
-		insert into t_goods_pro_val (proId,skuId,value)	values (#{proId},#{skuId},#{value})
+	<insert id="insertProVal"  parameterType="java.util.List">
+		insert into t_goods_pro_val (proId,skuId,value)	values 
+		<foreach collection="list" item="item" index="index" separator=",">
+            (#{item.proId,jdbcType=INTEGER}, #{item.skuId,jdbcType=INTEGER},#{item.value,jdbcType=VARCHAR})
+        </foreach>
 	</insert>
 
 </mapper>

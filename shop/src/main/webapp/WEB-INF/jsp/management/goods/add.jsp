@@ -19,8 +19,7 @@
 			<div class="modal-body">
 				<form action="add" id="add" method="post">
 					<fieldset>
-						<div class="col-lg-12">
-						<input type="hidden" id="aid" name="id" >
+						<div class="col-lg-12">						
 							<div class="col-lg-3">
 								<table border=0 height=200px align=left>
 									<tr>

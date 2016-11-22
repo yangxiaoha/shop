@@ -14,30 +14,41 @@
 			<div class="modal-body">
 				<form action="add" id="add" method="post">
 					<fieldset>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="num">商品数量</label><input class="form-control"
-										placeholder="请输入商品数量" id="anum" name="num" type="text">
+						<div class="row">							
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="num">商品数量</label><input class="form-control"
+											placeholder="请输入商品数量" id="anum" name="num" type="text">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="price">商品价格</label><input class="form-control"
+											placeholder="请输入商品价格" id="aprice" name="price" type="text">
+									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="price">商品价格</label><input class="form-control"
-										placeholder="请输入商品价格" id="aprice" name="price" type="text">
-								</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="code">特征量编码</label><input class="form-control"
+											placeholder="请输入特征量编码" id="acode" name="code" type="text">
+										<input type = "hidden"	id="" name="goodsId" 
+											value = "${goodsM.id }" type="text">										
+									</div>
+								</div>								
 							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="code">特征量编码</label><input class="form-control"
-										placeholder="请输入特征量编码" id="acode" name="code" type="text">
+							<div class="row">								
+								<c:forEach items="${goodsM.pros}" var="p"  varStatus="status">									
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="proId">${p.proname }</label><input class="form-control"
+											placeholder="请输入${p.proname }" id="avalue" name="value" type="text">
+											<input type = "hidden"	id="" name="proId" value = "${p.proId }" type="text">
+									</div>
 								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type = "hidden"	id="" name="goodsId" 
-										value = "${goodsM.id }" type="text">
-								</div>
+								</c:forEach>
 							</div>
 						</div>
 					</fieldset>
