@@ -17,8 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zpt.shop.main.entities.Goods;
 import com.zpt.shop.main.entities.GoodsType;
+import com.zpt.shop.main.entities.ProVal;
 import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.GoodsTypeService;
+import com.zpt.shop.main.service.ProService;
+import com.zpt.shop.main.service.ProValService;
 
 /**
  * 功能说明:
@@ -37,6 +40,9 @@ public class MainIndexCtrler {
 	
 	@Autowired
 	private GoodsService goodsService;
+	
+	@Autowired
+	private ProValService proValService;
 	
 	@Autowired
 	private GoodsTypeService goodsTypeService;
@@ -62,6 +68,18 @@ public class MainIndexCtrler {
 		map.put("state", true);
 		map.put("goodsMsg", goodsList);
 		return map;
+	}
+	
+	@RequestMapping(value="/goodsDetail/{typeId}/{goodsId}", method=RequestMethod.GET)
+	public ModelAndView goodsDetail(@PathVariable("typeId") Integer typeId, @PathVariable("goodsId") Integer goodsId) {
+		ModelAndView mv = new ModelAndView("home/goods-detail");
+		//商品数据
+		Goods goodsList = goodsService.getGoodsById(goodsId);
+		//商品属性
+		List<ProVal> proList = proValService.getProByTypeId(typeId);
+		mv.addObject("goodsMsg", goodsList);
+		mv.addObject("proMsg", proList);
+		return mv;
 	}
 
 }

@@ -28,9 +28,17 @@ public interface GoodsService {
 	public List<Goods> getGoods();
 
 	/**
-	 * 通过商品类型查找商品
-	 * @param String typeId
+	 * 通过查询条件查找商品
+	 * @param String flag （最新、人气、现货）
+	 * @param String keyword （关键字）
+	 * @param String typeId （类型id）
 	 * */
 	public List<Goods> getGoodsByCondition(String flag, String keyword, String typeId);
+	
+	/**
+	 * 通过商品id查找商品
+	 * @param Integer goodsId
+	 * */
+	public Goods getGoodsById(Integer goodsId);
 	
 }

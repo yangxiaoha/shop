@@ -181,7 +181,7 @@ public class Goods {
 	private Long num;
 	
 	//商品的最低价格
-	private BigDecimal lowprice;
+	private BigDecimal price;
 	
 	//商品的最高价格
 	private BigDecimal highprice;
@@ -197,12 +197,12 @@ public class Goods {
 		this.num = num;
 	}
 
-	public BigDecimal getLowprice() {
-		return lowprice;
+	public BigDecimal getPrice() {
+		return price;
 	}
 
-	public void setLowprice(BigDecimal lowprice) {
-		this.lowprice = lowprice;
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
 	public BigDecimal getHighprice() {

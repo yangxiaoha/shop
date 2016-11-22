@@ -3,13 +3,28 @@
 
 <mapper namespace="com.zpt.shop.main.mapper.ProValMapper">
 
-	<!-- ********** ResultMap ********** -->
+	<!-- ********** ResultMap ********** -->	
+	<resultMap type="proVal" id="resultMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />		
+		<result property="proId" column="proId" />	
+		<result property="skuId" column="skuId" />	
+		<result property="value" column="value" />									
+	</resultMap>
 	
-	<insert id="insertProVal"  parameterType="java.util.List">
+	<insert id="insertProVal" parameterType="java.util.List">
 		insert into t_goods_pro_val (proId,skuId,value)	values 
 		<foreach collection="list" item="item" index="index" separator=",">
             (#{item.proId,jdbcType=INTEGER}, #{item.skuId,jdbcType=INTEGER},#{item.value,jdbcType=VARCHAR})
         </foreach>
 	</insert>
+	
+	<select id="getProByTypeId" resultMap="resultMap" parameterType="java.lang.Integer">
+		select * from 
+		(select pro.*, pro_val.skuid, group_concat(pro_val.value) as value from t_goods_pro as pro
+		left join t_goods_pro_val as pro_val 
+		on pro.id = pro_val.proid 
+		group by pro_val.proid) as t where t.typeid = #{typeId}
+	</select>
 
 </mapper>

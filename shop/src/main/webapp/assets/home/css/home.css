@@ -3,6 +3,7 @@ body, ul, p, h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 	padding: 0;
 	color: #231815;
+	font-size: 12px;
 	list-style: none;
 }
 body {
@@ -33,6 +34,14 @@ a, a:link, a:visited, a:hover, a:active {
 	padding-left: 5px;
 	padding-right: 5px;
 }
+.ph10 {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.pv3 {
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
 .pv5 {
 	padding-top: 5px;
 	padding-bottom: 5px;
@@ -56,6 +65,10 @@ a, a:link, a:visited, a:hover, a:active {
 .mb80 {
 	margin-bottom: 80px;
 }
+.mh5 {
+	margin-left: 5px;
+	margin-right: 5px;
+}
 .fc-000 {
 	color: #000 !important;
 }
@@ -76,6 +89,9 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .ta-center {
 	text-align: center;
+}
+.bc-fff {
+	background-color: #fff !important;
 }
 .bc-c8161d {
 	background-color: #c8161d;
@@ -202,7 +218,7 @@ a, a:link, a:visited, a:hover, a:active {
 .goods-detail .goods-show:nth-child(odd) {
 	margin-right: 2%;
 }
-.goods-detail .goods-show > img {
+.goods-detail .goods-show img {
 	width: 100%;
 }
 .tab-bar {
@@ -365,7 +381,8 @@ a, a:link, a:visited, a:hover, a:active {
     background-position: -15px -95px;  
     background-repeat: no-repeat;    
 }
-.order-detail {
+.order-detail,
+.agent-detail {
 	margin-top: 40px;
 	margin-bottom: 80px;
 }
@@ -593,6 +610,25 @@ a, a:link, a:visited, a:hover, a:active {
 	border-radius: 5px;
 	background-color: #f6f5f5;
 }
+.goods-purchase-num {
+	padding: 10px;
+	height: 50px;
+	line-height: 30px;
+	border-top: 1px solid #C7C3C5;
+}
+.goods-purchase-num span {
+	display: inline-block;
+    width: 30px;
+    height: 30px; 
+    text-align: center;
+    background-color: #f6f5f5;
+}
+.goods-purchase-num span:first-child {
+	border-radius: 5px 0px 0px 5px;
+}
+.goods-purchase-num span:last-child {
+	border-radius: 0px 5px 5px 0px;
+}
 .goods-purchase .purchase {
 	display: block;
 	padding: 5px;
@@ -618,3 +654,116 @@ a, a:link, a:visited, a:hover, a:active {
     background-color: #595757;    
 }
 /************************goods-detail结束************************/
+
+/************************member-center开始************************/
+.user-info {
+	position: relative;
+	width: 100%;
+	height: 140px;
+	padding: 10px 30px 10px 140px;
+	color: #fff;
+	background-color: #c8161d;
+}
+.user-info > img {
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	width: 110px;
+	height: 110px;
+	border-radius: 90px;
+	border: 5px solid #CD3026;
+}
+.present-info > p,
+.present-info > ul {
+	font-weight: bold;
+	text-align: center;
+	background-color: #fff;
+}
+.present-info > ul > li {
+	width: 50%;
+	padding: 10px 0 5px 0;
+	border-top: 1px solid #C7C3C5;
+	border-bottom: 1px solid #C7C3C5;
+}
+.present-info > ul > li:last-child {
+	border-left: 1px solid #C7C3C5;
+}
+.present-info span {
+	display: block;
+	margin-bottom: 5px;
+}
+.user-power {
+	border-top: 1px solid #C7C3C5;
+}
+.user-power .user-power-show {
+	vertical-align: middle;
+	color: #595757;
+	border-bottom: 1px solid #C7C3C5;
+}
+.user-power .user-power-title {
+	height: 46px;
+	line-height: 26px;
+}
+.user-power .agency-all-amount {
+	height: 26px;
+	padding: 3px;
+	color: #fff;
+	line-height: 20px;
+	border-radius: 3px;
+	background-color: #e71f19;
+}
+.user-power-show .user-power-detail > li {
+	padding: 5px 10px;
+	border-bottom: 1px solid #C7C3C5;
+}
+.user-power-show .user-power-detail > li:last-child {
+	border-bottom: none;
+}
+.user-power-show .show-img {
+	display: block;
+    height: 100%;
+    text-indent: 24px;
+    background-image: url(../images/btn.png);
+    background-size: 20px 60px;
+    background-position: 0px 34px;
+    background-repeat-x: no-repeat;
+}
+.withdrawals-info .withdrawals-price {
+	height: 34px;
+	padding: 5px 3px;
+	border-radius: 5px;
+	border: 1px solid #C7C3C5;
+}
+.withdrawals-info .withdrawals-submit {
+	width: 100%;
+    padding: 5px 3px;
+    color: #595757;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #C7C3C5;
+    font-size: 2rem;
+    font-weight: 700;    
+}
+#withdrawals-info-detail {
+	width: 100%;
+	color: #595757;
+}
+#withdrawals-info-detail thead {
+	border-bottom: 1px solid #C7C3C5;
+}
+#withdrawals-info-detail th,
+#withdrawals-info-detail td {
+	padding: 5px 0;
+	width: 33.33%;
+	text-align: center;
+}
+.agent-show > img {
+	top: 10px;
+	width: 60px;
+    height: 60px;
+    border-radius: 90px;    
+}
+.agent-show > p {
+	line-height: 81px; 
+}
+/************************member-center结束************************/

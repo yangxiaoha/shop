@@ -79,10 +79,11 @@
 		<div class="goods-detail">
 			<c:forEach items="${goodsMsg}" var="goodsList">
 			    <div class="goods-show">
-			    	<input type="hidden" value="${goodsList.id}">
-					<img src="<%=basePath%>${goodsList.url}">
-					<p class="p5">${goodsList.name}</p>
-					<p class="mb5 fc-c8161d">${goodsList.lowprice}</p>
+			    	<a href="goodsDetail/${goodsList.typeId}/${goodsList.id}">
+			    		<img src="<%=basePath%>${goodsList.url}" />
+						<p class="p5">${goodsList.name}</p>
+						<p class="mb5 fc-c8161d">${goodsList.price}</p>
+			    	</a>
 				</div>
 			</c:forEach>
 		</div>
@@ -200,10 +201,11 @@
 		   	    		$.each(data.goodsMsg, function(i, goodsList) {   
 		   	    			$(".goods-detail").append( 
 		   	    				'<div class="goods-show">'+
-   			          	  	    '<input type="hidden" value="'+goodsList.id+'">'+
+   			          	  	    '<a href="goodsDetail/'+goodsList.typeId+'/'+goodsList.id+'">'+
    					            '<img src="<%=basePath%>'+goodsList.url+'">'+
 								'<p class="p5">'+goodsList.name+'</p>'+
-								'<p class="mb5 fc-c8161d">'+goodsList.lowprice+'</p>'+
+								'<p class="mb5 fc-c8161d">'+goodsList.price+'</p>'+
+								'</a>'+
 								'</div>'
 		    				);
 	   		  			});
