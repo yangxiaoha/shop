@@ -1,4 +1,3 @@
-
 package com.zpt.shop.main.ctrler.management;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import com.zpt.shop.common.pojo.Msg;
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Goods;
+import com.zpt.shop.main.entities.ProVal;
 import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.SkuService;
@@ -132,4 +132,5 @@ public class SkuCtrler {
 			return msg;
 		}
 	}
+
 }

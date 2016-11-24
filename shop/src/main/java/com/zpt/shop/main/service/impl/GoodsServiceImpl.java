@@ -1,7 +1,10 @@
 package com.zpt.shop.main.service.impl;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.aspectj.apache.bcel.generic.LOOKUPSWITCH;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -127,6 +130,17 @@ public class GoodsServiceImpl implements GoodsService {
 		}else{
 			return null;			
 		}
+	}
+
+	@Override
+	public Goods getGoodsById(Integer goodsId) {
+		// TODO Auto-generated method stub
+		Goods lowGoods = goodsMapper.getLowGoodsById(goodsId);
+		Goods highGoods = goodsMapper.getHighGoodsById(goodsId);
+		BigDecimal highPrice = new BigDecimal("0");
+		highPrice = highGoods.getPrice();
+		lowGoods.setHighprice(highPrice);
+		return lowGoods;
 	}
 
 }

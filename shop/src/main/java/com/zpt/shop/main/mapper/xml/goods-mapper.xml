@@ -19,7 +19,7 @@
 		<result property="top" column="top" />	
 		<result property="ids" column="ids" />	
 		<result property="num" column="num" />
-		<result property="lowprice" column="lowprice" />
+		<result property="price" column="price" />
 		<result property="url" column="url" />
 		<collection property="pros" column="pros" ofType="Pro">    
             <id property="id" column="proId" />
@@ -121,7 +121,7 @@
 	
 	<select id="getGoods" resultMap="resultMap">
 		select * from t_goods left join
-		(select sku.goodsid, sku.price as lowprice, image.url from
+		(select sku.goodsid, sku.price as price, image.url from
 		(select * from t_goods_sku as t where exists(
 		select 1 from t_goods_sku where t.goodsid=goodsid
 		group by goodsid
@@ -133,7 +133,7 @@
 	
 	<select id="getGoodsByCondition" resultMap="resultMap">
 		select * from t_goods left join
-		(select sku.goodsid, sku.price as lowprice, image.url from
+		(select sku.goodsid, sku.price as price, image.url from
 		(select * from t_goods_sku as t where exists(
 		select 1 from t_goods_sku where t.goodsid=goodsid
 		group by goodsid
@@ -156,6 +156,30 @@
 		<if test="typeId != null and typeId != ''">
 			where t_goods.typeid = #{typeId}
 		</if>
+	</select>
+	
+	<select id="getLowGoodsById" resultMap="resultMap">
+		select * from t_goods left join
+		(select sku.goodsid, sku.price as price, image.url from
+		(select * from t_goods_sku as t where exists(
+		select 1 from t_goods_sku where t.goodsid=goodsid
+		group by goodsid
+		having min(price)=t.price
+		)) as sku left join t_goods_image as image 
+		on sku.id = image.skuid) as g 
+		on t_goods.id = g.goodsid where t_goods.id = #{goodsId}
+	</select>
+	
+	<select id="getHighGoodsById" resultMap="resultMap">
+		select * from t_goods left join
+		(select sku.goodsid, sku.price as price, image.url from
+		(select * from t_goods_sku as t where exists(
+		select 1 from t_goods_sku where t.goodsid=goodsid
+		group by goodsid
+		having max(price)=t.price
+		)) as sku left join t_goods_image as image 
+		on sku.id = image.skuid) as g 
+		on t_goods.id = g.goodsid where t_goods.id = #{goodsId}
 	</select>
 	
 </mapper>

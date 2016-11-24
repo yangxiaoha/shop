@@ -2,11 +2,24 @@ package com.zpt.shop.main.entities;
 
 public class ProVal {
 	
+	//主键id
+	private Integer id;
+	
 	public Integer skuId;
 	
 	public Integer proId;
 	
 	public String value;
+	
+	public String name;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public Integer getSkuId() {
 		return skuId;
@@ -30,6 +43,14 @@ public class ProVal {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }
