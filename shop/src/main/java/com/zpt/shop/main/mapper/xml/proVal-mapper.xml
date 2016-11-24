@@ -11,5 +11,10 @@
             (#{item.proId,jdbcType=INTEGER}, #{item.skuId,jdbcType=INTEGER},#{item.value,jdbcType=VARCHAR})
         </foreach>
 	</insert>
-
+	<select id="">
+		select proVal.id as id,proVal.proId as proId,proVal.value as uvalue,
+		proVal.skuId as skuId from t_goods_pro_val as proVal left join t_goods_pro as pro on
+		pro.id = proId left join t_goods_sku as sku on sku.id = skuId 
+		where skuId = #{skuId} and proId = #{proId}
+	</select>
 </mapper>

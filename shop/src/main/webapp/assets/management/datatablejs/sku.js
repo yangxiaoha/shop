@@ -8,10 +8,12 @@ $(document).ready(function(){
         "columns": [
                     { "data": "id","orderable":false,"visible":false },
                     { "data": "id","orderable":false },
+                    { "data": "name" },
                     { "data": "num" },
                     { "data": "price" },                    
                     { "data": "code" }, 
                     { "data": "goodsId","orderable":false,"visible":false }, 
+                    { "data":"id","className": "actions","orderable":false },
                     { "data":"id","className": "actions","orderable":false },
                 ],
         "aoColumnDefs": [
@@ -24,7 +26,7 @@ $(document).ready(function(){
              }
            },          
            {
-               "targets": [6],
+               "targets": [7],
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
@@ -32,7 +34,16 @@ $(document).ready(function(){
                  			'<a class="table-actions updateAdd" data-rowid="'+meta.row+'" href="javascript:void(0)"><i class="icon-plus-sign-alt"></i></a>'+
                  		'</div>';
                }
-            }
+            },          
+            {
+                "targets": [8],
+                "data": "id",
+                "render": function(data, type, full,meta) {
+                  return '<div class="action-buttons">'+
+                  '<button class="btn btn-xs btn-primary see" data-rowid="'+meta.row+'" href="javascript:void(0)">商品详情</button>'+
+                  		'</div>';
+                }
+             }
         ],
         "drawCallback":function(settings){
         	$(".updateAdd").click(function(){        		
@@ -57,6 +68,6 @@ $(document).ready(function(){
         "className" : "Sku",
         "chosen" : true,
         "ids" : "#code",
-        "targets":"4"
+        "targets":"5"
 	});
 });

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zpt.shop.common.pojo.Page;
+import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.GoodsType;
 import com.zpt.shop.main.mapper.GoodsTypeMapper;
 import com.zpt.shop.main.service.GoodsTypeService;
@@ -33,5 +35,49 @@ public class GoodsTypeServiceImpl implements GoodsTypeService {
 		}else {
 			return null;
 		}
+	}
+
+	@Override
+	public Page<GoodsType> page(Query<GoodsType> query) {
+		// TODO Auto-generated method stub
+		Page<GoodsType> page = new Page<GoodsType>();
+		List<GoodsType> list = goodsTypeMapper.listGoodsType(query);
+		Integer count = goodsTypeMapper.countGoodsType(query);
+		page.setAaData(list);
+		page.setiTotalDisplayRecords(count);
+		page.setiTotalRecords(count);
+		page.setDraw(query.getDraw());		
+		return page;
+	}
+
+	@Override
+	public boolean validate(GoodsType goodstype) {
+		// TODO Auto-generated method stub
+		List<GoodsType> list = goodsTypeMapper.validate(goodstype);
+		if (list != null && list.size() > 0) {			
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	@Override
+	public void insertGoodsType(GoodsType goodstype) {
+		// TODO Auto-generated method stub
+		goodsTypeMapper.insertGoodsType(goodstype);		
+	}
+
+	@Override
+	public void deleteGoodsType(String ids) {
+		// TODO Auto-generated method stub
+		goodsTypeMapper.deleteGoodsType(ids);
+		
+	}
+
+	@Override
+	public void updateGoodsType(GoodsType goodstype) {
+		// TODO Auto-generated method stub
+		goodsTypeMapper.updateGoodsType(goodstype);
+		
 	}	
 }

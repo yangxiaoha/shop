@@ -8,9 +8,19 @@ public class Sku {
 	
 	public long price;
 	
+	public String name;	
+	
 	public Integer goodsId;
 	
 	public String code;
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	public Integer getId() {
 		return id;

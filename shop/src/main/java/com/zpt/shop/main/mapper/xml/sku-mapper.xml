@@ -6,6 +6,7 @@
 	<!-- ********** ResultMap ********** -->
 	<resultMap type="sku" id="resultMap">
 		<id property="id" column="id" />
+		<result property="name" column="name" />			
 		<result property="num" column="num" />			
 		<result property="price" column="price" />			
 		<result property="goodsId" column="goodsId" />			
@@ -40,7 +41,8 @@
 		
 	<select id="listSku" resultMap="resultMap" parameterType="query">
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
-		select sku.id as id,sku.num as num,sku.price as price,sku.code as code
+		select sku.id as id,sku.num as num,sku.price as price,sku.code as code,
+		goods.name as name
 		from t_goods_sku as sku left join t_goods as goods on sku.goodsId = goods.id		
 		<include refid="queryCondition"/>
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>

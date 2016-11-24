@@ -214,8 +214,7 @@
 	        		  }	    
 	        	  }
 	          },
-	          exp_name: {
-		        	 required:true,
+	          exp_name: {		        	
 		        	 remote: {
 		        		    url: "validate",     //后台处理程序
 		        		    type: "post",               //数据发送方式
@@ -228,7 +227,6 @@
 		        	}
 		      },
 		      code: {
-		        	 required:true,
 		        	 remote: {
 		        		    url: "validate",     //后台处理程序
 		        		    type: "post",               //数据发送方式
@@ -248,7 +246,7 @@
 		      },
 		      exp_name: {
 		        	 required:"请输入商品扩充名称",
-		        	 remote:"该名称已存在"
+		      	 	 remote:"该名称已存在"
 		      },
 		      quantity: {		    	  
 		        	 required:"请输入商品数量",		        	 

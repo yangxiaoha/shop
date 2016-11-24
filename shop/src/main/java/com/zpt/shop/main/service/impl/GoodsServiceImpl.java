@@ -44,6 +44,16 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public void updateGoods(Goods goods) {
 		// TODO Auto-generated method stub
+		StringBuffer ids = new StringBuffer();
+		if(goods.getIdstemp()!= null&&goods.getIdstemp().size()>0){			
+			for (int i = 0; i < goods.getIdstemp().size(); i++) {
+				ids.append(goods.getIdstemp().get(i));
+				if(i != goods.getIdstemp().size() -1){					
+					ids.append(",");
+				}
+			}
+		}
+		goods.setIds(ids.toString());
 		goodsMapper.updateGoods(goods);
 
 	}

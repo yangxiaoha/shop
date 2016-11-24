@@ -61,7 +61,7 @@
 	<delete id="deletePro">
 		delete from t_goods_pro where id in (${ids})	
 	</delete>
-	<update id="updatePro" parameterType="Pro">
+	<update id="updatePro" parameterType="pro">
 		update t_goods_pro set name = #{name},typeId = #{typeId} where id = #{id}
 	</update>
 </mapper>

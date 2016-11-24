@@ -11,6 +11,47 @@
 		<result property="isParent" column="isParent"/>
 	</resultMap>
 	
+	<sql id="queryCondition">
+		where 1 = 1
+		<if test="obj.name != null and obj.name != ''">
+			and type.name like CONCAT('%',#{obj.name},'%')
+		</if>
+		<if test="obj.pid != null and obj.pid != ''">
+			and type.pid like CONCAT('%',#{obj.pid},'%')
+		</if>
+		<if test="search != null and search != ''">
+			and type.name like CONCAT('%',#{search},'%')
+		</if>
+	</sql>
+	
+	<sql id="validateCondition">
+		where 1 = 1
+		<if test="id != null and id != ''">
+			and id != #{id}
+		</if>
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>
+	</sql>
+	
+	<select id="listGoodsType" resultMap="resultMap" parameterType="query">
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
+		select type.id as id,type.name as name,type.pid as pid,type.isParent as isParent 
+		from t_goods_type as type
+		<include refid="queryCondition"/>
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
+	</select>
+	
+	<select id="countGoodsType" resultType="java.lang.Integer" parameterType="query">
+		select count(type.id) from t_goods_type as type
+		<include refid="queryCondition"/>
+	</select>	
+	
+	<select id="validate" resultMap="resultMap" parameterType="pro">
+		select * from t_goods_type
+		<include refid="validateCondition"/>
+	</select>
+	
 	<select id="selectTypeTree" resultMap="resultMap">
 		select * from t_goods_type where pid = #{pid}
 	</select>
@@ -18,5 +59,16 @@
 	<select id="getGoodsType" resultMap="resultMap">
 		select * from t_goods_type
 	</select>
+	
+	<insert id="insertGoodsType" parameterType="goodstype">
+		insert into t_goods_type(name,pid,meno,isParent) values(#{name},#{pid},#{meno},#{isParent})
+	</insert>
+	<delete id="deleteGoodsType">
+		delete from t_goods_type where id in (${ids})	
+	</delete>
+	<update id="updateGoodsType" parameterType="goodstype">
+		update t_goods_type set name = #{name},pid = #{pid},meno = #{meno},isParent=#{isParent} 
+		where id = #{id}
+	</update>
 
 </mapper>

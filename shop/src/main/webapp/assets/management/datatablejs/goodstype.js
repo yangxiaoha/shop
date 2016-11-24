@@ -10,7 +10,7 @@ $(document).ready(function(){
                     { "data": "id","orderable":false},
                     { "data": "name"},                   
                     { "data":"id","className": "actions","orderable":false },
-                    { "data": "typeId","orderable":false,"visible":false },
+                    { "data": "pid","orderable":false,"visible":false },
                 ],
         "aoColumnDefs": [
            {
@@ -43,13 +43,11 @@ $(document).ready(function(){
         		var api = new $.fn.dataTable.Api( settings );
                 var obj = api.rows(rowid).data()[0];
         		$("#uid").val(obj.id);
-        		$("#uname").val(obj.name);        		
-        		$("#utypeName").val(obj.typeName);
-        		$("#utypeId").val(obj.typeId);
+        		$("#uname").val(obj.name);
         		$("#updateModal").modal("show");
         	});
         },
-        "className" : "Pro",
+        "className" : "GoodsType",
         "chosen" : true,
         "ids" : "#name",
         "targets":"2"

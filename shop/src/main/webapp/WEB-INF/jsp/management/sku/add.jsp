@@ -43,9 +43,9 @@
 								<c:forEach items="${goodsM.pros}" var="p"  varStatus="status">									
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="proId">${p.proname }</label><input class="form-control"
-											placeholder="请输入${p.proname }" id="avalue" name="value" type="text">
-											<input type = "hidden"	id="" name="proId" value = "${p.proId }" type="text">
+										<label for="proId">${p.name }</label><input class="form-control"
+											placeholder="请输入${p.name }" id="avalue" name="value" type="text">
+											<input type = "hidden"	id="" name="proId" value = "${p.id }" type="text">
 									</div>
 								</div>
 								</c:forEach>
@@ -77,7 +77,6 @@
 	        		required:true,
 	        	},
 	          code: {
-	        	 required:true,
 	        	 remote: {
 	        		    url: "validate",     //后台处理程序
 	        		    type: "post",               //数据发送方式
