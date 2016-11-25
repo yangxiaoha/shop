@@ -8,9 +8,23 @@ public class Sku {
 	
 	public long price;
 	
+	public String name;	
+	
 	public Integer goodsId;
 	
 	public String code;
+	
+	public String url;
+	
+	public String value;
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	public Integer getId() {
 		return id;
@@ -50,6 +64,22 @@ public class Sku {
 
 	public void setCode(String code) {
 		this.code = code;
-	}	
+	}
 
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}	
+	
 }

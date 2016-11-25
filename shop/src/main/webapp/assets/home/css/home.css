@@ -140,6 +140,9 @@ a, a:link, a:visited, a:hover, a:active {
 /************************iconfont结束************************/
 
 /************************index开始************************/
+#wrap {
+	width: 100%;
+}
 .index-menu .menu {
 	width: 100%;
 	height: 50px;
@@ -576,11 +579,18 @@ a, a:link, a:visited, a:hover, a:active {
 	position: fixed;
 	left: 0;
 	bottom: 0;
+	width: 100%;
 	background-color: #fff;
 	z-index: 9999;
 }
 .goods-parameter-choice .goods-parameter-show img {
     left: 10px !important;
+}
+.goods-parameter-choice .goods-parameter-show .parameter-show {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .goods-parameter-choice .shopping-car-edit {
 	top: 5px !important;
@@ -599,6 +609,14 @@ a, a:link, a:visited, a:hover, a:active {
 	height: 200px;
 	padding: 10px;
 	overflow-y: auto;
+}
+.goods-parameter-classify .clear-attr {	
+	display: block;
+    padding: 5px;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #C8171F;
+    border: none;
 }
 .goods-parameter-classify .classify-detail li {	
 	float: left;

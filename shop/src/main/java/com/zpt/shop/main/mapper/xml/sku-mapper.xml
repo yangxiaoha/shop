@@ -6,11 +6,13 @@
 	<!-- ********** ResultMap ********** -->
 	<resultMap type="sku" id="resultMap">
 		<id property="id" column="id" />
+		<result property="name" column="name" />
 		<result property="num" column="num" />			
 		<result property="price" column="price" />			
 		<result property="goodsId" column="goodsId" />			
 		<result property="code" column="code" />
-		
+		<result property="url" column="url" />	
+		<result property="value" column="value" />		
 	</resultMap>
 	
 	
@@ -40,7 +42,8 @@
 		
 	<select id="listSku" resultMap="resultMap" parameterType="query">
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
-		select sku.id as id,sku.num as num,sku.price as price,sku.code as code
+		select sku.id as id,sku.num as num,sku.price as price,sku.code as code,
+		goods.name as name
 		from t_goods_sku as sku left join t_goods as goods on sku.goodsId = goods.id		
 		<include refid="queryCondition"/>
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
@@ -67,4 +70,14 @@
 	<update id="updateStock" parameterType="sku">
 		update t_goods_sku set num = (#{num}+t_goods_sku.num) where id = #{id}
 	</update>
+	
+	<select id="getGoodsStockInfo" resultMap="resultMap">
+		select t.*, img.url from 
+		(select sku.id as id, sku.num, sku.price, sku.goodsid, val.val as value, pro.name, pro.typeid from 
+		(select *, GROUP_CONCAT(value) as val from t_goods_pro_val GROUP BY skuid) as val 
+		left join t_goods_pro as pro on val.proid = pro.id
+		left join t_goods_sku as sku on val.skuid = sku.id) as t 
+		left join t_goods_image as img
+		on t.id = img.skuid where t.goodsid = #{goodsId} and t.num  &gt; 0
+	</select>
 </mapper>

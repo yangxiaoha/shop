@@ -18,6 +18,8 @@ public interface SkuService {
 	
 	public boolean validate(Sku sku);
 	
-	public List<Sku> getSkuByGoods(String goodsId);	
+	public List<Sku> getSkuByGoods(String goodsId);
+
+	public List<Sku> getGoodsStockInfo(Integer goodsId);	
 
 }

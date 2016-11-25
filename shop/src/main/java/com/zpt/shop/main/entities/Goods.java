@@ -189,6 +189,9 @@ public class Goods {
 	//商品图片路径
 	private String url;
 	
+	//商品图片属性值
+	private String value;
+	
 	public Long getNum() {
 		return num;
 	}
@@ -220,5 +223,13 @@ public class Goods {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
 }
