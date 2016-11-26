@@ -20,8 +20,7 @@
 		<result property="ids" column="ids" />	
 		<result property="num" column="num" />
 		<result property="price" column="price" />
-		<result property="url" column="url" />
-		<result property="value" column="value" />
+		<result property="url" column="url" />		
 		<collection property="pros" column="pros" ofType="Pro">    
             <id property="id" column="proId" />
             <result property="name" column="proname" />
@@ -181,16 +180,6 @@
 		)) as sku left join t_goods_image as image 
 		on sku.id = image.skuid) as g 
 		on t_goods.id = g.goodsid where t_goods.id = #{goodsId}
-	</select>
-	
-	<select id="getGoodsStockInfo" resultMap="resultMap">
-		select *,GROUP_CONCAT(t1.val) AS VALUE FROM t_goods AS goods 
-		LEFT JOIN (SELECT t.*, img.url FROM 
-		(select sku.id AS skuid, sku.num, sku.price, sku.goodsid, val.value AS val, pro.name, pro.typeid FROM t_goods_pro_val AS val 
-		LEFT JOIN t_goods_pro AS pro ON val.proid = pro.id
-		LEFT JOIN t_goods_sku AS sku ON val.skuid = sku.id) AS t 
-		LEFT JOIN t_goods_image AS img ON t.skuid = img.skuid) AS t1
-		ON goods.id = t1.goodsid where id = #{goodsId} and t1.num &gt; 0 GROUP BY t1.skuid
 	</select>
 	
 </mapper>

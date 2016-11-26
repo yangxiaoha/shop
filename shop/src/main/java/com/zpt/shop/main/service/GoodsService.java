@@ -40,11 +40,5 @@ public interface GoodsService {
 	 * @param Integer goodsId
 	 * */
 	public Goods getGoodsById(Integer goodsId);
-
-	/**
-	 * 获取库存大于0的商品
-	 * @param Integer goodsId
-	 * */
-	public List<Goods> getGoodsStockInfo(Integer goodsId);
 	
 }

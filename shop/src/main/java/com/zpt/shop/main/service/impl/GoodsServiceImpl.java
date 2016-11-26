@@ -1,10 +1,8 @@
 package com.zpt.shop.main.service.impl;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.aspectj.apache.bcel.generic.LOOKUPSWITCH;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -141,17 +139,6 @@ public class GoodsServiceImpl implements GoodsService {
 		highPrice = highGoods.getPrice();
 		lowGoods.setHighprice(highPrice);
 		return lowGoods;
-	}
-
-	@Override
-	public List<Goods> getGoodsStockInfo(Integer goodsId) {
-		// TODO Auto-generated method stub
-		List<Goods> list = goodsMapper.getGoodsStockInfo(goodsId);
-		if(list != null && list.size() > 0){
-			return list;
-		}else{
-			return null;			
-		}
 	}
 
 }

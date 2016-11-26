@@ -95,7 +95,6 @@ public class MainIndexCtrler {
 	public Map<String,Object> getGoodsInfo(@PathVariable("goodsId") Integer goodsId) {
 		Map<String,Object> map = new HashMap<String, Object>();
 		//商品属性
-		//List<Goods> goodsList = goodsService.getGoodsStockInfo(goodsId);
 		List<Sku> goodsList = skuService.getGoodsStockInfo(goodsId);
 		map.put("state", true);
 		map.put("goodsMsg", goodsList);

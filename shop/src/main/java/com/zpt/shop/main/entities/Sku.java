@@ -13,11 +13,7 @@ public class Sku {
 	public Integer goodsId;
 	
 	public String code;
-	
-	public String url;
-	
-	public String value;
-	
+
 	public String getName() {
 		return name;
 	}
@@ -65,6 +61,10 @@ public class Sku {
 	public void setCode(String code) {
 		this.code = code;
 	}
+	
+	public String url;
+	
+	public String value;
 
 	public String getUrl() {
 		return url;
