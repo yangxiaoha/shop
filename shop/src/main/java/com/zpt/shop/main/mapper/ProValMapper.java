@@ -9,6 +9,8 @@ import com.zpt.shop.main.entities.ProVal;
 public interface ProValMapper {
 	
 	public void insertProVal(List<ProVal> list);
+	
+	public void updateProVal(ProVal proVal);
 
 	public List<ProVal> getProByTypeId(@Param("typeId")Integer typeId);
 

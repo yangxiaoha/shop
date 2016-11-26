@@ -11,6 +11,8 @@
 		<result property="price" column="price" />			
 		<result property="goodsId" column="goodsId" />			
 		<result property="code" column="code" />
+		<result property="value" column="value" />
+		<result property="ids" column="ids" />
 		
 	</resultMap>
 	
@@ -24,7 +26,10 @@
 			and sku.goodsId like CONCAT('%',#{obj.goodsId},'%')			
 		</if>
 		<if test="search != null and search != ''">
-			and sku.code like CONCAT('%',#{search},'%'))
+			and (sku.code like CONCAT('%',#{search},'%') or
+				sku.num like CONCAT('%',#{search},'%') or
+				sku.price like CONCAT('%',#{search},'%') or
+				goods.name like CONCAT('%',#{search},'%'))
 		</if>					
 	</sql>
 	
@@ -42,8 +47,10 @@
 	<select id="listSku" resultMap="resultMap" parameterType="query">
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
 		select sku.id as id,sku.num as num,sku.price as price,sku.code as code,
-		goods.name as name
-		from t_goods_sku as sku left join t_goods as goods on sku.goodsId = goods.id		
+		goods.name as name,t.ids as ids,t.value as value
+		from t_goods_sku as sku left join t_goods as goods on sku.goodsId = goods.id left join 
+		(select pro_val.skuId,group_concat(pro_val.value SEPARATOR '|#$%|') as value,group_concat(pro_val.id) as ids 
+		from t_goods_pro_val as pro_val group by pro_val.skuId) as t on t.skuid = sku.id
 		<include refid="queryCondition"/>
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>

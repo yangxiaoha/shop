@@ -49,10 +49,17 @@ public class SkuServiceImpl implements SkuService{
 	}
 
 	@Override
-	public void updateSku(Sku sku) {
+	public void updateSku(Sku sku,Integer[] proId,String[] value) {
 		// TODO Auto-generated method stub
 		skuMapper.updateSku(sku);
-		
+		for (int i = 0; i < value.length; i++) {
+			ProVal proVal = new ProVal();
+			proVal.setProId(proId[i]);
+			proVal.setSkuId(sku.getId());
+			proVal.setValue(value[i]);
+			proVal.setId(Integer.valueOf(sku.getIds().split(",")[i]).intValue());
+			proValMapper.updateProVal(proVal);
+		}			
 	}
 
 	@Override

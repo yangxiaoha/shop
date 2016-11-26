@@ -1,0 +1,73 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<div class="modal fade" id="seeModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button aria-hidden="true" class="close" data-dismiss="modal"
+					type="button">&times;</button>
+				<h4 class="modal-title">订单详情
+				<span class="loading" style=""></span>
+				</h4>
+			</div>
+			<div class="modal-body">
+				<form action="see" id="see" method="post">
+					<fieldset>
+						<div class="row">
+							<div class="row">
+								<div class="col-lg-6">
+									<p>商品名称：${goodsM.name }</p>
+									<p>商品编码：${goodsM.code }</p>									
+								</div>
+								<div class="col-lg-6">
+									<p>商品品牌：${goodsM.brandName }</p>
+									<p>描述信息：${goodsM.content }</p>
+								</div>										
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<span>商品数量：</span>
+									<input class="form-control" id="snum" name="" type="text" 
+									readonly = "readonly">								
+								</div>			
+								<div class="col-md-4">
+									<span>商品价格：</span>
+									<input class="form-control" id="sprice" name="" type="text"
+									readonly = "readonly">									
+								</div>
+								<div class="col-md-4">
+									<span>特征量编码：</span>
+									<input class="form-control" id="scode" name="" type="text"
+									readonly = "readonly">									
+								</div>									
+							</div>							
+							<c:forEach items="${goodsM.pros}" var="p" varStatus="status">
+							<c:if test="${status.index%3 == 0}">
+								<div class="row">
+							</c:if>
+							<div class="col-md-4">
+								<div class="form-group">
+									<span>${p.name }:</span><input
+										class="form-control" placeholder="请输入${p.name }"
+										id="s${status.index}" required="required" name=""
+										type="text" readonly = "readonly"> 
+								</div>
+							</div>
+							<c:if test="${status.index%3 == 2}">
+								</div>
+							</c:if>
+							</c:forEach>							
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" data-dismiss="modal"
+					type="button">确定</button>
+				<button class="btn btn-default-outline" data-dismiss="modal"
+					type="button">取消</button>
+			</div>
+		</div>
+	</div>
+</div>

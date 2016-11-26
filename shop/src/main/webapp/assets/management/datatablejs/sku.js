@@ -12,6 +12,7 @@ $(document).ready(function(){
                     { "data": "num" },
                     { "data": "price" },                    
                     { "data": "code" }, 
+                    { "data": "value","orderable":false,"visible":false  }, 
                     { "data": "goodsId","orderable":false,"visible":false }, 
                     { "data":"id","className": "actions","orderable":false },
                     { "data":"id","className": "actions","orderable":false },
@@ -26,7 +27,7 @@ $(document).ready(function(){
              }
            },          
            {
-               "targets": [7],
+               "targets": [8],
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
@@ -36,7 +37,7 @@ $(document).ready(function(){
                }
             },          
             {
-                "targets": [8],
+                "targets": [9],
                 "data": "id",
                 "render": function(data, type, full,meta) {
                   return '<div class="action-buttons">'+
@@ -55,6 +56,25 @@ $(document).ready(function(){
         		$("#updateAddModal").modal('show');
         	});
         	
+        	$(".see").click(function(){        		
+        		var rowid = $(this).data("rowid");
+        		var api = new $.fn.dataTable.Api( settings );
+                var obj = api.rows(rowid).data()[0];
+        		$("#sid").val(obj.id);
+        		$("#snum").val(obj.num);
+        		$("#sprice").val(obj.price); 
+        		$("#scode").val(obj.code);
+        		$("#svalue").val(obj.value);
+        		if(obj.ids != null && obj.ids != ""){        			
+        			var str = obj.value.split("|#$%|");
+        			for(var i=0;i<str.length;i++){
+        				var valueId = "#s"+i;
+        				$(valueId).val(str[i]);        				
+        			}
+        		}
+        		$("#seeModal").modal('show');
+        	});
+        	
         	$(".update").click(function(){
         		var rowid = $(this).data("rowid");
         		var api = new $.fn.dataTable.Api( settings );
@@ -62,6 +82,18 @@ $(document).ready(function(){
         		$("#uid").val(obj.id);        		
         		$("#uprice").val(obj.price);        		
         		$("#ucode").val(obj.code);
+        		$("#uvalue").val(obj.value);
+        		$("#uids").val(obj.ids);
+        		if(obj.ids != null && obj.ids != ""){        			
+        			var str = obj.value.split("|#$%|");
+        			var proIds = obj.ids.split(",");
+        			for(var i=0;i<str.length;i++){
+        				var valueId = "#a"+i;
+        				var idsId = "#b"+i;
+        				$(valueId).val(str[i]);
+        				$(idsId).val(proIds[i]);
+        			}
+        		}
         		$("#updateModal").modal("show");
         	});
         },

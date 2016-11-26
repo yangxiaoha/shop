@@ -12,7 +12,7 @@ public interface SkuService {
 	
 	public void deleteSku(String ids);
 	
-	public void updateSku(Sku sku);
+	public void updateSku(Sku sku,Integer[] proId,String[] value);
 	
 	public Page<Sku> page(Query<Sku> query);
 	

@@ -14,6 +14,26 @@ public class Sku {
 	
 	public String code;
 	
+	public String ids;
+	
+	public String value;
+	
+	public String getIds() {
+		return ids;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
 	public String getName() {
 		return name;
 	}

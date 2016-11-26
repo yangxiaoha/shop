@@ -1,3 +1,4 @@
+
 package com.zpt.shop.main.ctrler.management;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import com.zpt.shop.common.pojo.Msg;
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Goods;
-import com.zpt.shop.main.entities.ProVal;
 import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.SkuService;
@@ -45,7 +45,7 @@ public class SkuCtrler {
 	public Page<Sku> listDate(Query<Sku> query,Integer goodsId){
 		query.getObj().setGoodsId(goodsId);
 		Page<Sku> page = skuService.page(query);
-		return page;		
+		return page;
 	}
 	
 	@ResponseBody
@@ -117,10 +117,10 @@ public class SkuCtrler {
 	
 	@ResponseBody
 	@RequestMapping(value = "/update",method = RequestMethod.POST)
-	public Msg update(Sku sku){
+	public Msg update(Sku sku,	Integer[] proId,String[] value){
 		Msg msg = new Msg();
 		try {
-			skuService.updateSku(sku);
+			skuService.updateSku(sku,proId,value);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
 			return msg;
@@ -132,5 +132,4 @@ public class SkuCtrler {
 			return msg;
 		}
 	}
-
 }

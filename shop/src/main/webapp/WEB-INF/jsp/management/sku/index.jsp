@@ -68,6 +68,7 @@
 									<th></th>
 									<th></th>
 									<th></th>
+									<th></th>
 								</thead>
 								<tbody>
 								</tbody>
@@ -81,5 +82,6 @@
 	<jsp:include page="update.jsp" />
 	<jsp:include page="add.jsp" />
 	<jsp:include page="updateAdd.jsp" />
+	<jsp:include page="see.jsp" />
 </body>
 </html>
