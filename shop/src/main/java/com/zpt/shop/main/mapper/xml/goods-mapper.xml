@@ -113,7 +113,7 @@
 	<update id="updateGoods" parameterType="goods">
 		update t_goods set name = #{name},exp_name = #{exp_name},quantity = #{quantity},
 		content = #{content},code = #{code},brandId = #{brandId},store = #{store},
-		typeId = #{typeId} ids = #{ids} where id = #{id}
+		typeId = #{typeId},ids = #{ids} where id = #{id}
 	</update>
 	<update id="stickGoods" parameterType="goods">
 		update t_goods set top = #{top} where id = #{id}

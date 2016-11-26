@@ -15,19 +15,33 @@
 				<form action="update" id="update" method="post">
 					<fieldset>
 						<div class="row">
-						<input type="hidden" id="uid" name="id" >							
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="price">商品价格</label><input class="form-control"
-										placeholder="请输入商品价格" id="uprice" name="price" type="text">
+						<input type="hidden" id="uid" name="id" >
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="price">商品价格</label><input class="form-control"
+											placeholder="请输入商品价格" id="uprice" name="price" type="text">
+									</div>
+								</div>														
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="code">特征量编码</label><input class="form-control"
+											placeholder="请输入特征量编码" id="ucode" name="code" type="text">
+									</div>
 								</div>
-							</div>														
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="code">特征量编码</label><input class="form-control"
-										placeholder="请输入特征量编码" id="ucode" name="code" type="text">
+							</div>							
+							<div class="row">								
+								<c:forEach items="${goodsM.pros}" var="p"  varStatus="status">									
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="proId">${p.name }</label><input class="form-control"
+											placeholder="请输入${p.name }" id="avalue" name="value" type="text">
+											<input type = "hidden"	id="" name="proId" value = "${p.id }" type="text">
+									</div>
 								</div>
+								</c:forEach>
 							</div>
+							
 							<div class="col-md-6">
 								<div class="form-group">
 									<input type = "hidden"	id="" name="goodsId" 

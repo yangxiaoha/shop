@@ -227,7 +227,6 @@
         		  }
        	   	},
          	exp_name: {
-	        	 required:true,
 	        	 remote: {
 	        		    url: "validate",     //后台处理程序
 	        		    type: "post",               //数据发送方式
@@ -243,7 +242,6 @@
 	        	}
 	      },
 	      code: {
-	        	 required:true,
 	        	 remote: {
 	        		    url: "validate",     //后台处理程序
 	        		    type: "post",               //数据发送方式

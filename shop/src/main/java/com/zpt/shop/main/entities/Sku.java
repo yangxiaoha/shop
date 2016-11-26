@@ -13,7 +13,7 @@ public class Sku {
 	public Integer goodsId;
 	
 	public String code;
-
+	
 	public String getName() {
 		return name;
 	}
@@ -60,7 +60,7 @@ public class Sku {
 
 	public void setCode(String code) {
 		this.code = code;
-	}
+	}	
 	
 	public String url;
 	
@@ -80,6 +80,6 @@ public class Sku {
 
 	public void setValue(String value) {
 		this.value = value;
-	}	
-	
+	}
+
 }
