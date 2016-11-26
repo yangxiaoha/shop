@@ -97,4 +97,15 @@ public class SkuServiceImpl implements SkuService{
 		}
 	}
 
+	@Override
+	public List<Sku> getGoodsStockInfo(Integer goodsId) {
+		// TODO Auto-generated method stub
+		List<Sku> list = skuMapper.getGoodsStockInfo(goodsId);
+		if (list != null && list.size()>0) {
+			return list;
+		} else {
+			return null;
+		}
+	}
+
 }

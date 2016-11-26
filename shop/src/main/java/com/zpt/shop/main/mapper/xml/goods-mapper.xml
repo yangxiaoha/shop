@@ -20,7 +20,7 @@
 		<result property="ids" column="ids" />	
 		<result property="num" column="num" />
 		<result property="price" column="price" />
-		<result property="url" column="url" />
+		<result property="url" column="url" />		
 		<collection property="pros" column="pros" ofType="Pro">    
             <id property="id" column="proId" />
             <result property="name" column="proname" />

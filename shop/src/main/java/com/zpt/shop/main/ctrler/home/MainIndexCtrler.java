@@ -18,10 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zpt.shop.main.entities.Goods;
 import com.zpt.shop.main.entities.GoodsType;
 import com.zpt.shop.main.entities.ProVal;
+import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.GoodsTypeService;
 import com.zpt.shop.main.service.ProService;
 import com.zpt.shop.main.service.ProValService;
+import com.zpt.shop.main.service.SkuService;
 
 /**
  * 功能说明:
@@ -40,6 +42,9 @@ public class MainIndexCtrler {
 	
 	@Autowired
 	private GoodsService goodsService;
+	
+	@Autowired
+	private SkuService skuService;
 	
 	@Autowired
 	private ProValService proValService;
@@ -70,6 +75,7 @@ public class MainIndexCtrler {
 		return map;
 	}
 	
+	//商品详细页
 	@RequestMapping(value="/goodsDetail/{typeId}/{goodsId}", method=RequestMethod.GET)
 	public ModelAndView goodsDetail(@PathVariable("typeId") Integer typeId, @PathVariable("goodsId") Integer goodsId) {
 		ModelAndView mv = new ModelAndView("home/goods-detail");
@@ -77,9 +83,22 @@ public class MainIndexCtrler {
 		Goods goodsList = goodsService.getGoodsById(goodsId);
 		//商品属性
 		List<ProVal> proList = proValService.getProByTypeId(typeId);
+		mv.addObject("goodsId", goodsId);
 		mv.addObject("goodsMsg", goodsList);
 		mv.addObject("proMsg", proList);
 		return mv;
+	}
+	
+	//商品详细页(库存信息)
+	@ResponseBody
+	@RequestMapping(value="/getGoodsStockInfo/{goodsId}", method=RequestMethod.POST)
+	public Map<String,Object> getGoodsInfo(@PathVariable("goodsId") Integer goodsId) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		//商品属性
+		List<Sku> goodsList = skuService.getGoodsStockInfo(goodsId);
+		map.put("state", true);
+		map.put("goodsMsg", goodsList);
+		return map;
 	}
 
 }

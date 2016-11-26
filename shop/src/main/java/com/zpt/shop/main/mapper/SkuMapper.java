@@ -25,5 +25,7 @@ public interface SkuMapper {
 	public List<Sku> validate(Sku sku);
 	
 	public List<Sku> getSkuByGoods(@Param("goods")String goodsId);
+
+	public List<Sku> getGoodsStockInfo(@Param("goodsId")Integer goodsId);
 	
 }

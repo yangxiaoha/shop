@@ -21,6 +21,10 @@
     	color: #fff !important;
     	background-color: #C8171F !important;	    	
     }
+    .select-no-active {
+    	color: #C9CACB !important;
+    	background-color: #F5F4F4 !important;	    	
+    }
 </style>
 </head>
 <body>
@@ -55,16 +59,17 @@
 	
 		<div class="goods-parameter-choice" id="goods-parameter-choice" style="display: none;">
 			<div class="goods-parameter-show order-list clearfloat">
+				<input id="goodsId" type="hidden" value="${goodsId}">
 				<c:if test="${!empty goodsMsg}">
-				     <img src="<%=basePath%>${goodsMsg.url}">
+				     <img id="goodsImg" src="<%=basePath%>${goodsMsg.url}">
 			         <ul class="shopping-car-detail p5">
 			         	<c:if test="${goodsMsg.price != goodsMsg.highprice}">
-			         		<li class="fc-c8161d mb5">￥${goodsMsg.price} — ${goodsMsg.highprice}</li>
+			         		<li class="fc-c8161d mb5" id="goodsPrice">￥${goodsMsg.price} — ${goodsMsg.highprice}</li>
 			         	</c:if>
 			         	<c:if test="${goodsMsg.price == goodsMsg.highprice}">
 			         		<li class="fc-c8161d mb5">￥${goodsMsg.price}</li>
 			         	</c:if>
-			            <li class="fc-9fa0a0 fs-1rem mb5">库存${goodsMsg.quantity}件</li>
+			            <li class="fc-9fa0a0 fs-1rem mb5">库存<span id="goodsNum">${goodsMsg.quantity}</span>件</li>
 			            <li class="fc-595757 parameter-show">请选择
 				            <c:forEach items="${proMsg}" var="proList">
 			            		<span>${proList.name}</span>
@@ -77,27 +82,18 @@
 				</c:if>
 	        </div>
 	        <div class="goods-parameter-classify">
+	        	<button class="clear-attr">清空</button>
 	        	<c:forEach items="${proMsg}" var="proList">
 				    <div class="clearfloat">
 		        		<p class="fc-595757 pv5">${proList.name}</p>
+		        		<input type="hidden" value="${proList.proId}">
 			        	<ul class="classify-detail clearfloat">
 			        		<c:forEach items="${fn:split(proList.value,',')}" var="option">
-								<li>${option}</li>
+								<li class="select-no-active">${option}</li>
 							</c:forEach>
 			        	</ul>
 		        	</div>
 				</c:forEach>
-<!-- 	        	<div class="clearfloat">
-	        		<p class="fc-595757 pv5">尺寸</p>
-		        	<ul class="classify-detail clearfloat">
-		        		<li>红</li>
-		        		<li>黄</li>
-		        		<li>蓝</li>
-		        		<li>绿</li>
-		        		<li>青色</li>
-		        		<li>100x200cm</li>
-		        	</ul>
-	        	</div> -->
 	        </div>
 	        <div class="goods-purchase-num">
 	        	<div class="fl">购买数量</div>
@@ -117,46 +113,290 @@
 	 		<span class="shopping-num">0</span>
 	    </a>
     </div>
- 
+
     <script>
 	    $(document).ready(function(){	
-	    	var num = 0;    	    	
-			var total = $('.classify-detail').length;
+	    	var num = 0;  
+	    	var goodsStock = new Array();//现货信息
+	    	var goodsId = $("#goodsId").val();//商品id
 			$(".shopping").click(function() {
 				$(".index-tab-bar").css("display", "none");
 				$(".goods-parameter-choice").slideDown();
+				//获取库存信息
+		    	$.ajax({
+			   	    url: "../../getGoodsStockInfo/"+goodsId,
+			   		type: "Post",
+			   	    dataType: "json",
+			   	    success: function(data) {
+			   	    	if(data.state){
+			   	    		goodsStock = data.goodsMsg;
+				   	 		$(".classify-detail").each(function(e){
+								var liAttr = ""
+									$(this).children().each(function(){
+										if(liAttr != ""){
+											liAttr+=","+$(this).text();	
+						        	}else{
+						        		liAttr = $(this).text();
+						        	}
+								})
+								for(var i=0; i<goodsStock.length; i++) {
+									var val = goodsStock[i].value;
+								    var valList = val.split(",");
+								    var liAttrList = liAttr.split(",");
+								    for(var j=0; j<liAttrList.length; j++) {
+								    	if(liAttrList[j] == valList[e]) {
+								    		$(this).children().eq(j).removeClass("select-no-active");
+											$(this).children().eq(j).addClass("select-active");
+										}
+								    }
+								}
+							});
+			   			}else{
+			   			    alert("网络故障，稍后重试");
+			   			}
+			   	    }
+		        })
 			});
 			$("#close").click(function() {
 				$(".index-tab-bar").css("display", "block");
 				$(".goods-parameter-choice").slideUp();
 			});
+			$(".clear-attr").click(function() {
+				$(".classify-detail > li").removeClass("active");
+				$(".classify-detail > li").removeClass("select-no-active");
+				$(".classify-detail > li").addClass("select-active");
+			});
 			$(".classify-detail > li").click(function() {
 				num = 0;
-				var flag = true;				
+				var flag = true;					
 				var str = "";
 				var parameter = "";
-				if($(this).hasClass('active')) {
-					$(this).removeClass('active');
-				}else {
-					$(this).parent().children().removeClass('active');
-					$(this).addClass('active');						
+				var list = "";//符合已选属性的库存数组id集合
+				var attr = $(this).text();//点击选中的值			
+				var attrIndex = $(this).parents("div").index()-1;//判断是哪个属性
+				if($(this).hasClass('active')) {//移除
+					$(this).removeClass('active');	
+					if(!($(this).hasClass('select-no-active'))) {	
+						/* alert("返回点击"); */
+						$(".classify-detail").each(function(e){
+							if(attrIndex != e){
+								$(this).children().addClass('select-active');
+								$(this).children().removeClass('select-no-active');
+							}
+						});
+						$(".classify-detail").each(function(e){	
+							var index = 0;//用于匹配的下标
+							var selectAttr = "";//用于匹配的值
+							if($(this).children().hasClass('active')) {
+								if(attrIndex != e) {
+									index = e;
+									selectAttr = $(this).children('.active').text();
+								}else {
+									index = attrIndex;
+									selectAttr = attr;
+								}
+								for(var i=0; i<goodsStock.length; i++) {
+									var value = goodsStock[i].value;
+									var valList = value.split(",");
+									if(selectAttr == valList[index]) {						
+										if(list != ""){
+											list+=","+i;	
+							        	}else{
+							        		list = i.toString();
+							        	}
+									}
+								}
+								var goodsList = list.split(",");
+				 				$(".classify-detail").each(function(e){
+								    $(this).children().each(function(){
+										if(index != e) {
+											if($(this).hasClass('select-active')) {
+												var total = 0;
+												for(var i=0; i<goodsList.length; i++) {
+													var j = goodsList[i];
+													var value = goodsStock[j].value;
+													var valList = value.split(",");
+													if($(this).text() == valList[e]) {
+														break;
+													}else {
+														total++;
+													}
+												}
+												if(total == goodsList.length) {
+													$(this).removeClass('select-active');
+													$(this).addClass('select-no-active');
+												}
+											}
+										}
+							        });			        
+								});	
+							}			        
+						});	
+					}
+				}else {//添加					
+					if(!($(this).hasClass('select-no-active'))) {							
+						if($(this).siblings().hasClass('active')) {
+							/* alert("二次点击"); */
+							$(".classify-detail").each(function(e){
+								if(attrIndex != e){
+									$(this).children().addClass('select-active');
+									$(this).children().removeClass('select-no-active');
+								}
+							});
+							$(".classify-detail").each(function(e){	
+								list="";
+								var index = 0;//用于匹配的下标
+								var selectAttr = "";//用于匹配的值
+								if($(this).children().hasClass('active')) {
+									if(attrIndex != e) {
+										index = e;
+										selectAttr = $(this).children('.active').text();
+									}else {
+										index = attrIndex;
+										selectAttr = attr;
+									}
+									for(var i=0; i<goodsStock.length; i++) {
+										var value = goodsStock[i].value;
+										var valList = value.split(",");
+										if(attr1 == valList[index]) {						
+											if(list != ""){
+												list+=","+i;	
+								        	}else{
+								        		list = i.toString();
+								        	}
+										}
+									}
+									var goodsList = list.split(",");
+					 				$(".classify-detail").each(function(e){
+									    $(this).children().each(function(){
+											if(index != e) {
+												if($(this).hasClass('select-active')) {
+													var total = 0;
+													for(var i=0; i<goodsList.length; i++) {
+														var j = goodsList[i];
+														var value = goodsStock[j].value;
+														var valList = value.split(",");
+														if($(this).text() == valList[e]) {
+															break;
+														}else {
+															total++;
+														}
+													}
+													if(total == goodsList.length) {
+														$(this).removeClass('select-active');
+														$(this).addClass('select-no-active');
+													}
+												}
+											}
+								        });			        
+									});	
+								}			        
+							});	
+						}else {
+							/* alert("一次点击"); */
+							//是否还有此商品
+							for(var i=0; i<goodsStock.length; i++) {
+								var value = goodsStock[i].value;
+								var valList = value.split(",");
+								if(attr == valList[attrIndex]) {						
+									if(list != ""){
+										list+=","+i;	
+						        	}else{
+						        		list = i.toString();
+						        	}
+								}
+							}
+							var goodsList = list.split(",");
+			 				$(".classify-detail").each(function(e){
+							    $(this).children().each(function(){
+									if(attrIndex != e) {
+										if($(this).hasClass('select-active')) {
+											var total = 0;
+											for(var i=0; i<goodsList.length; i++) {
+												var j = goodsList[i];
+												var value = goodsStock[j].value;
+												var valList = value.split(",");
+												if($(this).text() == valList[e]) {
+													break;
+												}else {
+													total++;
+												}
+											}
+											if(total == goodsList.length) {
+												$(this).removeClass('select-active');
+												$(this).addClass('select-no-active');
+											}
+										}
+									}
+						        });			        
+							});	
+						}
+						$(this).siblings().removeClass('active');
+						$(this).addClass('active');	
+					}					
 				}
+ 				//属性是否都选了
 				$(".classify-detail").each(function(){
 					flag = true;
 				    $(this).children().each(function(){
 						if($(this).hasClass('active')) {
 							num++;
-							flag = false;
-							str+='"'+$(this).text()+'" ';							
+							flag = false;							
+							str+='"'+$(this).text()+'" ';	
 						}
 			        });
 			        if(flag) {
 			        	parameter+='"'+$(this).siblings("p").text()+'" ';
 			        }	
-			        if(num != total) {
-			        	$(".parameter-show").text("请选择"+parameter);
+			        if(num != $('.classify-detail').length) {
+			        	$(".parameter-show").text("请选择:"+parameter);			        	
 					}else {
-						$(".parameter-show").text("已选："+str);
+						var val = "";
+						var indexval = "";
+						var aaa = "";
+						$(".parameter-show").text("已选:"+str);
+						//获取商品的skuId
+ 						$(".classify-detail").each(function(e){
+							//判断有几个active
+						    $(this).children().each(function(){
+						    	if($(this).hasClass('active')) {
+						    		if(val != ""){
+						    			val+=","+$(this).text();	
+						        	}else{
+						        		val = $(this).text();
+						        	}
+						    		if(indexval != ""){
+						    			indexval+=","+e.toString();	
+						        	}else{
+						        		indexval = e.toString();
+						        	}
+						    	}
+					        });	
+						});
+						var valList = val.split(",");
+					    var indexList = indexval.split(",");
+						for(var j=0; j<goodsStock.length; j++) {
+							var a = 0;
+							for(var i=0; i<valList.length; i++) {	
+								var e = indexList[i];
+								var value = goodsStock[j].value;
+								var valueList = value.split(",");
+								if(valList[i] == valueList[e]) {
+									a++;
+								}
+							}
+							if(a == valList.length) {
+								/* if(aaa != ""){
+									aaa+=","+j;	
+					        	}else{
+					        		aaa = j.toString();
+					        	} */
+					        	var src = '<%=basePath%>'+goodsStock[j].url;
+					        	$("#goodsImg").attr("src", src);
+					        	$("#goodsPrice").text('￥'+goodsStock[j].price);
+					        	$("#goodsNum").text(goodsStock[j].num);
+							}
+						}; 
 					}			        
 				});								
 			});
@@ -169,7 +409,7 @@
 					alert();
 				}
 			});
-		});    	
+		}); 
     </script>
 </body>
 </html>

@@ -1,10 +1,8 @@
 package com.zpt.shop.main.service.impl;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.aspectj.apache.bcel.generic.LOOKUPSWITCH;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

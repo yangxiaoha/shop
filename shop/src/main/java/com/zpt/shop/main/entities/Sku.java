@@ -81,5 +81,15 @@ public class Sku {
 	public void setCode(String code) {
 		this.code = code;
 	}	
+	
+	public String url;
+	
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 }
