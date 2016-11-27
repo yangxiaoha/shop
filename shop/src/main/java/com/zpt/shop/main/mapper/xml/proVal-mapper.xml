@@ -31,11 +31,11 @@
 	</select>	
 	
 	<select id="getProByTypeId" resultMap="resultMap" parameterType="java.lang.Integer">
-		select * from 
-		(select pro.*, pro_val.skuid, group_concat(pro_val.value) as value from t_goods_pro as pro
-		left join t_goods_pro_val as pro_val 
-		on pro.id = pro_val.proid 
-		group by pro_val.proid) as t where t.typeid = #{typeId}
+		SELECT t.*, pro.name AS NAME FROM 
+		(SELECT val.id AS valid, val.proid, GROUP_CONCAT(val.value) AS value FROM 
+		(SELECT * FROM t_goods_pro_val GROUP BY proid, value ORDER BY id) AS val GROUP BY val.proid) AS t
+		LEFT JOIN t_goods_pro AS pro
+		ON t.proid = pro.id WHERE pro.typeid = #{typeId}
 	</select>
 
 </mapper>

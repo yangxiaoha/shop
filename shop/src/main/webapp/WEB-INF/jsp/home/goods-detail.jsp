@@ -47,11 +47,11 @@
 					<span>首页</span>
 				</a>
 			</li>
-			<li class="shopping">
+			<li class="shopping shopping-state">
 				<span class="tab-bar-bg add-goods"></span>
 				<span>添加购物车</span>
 			</li>
-			<li class="shopping">
+			<li class="shopping buy-state">
 				<span class="tab-bar-bg order"></span>
 				<span>立即购买</span>
 			</li>
@@ -98,9 +98,9 @@
 	        <div class="goods-purchase-num">
 	        	<div class="fl">购买数量</div>
 	        	<div class="fr">
-	        		<span>-</span>
-	        		<span class="bc-fff mh5">1</span>
-	        		<span>+</span>
+	        		<span id="reduceNum">-</span>
+	        		<span class="bc-fff mh5" id="purchaseNum">1</span>
+	        		<span id="plusNum">+</span>
 	        	</div>
 	        </div>
 	        <div class="goods-purchase" style="position: relative; border-top: 1px solid #C7C3C5;">
@@ -116,12 +116,24 @@
 
     <script>
 	    $(document).ready(function(){	
-	    	var num = 0;  
+	    	var num = 0; 
+	    	var sub = 0;//数组下标
+	    	var state = 0;
+	    	var oldGoods = new Array();//商品信息
 	    	var goodsStock = new Array();//现货信息
 	    	var goodsId = $("#goodsId").val();//商品id
+	    	var select = false;//属性是否已选
 			$(".shopping").click(function() {
 				$(".index-tab-bar").css("display", "none");
 				$(".goods-parameter-choice").slideDown();
+				if($(this).hasClass("shopping-state")) {
+					state = 0;
+					$("#purchase").text("加入购物车");
+				}
+				if($(this).hasClass("buy-state")) {
+					state = 1;
+					$("#purchase").text("立即购买");
+				}
 				//获取库存信息
 		    	$.ajax({
 			   	    url: "../../getGoodsStockInfo/"+goodsId,
@@ -129,7 +141,8 @@
 			   	    dataType: "json",
 			   	    success: function(data) {
 			   	    	if(data.state){
-			   	    		goodsStock = data.goodsMsg;
+			   	    		oldGoods = data.goodsMsg;
+			   	    		goodsStock = data.goodsSkuMsg;
 				   	 		$(".classify-detail").each(function(e){
 								var liAttr = ""
 									$(this).children().each(function(){
@@ -171,129 +184,22 @@
 				var flag = true;					
 				var str = "";
 				var parameter = "";
-				var list = "";//符合已选属性的库存数组id集合
 				var attr = $(this).text();//点击选中的值			
 				var attrIndex = $(this).parents("div").index()-1;//判断是哪个属性
 				if($(this).hasClass('active')) {//移除
 					$(this).removeClass('active');	
 					if(!($(this).hasClass('select-no-active'))) {	
 						/* alert("返回点击"); */
-						$(".classify-detail").each(function(e){
-							if(attrIndex != e){
-								$(this).children().addClass('select-active');
-								$(this).children().removeClass('select-no-active');
-							}
-						});
-						$(".classify-detail").each(function(e){	
-							var index = 0;//用于匹配的下标
-							var selectAttr = "";//用于匹配的值
-							if($(this).children().hasClass('active')) {
-								if(attrIndex != e) {
-									index = e;
-									selectAttr = $(this).children('.active').text();
-								}else {
-									index = attrIndex;
-									selectAttr = attr;
-								}
-								for(var i=0; i<goodsStock.length; i++) {
-									var value = goodsStock[i].value;
-									var valList = value.split(",");
-									if(selectAttr == valList[index]) {						
-										if(list != ""){
-											list+=","+i;	
-							        	}else{
-							        		list = i.toString();
-							        	}
-									}
-								}
-								var goodsList = list.split(",");
-				 				$(".classify-detail").each(function(e){
-								    $(this).children().each(function(){
-										if(index != e) {
-											if($(this).hasClass('select-active')) {
-												var total = 0;
-												for(var i=0; i<goodsList.length; i++) {
-													var j = goodsList[i];
-													var value = goodsStock[j].value;
-													var valList = value.split(",");
-													if($(this).text() == valList[e]) {
-														break;
-													}else {
-														total++;
-													}
-												}
-												if(total == goodsList.length) {
-													$(this).removeClass('select-active');
-													$(this).addClass('select-no-active');
-												}
-											}
-										}
-							        });			        
-								});	
-							}			        
-						});	
+						show(attr, attrIndex, goodsStock);
 					}
 				}else {//添加					
 					if(!($(this).hasClass('select-no-active'))) {							
 						if($(this).siblings().hasClass('active')) {
-							/* alert("二次点击"); */
-							$(".classify-detail").each(function(e){
-								if(attrIndex != e){
-									$(this).children().addClass('select-active');
-									$(this).children().removeClass('select-no-active');
-								}
-							});
-							$(".classify-detail").each(function(e){	
-								list="";
-								var index = 0;//用于匹配的下标
-								var selectAttr = "";//用于匹配的值
-								if($(this).children().hasClass('active')) {
-									if(attrIndex != e) {
-										index = e;
-										selectAttr = $(this).children('.active').text();
-									}else {
-										index = attrIndex;
-										selectAttr = attr;
-									}
-									for(var i=0; i<goodsStock.length; i++) {
-										var value = goodsStock[i].value;
-										var valList = value.split(",");
-										if(attr1 == valList[index]) {						
-											if(list != ""){
-												list+=","+i;	
-								        	}else{
-								        		list = i.toString();
-								        	}
-										}
-									}
-									var goodsList = list.split(",");
-					 				$(".classify-detail").each(function(e){
-									    $(this).children().each(function(){
-											if(index != e) {
-												if($(this).hasClass('select-active')) {
-													var total = 0;
-													for(var i=0; i<goodsList.length; i++) {
-														var j = goodsList[i];
-														var value = goodsStock[j].value;
-														var valList = value.split(",");
-														if($(this).text() == valList[e]) {
-															break;
-														}else {
-															total++;
-														}
-													}
-													if(total == goodsList.length) {
-														$(this).removeClass('select-active');
-														$(this).addClass('select-no-active');
-													}
-												}
-											}
-								        });			        
-									});	
-								}			        
-							});	
+							/* alert("二次点击"); */				
+							show(attr, attrIndex, goodsStock);
 						}else {
 							/* alert("一次点击"); */
+							var list = "";//符合已选属性的库存数组id
 							//是否还有此商品
 							for(var i=0; i<goodsStock.length; i++) {
 								var value = goodsStock[i].value;
@@ -349,11 +255,19 @@
 			        	parameter+='"'+$(this).siblings("p").text()+'" ';
 			        }	
 			        if(num != $('.classify-detail').length) {
-			        	$(".parameter-show").text("请选择:"+parameter);			        	
+			        	select = false;
+			        	$(".parameter-show").text("请选择:"+parameter);
+			        	var src = '<%=basePath%>'+oldGoods.url;
+			        	$("#goodsImg").attr("src", src);
+			        	if(oldGoods.price == oldGoods.highprice) {
+			        		$("#goodsPrice").text('￥'+oldGoods.price);
+			        	}else {
+			        		$("#goodsPrice").text('￥'+oldGoods.price+' — '+oldGoods.highprice);
+			        	}	       	
+			        	$("#goodsNum").text(oldGoods.num);
 					}else {
 						var val = "";
 						var indexval = "";
-						var aaa = "";
 						$(".parameter-show").text("已选:"+str);
 						//获取商品的skuId
  						$(".classify-detail").each(function(e){
@@ -386,30 +300,119 @@
 								}
 							}
 							if(a == valList.length) {
-								/* if(aaa != ""){
-									aaa+=","+j;	
-					        	}else{
-					        		aaa = j.toString();
-					        	} */
+								sub = j;
+								select = true;
 					        	var src = '<%=basePath%>'+goodsStock[j].url;
 					        	$("#goodsImg").attr("src", src);
 					        	$("#goodsPrice").text('￥'+goodsStock[j].price);
 					        	$("#goodsNum").text(goodsStock[j].num);
+				        		$(".parameter-prompt").text("请选择商品属性");       		
+					        	break;
 							}
 						}; 
 					}			        
 				});								
 			});
-			$("#purchase").click(function() {
-				if(num != total) {
+			$("#reduceNum").click(function() {
+				var purchaseNum = parseInt($("#purchaseNum").text(), 10);//购买数量
+				if(purchaseNum > 1) {
+					$("#purchaseNum").text(purchaseNum-1);
+				}
+			});
+			$("#plusNum").click(function() {
+				var purchaseNum = parseInt($("#purchaseNum").text(), 10);//购买数量
+				$("#purchaseNum").text(purchaseNum+1);
+			});
+			$("#purchase").click(function() {//提交订单
+				var purchaseNum = parseInt($("#purchaseNum").text(), 10);//购买数量
+				if(select) {
+					if(purchaseNum > goodsStock[sub].num) {
+		        		$(".parameter-prompt").text("所选商品数不可超过库存数");
+		        		$(".parameter-prompt").fadeIn();
+						setTimeout(function(){$(".parameter-prompt").fadeOut();},2000);
+		        	}else {
+		        		if(state == 0) {
+		        			$.ajax({
+						   	    url: "../../placeOrder/"+goodsStock[sub].id,
+						   		type: "Post",
+						   	    dataType: "json",
+						   	    success: function(data) {
+						   	    	if(data.state){
+						   	    		
+						   			}else{
+						   			    alert("网络故障，稍后重试");
+						   			}
+						   	    }
+					        })
+		        		}
+						if(state == 1) {
+							$("#purchase").attr('href','buyImmediately/'+goodsStock[sub].id);
+		        		}
+		        	}						
+				}else {
+					$(".parameter-prompt").text("请选择商品属性");
 					$(".parameter-prompt").fadeIn();
 					setTimeout(function(){$(".parameter-prompt").fadeOut();},2000);
-				}else {
-					//提交数据库
-					alert();
 				}
 			});
 		}); 
+	    function show(attr, attrIndex, goodsStock) {
+	    	$(".classify-detail").each(function(e){
+				if(attrIndex != e){
+					$(this).children().addClass('select-active');
+					$(this).children().removeClass('select-no-active');
+				}
+			});
+	    	$(".classify-detail").each(function(e){	
+	    		var list="";//符合查询条件的数组id
+	    		var index = 0;//用于匹配的下标
+	    		var selectAttr = "";//用于匹配的值
+	    		if($(this).children().hasClass('active')) {
+	    			if(attrIndex != e) {
+	    				index = e;
+	    				selectAttr = $(this).children('.active').text();
+	    			}else {
+	    				index = attrIndex;
+	    				selectAttr = attr;
+	    			}
+	    			for(var i=0; i<goodsStock.length; i++) {
+	    				var value = goodsStock[i].value;
+	    				var valList = value.split(",");
+	    				if(selectAttr == valList[index]) {						
+	    					if(list != ""){
+	    						list+=","+i;	
+	    		        	}else{
+	    		        		list = i.toString();
+	    		        	}
+	    				}
+	    			}
+	    			var goodsList = list.split(",");
+	    			$(".classify-detail").each(function(e){
+	    			    $(this).children().each(function(){
+	    					if(index != e) {
+	    						if($(this).hasClass('select-active')) {
+	    							var total = 0;
+	    							for(var i=0; i<goodsList.length; i++) {
+	    								var j = goodsList[i];
+	    								var value = goodsStock[j].value;
+	    								var valList = value.split(",");
+	    								if($(this).text() == valList[e]) {
+	    									break;
+	    								}else {
+	    									total++;
+	    								}
+	    							}
+	    							if(total == goodsList.length) {
+	    								$(this).removeClass('select-active');
+	    								$(this).addClass('select-no-active');
+	    							}
+	    						}
+	    					}
+	    		        });			        
+	    			});	
+	    		}			        
+	    	});
+	    }
     </script>
 </body>
 </html>

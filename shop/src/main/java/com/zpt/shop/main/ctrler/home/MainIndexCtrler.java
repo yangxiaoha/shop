@@ -94,11 +94,36 @@ public class MainIndexCtrler {
 	@RequestMapping(value="/getGoodsStockInfo/{goodsId}", method=RequestMethod.POST)
 	public Map<String,Object> getGoodsInfo(@PathVariable("goodsId") Integer goodsId) {
 		Map<String,Object> map = new HashMap<String, Object>();
+		//商品数据
+		Goods goodsList = goodsService.getGoodsById(goodsId);
 		//商品属性
-		List<Sku> goodsList = skuService.getGoodsStockInfo(goodsId);
+		List<Sku> goodsSkuList = skuService.getGoodsStockInfo(goodsId);
 		map.put("state", true);
 		map.put("goodsMsg", goodsList);
+		map.put("goodsSkuMsg", goodsSkuList);
 		return map;
+	}
+	
+	//添加购物车
+	@ResponseBody
+	@RequestMapping(value="/placeOrder/{skuId}", method=RequestMethod.POST)
+	public Map<String,Object> placeOrder(@PathVariable("skuId") Integer skuId) {
+		Map<String,Object> map = new HashMap<String, Object>();
+
+		return map;
+	}
+	
+	//立即购买
+	@RequestMapping(value="/buyImmediately", method=RequestMethod.POST)
+	public ModelAndView buyImmediately(String flag) {
+		ModelAndView mv = new ModelAndView("home/index");
+		//商品类型数据
+		List<GoodsType> goodsTypeList = goodsTypeService.getGoodsType();
+		//商品数据
+		List<Goods> goodsList = goodsService.getGoods();
+		mv.addObject("goodsTypeMsg", goodsTypeList);
+		mv.addObject("goodsMsg", goodsList);
+		return mv;
 	}
 
 }
