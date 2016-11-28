@@ -19,6 +19,7 @@ import com.zpt.shop.main.entities.Goods;
 import com.zpt.shop.main.entities.GoodsType;
 import com.zpt.shop.main.entities.ProVal;
 import com.zpt.shop.main.entities.Sku;
+import com.zpt.shop.main.service.CartService;
 import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.GoodsTypeService;
 import com.zpt.shop.main.service.ProService;
@@ -51,16 +52,23 @@ public class MainIndexCtrler {
 	
 	@Autowired
 	private GoodsTypeService goodsTypeService;
+	
+	@Autowired
+	private CartService cartService;
 
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public ModelAndView index() {
 		ModelAndView mv = new ModelAndView("home/index");
+		String userId = "1";//先设置用户为1
 		//商品类型数据
 		List<GoodsType> goodsTypeList = goodsTypeService.getGoodsType();
 		//商品数据
-		List<Goods> goodsList = goodsService.getGoods();
+		List<Goods> goodsList = goodsService.getGoods();		
+		//购物车数量
+		Integer amount = cartService.selectAmount(userId);
 		mv.addObject("goodsTypeMsg", goodsTypeList);
 		mv.addObject("goodsMsg", goodsList);
+		mv.addObject("amount", amount);
 		return mv;
 	}
 	
@@ -76,16 +84,20 @@ public class MainIndexCtrler {
 	}
 	
 	//商品详细页
-	@RequestMapping(value="/goodsDetail/{typeId}/{goodsId}", method=RequestMethod.GET)
-	public ModelAndView goodsDetail(@PathVariable("typeId") Integer typeId, @PathVariable("goodsId") Integer goodsId) {
+	@RequestMapping(value="/goodsDetail/{goodsId}", method=RequestMethod.GET)
+	public ModelAndView goodsDetail(@PathVariable("goodsId") Integer goodsId) {
 		ModelAndView mv = new ModelAndView("home/goods-detail");
+		String userId = "1";//先设置用户为1
 		//商品数据
 		Goods goodsList = goodsService.getGoodsById(goodsId);
 		//商品属性
-		List<ProVal> proList = proValService.getProByTypeId(typeId);
+		List<ProVal> proList = proValService.getProByTypeId(goodsId);
+		//购物车数量
+		Integer amount = cartService.selectAmount(userId);
 		mv.addObject("goodsId", goodsId);
 		mv.addObject("goodsMsg", goodsList);
 		mv.addObject("proMsg", proList);
+		mv.addObject("amount", amount);
 		return mv;
 	}
 	
@@ -97,33 +109,14 @@ public class MainIndexCtrler {
 		//商品数据
 		Goods goodsList = goodsService.getGoodsById(goodsId);
 		//商品属性
+		List<ProVal> proList = proValService.getProByTypeId(goodsId);
+		//库存信息
 		List<Sku> goodsSkuList = skuService.getGoodsStockInfo(goodsId);
 		map.put("state", true);
 		map.put("goodsMsg", goodsList);
+		map.put("proMsg", proList);
 		map.put("goodsSkuMsg", goodsSkuList);
 		return map;
-	}
-	
-	//添加购物车
-	@ResponseBody
-	@RequestMapping(value="/placeOrder/{skuId}", method=RequestMethod.POST)
-	public Map<String,Object> placeOrder(@PathVariable("skuId") Integer skuId) {
-		Map<String,Object> map = new HashMap<String, Object>();
-
-		return map;
-	}
-	
-	//立即购买
-	@RequestMapping(value="/buyImmediately", method=RequestMethod.POST)
-	public ModelAndView buyImmediately(String flag) {
-		ModelAndView mv = new ModelAndView("home/index");
-		//商品类型数据
-		List<GoodsType> goodsTypeList = goodsTypeService.getGoodsType();
-		//商品数据
-		List<Goods> goodsList = goodsService.getGoods();
-		mv.addObject("goodsTypeMsg", goodsTypeList);
-		mv.addObject("goodsMsg", goodsList);
-		return mv;
 	}
 
 }

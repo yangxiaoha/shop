@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
+import com.zpt.shop.main.entities.Goods;
 import com.zpt.shop.main.entities.Pro;
 import com.zpt.shop.main.entities.ProVal;
+import com.zpt.shop.main.mapper.GoodsMapper;
 import com.zpt.shop.main.mapper.ProMapper;
 import com.zpt.shop.main.mapper.ProValMapper;
 import com.zpt.shop.main.service.ProService;
@@ -18,12 +20,17 @@ import com.zpt.shop.main.service.ProValService;
 public class ProValServiceImpl implements ProValService {
 	
 	@Autowired
+	private GoodsMapper goodsMapper;
+	
+	@Autowired
 	private ProValMapper proValMapper;
 
 	@Override
-	public List<ProVal> getProByTypeId(Integer typeId) {
+	public List<ProVal> getProByTypeId(Integer goodsId) {
 		// TODO Auto-generated method stub
-		List<ProVal> list = proValMapper.getProByTypeId(typeId);
+		Goods goods = goodsMapper.getGoodsInfo(goodsId);
+		String ids = goods.getIds();
+		List<ProVal> list = proValMapper.getProByTypeId(ids);
 		if (list != null && list.size() > 0) {			
 			return list;
 		} else {

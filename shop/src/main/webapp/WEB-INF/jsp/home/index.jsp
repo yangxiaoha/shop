@@ -79,7 +79,7 @@
 		<div class="goods-detail">
 			<c:forEach items="${goodsMsg}" var="goodsList">
 			    <div class="goods-show">
-			    	<a href="goodsDetail/${goodsList.typeId}/${goodsList.id}">
+			    	<a href="goodsDetail/${goodsList.id}">
 			    		<img src="<%=basePath%>${goodsList.url}" />
 						<p class="p5">${goodsList.name}</p>
 						<p class="mb5 fc-c8161d">${goodsList.price}</p>
@@ -115,8 +115,8 @@
 			</li>
 		</ul>
 
-		<a class="shopping-cart" href="car.html">
-	 		<span class="shopping-num">0</span>
+		<a class="shopping-cart" href="../purchase/cart">
+	 		<span class="shopping-num">${amount}</span>
 	    </a>
     </div>
 
@@ -153,7 +153,6 @@
 					var flag = $(this).children("input[type=hidden]").val();
 					var keyword = "";
 					var typeId = "";
-					console.log("1");
 					showGoods(flag, keyword, typeId);
 				}				    
 			});
@@ -172,7 +171,6 @@
 				var flag = 0;
 				var keyword = "";
 				var typeId = $(this).children("input[type=hidden]").val();
-				alert("2");
 				showGoods(flag, keyword, typeId);
 			});
 			//商品搜索
@@ -180,12 +178,10 @@
 				var flag = 0;
 				var keyword = $("#keyword").val();
 				var typeId = "";
-		    	alert("3");
 				showGoods(flag, keyword, typeId);
 			});
 		}); 
 	    function showGoods(flag, keyword, typeId) {
-	    	console.log("4");
 	    	$.ajax({
 		   	    url: "selectGoods",
 		   		type: "Post",

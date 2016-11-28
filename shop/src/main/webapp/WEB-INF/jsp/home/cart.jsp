@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="decorator"
 	uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%
@@ -17,83 +16,151 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>一见喜</title>
 <style>
-    .active {
+#loading{
+	display: none;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	background-color: rgba(0,0,0,.5);
+}
+#loading-center{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+#loading-center-absolute {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	height: 150px;
+	width: 150px;
+	margin-top: -75px;
+	margin-left: -75px;
+}
+.object{
+	width: 20px;
+	height: 20px;
+	background-color: #FFF;
+	float: left;
+	margin-right: 30px;
+	margin-top: 65px;
+	-moz-border-radius: 50% 50% 50% 50%;
+	-webkit-border-radius: 50% 50% 50% 50%;
+	border-radius: 50% 50% 50% 50%;
+}
+#object_one {	
+	-webkit-animation: object_one 1.5s infinite;
+	animation: object_one 1.5s infinite;
+}
+#object_two {
+	-webkit-animation: object_two 1.5s infinite;
+	animation: object_two 1.5s infinite;
+	-webkit-animation-delay: 0.25s; 
+    animation-delay: 0.25s;
+}
+#object_three {
+    -webkit-animation: object_three 1.5s infinite;
+	animation: object_three 1.5s infinite;
+	-webkit-animation-delay: 0.5s;
+    animation-delay: 0.5s;	
+}
+@-webkit-keyframes object_one {
+	75% { -webkit-transform: scale(0); }
+}
+@keyframes object_one {
+	75% { 
+	  transform: scale(0);
+	  -webkit-transform: scale(0);
+	}
+}
+@-webkit-keyframes object_two {
+	75% { -webkit-transform: scale(0); }
+}
+@keyframes object_two {
+	75% { 
+	  transform: scale(0);
+	  -webkit-transform:  scale(0);
+	}
+}
+@-webkit-keyframes object_three {
+    75% { -webkit-transform: scale(0); }
+}
+@keyframes object_three {
+	75% { 
+	  transform: scale(0);
+	  -webkit-transform: scale(0);
+	} 
+}
+.active {
     	color: #fff !important;
     	background-color: #C8171F !important;	    	
-    }
-    .select-no-active {
-    	color: #C9CACB !important;
-    	background-color: #F5F4F4 !important;	    	
-    }
+}
+.select-no-active {
+   	color: #C9CACB !important;
+   	background-color: #F5F4F4 !important;	    	
+}
 </style>
 </head>
 <body>
 	<div id="wrap">
-	    <div class="goods-parameter-detail mb80">
-			<img src="<%=basePath%>assets/home/images/goods-detail.png">
-			<img src="<%=basePath%>assets/home/images/goods-detail.png">
+		<div class="go-shopping">
+	  		<a href="../mainindex/index" class="fl btn mr5 bc-c8161d">继续购买</a>
+	  		<p class="fl go-shopping-title">购物车：立即结算，抢回还有货的商品</p>
 		</div>
-	
-		<ul class="tab-bar index-tab-bar">
-			<li>
-				<a href="index.html">
-					<span class="tab-bar-bg customer-service"></span>
-					<span>在线客服</span>
-				</a>
-			</li>
-			<li>
-				<a href="index.html">
-					<span class="tab-bar-bg home-page"></span>
-					<span>首页</span>
-				</a>
-			</li>
-			<li class="shopping shopping-state">
-				<span class="tab-bar-bg add-goods"></span>
-				<span>添加购物车</span>
-			</li>
-			<li class="shopping buy-state">
-				<span class="tab-bar-bg order"></span>
-				<span>立即购买</span>
-			</li>
-		</ul>
-	
-		<div class="goods-parameter-choice" id="goods-parameter-choice" style="display: none;">
+	    <div class="shopping-car mb80">	    	
+	  		<!--无商品-->
+	  		<c:if test="${empty cartsMsg}">
+	  			<div class="no-shopping-car-show ta-center">
+		  			<div></div>
+		  			<a href="../mainindex/index" class="btn bc-c8161d" style="font-size: 2rem;">去逛逛</a>
+	  			</div>
+	  		</c:if>
+		  	<!--有商品-->
+		  	<c:if test="${!empty cartsMsg}"> 
+		  	    <c:forEach items="${cartsMsg}" var="cartsList">
+					<div class="shopping-car-show order-list clearfloat">
+				        <img src="<%=basePath%>${cartsList.url}">
+				        <ul class="shopping-car-detail ph5">
+				          <li><a href="../mainindex/goodsDetail/${cartsList.goodsId}" class="fc-000 goodsName">${cartsList.name}</a></li>
+				          <li>商品规格：${cartsList.value}</li>
+				          <li><span class="fl goodsPrice">￥${cartsList.price}</span><span class="fr">x${cartsList.num}</span></li>
+				        </ul>
+				        <div class="shopping-car-edit">
+				          <p class="modify">修改</p>
+				          <p class="iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>
+				          <input class="cartId" type="hidden" value="${cartsList.id}">
+				          <input class="goodsId" type="hidden" value="${cartsList.goodsId}">
+				          <input class="goodsSkuNum" type="hidden" value="${cartsList.skuNum}">
+				        </div>
+			  	    </div>
+				</c:forEach>				
+	        </c:if>		  
+	    </div>
+
+	    <div class="tab-bar car-tab-bar">		
+	  		<a class="btn fr bc-c8161d">结算（<span id="settlement">${totalNum}</span>）</a>
+	  		<p class="fr mr10" id="total" style="font-size: 2rem;">合计：￥${total}</p>
+	    </div>
+	    
+	    <!-- 商品属性的修改 -->
+	    <div class="goods-parameter-choice" id="goods-parameter-choice" style="display: none;">
 			<div class="goods-parameter-show order-list clearfloat">
-				<input id="goodsId" type="hidden" value="${goodsId}">
-				<c:if test="${!empty goodsMsg}">
-				     <img id="goodsImg" src="<%=basePath%>${goodsMsg.url}">
-			         <ul class="shopping-car-detail p5">
-			         	<c:if test="${goodsMsg.price != goodsMsg.highprice}">
-			         		<li class="fc-c8161d mb5" id="goodsPrice">￥${goodsMsg.price} — ${goodsMsg.highprice}</li>
-			         	</c:if>
-			         	<c:if test="${goodsMsg.price == goodsMsg.highprice}">
-			         		<li class="fc-c8161d mb5">￥${goodsMsg.price}</li>
-			         	</c:if>
-			            <li class="fc-9fa0a0 fs-1rem mb5">库存<span id="goodsNum">${goodsMsg.quantity}</span>件</li>
-			            <li class="fc-595757 parameter-show">请选择
-				            <c:forEach items="${proMsg}" var="proList">
-			            		<span>${proList.name}</span>
-							</c:forEach>
-			            </li>
-			        </ul>
-			        <div class="shopping-car-edit">
-		            	<i id="close"></i>
-		          	</div>
-				</c:if>
+				<input id="eGoodsId" type="hidden">
+			    <img id="eGoodsImg" />
+		        <ul class="shopping-car-detail p5">
+		         	<li class="fc-c8161d mb5" id="eGoodsPrice"></li>
+		            <li class="fc-9fa0a0 fs-1rem mb5">库存<span id="eGoodsNum"></span>件</li>
+		            <li class="fc-595757 parameter-show" id="eGoodsSelect">请选择</li>
+		        </ul>
+		        <div class="shopping-car-edit">
+	            	<i id="close"></i>
+	          	</div>
 	        </div>
 	        <div class="goods-parameter-classify">
 	        	<button class="clear-attr">清空</button>
-	        	<c:forEach items="${proMsg}" var="proList">
-				    <div class="clearfloat">
-		        		<p class="fc-595757 pv5">${proList.name}</p>
-		        		<input type="hidden" value="${proList.proId}">
-			        	<ul class="classify-detail clearfloat">
-			        		<c:forEach items="${fn:split(proList.value,',')}" var="option">
-								<li class="select-no-active">${option}</li>
-							</c:forEach>
-			        	</ul>
-		        	</div>
-				</c:forEach>
 	        </div>
 	        <div class="goods-purchase-num">
 	        	<div class="fl">购买数量</div>
@@ -105,15 +172,66 @@
 	        </div>
 	        <div class="goods-purchase" style="position: relative; border-top: 1px solid #C7C3C5;">
 	        	<p class="parameter-prompt">请选择商品属性</p>
-	        	<a href="#" class="purchase" id="purchase">立即购买</a>
+	        	<a href="#" class="purchase" id="purchase">确定</a>
 	        </div>
 		</div>
-	
-		<a class="shopping-cart" href="../../purchase/cart">
-	 		<span class="shopping-num" id="shopping-num">${amount}</span>
-	    </a>
+	    
+	    <!-- 遮罩动画 -->
+	    <div id="loading">
+			<div id="loading-center">
+				<div id="loading-center-absolute">
+					<div class="object" id="object_one"></div>
+					<div class="object" id="object_two"></div>
+					<div class="object" id="object_three"></div>	
+				</div>
+			</div>
+		 </div>
+	  
     </div>
 
+	<script type="text/javascript">
+    	$(document).ready(function() {
+    		$('.order-delete').on("click",function() {
+    			var cartId = $(this).siblings(".cartId").val();
+    			$.ajax({
+    		   	    url: "deleteGoods",
+    		   		type: "Post",
+    		   	    data: {
+    		   	    	cartId:cartId
+    		   	    },
+    		   	    dataType: "json",
+    		        beforeSend : function(){     //请求成功前触发的局部事件
+    		        	$('#loading').show();
+    		        },
+    		   	    success: function(data) {
+    		   	    	if(data.state){
+    		   	    		$('#loading').hide();
+    		   	    		$(".shopping-car").html("");
+    		   	    		$.each(data.cartsMsg, function(i, cartsList) {   
+    		   	    			$(".shopping-car").append( 
+    		   	    				'<div class="shopping-car-show order-list clearfloat">'+
+    		   	    				'<img src="<%=basePath%>'+cartsList.url+'">'+
+       			          	  	    '<ul class="shopping-car-detail ph5">'+
+       					            '<li><a href="../mainindex/goodsDetail/'+cartsList.goodsId+'"class="fc-000">'+cartsList.name+'</a></li>'+
+       					            '<li>商品规格：'+cartsList.value+'</li>'+
+       					            '<li><span class="fl">￥'+cartsList.price+'</span><span class="fr">x'+cartsList.num+'</span></li>'+
+									'</ul>'+
+									'<div class="shopping-car-edit">'+
+									'<p class="modify">修改</p>'+
+									'<p class="iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>'+
+									'<input type="hidden" value="'+cartsList.id+'">'+
+									'</div>'+
+									'</div>'
+    		    				);
+    	   		  			});
+    		   	    		$("#total").text("合计：￥"+data.total);
+    		   	    		$("#settlement").text(data.totalNum);
+    		   			}
+    		   	    }
+    	        })
+    		}); 
+    	});
+    </script>
     <script type="text/javascript">
 	    $(document).ready(function(){	
 	    	var num = 0; 
@@ -123,26 +241,48 @@
 	    	var goodsStock = new Array();//现货信息
 	    	var goodsId = $("#goodsId").val();//商品id
 	    	var select = false;//属性是否已选
-			$(".shopping").click(function() {
-				$(".index-tab-bar").css("display", "none");
+			$(".modify").on("click",function() {
+				$(".car-tab-bar").css("display", "none");
 				$(".goods-parameter-choice").slideDown();
-				if($(this).hasClass("shopping-state")) {
-					state = 0;
-					$("#purchase").text("加入购物车");
-				}
-				if($(this).hasClass("buy-state")) {
-					state = 1;
-					$("#purchase").text("立即购买");
-				}
+				//商品信息
+				var src = $(this).parents("div.shopping-car-show").children("img").attr("src");
+				$("#eGoodsImg").attr("src", src);
+				$("#eGoodsPrice").text($(this).parents("div.shopping-car-show").find(".goodsPrice").text());
+				$("#eGoodsNum").text($(this).siblings(".goodsSkuNum").val());
 				//获取库存信息
 		    	$.ajax({
-			   	    url: "../getGoodsStockInfo/"+goodsId,
+			   	    url: "../mainindex/getGoodsStockInfo/"+$(this).siblings(".goodsId").val(),
 			   		type: "Post",
 			   	    dataType: "json",
 			   	    success: function(data) {
 			   	    	if(data.state){
 			   	    		oldGoods = data.goodsMsg;
 			   	    		goodsStock = data.goodsSkuMsg;
+			   	    		//属性名称
+			   	    		$("#eGoodsSelect").html("<span>请选择</span> ");
+			   	    		$.each(data.proMsg, function(i, proList) {   
+    		   	    			$("#eGoodsSelect").append( 
+    		   	    				'<span>'+proList.name+'</span> '
+    		    				);
+    	   		  			});
+			   	    		$(".goods-parameter-classify").html('<button class="clear-attr">清空</button>');
+			   	    		$(".classify-detail").html('');
+			   	    		$.each(data.proMsg, function(i, proList) { 
+			   	    			var value = proList.value.split(",");
+    		   	    			$(".goods-parameter-classify").append( 
+    		   	    				'<div class="clearfloat">'+
+    		   	    				'<p class="fc-595757 pv5">'+proList.name+'</p>'+
+    		   	    				'<input type="hidden" value="'+proList.proId+'">'+
+    		   			        	'<ul class="classify-detail clearfloat">'+
+    		   			        	'</ul>'+
+    		   			        	'</div>'
+    		    				);
+		   				        $.each(value, function(j, value) { 
+	    		   	    			$(".classify-detail").eq(i).append( 	       	    					
+	    		   	    				'<li class="select-no-active">'+value+'</li>'
+           		    				);
+	    	   		  			});	
+    	   		  			});
 				   	 		$(".classify-detail").each(function(e){
 								var liAttr = ""
 									$(this).children().each(function(){
@@ -170,16 +310,16 @@
 			   	    }
 		        })
 			});
-			$("#close").click(function() {
-				$(".index-tab-bar").css("display", "block");
+			$("#close").on("click",function() {
+				$(".car-tab-bar").css("display", "block");
 				$(".goods-parameter-choice").slideUp();
 			});
-			$(".clear-attr").click(function() {
+			$(".clear-attr").on("click",function() {
 				$(".classify-detail > li").removeClass("active");
 				$(".classify-detail > li").removeClass("select-no-active");
 				$(".classify-detail > li").addClass("select-active");
 			});
-			$(".classify-detail > li").click(function() {
+			$(".classify-detail > li").on("click",function() {
 				num = 0;
 				var flag = true;					
 				var str = "";
@@ -419,5 +559,6 @@
 	    	});
 	    }
     </script>
+
 </body>
 </html>

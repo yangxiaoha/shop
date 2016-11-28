@@ -8,6 +8,7 @@ body, ul, p, h1, h2, h3, h4, h5, h6 {
 }
 body {
 	background-color: #fff;
+	font-family:"Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu;
 }
 a, a:link, a:visited, a:hover, a:active {
 	color: #fff; text-decoration: none;
@@ -584,7 +585,7 @@ a, a:link, a:visited, a:hover, a:active {
 	z-index: 9999;
 }
 .goods-parameter-choice .goods-parameter-show img {
-    left: 10px !important;
+    left: 5px !important;
 }
 .goods-parameter-choice .goods-parameter-show .parameter-show {
     display: block;

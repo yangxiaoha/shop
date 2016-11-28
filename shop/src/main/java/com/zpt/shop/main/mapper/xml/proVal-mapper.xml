@@ -30,12 +30,13 @@
 		where t.skuId = #{skuId}
 	</select>	
 	
-	<select id="getProByTypeId" resultMap="resultMap" parameterType="java.lang.Integer">
-		SELECT t.*, pro.name AS NAME FROM 
-		(SELECT val.id AS valid, val.proid, GROUP_CONCAT(val.value) AS value FROM 
-		(SELECT * FROM t_goods_pro_val GROUP BY proid, value ORDER BY id) AS val GROUP BY val.proid) AS t
-		LEFT JOIN t_goods_pro AS pro
-		ON t.proid = pro.id WHERE pro.typeid = #{typeId}
+	<select id="getProByTypeId" resultMap="resultMap">
+		select t.*, pro.name as name from 
+		(select val.id as valid, val.proid, GROUP_CONCAT(val.value) as value from 
+		(select * from t_goods_pro_val where proid in
+		(${ids}) group by proid, value order by id) as val group by val.proid) as t
+		left join t_goods_pro as pro
+		on t.proid = pro.id
 	</select>
 
 </mapper>
