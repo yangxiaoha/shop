@@ -21,10 +21,10 @@ public interface GoodsService {
 	
 	public boolean validate(Goods goods);
 	
+	public Goods getGoodsId(Integer goodsId);
+	
 	public List<Goods> getGoodsByBrandId(String brandId);
 	
-	public Goods getGoodsId(Integer goodsId);
-
 	public List<Goods> getGoods();
 
 	/**

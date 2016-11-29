@@ -13,6 +13,28 @@ public class OrderDetail {
 	public Integer num;
 	
 	public BigDecimal price;
+	
+	//商品名称
+	public String name;
+	
+	//商品总价
+	public BigDecimal totalPrice;		
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public BigDecimal getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(BigDecimal totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
 	public Integer getId() {
 		return id;

@@ -7,7 +7,7 @@
 			<div class="modal-header">
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
-				<h4 class="modal-title">订单详情
+				<h4 style="color : black" class="modal-title">订单详情
 				<span class="loading" style=""></span>
 				</h4>
 			</div>
@@ -16,131 +16,73 @@
 					<fieldset>
 						<div class="row">
 							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<span style="font-size: 1em; color: black">收货人姓名：</span> <span
+											style="font-size: 1em; color: black" id="sname"></span>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<span style="font-size: 1em; color: black">收货人电话：</span> <span
+											style="font-size: 1em; color: black" id="sphone"></span>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<span style="font-size: 1em; color: black">收货人地址：</span> <span
+											style="font-size: 1em; color: black" id="saddress"></span>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<span style="font-size: 1em; color: black">物流商家：</span> <span
+											style="font-size: 1em; color: black" id="slogistics"></span>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<span style="font-size: 1em; color: black">物流编号：</span> <span
+											style="font-size: 1em; color: black" id="slogisticsnum"></span>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<span style="font-size: 1em; color: black">下单时间：</span> <span
+											style="font-size: 1em; color: black" id="sordertime"></span>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<span style="font-size: 1em; color: black">订单状态：</span> <span
+											style="font-size: 1em; color: black" id="sstate"></span>
+									</div>
+								</div>
+							</div>
+							<div class="row" id="checkbok"></div>
+							<div class="row">
 								<div class="form-group">
-									<label for="name">商品名称</label><input
-										class="form-control" placeholder="请输入品牌名称" id="" name=""
-										type="text">
-								</div>								
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="name">商品编码</label><input
-											class="form-control" placeholder="请输入品牌名称" id="" name=""
-											type="text">
-									</div>								
+									<p style="font-size: 1em; color: black">备注：</p>
+									<span style="font-size: 1em; color: black" id="smemo"></span>
 								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="name">商品特征</label><input
-											class="form-control" placeholder="请输入品牌名称" id="" name=""
-											type="text">
-									</div>
-								</div>	
-							</div>
+							</div>				
 							<div class="row">
-								<div class="col-md-6">
+								<button style="margin-left:15px;" class="btn btn-primary" id="seesubmit" type="button">修改备注</button>
+								<div class="col-md-12">
 									<div class="form-group">
-										<label for="name">商品品牌</label><input
-											class="form-control" placeholder="请输入品牌名称" id="" name=""
-											type="text">
-									</div>
-								</div>						
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="name">商品供应商</label><input
-											class="form-control" placeholder="请输入品牌名称" id="" name=""
-											type="text">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="name">商品数量</label><input
-											class="form-control" placeholder="请输入品牌名称" id="" name=""
-											type="text">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="content">商品单价</label><input
-											class="form-control" placeholder="请输入品牌简介" id="" name="" type="text">
+										<label for="name"></label><input class="form-control"
+											placeholder="输入备注内容" id="smeno" name="meno" type="text">
 									</div>
 								</div>
 							</div>
 						</div>
 					</fieldset>
 				</form>
-			</div>
+			</div>			
 			<div class="modal-footer">
-				<button class="btn btn-primary" id="seesubmit" type="button">确定</button>
-				<button class="btn btn-default-outline" data-dismiss="modal"
-					type="button">取消</button>
+				<button class="btn btn-primary" data-dismiss="modal"
+					type="button">确定</button>
 			</div>
 		</div>
 	</div>
 </div>
-<script>
-	$(document).ready(function(){
-		$("#seesubmit").click(function(){			
-			$("#see").submit();
-		});
-		
-	    $("#see").validate({
-	        rules: {
-	          name: {
-	        	 required:true,
-	        	 remote: {
-	        		    url: "validate",     //后台处理程序
-	        		    type: "post",               //数据发送方式
-	        		    dataType: "json",           //接受数据格式   
-	        		    data: {                     //要传递的数据
-	        		    	name: function() {
-	        		            return $("#ename").val();
-	        		       },
-	        		       id:function(){
-	    				    	return $("#eid").val();
-	    				   }
-	        		  }
-	        	  }
-	          },	       
-	        },
-	        messages: {
-	          name: {
-		        	 required:"请输入品牌名称",
-		        	 remote:"品牌已存在"
-		      },
-		      content: {
-		        	 required:"请输入品牌简介",		        	
-		      }
-	        },
-	        submitHandler: function(form) { 
-	           $(this).attr("disabled","disabled"); 
-			   $(".loading").html("<i class=\"icon-spinner icon-spin\"></i>");
-	           $(form).ajaxSubmit({
-	        	   success:function(data){
-	        		   if(data.state == 1){
-	        			   $(".loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
-	        		   }else{
-	        			   $(".loading").html("<span class=\"label label-danger\">"+data.msg+"</span>");
-	        		   }
-	        		   setTimeout(function(){
-	        			   $(".loading").html("");
-	        			   $("#seesubmit").removeAttr("disabled"); 
-	        			   $("#seeModal").modal('hide');
-	        		   },1000);
-	        		   tableI.table().draw();
-	        	   },
-	        	   error:function(){
-	        		   $(".loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
-	        		   setTimeout(function(){
-	        			   $(".loading").html("");
-	        			   $("#seesubmit").removeAttr("disabled"); 
-	        		   },1000);
-	        	   }
-	           });     
-	        }  
-	      });
-	});
-</script>

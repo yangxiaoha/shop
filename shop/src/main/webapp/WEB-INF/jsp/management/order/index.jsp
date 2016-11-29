@@ -46,14 +46,13 @@
 								<th class="check-header hidden-xs"><label><input
 										id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 								</th>
-								<th>收件人姓名</th>
-								<th>收件人电话</th>
-								<th width="20%">收货地址</th>
-								<th>下单时间</th>		
+								<th>收货人姓名</th>
+								<th>收货人电话</th>
+								<th width="20%">收货人地址</th>
+								<th width="14%">下单时间</th>		
 								<th>物流商家</th>		
 								<th>物流编号</th>		
-								<th>订单状态</th>		
-								<th></th>
+								<th>订单状态</th>								
 								<th></th>
 							</thead>
 							<tbody>
@@ -67,8 +66,8 @@
 	<!-- 
 	<jsp:include page="add.jsp"/>
 	<jsp:include page="delete.jsp"/>
-	<jsp:include page="update.jsp"/>
 	 -->
+	<jsp:include page="update.jsp"/>
 	<jsp:include page="see.jsp"/>
 </body>
 </html>

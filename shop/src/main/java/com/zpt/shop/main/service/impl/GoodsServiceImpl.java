@@ -101,13 +101,15 @@ public class GoodsServiceImpl implements GoodsService {
 			return null;			
 		}
 	}
+	
 
 	@Override
 	public Goods getGoodsId(Integer goodsId) {
 		// TODO Auto-generated method stub
-		Goods goods = goodsMapper.getGoodsId(goodsId);		
-		return goods;				
+		Goods goods = goodsMapper.getGoodsId(goodsId);
+		return goods;
 	}
+
 
 	@Override
 	public List<Goods> getGoods() {

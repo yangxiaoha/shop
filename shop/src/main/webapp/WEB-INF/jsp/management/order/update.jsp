@@ -7,7 +7,7 @@
 			<div class="modal-header">
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
-				<h4 class="modal-title">修改品牌
+				<h4 class="modal-title">修改订单状态
 				<span class="loading" style=""></span>
 				</h4>
 			</div>
@@ -15,27 +15,9 @@
 				<form action="update" id="update" method="post">
 					<fieldset>
 						<div class="row">
-							<input type="hidden" id="eid" name="id" >
-							<div class="col-md-12">
-								<label for="supplierId">供应商名称</label>							
-								<select class="reg-sel form-control" id="esupplierId" name="supplierId">
-									<c:forEach items="${supplierMsg}" var="supplierList">
-										<option value="${supplierList.id}">${supplierList.name}</option>
-									</c:forEach>
-								</select>								
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="name">品牌名称</label><input
-										class="form-control" placeholder="请输入品牌名称" id="ename" name="name"
-										type="text">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="content">品牌简介</label><input
-										class="form-control" placeholder="请输入品牌简介" id="econtent" name="content" type="text">
-								</div>
+							<input type="hidden" id="uid" name="id">
+							<div class="modal-footer">
+								<button class="btn btn-primary" id="" type="button">已发货</button>
 							</div>
 						</div>
 					</fieldset>

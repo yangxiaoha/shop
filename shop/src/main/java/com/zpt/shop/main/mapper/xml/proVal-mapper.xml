@@ -23,13 +23,6 @@
 		update t_goods_pro_val set skuId = #{skuId},proId = #{proId},value = #{value} where id = #{id}
 	</update>
 	
-	<select id="">
-		select * from
-		(select pro_val.skuId,group_concat(pro_val.value) as uvalue,group_concat(pro_val.id) as ids 
-		from t_goods_pro_val as pro_val group by pro_val.skuId) as t 
-		where t.skuId = #{skuId}
-	</select>	
-	
 	<select id="getProByTypeId" resultMap="resultMap" parameterType="java.lang.Integer">
 		select * from 
 		(select pro.*, pro_val.skuid, group_concat(pro_val.value) as value from t_goods_pro as pro

@@ -9,5 +9,5 @@ public interface OrderService {
 	public Page<Order> page(Query<Order> query);
 	
 	public boolean validate(Order order);
-
+	
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.OrderDetailMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="orderDetail" id="resultMap">
+		<id property="id" column="id" />
+		<result property="orderId" column="orderId" />
+		<result property="skuId" column="skuId" />
+		<result property="num" column="num" />
+		<result property="price" column="price" />
+		<result property="totalPrice" column="totalPrice" />
+		<result property="name" column="name" />
+	</resultMap>
+	
+	<select id="getAllOrderDetail" resultMap="resultMap">
+		select orderDetail.id as id,orderDetail.orderId as orderId,orderDetail.skuId as skuId,
+		orderDetail.num as num,orderDetail.price as price,orderDetail.totalPrice as totalPrice,
+		goods.name as name
+		from t_order_detail as orderDetail 
+		left join t_goods_sku as sku on orderDetail.skuid = sku.id
+		left join t_goods as goods on goods.id = sku.goodsid 
+		left join t_order as torder on orderDetail.orderid = torder.id
+		where orderId = #{orderId}
+	</select>
+	
+
+</mapper>

@@ -1,6 +1,8 @@
 package com.zpt.shop.main.entities;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class Order {
 	
@@ -28,6 +30,39 @@ public class Order {
 	
 	//收货人电话
 	public String phone;
+	
+	//商品总价
+	public BigDecimal totalPrice;
+	
+	//订单详情
+	public List<OrderDetail> orderDetail;
+	
+	//备注
+	public String memo;
+	
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+
+	public List<OrderDetail> getOrderDetail() {
+		return orderDetail;
+	}
+
+	public void setOrderDetail(List<OrderDetail> orderDetail) {
+		this.orderDetail = orderDetail;
+	}
+
+	public BigDecimal getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(BigDecimal totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
 	public Integer getId() {
 		return id;
