@@ -19,6 +19,6 @@ public interface ProValService {
 	 * 通过商品类型id查找商品属性
 	 * @param Integer typeId
 	 * */
-	List<ProVal> getProByTypeId(Integer typeId);
+	List<ProVal> getProByTypeId(Integer goodsId);
 
 }

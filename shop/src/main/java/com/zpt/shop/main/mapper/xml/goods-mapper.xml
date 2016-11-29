@@ -182,4 +182,8 @@
 		on t_goods.id = g.goodsid where t_goods.id = #{goodsId}
 	</select>
 	
+	<select id="getGoodsInfo" resultMap="resultMap">
+		select * from t_goods where id = #{goodsId}
+	</select>
+	
 </mapper>

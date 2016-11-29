@@ -84,6 +84,6 @@
 		left join t_goods_pro as pro on val.proid = pro.id
 		left join t_goods_sku as sku on val.skuid = sku.id) as t 
 		left join t_goods_image as img
-		on t.id = img.skuid where t.goodsid = #{goodsId} and t.num  &gt; 0
+		on t.id = img.skuid where t.goodsid = #{goodsId} and t.num &gt; 0
 	</select>
 </mapper>

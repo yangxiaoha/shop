@@ -12,6 +12,6 @@ public interface ProValMapper {
 	
 	public void updateProVal(ProVal proVal);
 
-	public List<ProVal> getProByTypeId(@Param("typeId")Integer typeId);
+	public List<ProVal> getProByTypeId(@Param("ids")String ids);
 
 }

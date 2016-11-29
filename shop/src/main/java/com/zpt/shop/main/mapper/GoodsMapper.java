@@ -35,4 +35,6 @@ public interface GoodsMapper {
 	
 	public Goods getHighGoodsById(@Param("goodsId")Integer goodsId);
 
+	public Goods getGoodsInfo(@Param("goodsId")Integer goodsId);
+
 }
