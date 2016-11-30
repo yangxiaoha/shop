@@ -40,4 +40,18 @@ public class OrderServiceImpl implements OrderService {
 		return true;
 	}
 
+	@Override
+	public void updateState(Order order) {
+		// TODO Auto-generated method stub
+		orderMapper.updateState(order);
+		
+	}
+
+	@Override
+	public void seeOrder(Order order) {
+		// TODO Auto-generated method stub
+		orderMapper.seeOrder(order);
+		
+	}
+
 }

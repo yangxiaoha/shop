@@ -15,6 +15,7 @@
 				<form action="see" id="see" method="post">
 					<fieldset>
 						<div class="row">
+						<input type="hidden" id="uid" name="id">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
@@ -67,11 +68,11 @@
 								</div>
 							</div>				
 							<div class="row">
-								<button style="margin-left:15px;" class="btn btn-primary" id="seesubmit" type="button">修改备注</button>
+								<span style="margin-left:15px;color: black">修改备注</span>
 								<div class="col-md-12">
 									<div class="form-group">
-										<label for="name"></label><input class="form-control"
-											placeholder="输入备注内容" id="smeno" name="meno" type="text">
+										<label for="name"></label><textarea class="form-control" rows="3"
+											placeholder="输入备注内容" id="umemo" name="memo"></textarea>
 									</div>
 								</div>
 							</div>
@@ -80,9 +81,46 @@
 				</form>
 			</div>			
 			<div class="modal-footer">
-				<button class="btn btn-primary" data-dismiss="modal"
-					type="button">确定</button>
+				<button class="btn btn-primary" id="seesubmit" type="button">确定</button>
+				<button class="btn btn-default-outline" data-dismiss="modal"
+					type="button">取消</button>
 			</div>
 		</div>
 	</div>
 </div>
+<script>
+	$(document).ready(function(){
+		$("#seesubmit").click(function(){			
+			$("#see").submit();
+		});
+		
+	    $("#see").validate({	        
+	        submitHandler: function(form) { 
+	           $(this).attr("disabled","disabled"); 
+			   $(".loading").html("<i class=\"icon-spinner icon-spin\"></i>");
+	           $(form).ajaxSubmit({
+	        	   success:function(data){
+	        		   if(data.state == 1){
+	        			   $(".loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
+	        		   }else{
+	        			   $(".loading").html("<span class=\"label label-danger\">"+data.msg+"</span>");
+	        		   }
+	        		   setTimeout(function(){
+	        			   $(".loading").html("");
+	        			   $("#seesubmit").removeAttr("disabled"); 
+	        			   $("#seeModal").modal('hide');
+	        		   },1000);
+	        		   tableI.table().draw();
+	        	   },
+	        	   error:function(){
+	        		   $(".loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
+	        		   setTimeout(function(){
+	        			   $(".loading").html("");
+	        			   $("#seesubmit").removeAttr("disabled"); 
+	        		   },1000);
+	        	   }
+	           });     
+	        }  
+	      });
+	});
+</script>

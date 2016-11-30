@@ -42,8 +42,7 @@
 											<option value="${supplierList.name}">${supplierList.name}</option>
 										</c:forEach>
 									</select>
-									</td>
-													
+									</td>													
 								</tr>
 						    </table>
 						 </div>						 

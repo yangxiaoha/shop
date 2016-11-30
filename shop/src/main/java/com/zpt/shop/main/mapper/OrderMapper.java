@@ -12,4 +12,8 @@ public interface OrderMapper {
 	
 	public List<Order> validate(Order order);
 	
+	public void updateState(Order order);
+	
+	public void seeOrder(Order order);
+	
 }

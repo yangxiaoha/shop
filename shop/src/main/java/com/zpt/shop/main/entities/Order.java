@@ -40,6 +40,17 @@ public class Order {
 	//备注
 	public String memo;
 	
+	//订单编号
+	public String ordernum;	
+	
+	public String getOrdernum() {
+		return ordernum;
+	}
+
+	public void setOrdernum(String ordernum) {
+		this.ordernum = ordernum;
+	}
+
 	public String getMemo() {
 		return memo;
 	}

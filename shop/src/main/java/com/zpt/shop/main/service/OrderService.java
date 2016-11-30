@@ -10,4 +10,8 @@ public interface OrderService {
 	
 	public boolean validate(Order order);
 	
+	public void updateState(Order order);
+	
+	public void seeOrder(Order order);
+	
 }

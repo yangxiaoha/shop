@@ -22,20 +22,27 @@
 			<div class="col-lg-12">
 				<div class="widget-container fluid-height clearfix">
 					<div class="heading">
-						<i class="icon-table"></i>订单管理						
-						<a class="btn btn-sm btn-primary-outline pull-right" data-toggle="modal" href="javascript:void(0)" id="delete-row"><i class="icon-trash"></i>删除</a>
-						<a class="btn btn-sm btn-primary-outline pull-right" data-toggle="modal" href="#addModal" id="add-row"><i class="icon-plus"></i>添加</a>
+						<i class="icon-table"></i>订单管理	
 					</div>
 					<div class="widget-content padded clearfix">
 						<div class="col-lg-12">
 							<table class="table table-bordered table-striped table-hover">
-								<tr>
-						            <td>订单状态:</td>
-						            <td><input class="form-control" type="text" id="state" name="state"></td>
+								<tr>						            
 						            <td>物流商家:</td>
-									<td><input class="form-control" type="text" id="logisticsnum" name="logisticsnum"></td>	
+									<td><input class="form-control" type="text" id="logistics" name="logistics"></td>	
 									<td>物流编号:</td>
-									<td><input class="form-control" type="text" id="logistics" name="logistics"></td>
+									<td><input class="form-control" type="text" id="logisticsnum" name="logisticsnum"></td>
+									<td>订单编号:</td>
+									<td><input class="form-control" type="text" id="ordernum" name="ordernum"></td>									
+									<td>订单状态:</td>
+									<td>
+									<select class="reg-sel form-control" id="state" name="state">
+										<option value=""></option>
+										<option name="state" value="2">未发货</option>
+										<option name="state" value="3">已发货</option>
+										<option name="state" value="4">已收货</option>
+									</select>
+									</td>									
 								</tr>
 						    </table>
 						 </div>						 
@@ -52,22 +59,16 @@
 								<th width="14%">下单时间</th>		
 								<th>物流商家</th>		
 								<th>物流编号</th>		
-								<th>订单状态</th>								
+								<th>订单编号</th>		
+								<th>订单状态</th>
 								<th></th>
 							</thead>
-							<tbody>
-							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- 
-	<jsp:include page="add.jsp"/>
-	<jsp:include page="delete.jsp"/>
-	 -->
-	<jsp:include page="update.jsp"/>
+	</div>	
 	<jsp:include page="see.jsp"/>
 </body>
 </html>

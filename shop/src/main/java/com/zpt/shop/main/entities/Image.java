@@ -5,9 +5,7 @@ public class Image {
 	public Integer id;
 	
 	public String url;
-	
-	public Integer goodsId;
-	
+		
 	public Integer skuId;
 
 	public Integer getId() {
@@ -25,15 +23,7 @@ public class Image {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
-	public Integer getGoodsId() {
-		return goodsId;
-	}
-
-	public void setGoodsId(Integer goodsId) {
-		this.goodsId = goodsId;
-	}
-
+	
 	public Integer getSkuId() {
 		return skuId;
 	}

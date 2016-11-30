@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zpt.shop.common.pojo.Contants;
+import com.zpt.shop.common.pojo.Msg;
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Order;
@@ -61,5 +63,41 @@ public class OrderCtrler {
 			e.printStackTrace();
 		}
 		return list;		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/updateStateS",method = RequestMethod.POST)
+	public Msg update(Order order){
+		Msg msg = new Msg();
+		try {
+			orderService.updateState(order);
+			msg.setState(Contants.RETURN_INT_SUCCESS);
+			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
+			return msg;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			msg.setState(Contants.RETURN_INT_FAIL);
+			msg.setMsg(Contants.RETURN_STRING_EXCEPTION_FAIL);			
+			return msg;
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/see",method = RequestMethod.POST)
+	public Msg see(Order order){
+		Msg msg = new Msg();
+		try {
+			orderService.seeOrder(order);
+			msg.setState(Contants.RETURN_INT_SUCCESS);
+			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
+			return msg;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			msg.setState(Contants.RETURN_INT_FAIL);
+			msg.setMsg(Contants.RETURN_STRING_EXCEPTION_FAIL);			
+			return msg;
+		}
 	}
 }

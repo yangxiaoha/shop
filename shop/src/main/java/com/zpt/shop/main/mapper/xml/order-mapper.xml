@@ -16,6 +16,7 @@
 		<result property="phone" column="phone" />		
 		<result property="totalPrice" column="totalPrice" />
 		<result property="memo" column="memo" />
+		<result property="ordernum" column="ordernum" />
 		<collection property="orderDetail" column="orderDetail" ofType="OrderDetail">    
             <id property="id" column="OrderDetailId" />
             <result property="orderId" column="orderId" />
@@ -30,8 +31,21 @@
 	
 	<sql id="queryCondition">
 		where 1 = 1
-		<if test="obj.name != null and obj.name != ''">
-			and torder.name like CONCAT('%',#{obj.name},'%')
+		<if test="obj.logistics != null and obj.logistics != ''">
+			and torder.logistics like CONCAT('%',#{obj.logistics},'%')
+		</if>
+		<if test="obj.logisticsnum != null and obj.logisticsnum != ''">
+			and torder.logisticsnum like CONCAT('%',#{obj.logisticsnum},'%')
+		</if>
+		<if test="obj.ordernum != null and obj.ordernum != ''">
+			and torder.ordernum like CONCAT('%',#{obj.ordernum},'%')
+		</if>
+		<if test="obj.state != null and obj.state != ''">
+			and torder.state like CONCAT('%',#{obj.state},'%')
+		</if>
+		<if test="search != null and search != ''">
+			and (torder.logistics like CONCAT('%',#{search},'%') or
+				torder.logisticsnum like CONCAT('%',#{search},'%'))
 		</if>
 	</sql>
 	
@@ -46,10 +60,13 @@
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
 		select torder.id as id,torder.userId as userId,torder.address as address,torder.ordertime as ordertime,
 		torder.logisticsnum as logisticsnum,torder.logistics as logistics,torder.state as state,
-		torder.name as name,torder.phone as phone,goods.name as goodsName,torder.totalPrice,torder.memo
-		from t_order as torder left join t_user as tuser on torder.userId = tuser.id left join t_order_detail
-		as orderdetail on torder.id = orderdetail.orderId left join t_goods_sku as sku on 
-		sku.id = orderdetail.skuId left join t_goods as goods on sku.goodsid = goods.id		
+		torder.name as name,torder.phone as phone,goods.name as goodsName,torder.totalPrice as totalPrice,
+		torder.memo as memo,torder.ordernum as ordernum
+		from t_order as torder 
+		left join t_user as tuser on torder.userId = tuser.id 
+		left join t_order_detail as orderdetail on torder.id = orderdetail.orderId 
+		left join t_goods_sku as sku on sku.id = orderdetail.skuId 
+		left join t_goods as goods on sku.goodsid = goods.id		
 		<include refid="queryCondition"/>
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>
@@ -65,5 +82,13 @@
 		select * from t_order
 		<include refid="validateCondition"/>
 	</select>
+	
+	<update id="updateState" parameterType="order">
+		update t_order set state = #{state} where id = #{id}
+	</update>
+	
+	<update id="seeOrder" parameterType="order">
+		update t_order set memo = #{memo} where id = #{id}
+	</update>
 	
 </mapper>

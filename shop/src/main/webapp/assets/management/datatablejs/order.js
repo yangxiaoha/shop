@@ -14,6 +14,7 @@ $(document).ready(function(){
                     { "data": "ordertime" },
                     { "data": "logistics" },
                     { "data": "logisticsnum" },
+                    { "data": "ordernum" },
                     { "data": "state" },                  
                     { "data":"id","className": "actions","orderable":false },
                 ],
@@ -40,34 +41,36 @@ $(document).ready(function(){
                }
            },
            {
-               "targets": [8],
+               "targets": [9],
                "data": "state",
                "render": function(data, type, full,meta) {
-            	   if(data == 2) {            		   
-            	return '<div class="btn-group">'+
-       						'<button class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown"><i class="icon-reorder"></i>未发货<span class="caret"></span></button>'+ 
-       						'<ul class="dropdown-menu">'+
-       						'<li>'+
-       						'<a href="#"><i class="icon-edit"></i>发货</a>'+
-       						'</li>'+
-       						'<li>'+
-       						'<a href="#"><i class="icon-edit"></i>已收货</a>'+
-       						'</li>'+                       
-       						'</ul>'+
-       					'</div>';
+            	   var temp = "未付款";
+            	   if(data == 2) {
+            		   temp = "未发货";
             	   }else if(data == 3) {
-            		
+            		   temp = "已发货";
             	   }else if(data == 4) {
-            		 
-            	   }else if(data == 1) {
-            		  
+            		   temp = "已收货";            		  
             	   } 
-            	  
-            	       	                  
+            	   
+            	   var returnhtml = '<div class="btn-group">'+
+            	   '<button class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" ><i class="icon-reorder"></i>'+temp+'<span class="caret"></span></button>';
+            	   if(data == 2){
+            		   var lasthtml= '<ul class="dropdown-menu">'+
+	            	   '<li>'+
+	            	   '<a class="update" data-action="3" data-rowid="'+meta.row+'" href="javascript:void(0)"><i class="icon-edit"></i>发货</a>'+
+	            	   '</li>'+
+	            	   '</ul>';
+	            	   
+            	   }else if(data == 3||data == 4){
+            		   lasthtml = "";
+            	   }
+            	    returnhtml = returnhtml + lasthtml + '</div>';
+            	return returnhtml;
                }
            },           
            {
-                "targets": [9],
+                "targets": [10],
                 "data": "id",
                 "render": function(data, type, full,meta) {
                   return '<div class="action-buttons">'+
@@ -80,35 +83,46 @@ $(document).ready(function(){
         	$(".update").click(function(){
         		var rowid = $(this).data("rowid");
         		var api = new $.fn.dataTable.Api( settings );
-                var obj = api.rows(rowid).data()[0];
-        		$("#uid").val(obj.id);
-        		$("#ustate").val(obj.state);
+                var obj = api.rows(rowid).data()[0];   
+                var ustate = $(this).data("action");
+                $.ajax({
+        			url:"updateStateS",
+        			type:"post",
+        			data:{id:obj.id,state:ustate},
+        			dataType:"json",
+        			async:true,
+        			success:function(res){        				
+        				 tableI.table().draw();
+        			},
+        			error:function(res){
+        				
+        			}
+                });
         		$("#updateModal").modal("show");
-        	});
-        	$(".updateAdd").click(function(){
-        		var rowid = $(this).data("rowid");
-        		var api = new $.fn.dataTable.Api( settings );
-                var obj = api.rows(rowid).data()[0];
-        		$("#uid").val(obj.id);
-        		$("#umeno").val(obj.meno);
-        		$("#updateAddModal").modal("show");
         	});
         	
         	$(".see").click(function(){
         		var rowid = $(this).data("rowid");
         		var api = new $.fn.dataTable.Api( settings );
                 var obj = api.rows(rowid).data()[0];
-        		$("#sid").val(obj.id);
+        		$("#uid").val(obj.id);
         		$("#sname").html(obj.name);
         		$("#sphone").html(obj.phone);
         		$("#saddress").html(obj.address);
         		$("#slogistics").html(obj.logistics);
         		$("#slogisticsnum").html(obj.logisticsnum);
         		$("#smemo").html(obj.memo);
+        		$("#umemo").val(obj.memo);
         		var d = new Date(obj.ordertime);  
      		    var date = d.toLocaleString(); 
-        		$("#sordertime").html(date);        		
-        		$("#sstate").html(obj.state);
+        		$("#sordertime").html(date);
+        		if(obj.state == 2){
+        			$("#sstate").html("未发货");
+        		}else if(obj.state == 3) {
+        			$("#sstate").html("已发货");
+         	    }else if(obj.state == 4) {
+         	    	$("#sstate").html("已收货");
+         	    }         		
         		$.ajax({
         			url:"getOrderDetail",
         			type:"post",
@@ -147,7 +161,7 @@ $(document).ready(function(){
         },
         "className" : "Order",
         "chosen" : true,
-        "ids" : "#state,#logisticsnum,#logistics",
-        "targets":"8,7,6"
+        "ids" : "#state,#ordernum,#logisticsnum,#logistics",
+        "targets":"9,8,7,6"
 	});
 });

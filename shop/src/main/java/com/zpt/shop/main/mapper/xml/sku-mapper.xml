@@ -47,10 +47,13 @@
 	<select id="listSku" resultMap="resultMap" parameterType="query">
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
 		select sku.id as id,sku.num as num,sku.price as price,sku.code as code,
-		goods.name as name,t.ids as ids,t.value as value
-		from t_goods_sku as sku left join t_goods as goods on sku.goodsId = goods.id left join 
-		(select pro_val.skuId,group_concat(pro_val.value SEPARATOR '|#$%|') as value,group_concat(pro_val.id) as ids 
-		from t_goods_pro_val as pro_val group by pro_val.skuId) as t on t.skuid = sku.id
+		goods.name as name,t.ids as ids,t.value as value,image.url as url
+		from t_goods_sku as sku 
+		left join t_goods as goods on sku.goodsId = goods.id 
+		left join t_goods_image as image on sku.id = image.skuid
+		left join (select pro_val.skuId,group_concat(pro_val.value SEPARATOR '|#$%|') as value,
+		group_concat(pro_val.id) as ids from t_goods_pro_val as pro_val group by pro_val.skuId) 
+		as t on t.skuid = sku.id
 		<include refid="queryCondition"/>
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>

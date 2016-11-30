@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.ImageMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="image" id="resultMap">
+		<id property="id" column="id" />
+		<result property="url" column="url" />
+		
+	</resultMap>
+	
+	<insert id="insertImageUrl" parameterType="image">
+		insert into t_goods_image (url, skuId)
+		values (#{url}, #{skuId})
+	</insert>
+	
+</mapper>
