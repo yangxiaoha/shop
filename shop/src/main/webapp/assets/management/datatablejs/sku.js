@@ -61,10 +61,10 @@ $(document).ready(function(){
         		var api = new $.fn.dataTable.Api( settings );
                 var obj = api.rows(rowid).data()[0];
         		$("#sid").val(obj.id);
-        		$("#snum").val(obj.num);
-        		$("#sprice").val(obj.price); 
-        		$("#scode").val(obj.code);
-        		$("#svalue").val(obj.value);
+        		$("#snum").html(obj.num);
+        		$("#sprice").html(obj.price); 
+        		$("#scode").html(obj.code);
+        		$("#svalue").html(obj.value);
         		if(obj.ids != null && obj.ids != ""){        			
         			var str = obj.value.split("|#$%|");
         			for(var i=0;i<str.length;i++){

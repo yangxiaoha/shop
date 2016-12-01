@@ -92,15 +92,8 @@
 	<update id="seeOrder" parameterType="order">
 		update t_order set memo = #{memo} where id = #{id}
 	</update>
-	
-	<insert id="addOrder" parameterType="order">
-	    insert into t_order (userId, address, ordertime, name, phone, totalprice, memo, ordernum, state) 
-		values (#{userId}, #{address}, #{ordertime}, #{name}, #{phone}, #{totalprice}, #{memo}, #{ordernum}, #{state})
-	</insert>
-	
-	<select id="getOrder" resultMap="resultMap">
-		select * from t_order where userId = #{userId} and ordernum = #{orderNum}
-	</select>
+
+	<!-- ******************************************************************************** -->
 	
 	<select id="getOrderDetail" resultMap="resultMap">
 		select t_order.*, t2.detailid as detail_id, t2.orderid as detail_orderid, t2.num as detail_num, t2.price as detail_price, 

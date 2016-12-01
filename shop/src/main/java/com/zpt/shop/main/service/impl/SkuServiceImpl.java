@@ -9,8 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
+import com.zpt.shop.main.entities.Image;
 import com.zpt.shop.main.entities.ProVal;
 import com.zpt.shop.main.entities.Sku;
+import com.zpt.shop.main.mapper.ImageMapper;
 import com.zpt.shop.main.mapper.ProValMapper;
 import com.zpt.shop.main.mapper.SkuMapper;
 import com.zpt.shop.main.service.SkuService;
@@ -25,11 +27,17 @@ public class SkuServiceImpl implements SkuService{
 	
 	@Autowired
 	private ProValMapper proValMapper;
+	
+	@Autowired
+	private ImageMapper imageMapper;
 
 	@Override
 	public void insertSku(Sku sku,Integer[] proId,String[] value) {
 		// TODO Auto-generated method stub
 		skuMapper.insertSku(sku);
+		Image image = new Image();
+		image.setSkuId(sku.getId());
+		imageMapper.insertImageUrl(image);
 		List<ProVal> list = new ArrayList<ProVal>();
 		for (int i = 0; i < value.length; i++) {
 			ProVal proVal = new ProVal();

@@ -6,8 +6,8 @@
 			<div class="modal-header">
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
-				<h4 class="modal-title">删除该品牌
-				<span id="loading" style=""></span>
+				<h4 class="modal-title">删除学校
+				<span class="loading" id="loading" style=""></span>
 				</h4>
 			</div>
 			<div class="modal-body">
@@ -38,8 +38,7 @@
 			}
 			$("#delModal").modal('show');
 		});
-		
-		
+				
 		$("#deletesubmit").click(function(){
 			$(this).attr("disabled","disabled"); 
 			if($("#ids").val() != null && $("#ids").val() != ""){
@@ -61,7 +60,6 @@
 	        			   reset("#dform");
 		        		   tableI.table.draw();
 		        		   $("#delModal").modal('hide');
-
 	        		   },1000);
 	        	   }
 	           });     

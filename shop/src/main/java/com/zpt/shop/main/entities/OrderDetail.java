@@ -1,7 +1,6 @@
 package com.zpt.shop.main.entities;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class OrderDetail {
 	
@@ -15,18 +14,20 @@ public class OrderDetail {
 	
 	public BigDecimal price;
 	
-	public BigDecimal totalPrice;
+	//商品总价
+	public BigDecimal totalPrice;	
+
+	//商品名称
+	public String name;
 	
-	public Integer goodsId;//商品id
+	//商品id
+	public Integer goodsId;
 	
-	public String name;//商品名称
+	//商品图片
+	public String url;
 	
-	public String url;//商品图片
-	
-	public String val;//商品属性
-	
-	//商品详情
-	private List<Sku> sku;
+	//商品属性
+	public String val;
 
 	public Integer getId() {
 		return id;
@@ -107,13 +108,5 @@ public class OrderDetail {
 	public void setVal(String val) {
 		this.val = val;
 	}
-
-	public List<Sku> getSku() {
-		return sku;
-	}
-
-	public void setSku(List<Sku> sku) {
-		this.sku = sku;
-	}	
 
 }

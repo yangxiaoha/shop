@@ -26,22 +26,21 @@
 								</div>										
 							</div>
 							<div class="row">
-								<div class="col-md-4">
+								<div class="col-md-6">
 									<span>商品数量：</span>
-									<input class="form-control" id="snum" name="" type="text" 
-									readonly = "readonly">								
+									<span id="snum"></span>
 								</div>			
-								<div class="col-md-4">
+								<div class="col-md-6">
 									<span>商品价格：</span>
-									<input class="form-control" id="sprice" name="" type="text"
-									readonly = "readonly">									
+									<span id="sprice"></span>									
 								</div>
-								<div class="col-md-4">
+							</div>
+							<div class="row">							
+								<div class="col-md-12">
 									<span>特征量编码：</span>
-									<input class="form-control" id="scode" name="" type="text"
-									readonly = "readonly">									
-								</div>									
-							</div>							
+									<span id="scode"></span>									
+								</div>
+							</div>									
 							<c:forEach items="${goodsM.pros}" var="p" varStatus="status">
 							<c:if test="${status.index%3 == 0}">
 								<div class="row">

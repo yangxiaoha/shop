@@ -24,7 +24,7 @@
 		left join t_order as torder on orderDetail.orderid = torder.id
 		where orderId = #{orderId}
 	</select>
-	
+
 	<insert id="addOrderDetail">
 		insert into t_order_detail (orderId, skuId, num, price, totalprice) 
 		values 

@@ -34,15 +34,15 @@ public class Order {
 	
 	//商品总价
 	public BigDecimal totalPrice;
+
+	//订单详情
+	public List<OrderDetail> orderDetail;
 	
 	//备注
 	public String memo;
 	
 	//订单编号
-	public String ordernum;
-	
-	//订单详情
-	private List<OrderDetail> orderDetail;
+	public String ordernum;	
 
 	public Integer getId() {
 		return id;

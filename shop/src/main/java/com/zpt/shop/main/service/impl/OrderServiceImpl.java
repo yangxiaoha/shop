@@ -29,7 +29,7 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private OrderDetailMapper orderDetailMapper;
-	
+
 	@Override
 	public Page<Order> page(Query<Order> query) {
 		// TODO Auto-generated method stub
