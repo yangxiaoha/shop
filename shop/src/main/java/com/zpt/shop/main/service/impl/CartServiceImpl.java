@@ -3,13 +3,10 @@ package com.zpt.shop.main.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mchange.v2.async.CarefulRunnableQueue;
 import com.zpt.shop.main.entities.Cart;
-import com.zpt.shop.main.entities.GoodsType;
 import com.zpt.shop.main.mapper.CartMapper;
 import com.zpt.shop.main.service.CartService;
 

@@ -46,9 +46,6 @@ public class PurchaseCtrler {
 	@Autowired
 	private OrderService orderService;
 	
-	@Autowired
-	private OrderDetailService orderDetailService;
-	
 	//购物车页面
 	@RequestMapping(value="/cart", method=RequestMethod.GET)
 	public ModelAndView cart() {
