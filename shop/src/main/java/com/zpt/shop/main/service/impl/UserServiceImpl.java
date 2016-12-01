@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
+import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.mapper.UserMapper;
 import com.zpt.shop.main.service.UserService;
@@ -35,6 +36,22 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		User user = userMapper.gerUserId(id);
 		return user;
+	}
+
+	/****************************************************************************/
+	/**
+	 * 获取分销信息
+	 * @param Integer userId 用户id
+	 * */
+	@Override
+	public List<User> getAgentInfoByMyId(Integer userId) {
+		// TODO Auto-generated method stub
+		List<User> list = userMapper.getAgentInfoByMyId(userId);
+		if (list != null && list.size()>0) {
+			return list;
+		} else {
+			return null;
+		}	
 	}
 
 }

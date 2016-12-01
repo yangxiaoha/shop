@@ -28,15 +28,30 @@ public interface OrderService {
 	/**
 	 * 订单详情
 	 * @param Integer userId 用户id
-	 * @return 
+	 * @return List<Order>
 	 * */
 	public List<Order> getOrderDetail(Integer userId);
 
 	/**
 	 * 订单详情
 	 * @param Integer orderId 订单id
-	 * @return 
+	 * @return List<Order>
 	 * */
 	public List<Order> getOrderByOrderId(Integer orderId);
+
+	/**
+	 * 分销下单未付款查询
+	 * @param String ids 代理人
+	 * @return List<Order>
+	 * */
+	public List<Order> getOrderInfoByNoPay(String ids);
+
+	
+	/**
+	 * 分销下单已付款查询
+	 * @param String ids 代理人
+	 * @return List<Order>
+	 * */
+	public List<Order> getOrderInfoByPay(String ids);
 
 }

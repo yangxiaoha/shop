@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.WithdrawMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="withdraw" id="resultMap">
+		<id property="id" column="id" />
+		<result property="userId" column="userId" />
+		<result property="cashTime" column="cashtime" />
+		<result property="cashMoney" column="cashmoney" />
+		<result property="state" column="state" />
+	</resultMap>
+	
+	<select id="getMemberInfo" resultMap="resultMap">
+		select user.*, cash.id as cashid, cash.cashtime as cashTime, 
+		cash.money as cashMoney, cash.state as state from t_user as user 
+		left join t_withdraw_cash as cash
+		on user.id = cash.userid
+		where user.id = #{userId} and cash.state = 1
+	</select>
+	
+	<select id="getWithdrawsInfo" resultMap="resultMap">
+		select cash.id, cash.cashtime as cashTime, cash.money as cashMoney, cash.userid, cash.state
+		from t_withdraw_cash as cash 
+		where userid = #{userId}
+	</select>
+	
+</mapper>

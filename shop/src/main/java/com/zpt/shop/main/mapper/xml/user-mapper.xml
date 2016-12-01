@@ -45,4 +45,11 @@
 		select * from t_user where id=#{id}
 	</select>
 	
+	<select id="getAgentInfoByMyId" resultMap="resultMap">
+		select a.id as id, b.id as pid from 
+		(select * from t_user where pid = #{userId}) as a
+		left join t_user as b
+		on a.id = b.pid 
+	</select>
+	
 </mapper>

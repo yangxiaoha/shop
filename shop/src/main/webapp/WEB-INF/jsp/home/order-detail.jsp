@@ -62,7 +62,7 @@
 		  		  <c:if test="${orderList.state == 4}">
 		  		  	<button class="btn fr">确认收货</button>
 		  		  </c:if>	  
-		      	  <p class="fr">合计：<span class="font-price">￥${orderList.totalprice}</span></p>
+		      	  <p class="fr">合计：<span class="font-price">￥${orderList.totalPrice}</span></p>
 		      	  <p class="fr mr10">共1件商品</p>
 		      	</div>
 		      </div>

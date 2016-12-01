@@ -17,12 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.zpt.shop.main.entities.Cart;
 import com.zpt.shop.main.entities.Order;
-import com.zpt.shop.main.entities.OrderDetail;
 import com.zpt.shop.main.service.CartService;
-import com.zpt.shop.main.service.OrderDetailService;
 import com.zpt.shop.main.service.OrderService;
 
 /**

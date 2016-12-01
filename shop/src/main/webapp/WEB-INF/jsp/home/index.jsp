@@ -108,7 +108,7 @@
 				</a>
 			</li>
 			<li>
-				<a>
+				<a href="../member/memberCenter">
 					<span class="tab-bar-bg member-center"></span>
 					<span>会员中心</span>
 				</a>

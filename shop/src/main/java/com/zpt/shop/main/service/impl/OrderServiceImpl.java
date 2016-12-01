@@ -125,4 +125,30 @@ public class OrderServiceImpl implements OrderService {
 		return null;
 	}
 
+	/**
+	 * 分销下单未付款查询
+	 * */
+	@Override
+	public List<Order> getOrderInfoByNoPay(String ids) {
+		// TODO Auto-generated method stub
+		List<Order> list = orderMapper.getOrderInfoByNoPay(ids);
+		if(list != null && list.size()>0){
+			return list;
+		}
+		return null;
+	}
+	
+	/**
+	 * 分销下单已付款查询
+	 * */
+	@Override
+	public List<Order> getOrderInfoByPay(String ids) {
+		// TODO Auto-generated method stub
+		List<Order> list = orderMapper.getOrderInfoByPay(ids);
+		if(list != null && list.size()>0){
+			return list;
+		}
+		return null;
+	}
+
 }

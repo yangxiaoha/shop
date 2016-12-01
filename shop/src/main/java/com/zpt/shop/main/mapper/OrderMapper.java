@@ -27,4 +27,8 @@ public interface OrderMapper {
 
 	public List<Order> getOrderByOrderId(@Param("orderId")Integer orderId);
 
+	public List<Order> getOrderInfoByNoPay(@Param("ids")String ids);
+
+	public List<Order> getOrderInfoByPay(@Param("ids")String ids);
+
 }

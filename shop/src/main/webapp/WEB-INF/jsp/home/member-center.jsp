@@ -19,19 +19,19 @@
 <body>
 	<div id="wrap">
 	    <div class="user-info">
-	      <img src="images/carousel-img1.jpg">
+	      <img src="<%=basePath%>assets/home/images/head-portrait.png">
 	      <p style="color: #fff;">用户名</p>
 	    </div>
 	
 	    <div class="present-info mb10">
-	      <p class="pv10 fc-595757">您是由[商家名]推荐</p>
+	      <p class="pv10 fc-595757">您是由[一见喜]推荐</p>	      
 	      <ul class="clearfloat">
 	        <li class="fl clearfloat">
-	          <span class="fc-c8161d">0元</span>
+	          <span class="fc-c8161d">${userMsg.money}元</span>
 	          <span class="fc-595757">可提现金额</span>
 	        </li>
 	        <li class="fl clearfloat">
-	          <span class="fc-c8161d">0元</span>
+	          <span class="fc-c8161d">${totalPrice}元</span>
 	          <span class="fc-595757">已提现金额</span>
 	        </li>
 	      </ul>
@@ -42,26 +42,26 @@
 	        <li class="user-power-show" id="user-power-show">
 	          <div class="user-power-title clearfloat p10">
 	            <span class="fl show-img">代理人推广</span>
-	            <i class="fr agency-all-amount">0单(￥0.00)</i>
+	            <i class="fr agency-all-amount">${num}单(￥${price})</i>
 	          </div>         
 	          <ul class="user-power-detail" style="display: none;">
 	            <li>
 	              <span>我的代理人</span>
-	              <i class="fr fc-c8161d">0人</i>
+	              <i class="fr fc-c8161d">${peopleNum}人</i>
 	            </li>
 	            <li>
 	              <span>下单未购买</span>
-	              <i class="fr fc-c8161d">0单(￥0.00)</i>
+	              <i class="fr fc-c8161d">${noPayNum}单(￥${noPayPrice})</i>
 	            </li>
 	            <li>
 	              <span>下单已购买</span>
-	              <i class="fr fc-c8161d">0单(￥0.00)</i>
+	              <i class="fr fc-c8161d">${payNum}单(￥${payPrice})</i>
 	            </li>
 	          </ul>
 	        </li>
 	        <li class="user-power-show">
 	          <div class="user-power-title clearfloat p10">
-	            <a href="withdrawals.html" class="fc-595757">
+	            <a href="withdrawals" class="fc-595757">
 	              <span class="fl show-img">申请提现</span>
 	              <i class="fr glyphicon glyphicon-chevron-right" style="line-height: 23px;"></i>
 	            </a>           

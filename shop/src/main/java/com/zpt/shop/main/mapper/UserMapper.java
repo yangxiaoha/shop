@@ -14,5 +14,12 @@ public interface UserMapper {
 	public Integer countUser(Query<User> query);
 	
 	public User gerUserId(@Param("id")Integer id);
+	
+	/****************************************************************************/
+	/**
+	 * 获取分销信息
+	 * @param Integer userId 用户id
+	 * */
+	public List<User> getAgentInfoByMyId(@Param("userId")Integer userId);
 
 }
