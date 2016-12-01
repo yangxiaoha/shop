@@ -1,10 +1,13 @@
 package com.zpt.shop.main.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mchange.v2.async.CarefulRunnableQueue;
 import com.zpt.shop.main.entities.Cart;
 import com.zpt.shop.main.entities.GoodsType;
 import com.zpt.shop.main.mapper.CartMapper;
@@ -26,9 +29,19 @@ public class CartServiceImpl implements CartService {
 	private CartMapper cartMapper;
 
 	@Override
-	public Integer addGoodsIntoCart(String userId, String skuId, String num, String price) {
+	public Integer addGoodsIntoCart(String userId, String skuId, Integer num, String price) {
 		// TODO Auto-generated method stub
-		cartMapper.addGoodsIntoCart(userId, skuId, num, price);
+		// 添加购物车之前先判断之前是否已经有此商品
+		Cart cart = cartMapper.selectCart(userId, skuId);
+		BigDecimal totalPrice = new BigDecimal("0.0");
+        BigDecimal money = new BigDecimal(price);
+		totalPrice = money.multiply(new BigDecimal(num));
+		if(cart != null && "".equals(cart)) {
+			num = num + cart.getNum();
+			cartMapper.updateGoodsIntoCart(userId, skuId, num, price, totalPrice);
+		}else {
+			cartMapper.addGoodsIntoCart(userId, skuId, num, price, totalPrice);
+		}	
 		Integer amount = cartMapper.selectAmount(userId);
 		return amount;
 	}
@@ -56,6 +69,32 @@ public class CartServiceImpl implements CartService {
 		// TODO Auto-generated method stub
 		cartMapper.deleteCartInfo(cartId);
 		List<Cart> list = cartMapper.getCartInfo(userId);
+		if(list != null && list.size() > 0) {
+			return list;	
+		}else {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Cart> modifyGoodsIntoCart(String userId, String cartId, String skuId, Integer num, String price) {
+		// TODO Auto-generated method stub
+		BigDecimal totalPrice = new BigDecimal("0.0");
+        BigDecimal money = new BigDecimal(price);
+		totalPrice = money.multiply(new BigDecimal(num));
+		cartMapper.modifyGoodsIntoCart(cartId, skuId, num, price, totalPrice);
+		List<Cart> list = cartMapper.getCartInfo(userId);
+		if(list != null && list.size() > 0) {
+			return list;	
+		}else {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Cart> getCartByCartIds(String userId, String cartIds) {
+		// TODO Auto-generated method stub
+		List<Cart> list = cartMapper.getCartByCartIds(userId, cartIds);
 		if(list != null && list.size() > 0) {
 			return list;	
 		}else {

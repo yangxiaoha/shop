@@ -1,0 +1,98 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<%@ taglib prefix="decorator"
+	uri="http://www.opensymphony.com/sitemesh/decorator"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>一见喜</title>
+<style>
+</style>
+</head>
+<body style="background-color: #ECECF2">
+	<div id="wrap">
+	  	<div class="nav-bar write-order ta-center clearfloat">
+	      <p class="clearfloat">返回</p>填写订单
+	    </div>
+	
+	    <div class="order-detail p10">
+	      <div class="order-detail-addr">
+	        <h4 class="mb5">姓名，15750845026</h4>
+	        <p class="fc-9fa0a0 fs-12">福建省 福州市 仓山区 纵一号海峡科技园123456789</p>
+	        <a href="myAddr" class="icon-item" style="display: block; color: #231815;">
+	          <span class="iconfont">&#xe7f7;</span>
+	        </a>
+	      </div>
+	
+	      <p class="order-detail-total p5 clearfloat">
+	        <span class="fl">商品合计：</span>
+	        <span class="fr font-price">￥${total}</span>
+	      </p>
+		
+		  <div class="order-detail-goods p5">
+		    <c:forEach items="${cartsMsg}" var="cartsList">
+			  <div class="order-show order-list clearfloat">
+	            <img src="<%=basePath%>${cartsList.url}">
+                <ul class="shopping-car-detail ph5">
+                  <li class="fc-595757 mb5">${cartsList.name}</li>
+                  <li class="fc-9fa0a0 fs-1rem">已选 ${cartsList.value}</li>
+          	    </ul>
+	            <div class="shopping-car-edit">
+	              <p class="font-price">￥${cartsList.price} x${cartsList.num}</p>
+	            </div>
+	          </div>
+		    </c:forEach>	  	   	         
+	        <form class="order-remarks" id="buyGoodsForm">
+	          <div>
+	            <label for="remarks" class="fc-9fa0a0">备注:</label>
+	            <textarea id="remarks" name="memo"></textarea>
+	          </div>
+		      <input type="hidden" id="name" name="name" value="" />
+		      <input type="hidden" id="phone" name="phone" value="" />
+		      <input type="hidden" id="address" name="address" value="" />
+		      <input type="hidden" id="totalprice" name="totalprice" value="${total}" />
+	        </form>
+	        <form id="buyGoodsSubForm" action="submitOrder" method="post" style="width: 0; height: 0;">
+	          <input type="hidden" id="postData" name="postData" />
+		      <input type="hidden" id="cartIds" name="cartIds" value="${cartIds}" />
+		      <input type="hidden" id="state" name="state" value="0" />
+	        </form>
+	      </div>
+	    </div>
+	
+	  	<div class="tab-bar order-tab-bar">	
+	  		<p class="fl">实付款</p>	 		
+	  		<p class="fr payment">付款</p>
+	      <p class="fr font-price">￥${total}</p>
+	  	</div>
+    </div>
+    
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	    	$(".payment").click(function() {
+	  		    $("#name").val($("#oldName").text());
+	  		    $("#phone").val($("#oldPhone").text());
+	  		    $("#address").val($("#oldAddress").text());
+	    		var queryArray = $("#buyGoodsForm").serializeArray();
+	    		var jsonString= '{';  
+	    		for (var i = 0; i < queryArray.length; i++) {  
+	    		    jsonString+= JSON.stringify(queryArray[i].name) + ':' + JSON.stringify(queryArray[i].value) + ',';  
+	    		}  
+	    		jsonString= jsonString.substring(0, (jsonString.length - 1));  
+	    		jsonString+= '}'; 
+	    		$("#postData").val(jsonString);
+	    		$("#buyGoodsSubForm").submit();
+	    	});
+	    });
+    </script>
+</body>
+</html>

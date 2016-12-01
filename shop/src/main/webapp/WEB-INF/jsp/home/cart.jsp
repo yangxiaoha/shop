@@ -125,7 +125,7 @@
 				        <img src="<%=basePath%>${cartsList.url}">
 				        <ul class="shopping-car-detail ph5">
 				          <li><a href="../mainindex/goodsDetail/${cartsList.goodsId}" class="fc-000 goodsName">${cartsList.name}</a></li>
-				          <li>商品规格：${cartsList.value}</li>
+				          <li>商品规格：<span class="goodsValue">${cartsList.value}</span></li>
 				          <li><span class="fl goodsPrice">￥${cartsList.price}</span><span class="fr">x${cartsList.num}</span></li>
 				        </ul>
 				        <div class="shopping-car-edit">
@@ -137,43 +137,66 @@
 				        </div>
 			  	    </div>
 				</c:forEach>				
-	        </c:if>		  
+	        </c:if>
+	        <form id="buyGoodsForm" action="buyGoods" method="post">
+	        	<input id="cartIds" name="cartIds" />
+	        </form>		  
 	    </div>
 
 	    <div class="tab-bar car-tab-bar">		
-	  		<a class="btn fr bc-c8161d">结算（<span id="settlement">${totalNum}</span>）</a>
+	  		<a class="btn fr bc-c8161d" id="submitOrder">结算（<span id="settlement">${totalNum}</span>）</a>
 	  		<p class="fr mr10" id="total" style="font-size: 2rem;">合计：￥${total}</p>
 	    </div>
 	    
-	    <!-- 商品属性的修改 -->
-	    <div class="goods-parameter-choice" id="goods-parameter-choice" style="display: none;">
-			<div class="goods-parameter-show order-list clearfloat">
-				<input id="eGoodsId" type="hidden">
-			    <img id="eGoodsImg" />
-		        <ul class="shopping-car-detail p5">
-		         	<li class="fc-c8161d mb5" id="eGoodsPrice"></li>
-		            <li class="fc-9fa0a0 fs-1rem mb5">库存<span id="eGoodsNum"></span>件</li>
-		            <li class="fc-595757 parameter-show" id="eGoodsSelect">请选择</li>
-		        </ul>
-		        <div class="shopping-car-edit">
-	            	<i id="close"></i>
-	          	</div>
-	        </div>
-	        <div class="goods-parameter-classify">
-	        	<button class="clear-attr">清空</button>
-	        </div>
-	        <div class="goods-purchase-num">
-	        	<div class="fl">购买数量</div>
-	        	<div class="fr">
-	        		<span id="reduceNum">-</span>
-	        		<span class="bc-fff mh5" id="purchaseNum">1</span>
-	        		<span id="plusNum">+</span>
-	        	</div>
-	        </div>
-	        <div class="goods-purchase" style="position: relative; border-top: 1px solid #C7C3C5;">
-	        	<p class="parameter-prompt">请选择商品属性</p>
-	        	<a href="#" class="purchase" id="purchase">确定</a>
-	        </div>
+	    <!-- 商品属性的修改 -->	
+		<div id="modifyAttr">
+			<div class="goods-parameter-choice" id="goods-parameter-choice" style="display: none;">
+				<div class="goods-parameter-show order-list clearfloat">
+					<input id="eGoodsId" type="hidden">
+					<input id="eCartId" type="hidden">
+				    <img id="eGoodsImg" />
+			        <ul class="shopping-car-detail p5">
+			         	<li class="fc-c8161d mb5" id="eGoodsPrice"></li>
+			            <li class="fc-9fa0a0 fs-1rem mb5">库存<span id="eGoodsNum"></span>件</li>
+			            <li class="fc-595757 parameter-show" id="eGoodsSelect">请选择</li>
+			        </ul>
+			        <div class="shopping-car-edit">
+		            	<i id="close"></i>
+		          	</div>
+		        </div>
+		        <div class="goods-parameter-classify">
+		        	<button class="clear-attr">清空</button>
+		        </div>
+		        <div class="goods-purchase-num">
+		        	<div class="fl">购买数量</div>
+		        	<div class="fr">
+		        		<span id="reduceNum">-</span>
+		        		<span class="bc-fff mh5" id="purchaseNum">1</span>
+		        		<span id="plusNum">+</span>
+		        	</div>
+		        </div>
+		        <div class="goods-purchase" style="position: relative; border-top: 1px solid #C7C3C5;">
+		        	<p class="parameter-prompt">请选择商品属性</p>
+		        	<a href="javascript:void(0)" class="purchase" id="purchase">确定</a>
+		        </div>
+			</div>
+		</div>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+			    <div class="modal-content">
+			        <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				        <h4 class="modal-title ta-center" id="myModalLabel">公告</h4>
+			        </div>
+			        <div class="modal-body">
+			        	<p style="text-indent: 28px; word-wrap: break-word;">
+			        		替换文字替换文字替换文字替换文字替换文字替换文字替换文字替换文字替换文字
+			        	</p>		        	
+			        </div>
+			    </div>
+		    </div>
 		</div>
 	    
 	    <!-- 遮罩动画 -->
@@ -191,7 +214,8 @@
 
 	<script type="text/javascript">
     	$(document).ready(function() {
-    		$('.order-delete').on("click",function() {
+    		//删除商品
+    		$(".shopping-car").on("click", ".order-delete", function() {
     			var cartId = $(this).siblings(".cartId").val();
     			$.ajax({
     		   	    url: "deleteGoods",
@@ -219,7 +243,9 @@
 									'<div class="shopping-car-edit">'+
 									'<p class="modify">修改</p>'+
 									'<p class="iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>'+
-									'<input type="hidden" value="'+cartsList.id+'">'+
+									'<input class="cartId" type="hidden" value="'+cartsList.id+'">'+
+									'<input class="goodsId" type="hidden" value="'+cartsList.goodsId+'">'+
+									'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
 									'</div>'+
 									'</div>'
     		    				);
@@ -233,22 +259,46 @@
     	});
     </script>
     <script type="text/javascript">
+    	$(document).ready(function() {
+    	    //结算
+    	    $("#submitOrder").click(function() {
+    	    	var ids = "";
+    	    	$(".shopping-car-show").each(function() {
+   		        	if(ids != ""){
+   		            	ids+=","+$(this).find(".cartId").val();	
+   		        	}else{
+   		        		ids = $(this).find(".cartId").val();
+   		        	}
+    	    	});
+    	    	if(ids != ""){
+					$("#cartIds").val(ids);
+					$("#buyGoodsForm").submit();
+	        	}else{
+	        		$("#myModal").show();
+	        	}
+    	    });
+    	});
+    </script>
+    <script type="text/javascript">
 	    $(document).ready(function(){	
 	    	var num = 0; 
 	    	var sub = 0;//数组下标
-	    	var state = 0;
 	    	var oldGoods = new Array();//商品信息
 	    	var goodsStock = new Array();//现货信息
 	    	var goodsId = $("#goodsId").val();//商品id
 	    	var select = false;//属性是否已选
-			$(".modify").on("click",function() {
+	    	$(".shopping-car").on("click", ".modify", function() {
 				$(".car-tab-bar").css("display", "none");
+				$("#modifyAttr").show();
 				$(".goods-parameter-choice").slideDown();
 				//商品信息
 				var src = $(this).parents("div.shopping-car-show").children("img").attr("src");
+				var spec = $(this).parents("div.shopping-car-show").find(".goodsValue").text();
+				$("#eCartId").val($(this).siblings(".cartId").val());
 				$("#eGoodsImg").attr("src", src);
 				$("#eGoodsPrice").text($(this).parents("div.shopping-car-show").find(".goodsPrice").text());
 				$("#eGoodsNum").text($(this).siblings(".goodsSkuNum").val());
+		  		$("#eGoodsSelect").text("已选 "+spec);
 				//获取库存信息
 		    	$.ajax({
 			   	    url: "../mainindex/getGoodsStockInfo/"+$(this).siblings(".goodsId").val(),
@@ -259,12 +309,12 @@
 			   	    		oldGoods = data.goodsMsg;
 			   	    		goodsStock = data.goodsSkuMsg;
 			   	    		//属性名称
-			   	    		$("#eGoodsSelect").html("<span>请选择</span> ");
+			   	    		/* $("#eGoodsSelect").html("<span>请选择</span> ");
 			   	    		$.each(data.proMsg, function(i, proList) {   
     		   	    			$("#eGoodsSelect").append( 
     		   	    				'<span>'+proList.name+'</span> '
     		    				);
-    	   		  			});
+    	   		  			}); */
 			   	    		$(".goods-parameter-classify").html('<button class="clear-attr">清空</button>');
 			   	    		$(".classify-detail").html('');
 			   	    		$.each(data.proMsg, function(i, proList) { 
@@ -283,6 +333,15 @@
            		    				);
 	    	   		  			});	
     	   		  			});
+			   		    	//默认选中
+			   		    	$(".classify-detail").each(function(e){		   		    		
+			   		    		var val = spec.split(",");
+			   		    		$(this).children().each(function(){
+									if(val[e] == $(this).text()) {
+										$(this).addClass("active");
+									}	
+					        	});
+							});		   		    	
 				   	 		$(".classify-detail").each(function(e){
 								var liAttr = ""
 									$(this).children().each(function(){
@@ -311,7 +370,8 @@
 		        })
 			});
 			$("#close").on("click",function() {
-				$(".car-tab-bar").css("display", "block");
+				$(".car-tab-bar").css("display", "block");			
+				$("#modifyAttr").hide();
 				$(".goods-parameter-choice").slideUp();
 			});
 			$(".clear-attr").on("click",function() {
@@ -319,7 +379,7 @@
 				$(".classify-detail > li").removeClass("select-no-active");
 				$(".classify-detail > li").addClass("select-active");
 			});
-			$(".classify-detail > li").on("click",function() {
+			$(".goods-parameter-classify").on("click", "li", function() {
 				num = 0;
 				var flag = true;					
 				var str = "";
@@ -443,10 +503,9 @@
 								sub = j;
 								select = true;
 					        	var src = '<%=basePath%>'+goodsStock[j].url;
-					        	$("#goodsImg").attr("src", src);
-					        	$("#goodsPrice").text('￥'+goodsStock[j].price);
-					        	$("#goodsNum").text(goodsStock[j].num);
-				        		$(".parameter-prompt").text("请选择商品属性");       		
+					        	$("#eGoodsImg").attr("src", src);
+					        	$("#eGoodsPrice").text('￥'+goodsStock[j].price);
+					        	$("#eGoodsNum").text(goodsStock[j].num); 		
 					        	break;
 							}
 						}; 
@@ -471,31 +530,48 @@
 		        		$(".parameter-prompt").fadeIn();
 						setTimeout(function(){$(".parameter-prompt").fadeOut();},2000);
 		        	}else {
-		        		if(state == 0) {
-		        			$.ajax({
-						   	    url: "../../../purchase/placeOrder",
-						   		type: "Post",
-						   		data: {
-						   	    	skuId:goodsStock[sub].id,
-						   	    	num:$("#purchaseNum").text(),
-						   	    	price:goodsStock[sub].price
-						   	    },
-						   	    dataType: "json",
-						   	    success: function(data) {
-						   	    	if(data.state){
-						   	    		$("#shopping-num").text(data.amount);
-						   			}else{
-						   			    alert("网络故障，稍后重试");
-						   			}
-						   	    }
-					        })
-		        		}
-						if(state == 1) {
-							$("#purchase").attr('href','buyImmediately/'+goodsStock[sub].id+'/'+$("#purchaseNum").text()+'/'+goodsStock[sub].price);
-		        		}
+	        			$.ajax({
+					   	    url: "../purchase/modifyCart",
+					   		type: "Post",
+					   		data: {
+					   			cartId:$("#eCartId").val(),
+					   	    	skuId:goodsStock[sub].id,
+					   	    	goodsNum:$("#purchaseNum").text(),
+					   	    	goodsPrice:goodsStock[sub].price
+					   	    },
+					   	    dataType: "json",
+					   	    success: function(data) {
+					   	    	if(data.state){
+					   	    		$(".car-tab-bar").css("display", "block");					   	    										
+									$("#modifyAttr").hide();
+									$(".goods-parameter-choice").slideUp();	
+									$(".shopping-car").html("");
+		    		   	    		$.each(data.cartsMsg, function(i, cartsList) {   
+		    		   	    			$(".shopping-car").append( 
+		    		   	    				'<div class="shopping-car-show order-list clearfloat">'+
+		    		   	    				'<img src="<%=basePath%>'+cartsList.url+'">'+
+		       			          	  	    '<ul class="shopping-car-detail ph5">'+
+		       					            '<li><a href="../mainindex/goodsDetail/'+cartsList.goodsId+'"class="fc-000">'+cartsList.name+'</a></li>'+
+		       					            '<li>商品规格：'+cartsList.value+'</li>'+
+		       					            '<li><span class="fl">￥'+cartsList.price+'</span><span class="fr">x'+cartsList.num+'</span></li>'+
+											'</ul>'+
+											'<div class="shopping-car-edit">'+
+											'<p class="modify">修改</p>'+
+											'<p class="iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>'+
+											'<input class="cartId" type="hidden" value="'+cartsList.id+'">'+
+											'<input class="goodsId" type="hidden" value="'+cartsList.goodsId+'">'+
+											'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
+											'</div>'+
+											'</div>'
+		    		    				);
+		    	   		  			});
+		    		   	    		$("#total").text("合计：￥"+data.total);
+		    		   	    		$("#settlement").text(data.totalNum);
+					   			}
+					   	    }
+				        })
 		        	}						
 				}else {
-					$(".parameter-prompt").text("请选择商品属性");
 					$(".parameter-prompt").fadeIn();
 					setTimeout(function(){$(".parameter-prompt").fadeOut();},2000);
 				}
@@ -558,7 +634,6 @@
 	    		}			        
 	    	});
 	    }
-    </script>
-
+    </script>	
 </body>
 </html>

@@ -14,13 +14,40 @@
 		<result property="state" column="state" />
 		<result property="name" column="name" />
 		<result property="phone" column="phone" />
+		<result property="totalprice" column="totalprice" />
+		<result property="memo" column="memo" />
+		<result property="ordernum" column="ordernum" />
+		<collection property="orderDetail" columnPrefix="detail_" ofType="OrderDetail" javaType="ArrayList">    
+            <id property="id" column="detailId" />
+			<result property="orderId" column="orderId" />
+			<result property="skuId" column="skuId" />
+			<result property="num" column="num" />
+			<result property="price" column="price" />
+			<result property="totalPrice" column="totalprice" />
+			<result property="goodsId" column="goodsId" />
+			<result property="name" column="name" />
+			<result property="url" column="url" />
+			<result property="val" column="val" />
+        </collection>
 	</resultMap>
-	
 	
 	<sql id="queryCondition">
 		where 1 = 1
-		<if test="obj.name != null and obj.name != ''">
-			and torder.name like CONCAT('%',#{obj.name},'%')
+		<if test="obj.logistics != null and obj.logistics != ''">
+			and torder.logistics like CONCAT('%',#{obj.logistics},'%')
+		</if>
+		<if test="obj.logisticsnum != null and obj.logisticsnum != ''">
+			and torder.logisticsnum like CONCAT('%',#{obj.logisticsnum},'%')
+		</if>
+		<if test="obj.ordernum != null and obj.ordernum != ''">
+			and torder.ordernum like CONCAT('%',#{obj.ordernum},'%')
+		</if>
+		<if test="obj.state != null and obj.state != ''">
+			and torder.state like CONCAT('%',#{obj.state},'%')
+		</if>
+		<if test="search != null and search != ''">
+			and (torder.logistics like CONCAT('%',#{search},'%') or
+				torder.logisticsnum like CONCAT('%',#{search},'%'))
 		</if>
 	</sql>
 	
@@ -35,11 +62,13 @@
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
 		select torder.id as id,torder.userId as userId,torder.address as address,torder.ordertime as ordertime,
 		torder.logisticsnum as logisticsnum,torder.logistics as logistics,torder.state as state,
-		torder.name as name,torder.phone as phone,orderdetail.num as num,orderdetail.price as price,
-		goods.name as goodsName
-		from t_order as torder left join t_user as tuser on torder.userId = tuser.id left join t_order_detail
-		as orderdetail on torder.id = orderdetail.orderId left join t_goods_sku as sku on 
-		sku.id = orderdetail.skuId left join t_goods as goods on sku.goodsid = goods.id		
+		torder.name as name,torder.phone as phone,goods.name as goodsName,torder.totalPrice as totalPrice,
+		torder.memo as memo,torder.ordernum as ordernum
+		from t_order as torder 
+		left join t_user as tuser on torder.userId = tuser.id 
+		left join t_order_detail as orderdetail on torder.id = orderdetail.orderId 
+		left join t_goods_sku as sku on sku.id = orderdetail.skuId 
+		left join t_goods as goods on sku.goodsid = goods.id		
 		<include refid="queryCondition"/>
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>
@@ -54,6 +83,47 @@
 	<select id="validate" resultMap="resultMap" parameterType="order">
 		select * from t_order
 		<include refid="validateCondition"/>
+	</select>
+	
+	<update id="updateState" parameterType="order">
+		update t_order set state = #{state} where id = #{id}
+	</update>
+	
+	<update id="seeOrder" parameterType="order">
+		update t_order set memo = #{memo} where id = #{id}
+	</update>
+	
+	<insert id="addOrder" parameterType="order">
+	    insert into t_order (userId, address, ordertime, name, phone, totalprice, memo, ordernum, state) 
+		values (#{userId}, #{address}, #{ordertime}, #{name}, #{phone}, #{totalprice}, #{memo}, #{ordernum}, #{state})
+	</insert>
+	
+	<select id="getOrder" resultMap="resultMap">
+		select * from t_order where userId = #{userId} and ordernum = #{orderNum}
+	</select>
+	
+	<select id="getOrderDetail" resultMap="resultMap">
+		select t_order.*, t2.detailid as detail_id, t2.orderid as detail_orderid, t2.num as detail_num, t2.price as detail_price, 
+		t2.skuid as detail_skuid, t2.goodsid as detail_goodsid, t2.name as detail_name, t2.url as detail_url, t2.val as detail_val 
+		from t_order, (select detail.id as detailid, detail.orderid, detail.num, detail.price, t1.* from t_order_detail as detail
+		left join (select t.id as skuid, t.goodsid, t.name, t.url, GROUP_CONCAT(t.value) as val from 
+		(select sku.*, goods.name, val.skuid, val.value, img.url from t_goods_sku as sku
+		left join t_goods as goods on sku.goodsid = goods.id
+		left join t_goods_image as img on sku.id = img.skuid
+		left join t_goods_pro_val as val on sku.id = val.skuid) as t GROUP BY t.skuid) as t1 on detail.skuid = t1.skuid) as t2
+		where t_order.id = t2.orderid and userid = #{userId}
+	</select>
+	
+	<select id="getOrderByOrderId" resultMap="resultMap">
+		select t_order.*, t2.detailid as detail_id, t2.orderid as detail_orderid, t2.num as detail_num, t2.price as detail_price, 
+		t2.skuid as detail_skuid, t2.goodsid as detail_goodsid, t2.name as detail_name, t2.url as detail_url, t2.val as detail_val 
+		from t_order, (select detail.id as detailid, detail.orderid, detail.num, detail.price, t1.* from t_order_detail as detail
+		left join (select t.id as skuid, t.goodsid, t.name, t.url, GROUP_CONCAT(t.value) as val from 
+		(select sku.*, goods.name, val.skuid, val.value, img.url from t_goods_sku as sku
+		left join t_goods as goods on sku.goodsid = goods.id
+		left join t_goods_image as img on sku.id = img.skuid
+		left join t_goods_pro_val as val on sku.id = val.skuid) as t GROUP BY t.skuid) as t1 on detail.skuid = t1.skuid) as t2
+		where t_order.id = t2.orderid and id = #{orderId}
 	</select>
 
 </mapper>

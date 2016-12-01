@@ -14,6 +14,8 @@ public class Cart {
 	
 	public BigDecimal price;
 	
+	public BigDecimal totalprice;
+	
 	public Integer goodsId;//商品id
 	
 	public String name;//商品名称
@@ -64,6 +66,14 @@ public class Cart {
 		this.price = price;
 	}
 	
+	public BigDecimal getTotalprice() {
+		return totalprice;
+	}
+
+	public void setTotalprice(BigDecimal totalprice) {
+		this.totalprice = totalprice;
+	}
+
 	public Integer getGoodsId() {
 		return goodsId;
 	}

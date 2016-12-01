@@ -3,10 +3,10 @@ body, ul, p, h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 	padding: 0;
 	color: #231815;
-	font-size: 12px;
 	list-style: none;
 }
 body {
+	font-size: 1.2rem;
 	background-color: #fff;
 	font-family:"Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu;
 }
@@ -26,7 +26,7 @@ a, a:link, a:visited, a:hover, a:active {
 	padding: 0;
 }
 .p5 {
-	padding: 5px;
+	padding: 5px !important;
 }
 .p10 {
 	padding: 10px;
@@ -88,6 +88,10 @@ a, a:link, a:visited, a:hover, a:active {
 .fs-12 {
 	font-size: 1.2rem !important;
 }
+.font-price {
+	color: #c8161d;
+	font-size: 1.4rem !important;
+}
 .ta-center {
 	text-align: center;
 }
@@ -139,6 +143,19 @@ a, a:link, a:visited, a:hover, a:active {
 .icon-dizhi1:before { content: "\e642"; }
 .icon-iconfontxingming:before { content: "\e68d"; }
 /************************iconfont结束************************/
+
+/************************商品属性修改开始************************/
+#modifyAttr {
+	display: none;
+	position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    z-index: 999;
+}
+/************************商品属性修改结束************************/
 
 /************************index开始************************/
 #wrap {
@@ -507,7 +524,8 @@ a, a:link, a:visited, a:hover, a:active {
 .order-detail-show .shopping-car-edit {
 	right: 10px !important;
 } 
-.order-total button {
+.order-total button,
+.order-total a {
 	padding: 0 5px;
 	margin-top: 3px;
 	margin-left: 10px;

@@ -24,7 +24,7 @@ public class MemberCtrler {
 	private static Logger logger = LogManager.getLogger(MemberCtrler.class.getName());
 	
 	//会员中心
-	@RequestMapping(value="/index", method=RequestMethod.GET)
+	@RequestMapping(value="/memberCenter", method=RequestMethod.GET)
 	public ModelAndView index() {
 		ModelAndView mv = new ModelAndView("home/member-center");
 		return mv;
