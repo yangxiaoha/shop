@@ -29,4 +29,9 @@ public interface WithdrawMapper {
 	 * */
 	public List<Withdraw> getWithdrawsInfo(@Param("userId")Integer userId);
 
+	/**
+	 * 提现申请
+	 * */
+	public void addWithdrawsInfo(Withdraw withdraw);
+
 }

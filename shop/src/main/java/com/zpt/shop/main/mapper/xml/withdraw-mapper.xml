@@ -7,8 +7,9 @@
 	<resultMap type="withdraw" id="resultMap">
 		<id property="id" column="id" />
 		<result property="userId" column="userId" />
+		<result property="cashNum" column="cashnum" />
 		<result property="cashTime" column="cashtime" />
-		<result property="cashMoney" column="cashmoney" />
+		<result property="cashMoney" column="money" />
 		<result property="state" column="state" />
 	</resultMap>
 	
@@ -21,9 +22,14 @@
 	</select>
 	
 	<select id="getWithdrawsInfo" resultMap="resultMap">
-		select cash.id, cash.cashtime as cashTime, cash.money as cashMoney, cash.userid, cash.state
+		select cash.id, cash.cashnum as cashNum, cash.cashtime as cashTime, cash.money as cashMoney, cash.userid, cash.state
 		from t_withdraw_cash as cash 
-		where userid = #{userId}
+		where userid = #{userId} order by id desc
 	</select>
+	
+	<insert id="addWithdrawsInfo" parameterType="withdraw">
+	    insert into t_withdraw_cash (userId, cashnum, cashtime, money, state) 
+		values (#{userId}, #{cashNum}, #{cashTime}, #{cashMoney}, #{state})
+	</insert>
 	
 </mapper>

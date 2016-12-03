@@ -31,8 +31,9 @@
 	      </div>
 	      <button class="withdrawals-submit">确定提交</button>
 	    </div>
-	
-	    <table class="bc-fff" id="withdrawals-info-detail">
+	    
+		<div style="width: 100%; height: 200px; overflow-y:scroll;">
+		<table class="bc-fff" id="withdrawals-info-detail" style="width: 100%; height: 100%;">
 	      <thead>
 	        <tr>
 	          <th>编号</th>
@@ -43,7 +44,7 @@
 	      <tbody>
 	      	<c:forEach items="${withdrawsMsg}" var="withdrawsList">
 		      <tr>
-		        <td>${withdrawsList.cashTime}</td>
+		        <td>${withdrawsList.cashNum}</td>
 		        <td>￥${withdrawsList.cashMoney}</td>
 		        <c:if test="${withdrawsList.state == 1}">
 		          <td>已提现</td>
@@ -55,22 +56,23 @@
 	      	</c:forEach>
 	      </tbody>
 	    </table>
+		</div>
 	
 	  	<ul class="tab-bar order-detail-tab-bar">
 	      <li>
-	        <a href="index.html">
+	        <a href="../mainindex/index">
 	          <span class="tab-bar-bg home-page"></span>
 	          <span>首页</span>
 	        </a>
 	      </li>
 	      <li>
-	        <a href="order.html">
+	        <a href="../purchase/orderDetail">
 	          <span class="tab-bar-bg order"></span>
 	          <span>我的订单</span>
 	        </a>
 	      </li>
 	      <li>
-	        <a href="member-center.html">
+	        <a href="memberCenter">
 	          <span class="tab-bar-bg member-center"></span>
 	          <span>会员中心</span>
 	        </a>
@@ -83,6 +85,43 @@
 	      </li>
 	    </ul>
 	</div>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".withdrawals-submit").click(function() {				
+				$.ajax({
+			   	    url: "withdrawalsApply",
+			   		type: "Post",
+			   	    data: {
+			   	    	money:$("#withdrawalsPrice").val()
+			   	    },
+			   	    dataType: "json",
+			   	    success: function(data) {
+			   	    	if(data.state){
+			   	    		$("#withdrawals-info-detail > tbody").html("");
+			   	    		$.each(data.withdrawsMsg, function(i, withdrawsList) {   
+			   	    			if(withdrawsList.state == 1) {
+				   	    			$("#withdrawals-info-detail > tbody").append( 
+			   	    					'<tr>'+
+			   	    					'<td>'+withdrawsList.cashNum+'</td>'+
+			   	    					'<td>￥'+withdrawsList.cashMoney+'</td>'+
+			   	    					'<td>已提现</td>'
+				    				);
+			   	    			}else if(withdrawsList.state == 0) {
+				   	    			$("#withdrawals-info-detail > tbody").append( 
+			   	    					'<tr>'+
+			   	    					'<td>'+withdrawsList.cashNum+'</td>'+
+			   	    					'<td>￥'+withdrawsList.cashMoney+'</td>'+
+			   	    					'<td>等待</td>'
+				    				);
+			   	    			}
+		   		  			});
+			   			}
+			   	    }
+		        })
+			});
+		});
+	</script>
 
 </body>
 </html>

@@ -1,9 +1,10 @@
 package com.zpt.shop.main.ctrler.home;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zpt.shop.main.entities.Order;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.entities.Withdraw;
-import com.zpt.shop.main.mapper.OrderMapper;
 import com.zpt.shop.main.service.OrderService;
 import com.zpt.shop.main.service.UserService;
 import com.zpt.shop.main.service.WithdrawService;
@@ -52,13 +52,12 @@ public class MemberCtrler {
 		ModelAndView mv = new ModelAndView("home/member-center");
 		Integer userId = 1;//先设置用户为1
 		//用户上级、可提现金额、已提现金额
-		BigDecimal price = new BigDecimal("0.0");
 		BigDecimal totalPrice = new BigDecimal("0.0");
 		User user = userService.getUserId(userId);
 		List<Withdraw> withdrawList = withdrawService.getMemberInfo(userId);
 		if(withdrawList != null && withdrawList.size() > 0) {
 			for(int i=0; i<withdrawList.size(); i++) {
-				price = withdrawList.get(i).getCashMoney();
+				BigDecimal price = new BigDecimal(withdrawList.get(i).getCashMoney());
 				totalPrice = totalPrice.add(price);
 			}
 			mv.addObject("totalPrice", totalPrice);
@@ -144,8 +143,21 @@ public class MemberCtrler {
 		ModelAndView mv = new ModelAndView("home/withdrawals");
 		Integer userId = 1;//先设置用户为1
 		List<Withdraw> withdrawsList = withdrawService.getWithdrawsInfo(userId);
-		mv.addObject("withdrawsMsg", withdrawsList);//总金额
+		mv.addObject("withdrawsMsg", withdrawsList);
 		return mv;
+	}
+	
+	//提现
+	@ResponseBody
+	@RequestMapping(value="/withdrawalsApply", method=RequestMethod.POST)
+	public Map<String,Object> withdrawalsApply(String money) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		Integer userId = 1;//先设置用户为1
+		//提现申请
+		List<Withdraw> withdrawsList = withdrawService.addWithdrawsInfo(userId, money);
+		map.put("state", true);
+		map.put("withdrawsMsg", withdrawsList);
+		return map;
 	}
 
 }

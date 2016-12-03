@@ -27,7 +27,7 @@ public interface GoodsMapper {
 	
 	public Goods getGoodsId(@Param("goodsId")Integer goodsId);
 
-	public List<Goods> getGoods();
+	public List<Goods> getGoods(@Param("pageStart")String pageStart, @Param("num")Integer num);
 
 	public List<Goods> getGoodsByCondition(@Param("flag")String flag, @Param("keyword")String keyword, @Param("typeId")String typeId);
 
