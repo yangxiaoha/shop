@@ -24,6 +24,13 @@
 		left join t_order as torder on orderDetail.orderid = torder.id
 		where orderId = #{orderId}
 	</select>
-	
+
+	<insert id="addOrderDetail">
+		insert into t_order_detail (orderId, skuId, num, price, totalprice) 
+		values 
+		<foreach collection="list" item="item" index="index" separator=","> 
+        	(#{orderId},#{item.skuId},#{item.num},#{item.price},#{item.totalprice}) 
+	    </foreach>		
+	</insert>
 
 </mapper>

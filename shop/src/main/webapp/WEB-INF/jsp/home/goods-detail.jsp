@@ -64,10 +64,10 @@
 				     <img id="goodsImg" src="<%=basePath%>${goodsMsg.url}">
 			         <ul class="shopping-car-detail p5">
 			         	<c:if test="${goodsMsg.price != goodsMsg.highprice}">
-			         		<li class="fc-c8161d mb5" id="goodsPrice">￥${goodsMsg.price} — ${goodsMsg.highprice}</li>
+			         		<li class="mb5 font-price" id="goodsPrice">￥${goodsMsg.price} — ${goodsMsg.highprice}</li>
 			         	</c:if>
 			         	<c:if test="${goodsMsg.price == goodsMsg.highprice}">
-			         		<li class="fc-c8161d mb5">￥${goodsMsg.price}</li>
+			         		<li class="mb5 font-price">￥${goodsMsg.price}</li>
 			         	</c:if>
 			            <li class="fc-9fa0a0 fs-1rem mb5">库存<span id="goodsNum">${goodsMsg.quantity}</span>件</li>
 			            <li class="fc-595757 parameter-show">请选择
@@ -333,7 +333,7 @@
 		        	}else {
 		        		if(state == 0) {
 		        			$.ajax({
-						   	    url: "../../../purchase/placeOrder",
+						   	    url: "../../purchase/addCart",
 						   		type: "Post",
 						   		data: {
 						   	    	skuId:goodsStock[sub].id,

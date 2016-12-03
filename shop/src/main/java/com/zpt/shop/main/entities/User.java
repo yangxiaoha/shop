@@ -1,16 +1,23 @@
 package com.zpt.shop.main.entities;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class User {
 
 	private Integer id;
 	
+	private Integer pid;
+	
 	private String openid;
 	
 	private Date regtime;
 	
-	private Integer pid;
+	//可提现金额
+	private BigDecimal money;
+	
+	//用户名
+	private String name;
 	
 	public Integer getId() {
 		return id;
@@ -44,13 +51,20 @@ public class User {
 		this.pid = pid;
 	}
 
-	public Double getMoney() {
+	public BigDecimal getMoney() {
 		return money;
 	}
 
-	public void setMoney(Double money) {
+	public void setMoney(BigDecimal money) {
 		this.money = money;
 	}
 
-	private Double money;
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }

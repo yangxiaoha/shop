@@ -3,6 +3,7 @@ package com.zpt.shop.main.entities;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.text.SimpleDateFormat;
 
 public class Order {
 	
@@ -33,7 +34,7 @@ public class Order {
 	
 	//商品总价
 	public BigDecimal totalPrice;
-	
+
 	//订单详情
 	public List<OrderDetail> orderDetail;
 	
@@ -42,38 +43,6 @@ public class Order {
 	
 	//订单编号
 	public String ordernum;	
-	
-	public String getOrdernum() {
-		return ordernum;
-	}
-
-	public void setOrdernum(String ordernum) {
-		this.ordernum = ordernum;
-	}
-
-	public String getMemo() {
-		return memo;
-	}
-
-	public void setMemo(String memo) {
-		this.memo = memo;
-	}
-
-	public List<OrderDetail> getOrderDetail() {
-		return orderDetail;
-	}
-
-	public void setOrderDetail(List<OrderDetail> orderDetail) {
-		this.orderDetail = orderDetail;
-	}
-
-	public BigDecimal getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(BigDecimal totalPrice) {
-		this.totalPrice = totalPrice;
-	}
 
 	public Integer getId() {
 		return id;
@@ -99,8 +68,12 @@ public class Order {
 		this.address = address;
 	}
 
-	public Date getOrdertime() {
-		return ordertime;
+	public String getOrdertime() {
+		if(this.ordertime != null){
+			return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(this.ordertime);
+		}else{
+			return "";
+		}
 	}
 
 	public void setOrdertime(Date ordertime) {
@@ -145,6 +118,38 @@ public class Order {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public BigDecimal getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(BigDecimal totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+
+	public String getOrdernum() {
+		return ordernum;
+	}
+
+	public void setOrdernum(String ordernum) {
+		this.ordernum = ordernum;
+	}
+
+	public List<OrderDetail> getOrderDetail() {
+		return orderDetail;
+	}
+
+	public void setOrderDetail(List<OrderDetail> orderDetail) {
+		this.orderDetail = orderDetail;
 	}	
 	
 }

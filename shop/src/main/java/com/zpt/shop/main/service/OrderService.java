@@ -1,5 +1,7 @@
 package com.zpt.shop.main.service;
 
+import java.util.List;
+
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Order;
@@ -13,5 +15,43 @@ public interface OrderService {
 	public void updateState(Order order);
 	
 	public void seeOrder(Order order);
+
+	/****************************************************************************/
+	/**
+	 * 添加订单
+	 * @param Integer userId 用户id
+	 * @param Order order 订单信息 
+	 * @param String cartIds 购物车id
+	 * */
+	public void addOrder(Integer userId, Order order, String cartIds);
 	
+	/**
+	 * 订单详情
+	 * @param Integer userId 用户id
+	 * @return List<Order>
+	 * */
+	public List<Order> getOrderDetail(Integer userId);
+
+	/**
+	 * 订单详情
+	 * @param Integer orderId 订单id
+	 * @return List<Order>
+	 * */
+	public List<Order> getOrderByOrderId(Integer orderId);
+
+	/**
+	 * 分销下单未付款查询
+	 * @param String ids 代理人
+	 * @return List<Order>
+	 * */
+	public List<Order> getOrderInfoByNoPay(String ids);
+
+	
+	/**
+	 * 分销下单已付款查询
+	 * @param String ids 代理人
+	 * @return List<Order>
+	 * */
+	public List<Order> getOrderInfoByPay(String ids);
+
 }

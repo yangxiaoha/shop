@@ -13,21 +13,23 @@
 		<result property="logistics" column="logistics" />
 		<result property="state" column="state" />
 		<result property="name" column="name" />
-		<result property="phone" column="phone" />		
+		<result property="phone" column="phone" />
 		<result property="totalPrice" column="totalPrice" />
 		<result property="memo" column="memo" />
 		<result property="ordernum" column="ordernum" />
-		<collection property="orderDetail" column="orderDetail" ofType="OrderDetail">    
-            <id property="id" column="OrderDetailId" />
-            <result property="orderId" column="orderId" />
+		<collection property="orderDetail" columnPrefix="detail_" ofType="OrderDetail" javaType="ArrayList">    
+            <id property="id" column="detailId" />
+			<result property="orderId" column="orderId" />
 			<result property="skuId" column="skuId" />
 			<result property="num" column="num" />
 			<result property="price" column="price" />
-			<result property="totalPrice" column="odtotalPrice" />
-			<result property="name" column="odname" />
-        </collection>	
+			<result property="totalPrice" column="totalPrice" />
+			<result property="goodsId" column="goodsId" />
+			<result property="name" column="name" />
+			<result property="url" column="url" />
+			<result property="val" column="val" />
+        </collection>
 	</resultMap>
-	
 	
 	<sql id="queryCondition">
 		where 1 = 1
@@ -90,5 +92,48 @@
 	<update id="seeOrder" parameterType="order">
 		update t_order set memo = #{memo} where id = #{id}
 	</update>
+
+	<!-- ******************************************************************************** -->
 	
+	<insert id="addOrder" parameterType="order">
+	    insert into t_order (userId, address, ordertime, name, phone, totalPrice, memo, ordernum, state) 
+		values (#{userId}, #{address}, #{ordertime}, #{name}, #{phone}, #{totalPrice}, #{memo}, #{ordernum}, #{state})
+	</insert>
+	
+	<select id="getOrder" resultMap="resultMap">
+		select * from t_order where userId = #{userId} and ordernum = #{orderNum}
+	</select>
+	
+	<select id="getOrderDetail" resultMap="resultMap">
+		select t_order.*, t2.detailid as detail_id, t2.orderid as detail_orderid, t2.num as detail_num, t2.price as detail_price, 
+		t2.skuid as detail_skuid, t2.goodsid as detail_goodsid, t2.name as detail_name, t2.url as detail_url, t2.val as detail_val 
+		from t_order, (select detail.id as detailid, detail.orderid, detail.num, detail.price, t1.* from t_order_detail as detail
+		left join (select t.id as skuid, t.goodsid, t.name, t.url, GROUP_CONCAT(t.value) as val from 
+		(select sku.*, goods.name, val.skuid, val.value, img.url from t_goods_sku as sku
+		left join t_goods as goods on sku.goodsid = goods.id
+		left join t_goods_image as img on sku.id = img.skuid
+		left join t_goods_pro_val as val on sku.id = val.skuid) as t GROUP BY t.skuid) as t1 on detail.skuid = t1.skuid) as t2
+		where t_order.id = t2.orderid and userid = #{userId}
+	</select>
+	
+	<select id="getOrderByOrderId" resultMap="resultMap">
+		select t_order.*, t2.detailid as detail_id, t2.orderid as detail_orderid, t2.num as detail_num, t2.price as detail_price, 
+		t2.skuid as detail_skuid, t2.goodsid as detail_goodsid, t2.name as detail_name, t2.url as detail_url, t2.val as detail_val 
+		from t_order, (select detail.id as detailid, detail.orderid, detail.num, detail.price, t1.* from t_order_detail as detail
+		left join (select t.id as skuid, t.goodsid, t.name, t.url, GROUP_CONCAT(t.value) as val from 
+		(select sku.*, goods.name, val.skuid, val.value, img.url from t_goods_sku as sku
+		left join t_goods as goods on sku.goodsid = goods.id
+		left join t_goods_image as img on sku.id = img.skuid
+		left join t_goods_pro_val as val on sku.id = val.skuid) as t GROUP BY t.skuid) as t1 on detail.skuid = t1.skuid) as t2
+		where t_order.id = t2.orderid and id = #{orderId}
+	</select>
+	
+	<select id="getOrderInfoByNoPay" resultMap="resultMap">
+		select * from t_order where userid in (${ids}) and (state = 0 or state = 1)
+	</select>
+	
+	<select id="getOrderInfoByPay" resultMap="resultMap">
+		select * from t_order where userid in (${ids}) and (state = 2 or state = 3 or state = 4)
+	</select>
+
 </mapper>

@@ -19,6 +19,7 @@
  		<typeAlias type="com.zpt.shop.main.entities.ProVal" alias="proVal"/> 	
  		<typeAlias type="com.zpt.shop.main.entities.Cart" alias="cart"/> 
  		<typeAlias type="com.zpt.shop.main.entities.Image" alias="image"/> 
+ 		<typeAlias type="com.zpt.shop.main.entities.Withdraw" alias="withdraw"/>
  		<typeAlias type="com.zpt.shop.common.pojo.Query" alias="query"/>
  	</typeAliases>
 </configuration>

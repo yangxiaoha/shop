@@ -14,27 +14,20 @@ public class OrderDetail {
 	
 	public BigDecimal price;
 	
+	//商品总价
+	public BigDecimal totalPrice;	
+
 	//商品名称
 	public String name;
 	
-	//商品总价
-	public BigDecimal totalPrice;		
+	//商品id
+	public Integer goodsId;
 	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public BigDecimal getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(BigDecimal totalPrice) {
-		this.totalPrice = totalPrice;
-	}
+	//商品图片
+	public String url;
+	
+	//商品属性
+	public String val;
 
 	public Integer getId() {
 		return id;
@@ -74,6 +67,46 @@ public class OrderDetail {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
-	}	
-		
+	}
+
+	public BigDecimal getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(BigDecimal totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public Integer getGoodsId() {
+		return goodsId;
+	}
+
+	public void setGoodsId(Integer goodsId) {
+		this.goodsId = goodsId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getVal() {
+		return val;
+	}
+
+	public void setVal(String val) {
+		this.val = val;
+	}
+
 }

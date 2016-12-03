@@ -82,7 +82,7 @@
 			    	<a href="goodsDetail/${goodsList.id}">
 			    		<img src="<%=basePath%>${goodsList.url}" />
 						<p class="p5">${goodsList.name}</p>
-						<p class="mb5 fc-c8161d">${goodsList.price}</p>
+						<p class="mb5 font-price">￥${goodsList.price}</p>
 			    	</a>
 				</div>
 			</c:forEach>
@@ -102,13 +102,13 @@
 				</a>
 			</li>
 			<li>
-				<a href="order.html">
+				<a href="../purchase/orderDetail">
 					<span class="tab-bar-bg order"></span>
 					<span>订单</span>
 				</a>
 			</li>
 			<li>
-				<a>
+				<a href="../member/memberCenter">
 					<span class="tab-bar-bg member-center"></span>
 					<span>会员中心</span>
 				</a>
@@ -200,7 +200,7 @@
    			          	  	    '<a href="goodsDetail/'+goodsList.typeId+'/'+goodsList.id+'">'+
    					            '<img src="<%=basePath%>'+goodsList.url+'">'+
 								'<p class="p5">'+goodsList.name+'</p>'+
-								'<p class="mb5 fc-c8161d">'+goodsList.price+'</p>'+
+								'<p class="mb5 font-price">￥'+goodsList.price+'</p>'+
 								'</a>'+
 								'</div>'
 		    				);
