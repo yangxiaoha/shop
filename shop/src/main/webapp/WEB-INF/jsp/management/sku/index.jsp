@@ -19,6 +19,33 @@
 	type="text/javascript"></script>
 </head>
 <body>
+<style type="text/css">
+	#add .pic {
+	    width: 240px;
+	    height: 240px;
+	    position: relative;
+	    border: 1px solid #d2d2d2;
+	    overflow: hidden;
+	}
+	.pic div {
+	    width: 100%;
+	    cursor: pointer;
+	}
+	.image_file {
+	    width: 100%;
+	    height: 240px;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    cursor: pointer;
+	    opacity: 0;
+	    z-index: 9999;
+	}
+	p.error {
+		margin: 10px 0;
+		color: red;
+	}
+</style>
 	<div class="container-fluid main-content">
 		<!-- DataTables Example -->
 		<div class="row">

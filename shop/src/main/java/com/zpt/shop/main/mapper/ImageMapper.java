@@ -15,4 +15,6 @@ public interface ImageMapper {
 	
 	public void insertImageUrl(Image image);
 	
+	public void updateImageUrl(Image image);
+	
 }

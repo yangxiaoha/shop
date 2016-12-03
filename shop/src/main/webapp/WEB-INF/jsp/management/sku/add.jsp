@@ -7,34 +7,9 @@
 %>
 <script src="<%=basePath%>assets/management/javascripts/uploadphoto.js"
 	type="text/javascript"></script>
+<script src="<%=basePath%>assets/management/javascripts/ajaxfileupload1.js"
+	type="text/javascript"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<style type="text/css">
-	#add .pic {
-	    width: 240px;
-	    height: 240px;
-	    position: relative;
-	    border: 1px solid #d2d2d2;
-	    overflow: hidden;
-	}
-	.pic div {
-	    width: 100%;
-	    cursor: pointer;
-	}
-	.image_file {
-	    width: 100%;
-	    height: 240px;
-	    position: absolute;
-	    top: 0;
-	    left: 0;
-	    cursor: pointer;
-	    opacity: 0;
-	    z-index: 9999;
-	}
-	p.error {
-		margin: 10px 0;
-		color: red;
-	}
-</style>
 <div class="modal fade" id="addModal">
 	<div class="modal-dialog" style="width:700px;">
 		<div class="modal-content">
@@ -42,7 +17,7 @@
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
 				<h4 class="modal-title">
-					添加商品 <span id="loading" style=""></span>
+					添加商品 <span class="loading" style=""></span>
 				</h4>
 			</div>
 			<div class="modal-body">
@@ -79,9 +54,9 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="proId">${p.name }</label><input
-													class="form-control" placeholder="请输入${p.name }"
+													class="form-control avalue" placeholder="请输入${p.name }"
 													id="avalue" name="value" type="text"> <input
-													type="hidden" id="" name="proId" value="${p.id }"
+													class=aproId type="hidden" id="" name="proId" value="${p.id }"
 													type="text">
 											</div>
 										</div>
@@ -159,22 +134,41 @@
 	        },
 	        submitHandler: function(form) {   
 	           $(this).attr("disabled","disabled"); 
-			   $("#loading").html("<i class=\"icon-spinner icon-spin\"></i>");
+			   $(".loading").html("<i class=\"icon-spinner icon-spin\"></i>");
+			   var fileimage = $("#addphoto").val();
+			   var svalue = new Array();
+			   var sproId = new Array();
+			   $(".avalue").each(function(index,e){
+				  svalue[index]=$(e).val();
+			   });
+			   $(".aproId").each(function(index,e){
+				   sproId[index] = $(e).val();
+			   });
 				if (fileimage.length != 0) {
 					$.ajaxFileUpload({
-						data :form.serialize(),
-						url: 'uploadphoto',   
+						data :{
+							num:$("#anum").val(),
+							price:$("#aprice").val(),
+							code:$("#acode").val(),
+							goodsId:"${goodsM.id}",
+							value:svalue,	
+							proId:sproId
+							},
+						url: 'add',   
 			            type: 'post',  
 			            secureuri: false, //一般设置为false  
 			            fileElementId: 'addphoto', // 上传文件的id、name属性名  
-			            dataType: 'text', //返回值类型，一般设置为json、application/json  
+			            dataType: 'json', //返回值类型，一般设置为json、application/json  
 			            //elementIds: elementIds, //传递参数到服务器
 						success:function(data){
-		        			$(".loading").html('<span class="label label-success">添加商品成功！</span>');
-		        		    setTimeout(function(){
-		        			    $(".loading").html("");
-		        			    $("#addsubmit").removeAttr("disabled"); 
+		        			$(".loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
+		        			setTimeout(function(){
+		        			   $(".loading").html("");
+		        			   $("#addsubmit").removeAttr("disabled"); 
 		        		    },1000);
+		        			$("#acode").val(""); 
+		        			$("#imghead").css({"margin-top":"0px","width":"240px","height":"240px"});
+		        			$("#imghead").attr("src","<%=basePath%>/res/bj_img1.jpg");
 		        		    tableI.table().draw(false);
 		        	    },
 		        	    error:function(e){
@@ -187,7 +181,7 @@
 					});
 				}	   
      
-	        }  
+	        } 
 	    });
 	});	
 </script>

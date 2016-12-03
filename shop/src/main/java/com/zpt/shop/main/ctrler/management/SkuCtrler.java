@@ -1,6 +1,9 @@
 
 package com.zpt.shop.main.ctrler.management;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,10 +66,10 @@ public class SkuCtrler {
 	
 	@ResponseBody
 	@RequestMapping(value = "/add",method = RequestMethod.POST)
-	public Msg add(Sku sku,	Integer[] proId,String[] value){
+	public Msg add(Sku sku,	Integer[] proId,String[] value,HttpServletRequest request, HttpSession session){
 		Msg msg = new Msg();
 		try {			
-			skuService.insertSku(sku,proId,value);
+			skuService.insertSku(sku, proId, value, request, session);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.ADD_GOODS_NAME);
 			return msg;
@@ -117,10 +120,10 @@ public class SkuCtrler {
 	
 	@ResponseBody
 	@RequestMapping(value = "/update",method = RequestMethod.POST)
-	public Msg update(Sku sku,	Integer[] proId,String[] value){
+	public Msg update(Sku sku,	Integer[] proId,String[] value,HttpServletRequest request, HttpSession session){
 		Msg msg = new Msg();
 		try {
-			skuService.updateSku(sku,proId,value);
+			skuService.updateSku(sku, proId, value, request, session);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
 			return msg;

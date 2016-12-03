@@ -15,4 +15,8 @@
 		values (#{url}, #{skuId})
 	</insert>
 	
+	<update id="updateImageUrl" parameterType="image">
+		update t_goods_image set url = #{url} where skuId = #{skuId}
+	</update>
+	
 </mapper>

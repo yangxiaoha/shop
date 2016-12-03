@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="modal fade" id="updateModal">
-	<div class="modal-dialog">
+	<div class="modal-dialog" style="width:700px;">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button aria-hidden="true" class="close" data-dismiss="modal"
@@ -15,6 +20,7 @@
 				<form action="update" id="update" method="post">
 					<fieldset>
 						<div class="row">
+						<div class="col-md-7">
 							<input type="hidden" id="uid" name="id">
 							<div class="row">
 								<div class="col-md-6">
@@ -49,10 +55,30 @@
 									</div>
 								</c:if>
 							</c:forEach>
-						<div class="col-md-6">
-							<div class="form-group">
-								<input type="hidden" id="" name="goodsId" value="${goodsM.id }"
-									type="text">
+							<div class="col-md-6">
+								<div class="form-group">
+									<input type="hidden" id="" name="goodsId" value="${goodsM.id }"
+										type="text">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<p>请选择图片</p>
+										<p class="error" style="display: none;"></p>
+										<div class="pic">
+											<div id="preview" class="preview">
+											<input type="hidden" name="url" id="uurl">
+												<img id="uimghead" class="imghead" width="240" height="240"
+													src="<%=basePath%>">
+											</div>
+											<input type="file" name="photourl" class="image_file"
+												id="updatephoto" onchange="previewImage(this)">
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 						</div>
@@ -131,32 +157,54 @@
 		        	 required:"请输入商品价格",		        	
 		      }
 	        },
-	        submitHandler: function(form) { 
-	           $(this).attr("disabled","disabled"); 
-			   $(".loading").html("<i class=\"icon-spinner icon-spin\"></i>");			   
-	           $(form).ajaxSubmit({
-	        	   success:function(data){
-	        		   if(data.state == 1){
-	        			   $(".loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
-	        		   }else{
-	        			   $(".loading").html("<span class=\"label label-danger\">"+data.msg+"</span>");
-	        		   }
-	        		   setTimeout(function(){
-	        			   $(".loading").html("");
-	        			   $("#updatesubmit").removeAttr("disabled"); 
-	        			   $("#updateModal").modal('hide');
-	        		   },1000);
-	        		   tableI.table().draw();
-	        	   },
-	        	   error:function(){
-	        		   $(".loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
-	        		   setTimeout(function(){
-	        			   $(".loading").html("");
-	        			   $("#updatesubmit").removeAttr("disabled"); 
-	        		   },1000);
-	        	   }
-	           });     
-	        }  
+	        submitHandler: function(form) {   
+		           $(this).attr("disabled","disabled"); 
+				   $(".loading").html("<i class=\"icon-spinner icon-spin\"></i>");
+				   var fileimage = $("#updatephoto").val();
+				   var svalue = new Array();
+				   var sproId = new Array();
+				   $(".uvalue").each(function(index,e){
+					  svalue[index]=$(e).val();
+				   });
+				   $(".uproId").each(function(index,e){
+					   sproId[index] = $(e).val();
+				   });
+					if (fileimage.length != 0) {
+						$.ajaxFileUpload({
+							data :{	
+								ids:$("#ids").val(),
+								price:$("#uprice").val(),
+								code:$("#ucode").val(),								
+								value:svalue,	
+								proId:sproId
+								},
+							url: 'update',   
+				            type: 'post',  
+				            secureuri: false, //一般设置为false  
+				            fileElementId: 'updatephoto', // 上传文件的id、name属性名  
+				            dataType: 'json', //返回值类型，一般设置为json、application/json  
+				            //elementIds: elementIds, //传递参数到服务器
+							success:function(data){
+			        			$(".loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
+			        			setTimeout(function(){
+			        			   $(".loading").html("");
+			        			   $("#updatesubmit").removeAttr("disabled"); 
+			        		    },1000);
+			        			$("#ucode").val(""); 
+			        			$("#uimghead").css({"margin-top":"0px","width":"240px","height":"240px"});
+			        			$("#uimghead").attr("src","<%=basePath%>/res/bj_img1.jpg");
+			        		    tableI.table().draw(false);
+			        	    },
+			        	    error:function(e){
+			        		    $(".loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
+			         		    setTimeout(function(){
+			         			    $(".loading").html("");
+			         			    $("#updatesubmit").removeAttr("disabled"); 
+			         		    },1000);
+			        	    }
+						});
+					}
+	       		 } 
 	      });
 	});
 </script>

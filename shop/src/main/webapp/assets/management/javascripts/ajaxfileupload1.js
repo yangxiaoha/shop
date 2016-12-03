@@ -33,7 +33,13 @@ jQuery.extend({
 		{
 			for(var i in data)
 			{
-				jQuery('<input type="hidden" name="' + i + '" value="' + data[i] + '" />').appendTo(form);
+				if(jQuery.isArray(data[i])){
+					for(var j = 0;j < data[i].length;j++){
+						jQuery('<input type="hidden" name="' + i + '" value="' + data[i][j] + '" />').appendTo(form);
+					}
+				}else{
+					jQuery('<input type="hidden" name="' + i + '" value="' + data[i] + '" />').appendTo(form);
+				}
 			}			
 		}		
 		var oldElement = jQuery('#' + fileElementId);
@@ -190,7 +196,7 @@ jQuery.extend({
             jQuery.globalEval( data );
         // Get the JavaScript object, if JSON is used.
         if ( type == "json" )
-        	eval("data = " + data);
+        	data = jQuery.parseJSON(jQuery(data).text());
         // evaluate scripts within html
         if ( type == "html" )
             jQuery("<div>").html(data).evalScripts();
