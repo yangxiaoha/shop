@@ -7,12 +7,6 @@ import com.zpt.shop.main.entities.Image;
 
 public interface ImageMapper {
 	
-	public List<Image> listImage(Query<Image> query);
-	
-	public Integer countImage(Query<Image> query);
-	
-	public List<Image> validate(Image image);
-	
 	public void insertImageUrl(Image image);
 	
 	public void updateImageUrl(Image image);

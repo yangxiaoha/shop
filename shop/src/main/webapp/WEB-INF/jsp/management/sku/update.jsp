@@ -14,6 +14,8 @@
 					type="button">&times;</button>
 				<h4 class="modal-title">
 					修改商品Sku <span class="loading" style=""></span>
+					<input type="hidden" id="basepath" value="<%=basePath %>">
+					
 				</h4>
 			</div>
 			<div class="modal-body">
@@ -43,11 +45,13 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="proId">${p.name }:</label><input
-											class="form-control" placeholder="请输入${p.name }" title="${p.name }不能为空"
+											class="form-control uvalue" placeholder="请输入${p.name }" title="${p.name }不能为空"
 											id="a${status.index}" required="required" name="value"
-											type="text"> <input type="hidden"
-											id="b${status.index}" name="ids" type="text">
-											<input type = "hidden"	id="" name="proId" value = "${p.id }" 
+											type="text"> <input type="hidden" 
+											id="b${status.index}" name="" type="text">
+											<input class = "uproId" type = "hidden"	id="" name="proId" value = "${p.id }" 
+											type="text">
+											<input type = "hidden"	id="uids" name="ids" 
 											type="text">
 									</div>
 								</div>
@@ -57,7 +61,7 @@
 							</c:forEach>
 							<div class="col-md-6">
 								<div class="form-group">
-									<input type="hidden" id="" name="goodsId" value="${goodsM.id }"
+									<input type="hidden" id="ugoodsId" name="goodsId" value="${goodsM.id }"
 										type="text">
 								</div>
 							</div>
@@ -71,19 +75,18 @@
 										<div class="pic">
 											<div id="preview" class="preview">
 											<input type="hidden" name="url" id="uurl">
-												<img id="uimghead" class="imghead" width="240" height="240"
-													src="<%=basePath%>">
+												<img id="uimghead" class="imghead" width="240" height="240">
 											</div>
 											<input type="file" name="photourl" class="image_file"
-												id="updatephoto" onchange="previewImage(this)">
+												id="updatephoto" onchange="previewImage(this,'uimghead')">
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						</div>
-					</fieldset>
-				</form>			
+					</div>
+				</fieldset>
+			</form>		
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-primary" id="updatesubmit" type="button">保存</button>
@@ -131,6 +134,7 @@
 	        rules: {
 	        	price:{
 	        		required:true,
+	        		number:true,
 	        	},	        	
 	          code: {
 		        	 remote: {
@@ -154,57 +158,56 @@
 		        	 remote:"该编码已存在"
 		      },
 		      price: {
-		        	 required:"请输入商品价格",		        	
+		        	 required:"请输入商品价格",
+		        	 number:"请输入一个数字"
 		      }
 	        },
 	        submitHandler: function(form) {   
 		           $(this).attr("disabled","disabled"); 
 				   $(".loading").html("<i class=\"icon-spinner icon-spin\"></i>");
 				   var fileimage = $("#updatephoto").val();
-				   var svalue = new Array();
-				   var sproId = new Array();
+				   var usvalue = new Array();
+				   var usproId = new Array();
 				   $(".uvalue").each(function(index,e){
-					  svalue[index]=$(e).val();
+					  usvalue[index]=$(e).val();
 				   });
 				   $(".uproId").each(function(index,e){
-					   sproId[index] = $(e).val();
+					   usproId[index] = $(e).val();
 				   });
-					if (fileimage.length != 0) {
-						$.ajaxFileUpload({
-							data :{	
-								ids:$("#ids").val(),
-								price:$("#uprice").val(),
-								code:$("#ucode").val(),								
-								value:svalue,	
-								proId:sproId
-								},
-							url: 'update',   
-				            type: 'post',  
-				            secureuri: false, //一般设置为false  
-				            fileElementId: 'updatephoto', // 上传文件的id、name属性名  
-				            dataType: 'json', //返回值类型，一般设置为json、application/json  
-				            //elementIds: elementIds, //传递参数到服务器
-							success:function(data){
-			        			$(".loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
-			        			setTimeout(function(){
-			        			   $(".loading").html("");
-			        			   $("#updatesubmit").removeAttr("disabled"); 
-			        		    },1000);
-			        			$("#ucode").val(""); 
-			        			$("#uimghead").css({"margin-top":"0px","width":"240px","height":"240px"});
-			        			$("#uimghead").attr("src","<%=basePath%>/res/bj_img1.jpg");
-			        		    tableI.table().draw(false);
-			        	    },
-			        	    error:function(e){
-			        		    $(".loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
-			         		    setTimeout(function(){
-			         			    $(".loading").html("");
-			         			    $("#updatesubmit").removeAttr("disabled"); 
-			         		    },1000);
-			        	    }
-						});
-					}
-	       		 } 
+					$.ajaxFileUpload({
+						data :{
+							id:$("#uid").val(),
+							goodsId:$("#ugoodsId").val(),
+							ids:$("#uids").val(),
+							price:$("#uprice").val(),
+							code:$("#ucode").val(),								
+							value:usvalue,	
+							proId:usproId
+							},
+						url: 'update',   
+			            type: 'post',  
+			            secureuri: false, //一般设置为false  
+			            fileElementId: 'updatephoto', // 上传文件的id、name属性名  
+			            dataType: 'json', //返回值类型，一般设置为json、application/json  
+			            //elementIds: elementIds, //传递参数到服务器
+						success:function(data){
+		        			$(".loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
+		        			setTimeout(function(){
+		        			   $(".loading").html("");
+		        			   $("#updatesubmit").removeAttr("disabled"); 
+		        		    },1000);
+		        					        			
+		        		    tableI.table().draw(false);
+		        	    },
+		        	    error:function(e){
+		        		    $(".loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
+		         		    setTimeout(function(){
+		         			    $(".loading").html("");
+		         			    $("#updatesubmit").removeAttr("disabled"); 
+		         		    },1000);
+		        	    }
+					});
+				}
 	      });
 	});
 </script>

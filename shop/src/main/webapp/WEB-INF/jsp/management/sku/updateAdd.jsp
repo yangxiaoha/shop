@@ -45,15 +45,22 @@
 		$("#updateAddsubmit").click(function(){
 			$("#updateAdd").submit();
 		});
-	    $("#updateAdd").validate({	    	  
+	    $("#updateAdd").validate({	
+	    	rules: {		        	
+		        	num:{
+		        		required:true,
+		        		digits:true,
+		        	}
+	    	},
 	        messages: {
 		      num: {
-		        	 required:"请输入商品数量",		        	 
+		        	 required:"请输入商品数量",
+		        	 digits:"请输入一个整数"
 		      },
 		      batch: {
 		        	 required:"请输入商品批次",
-		      }
-	        },
+		      }		         
+        	},
 	        submitHandler: function(form) {   
 	           $(this).attr("disabled","disabled"); 
 			   $("#loading").html("<i class=\"icon-spinner icon-spin\"></i>");

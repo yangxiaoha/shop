@@ -75,7 +75,7 @@
 														src="<%=basePath%>/res/bj_img1.jpg" />
 												</div>
 												<input type="file" name="photourl" class="image_file"
-													id="addphoto" onchange="previewImage(this)">
+													id="addphoto" onchange="previewImage(this,'imghead')">
 											</div>
 										</div>
 									</div>
@@ -99,13 +99,18 @@
 		$("#addsubmit").click(function(){
 			$("#add").submit();
 		});
+		$('#addModal').on('hide.bs.modal', function () {
+			$(".loading").html("");
+		});
 	    $("#add").validate({
 	        rules: {
 	        	price:{
 	        		required:true,
+	        		number:true,
 	        	},
 	        	num:{
 	        		required:true,
+	        		digits:true,
 	        	},
 	          code: {
 	        	 remote: {
@@ -126,10 +131,12 @@
 		        	 remote:"该编码已存在"
 		      },
 		      num: {
-		        	 required:"请输入商品数量"
+		        	 required:"请输入商品数量",
+		        	 digits:"请输入一个整数"
 		      },
 		      price: {
-		        	 required:"请输入商品价格"
+		        	 required:"请输入商品价格",
+		        	 number:"请输入一个数字"
 		      }
 	        },
 	        submitHandler: function(form) {   
@@ -144,6 +151,9 @@
 			   $(".aproId").each(function(index,e){
 				   sproId[index] = $(e).val();
 			   });
+			   if(fileimage.length == 0){
+   	    		$(".loading").html("<span class=\"label label-danger\">请上传图片</span>");
+   	    		};
 				if (fileimage.length != 0) {
 					$.ajaxFileUpload({
 						data :{
@@ -167,10 +177,11 @@
 		        			   $("#addsubmit").removeAttr("disabled"); 
 		        		    },1000);
 		        			$("#acode").val(""); 
-		        			$("#imghead").css({"margin-top":"0px","width":"240px","height":"240px"});
 		        			$("#imghead").attr("src","<%=basePath%>/res/bj_img1.jpg");
+		        			$("#imghead").css({"margin-top":"0px","width":"240px","height":"240px"});
 		        		    tableI.table().draw(false);
 		        	    },
+	        	    	
 		        	    error:function(e){
 		        		    $(".loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
 		         		    setTimeout(function(){
