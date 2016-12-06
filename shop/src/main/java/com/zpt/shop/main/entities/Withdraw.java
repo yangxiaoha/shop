@@ -23,6 +23,9 @@ public class Withdraw {
 	//提现时间
 	private Date cashTime;
 	
+	//提现编号
+	private String cashNum;
+	
 	//提现金额
 	private BigDecimal cashMoney;
 	
@@ -44,6 +47,14 @@ public class Withdraw {
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
+	
+	public String getCashNum() {
+		return cashNum;
+	}
+
+	public void setCashNum(String cashNum) {
+		this.cashNum = cashNum;
+	}
 
 	public String getCashTime() {
 		if(this.cashTime != null){
@@ -57,8 +68,8 @@ public class Withdraw {
 		this.cashTime = cashTime;
 	}
 
-	public BigDecimal getCashMoney() {
-		return cashMoney;
+	public String getCashMoney() {
+		return cashMoney.toString();
 	}
 
 	public void setCashMoney(BigDecimal cashMoney) {

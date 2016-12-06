@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zpt.shop.common.pojo.Page;
+import com.zpt.shop.common.pojo.PageQuery;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Goods;
 import com.zpt.shop.main.mapper.GoodsMapper;
@@ -112,8 +113,9 @@ public class GoodsServiceImpl implements GoodsService {
 
 
 	@Override
-	public List<Goods> getGoods() {
-		List<Goods> list = goodsMapper.getGoods();
+	public List<Goods> getGoods(String pageStart) {
+		int num = 1;
+		List<Goods> list = goodsMapper.getGoods(pageStart, num);
 		if(list != null && list.size() > 0){
 			return list;
 		}else{

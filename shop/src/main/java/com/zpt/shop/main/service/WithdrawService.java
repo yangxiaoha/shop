@@ -18,4 +18,10 @@ public interface WithdrawService {
 	 * */
 	public List<Withdraw> getWithdrawsInfo(Integer userId);
 
+	/**
+	 * 提现申请
+	 * @param Integer userId 用户id
+	 * */
+	public List<Withdraw> addWithdrawsInfo(Integer userId, String money);
+
 }

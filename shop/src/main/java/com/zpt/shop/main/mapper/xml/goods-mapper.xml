@@ -129,6 +129,8 @@
 		)) as sku left join t_goods_image as image 
 		on sku.id = image.skuid) as g 
 		on t_goods.id = g.goodsid
+		order by id desc
+		limit #{pageStart},#{num}
 	</select>
 	
 	<select id="getGoodsByCondition" resultMap="resultMap">

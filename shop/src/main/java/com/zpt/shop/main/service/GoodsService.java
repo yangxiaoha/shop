@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import com.zpt.shop.common.pojo.Page;
+import com.zpt.shop.common.pojo.PageQuery;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Goods;
 
@@ -25,7 +26,11 @@ public interface GoodsService {
 	
 	public List<Goods> getGoodsByBrandId(String brandId);
 	
-	public List<Goods> getGoods();
+	/**
+	 * 分页查找商品
+	 * @param String pageStart 开始的下标
+	 * */
+	public List<Goods> getGoods(String pageStart);
 
 	/**
 	 * 通过查询条件查找商品

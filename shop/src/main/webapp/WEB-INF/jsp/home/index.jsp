@@ -15,6 +15,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>一见喜</title>
+<link rel="stylesheet" href="<%=basePath%>assets/home/dropload-gh-pages/dist/dropload.css">
 <style>
     .swiper-container {
         width: 100%;
@@ -136,6 +137,7 @@
 		    </div>
 	    </div>
 	</div>
+	<script src="<%=basePath%>assets/home/dropload-gh-pages/dist/dropload.min.js"></script>
 	<!-- Swiper JS -->
     <script src="<%=basePath%>assets/home/Swiper-3.4.0/dist/js/swiper.min.js"></script>
     <!-- Initialize Swiper -->
@@ -211,6 +213,59 @@
 		   	    }
 	        })
 	    }
+    </script>
+    <!-- 加载更多 -->
+    <script>
+	    $(document).ready(function(){
+	    	var num = 1;
+    	    var pageStart = 0;
+    	    // dropload
+    	    $('.goods-detail').dropload({
+    	        scrollArea : window,
+    	        loadDownFn : function(me){
+    	            $.ajax({
+    	                type: 'POST',
+    	                url: 'loadIndex',
+    	                data: {    	                
+    	                	pageStart:pageStart
+    			   	    },
+    	                dataType: 'json',
+    	                success: function(data){
+    	                    var result = '';
+    	                    pageStart = pageStart + num;
+    	                    
+    	                    for(var i = 0; i < data.goodsMsg.length; i++){
+    	                        result += '<div class="goods-show">'+
+   			          	  	    		'<a href="goodsDetail/'+data.goodsMsg[i].typeId+'/'+data.goodsMsg[i].id+'">'+
+   					            		'<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
+										'<p class="p5">'+data.goodsMsg[i].name+'</p>'+
+										'<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
+										'</a>'+
+										'</div>';
+    	                        if((i + 1) >= data.goodsMsg.length){
+    	                            // 锁定
+    	                            me.lock();
+    	                            // 无数据
+    	                            me.noData();
+    	                            break;
+    	                        }
+    	                    }
+    	                    // 为了测试，延迟1秒加载
+    	                    setTimeout(function(){
+    	                        $('.lists').append(result);
+    	                        // 每次数据加载完，必须重置
+    	                        me.resetload();
+    	                    },1000);
+    	                },
+    	                error: function(xhr, type){
+    	                    alert('Ajax error!');
+    	                    // 即使加载出错，也得重置
+    	                    me.resetload();
+    	                }
+    	            });
+    	        }
+    	    });
+	    });
     </script>
 </body>
 </html>
