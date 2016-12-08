@@ -50,9 +50,6 @@ public final class Contants {
 	//成功消息
 	public static final String RETURN_STRING_SUCCESS = "成功";
 	
-	//充值失败
-	public static final String RETURN_SPREAD_FAIL = "实体卡学校和用户学校不匹配";
-	
 	//充值成功
 	public static final String RETURN_SPREAD_SUCCESS = "充值成功";
 	
