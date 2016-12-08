@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.BannerMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="banner" id="resultMap">
+		<id property="id" column="id" />
+		<result property="image" column="image" />
+		<result property="url" column="url" />
+	</resultMap>
+	
+	<select id="getAllBanner" resultMap="resultMap">
+	    select * from t_banner
+	</select>
+	
+	<insert id="insertBanner" parameterType="banner">
+		insert into t_banner(image,url) values(#{image},#{url})
+	</insert>	
+
+	<delete id="deleteBanner">
+		delete from t_banner where id in (${ids})	
+	</delete>
+	
+	<update id="updateBanner" parameterType="banner">
+		update t_banner set image = #{image},url = #{url} where id = #{id}
+	</update>
+</mapper>
