@@ -199,7 +199,8 @@
 	        		required:true,
 	        	},
 	        	quantity:{
-	        		required:true,	        		
+	        		required:true,
+	        		digits:true,
 	        	},
 	          name: {
 	        	 required:true,
@@ -249,7 +250,8 @@
 		      	 	 remote:"该名称已存在"
 		      },
 		      quantity: {		    	  
-		        	 required:"请输入商品数量",		        	 
+		        	 required:"请输入商品数量",	
+		        	 digits:"请输入一个整数"
 		      },
 		      content: {
 		        	 required:"请输入描述信息",		        	

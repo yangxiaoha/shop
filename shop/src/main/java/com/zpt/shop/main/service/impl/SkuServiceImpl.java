@@ -97,16 +97,18 @@ public class SkuServiceImpl implements SkuService{
 			file = (CommonsMultipartFile) multipartRequest.getFile(key);//取得上传文件  
 		}		
 		String backPath = null;//上传服务器后返回的值		
-		String path = request.getSession().getServletContext().getRealPath("upload");		
-		String fileName = file.getOriginalFilename();
-		if(file != null){
-			backPath = this.uploadPhoto(file, path);
-		}
-		if (backPath != "0"){			
-			Image image = new Image();
-			image.setSkuId(sku.getId());
-			image.setUrl(backPath);
-			imageMapper.updateImageUrl(image);
+		String path = request.getSession().getServletContext().getRealPath("upload");	
+		if(file.getSize()>0){			
+			String fileName = file.getOriginalFilename();
+			if(file != null){
+				backPath = this.uploadPhoto(file, path);
+			}
+			if (backPath != "0"){			
+				Image image = new Image();
+				image.setSkuId(sku.getId());
+				image.setUrl(backPath);
+				imageMapper.updateImageUrl(image);
+			}
 		}
 		for (int i = 0; i < value.length; i++) {
 			ProVal proVal = new ProVal();

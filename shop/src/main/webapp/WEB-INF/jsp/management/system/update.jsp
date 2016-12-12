@@ -7,7 +7,7 @@
 			<div class="modal-header">
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
-				<h4 class="modal-title">修改品牌
+				<h4 class="modal-title">修改公告
 				<span class="loading" style=""></span>
 				</h4>
 			</div>
@@ -15,27 +15,13 @@
 				<form action="update" id="update" method="post">
 					<fieldset>
 						<div class="row">
-							<input type="hidden" id="eid" name="id">
+							<input type="hidden" id="uid" name="id" >
+							<input type="hidden" id="uskey" name="skey" >
+							<span style="margin-left:15px;color: black">sysvalue</span>
 							<div class="col-md-12">
-								<label for="supplierId">供应商名称</label> <select
-									class="reg-sel form-control" id="esupplierId" name="supplierId">
-									<c:forEach items="${supplierMsg}" var="supplierList">
-										<option value="${supplierList.id}">${supplierList.name}</option>
-									</c:forEach>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
 								<div class="form-group">
-									<label for="name">品牌名称</label><input class="form-control"
-										placeholder="请输入品牌名称" id="ename" name="name" type="text">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="content">品牌简介</label><input class="form-control"
-										placeholder="请输入品牌简介" id="econtent" name="content" type="text">
+									<label for="name"></label><textarea class="form-control" rows="3"
+										placeholder="请输入" id="usysvalue" name="sysvalue"></textarea>
 								</div>
 							</div>
 						</div>
@@ -56,32 +42,10 @@
 			$("#update").submit();
 		});
 		
-	    $("#update").validate({
-	        rules: {
-	          name: {
-	        	 required:true,
-	        	 remote: {
-	        		    url: "validate",     //后台处理程序
-	        		    type: "post",               //数据发送方式
-	        		    dataType: "json",           //接受数据格式   
-	        		    data: {                     //要传递的数据
-	        		    	name: function() {
-	        		            return $("#ename").val();
-	        		       },
-	        		       id:function(){
-	    				    	return $("#eid").val();
-	    				   }
-	        		  }
-	        	  }
-	          },	       
-	        },
+	    $("#update").validate({	       	        
 	        messages: {
-	          name: {
-		        	 required:"请输入品牌名称",
-		        	 remote:"品牌已存在"
-		      },
-		      content: {
-		        	 required:"请输入品牌简介",		        	
+		      sysvalue: {
+		        	 required:"请输入sysvalue",		        	
 		      }
 	        },
 	        submitHandler: function(form) { 

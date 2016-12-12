@@ -65,6 +65,9 @@ $(document).ready(function(){
         		$("#sprice").html(obj.price); 
         		$("#scode").html(obj.code);
         		$("#svalue").html(obj.value);
+        		var imghead = $("#basepath").val()+obj.url;
+        		$("#simghead").attr("src",imghead);
+        		$("#simghead").css({"margin-top":"16px","width":"238px","height":"179px"});
         		if(obj.ids != null && obj.ids != ""){        			
         			var str = obj.value.split("|#$%|");
         			for(var i=0;i<str.length;i++){
@@ -83,7 +86,11 @@ $(document).ready(function(){
         		$("#uprice").val(obj.price);        		
         		$("#ucode").val(obj.code);
         		$("#uvalue").val(obj.value);
+        		$("#uurl").val(obj.url);
         		$("#uids").val(obj.ids);
+        		var imghead = $("#basepath").val()+obj.url;
+        		$("#uimghead").attr("src",imghead);
+        		$("#uimghead").css({"margin-top":"16px","width":"238px","height":"179px"});
         		if(obj.ids != null && obj.ids != ""){        			
         			var str = obj.value.split("|#$%|");
         			var proIds = obj.ids.split(",");

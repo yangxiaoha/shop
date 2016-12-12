@@ -6,8 +6,8 @@
 			<div class="modal-header">
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
-				<h4 class="modal-title">删除学校
-				<span class="loading" id="loading" style=""></span>
+				<h4 class="modal-title">删除图片
+				<span id="loading" style=""></span>
 				</h4>
 			</div>
 			<div class="modal-body">
@@ -25,20 +25,12 @@
 		</div>
 	</div>
 </div>
-<script>
-	
+<script>	
 	$(document).ready(function(){
-		$("#delete-row").click(function(){
-			var ids = getchecked('id');
-			if(ids == null || ids == ""){
-				$("#dcontext").html("请至少选择一条数据");
-			}else{
-				$("#ids").val(ids);
-				$("#dcontext").html("是否要删除这些数据");
-			}
-			$("#delModal").modal('show');
-		});
-				
+		$(".del").click(function(){
+    		$("#ids").val($(this).data("id"));
+    		$("#delModal").modal('show');
+    	});
 		$("#deletesubmit").click(function(){
 			$(this).attr("disabled","disabled"); 
 			if($("#ids").val() != null && $("#ids").val() != ""){
@@ -51,7 +43,7 @@
 		        		   $("#delModal").modal('hide');
 		        		   $("#dcontext").html("确认删除当前选项？");
 	        		   },1000);
-	        		   tableI.table().draw();
+	        		   window.location.reload(); 
 	        	   },
 	        	   error:function(){
 	        		   $("#dcontext").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
@@ -60,6 +52,7 @@
 	        			   reset("#dform");
 		        		   tableI.table.draw();
 		        		   $("#delModal").modal('hide');
+
 	        		   },1000);
 	        	   }
 	           });     

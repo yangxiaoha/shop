@@ -14,15 +14,17 @@
 			<div class="modal-body">
 				<form action="add" id="add" method="post">
 					<fieldset>
-						<div class="row">					
+						<div class="row">
 							<div class="col-md-12">
-								<label for="name">供应商名称</label>							
-								<select class="reg-sel form-control" name="supplierId" id="asupplierId">
+								<label for="name">供应商名称</label> <select
+									class="reg-sel form-control" name="supplierId" id="asupplierId">
 									<c:forEach items="${supplierMsg}" var="supplierList">
 										<option value="${supplierList.id}">${supplierList.name}</option>
 									</c:forEach>
-								</select>								
-							</div>					
+								</select>
+							</div>
+						</div>
+						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="name">品牌名称</label><input class="form-control"

@@ -20,6 +20,9 @@
  		<typeAlias type="com.zpt.shop.main.entities.Cart" alias="cart"/> 
  		<typeAlias type="com.zpt.shop.main.entities.Image" alias="image"/> 
  		<typeAlias type="com.zpt.shop.main.entities.Withdraw" alias="withdraw"/>
+ 		<typeAlias type="com.zpt.shop.main.entities.System" alias="system"/>
+ 		<typeAlias type="com.zpt.shop.main.entities.Banner" alias="banner"/>
+ 		<typeAlias type="com.zpt.shop.main.entities.Reply" alias="reply"/>
  		<typeAlias type="com.zpt.shop.common.pojo.Query" alias="query"/>
  	</typeAliases>
 </configuration>

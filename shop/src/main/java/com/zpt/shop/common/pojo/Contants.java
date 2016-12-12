@@ -52,4 +52,5 @@ public final class Contants {
 
 	//openid
 	public static final String SESSION_OPENID = "openid";
+
 }

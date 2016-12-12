@@ -17,7 +17,7 @@ public class Sku {
 	public String ids;
 	
 	public String value;
-	
+		
 	public String getIds() {
 		return ids;
 	}

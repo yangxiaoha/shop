@@ -1,5 +1,5 @@
 //图片上传预览，IE用了滤镜
-function previewImage(file)
+function previewImage(file,id)
 {
   var MAXWIDTH  = file.parentNode.offsetWidth;//最外层容器的宽度
   var MAXHEIGHT = file.parentNode.offsetHeight;//最外层容器的高度
@@ -7,7 +7,7 @@ function previewImage(file)
   var div = file.parentNode.childNodes;
   if (file.files && file.files[0])
   {
-      div[1].innerHTML = '<img id=imghead />';
+      div[1].innerHTML = '<img id='+id+' />';
       // var img = document.getElementById('imghead');//获取图片
       var divChild = div[1].childNodes;
       var img = removeWhiteNode(divChild);
@@ -31,7 +31,7 @@ function previewImage(file)
     // div.innerHTML = '<img id=imghead>';
     // var img = document.getElementById('imghead');
     alert("ie");
-    div[1].innerHTML = '<img id=imghead />';
+    div[1].innerHTML = '<img id='+id+' />';
     var img = removeWhiteNode(div[1].childNodes);
     
     alert(img[0].className);
@@ -45,22 +45,24 @@ function previewImage(file)
 //图片居中显示
 function clacImgZoomParam( maxWidth, maxHeight, width, height ) {
     var param = {top:0, left:0, width:width, height:height};
-    if( width>maxWidth || height>maxHeight )
-    {
-        rateWidth = width / maxWidth;
-        rateHeight = height / maxHeight;
-        if( rateWidth > rateHeight )
-        {
-            param.width =  maxWidth;
-            param.height = Math.round(height / rateWidth);
-        }else
-        {
-            param.width = Math.round(width / rateHeight);
-            param.height = maxHeight;
-        }
+    if(width != 0 && height != 0){
+    	if( width>maxWidth || height>maxHeight )
+    	{
+    		rateWidth = width / maxWidth;
+    		rateHeight = height / maxHeight;
+    		if( rateWidth > rateHeight )
+    		{
+    			param.width =  maxWidth;
+    			param.height = Math.round(height / rateWidth);
+    		}else
+    		{
+    			param.width = Math.round(width / rateHeight);
+    			param.height = maxHeight;
+    		}
+    	}
+    	param.left = Math.round((maxWidth - param.width) / 2);
+    	param.top = Math.round((maxHeight - param.height) / 2);
     }
-    param.left = Math.round((maxWidth - param.width) / 2);
-    param.top = Math.round((maxHeight - param.height) / 2);
     return param;
 }
 //移除空白字符
