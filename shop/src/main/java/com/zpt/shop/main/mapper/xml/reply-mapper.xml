@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.ReplyMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="reply" id="resultMap">
+		<id property="id" column="id" />
+		<result property="skey" column="skey" />
+		<result property="reply" column="reply" />
+	</resultMap>
+	
+	
+	<sql id="queryCondition">
+		where 1 = 1
+		<if test="obj.skey != null and obj.skey != ''">
+			and reply.skey like CONCAT('%',#{obj.skey},'%')
+		</if>
+		<if test="obj.reply != null and obj.reply != ''">
+			and reply.reply like CONCAT('%',#{obj.reply},'%')
+		</if>		
+		<if test="search != null and search != ''">
+			and (reply.skey like CONCAT('%',#{search},'%') or 
+			reply.reply like CONCAT('%',#{search},'%'))
+		</if>		
+	</sql>
+	
+	<sql id="validateCondition">
+		where 1 = 1
+		<if test="id != null and id != ''">
+			and id != #{id}
+		</if>
+		<if test="skey != null and skey != ''">
+			and skey = #{skey}
+		</if>					
+	</sql>	
+		
+	<select id="listReply" resultMap="resultMap" parameterType="query">
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
+		select reply.id as id,reply.skey as skey,reply.reply as reply
+		from t_reply as reply
+		<include refid="queryCondition"/>
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
+	</select>
+	
+	<select id="countReply" resultType="java.lang.Integer" parameterType="query">
+		select count(reply.id) from t_reply as reply
+		<include refid="queryCondition"/>
+	</select>
+	
+	<select id="validate" resultMap="resultMap" parameterType="reply">
+		select * from t_reply
+		<include refid="validateCondition"/>
+	</select>
+	
+	<insert id="insertReply" parameterType="reply">
+		insert into t_reply(skey,reply) values(#{skey},#{reply})
+	</insert>	
+
+	<delete id="deleteReply">
+		delete from t_reply where id in (${ids})	
+	</delete>
+	
+	<update id="updateReply" parameterType="reply">
+		update t_reply set skey = #{skey},reply = #{reply} where id = #{id}
+	</update>
+
+</mapper>
