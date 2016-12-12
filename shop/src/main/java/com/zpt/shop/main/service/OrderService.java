@@ -5,6 +5,7 @@ import java.util.List;
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Order;
+import com.zpt.shop.main.entities.Sku;
 
 public interface OrderService {
 	
@@ -38,6 +39,13 @@ public interface OrderService {
 	 * @return List<Order>
 	 * */
 	public List<Order> getOrderByOrderId(Integer orderId);
+	
+	/**
+	 * 订单详情
+	 * @param String orderNum 订单号
+	 * @return List<Sku>
+	 * */
+	public List<Sku> getOrderByOrderNum(String orderNum);
 
 	/**
 	 * 分销下单未付款查询
@@ -46,12 +54,17 @@ public interface OrderService {
 	 * */
 	public List<Order> getOrderInfoByNoPay(String ids);
 
-	
 	/**
 	 * 分销下单已付款查询
 	 * @param String ids 代理人
 	 * @return List<Order>
 	 * */
 	public List<Order> getOrderInfoByPay(String ids);
+
+	/**
+	 * 修改订单状态
+	 * @param String ordercode 订单号
+	 * */
+	public void updateOrderState(String ordercode);
 
 }

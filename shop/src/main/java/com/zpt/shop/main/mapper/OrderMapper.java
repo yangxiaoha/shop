@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Order;
+import com.zpt.shop.main.entities.Sku;
 
 public interface OrderMapper {
 	
@@ -30,5 +31,9 @@ public interface OrderMapper {
 	public List<Order> getOrderInfoByNoPay(@Param("ids")String ids);
 
 	public List<Order> getOrderInfoByPay(@Param("ids")String ids);
+
+	public void updateOrderState(@Param("ordercode")String ordercode, @Param("state")Integer state);
+
+	public List<Sku> getOrderByOrderNum(@Param("orderNum")String orderNum);
 
 }

@@ -52,4 +52,8 @@
 		on a.id = b.pid 
 	</select>
 	
+	<select id="getUserByOpenId" resultMap="resultMap">
+		select * from t_user where openid = #{openId} 
+	</select>
+	
 </mapper>

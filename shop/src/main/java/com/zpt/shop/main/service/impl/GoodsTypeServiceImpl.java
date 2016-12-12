@@ -79,5 +79,19 @@ public class GoodsTypeServiceImpl implements GoodsTypeService {
 		// TODO Auto-generated method stub
 		goodsTypeMapper.updateGoodsType(goodstype);
 		
+	}
+
+	/**
+	 * 获取商品类型
+	 * */
+	@Override
+	public List<GoodsType> getType() {
+		// TODO Auto-generated method stub
+		List<GoodsType> list = goodsTypeMapper.getType();
+		if (list != null && list.size() > 0) {			
+			return list;
+		} else {
+			return null;
+		}
 	}	
 }

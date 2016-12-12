@@ -22,4 +22,10 @@ public interface UserMapper {
 	 * */
 	public List<User> getAgentInfoByMyId(@Param("userId")Integer userId);
 
+	/**
+	 * 通过openId获取用户信息
+	 * @param String openid 用户openid
+	 * */
+	public User getUserByOpenId(@Param("openId")String openid);
+
 }

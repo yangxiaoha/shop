@@ -65,12 +65,12 @@ public class BrandCtrler {
 		try {
 			brandService.insertBrand(brand);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.ADD_BRAND_NAME);
+			msg.setMsg(Contants.ADD_SUCCESS);
 			return msg;
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.RETURN_STRING_EXCEPTION_FAIL);
+			msg.setMsg(Contants.ADD_LOST);
 			return msg;
 		}
 	}
@@ -82,12 +82,12 @@ public class BrandCtrler {
 		try {
 			brandService.deleteBrand(ids);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
+			msg.setMsg(Contants.DELETE_SUCCESS);
 			return msg;
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.RETURN_STRING_EXCEPTION_FAIL);
+			msg.setMsg(Contants.DELTET_LOST);
 			return msg;
 		}
 	}
@@ -99,12 +99,12 @@ public class BrandCtrler {
 		try {
 			brandService.updateBrand(brand);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
+			msg.setMsg(Contants.UPDATE_SUCCESS);
 			return msg;
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.RETURN_STRING_EXCEPTION_FAIL);
+			msg.setMsg(Contants.UPDATE_LOST);
 			return msg;
 		}
 	}

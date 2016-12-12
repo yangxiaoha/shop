@@ -27,14 +27,16 @@ public interface GoodsMapper {
 	
 	public Goods getGoodsId(@Param("goodsId")Integer goodsId);
 
-	public List<Goods> getGoods(@Param("pageStart")String pageStart, @Param("num")Integer num);
+	public List<Goods> getGoods(@Param("pageStart")Integer pageStart, @Param("num")Integer num);
 
-	public List<Goods> getGoodsByCondition(@Param("flag")String flag, @Param("keyword")String keyword, @Param("typeId")String typeId);
+	public List<Goods> getGoodsByCondition(@Param("pageStart")Integer pageStart, @Param("num")Integer num, @Param("flag")String flag, @Param("keyword")String keyword, @Param("typeId")String typeId);
 
 	public Goods getLowGoodsById(@Param("goodsId")Integer goodsId);	
 	
 	public Goods getHighGoodsById(@Param("goodsId")Integer goodsId);
 
 	public Goods getGoodsInfo(@Param("goodsId")Integer goodsId);
+
+	public void updateNum(@Param("id")Integer id, @Param("num")long num);
 
 }

@@ -30,20 +30,34 @@ public interface GoodsService {
 	 * 分页查找商品
 	 * @param String pageStart 开始的下标
 	 * */
-	public List<Goods> getGoods(String pageStart);
+	public List<Goods> getGoods(Integer pageStart, Integer num);
 
 	/**
 	 * 通过查询条件查找商品
+	 * @param String pageStart 开始的下标
 	 * @param String flag （最新、人气、现货）
 	 * @param String keyword （关键字）
 	 * @param String typeId （类型id）
 	 * */
-	public List<Goods> getGoodsByCondition(String flag, String keyword, String typeId);
+	public List<Goods> getGoodsByCondition(Integer pageStart, Integer num, String flag, String keyword, String typeId);
 	
 	/**
 	 * 通过商品id查找商品
 	 * @param Integer goodsId
 	 * */
 	public Goods getGoodsById(Integer goodsId);
+
+	/**
+	 * 通过商品类型id查找商品
+	 * @param String pageStart 开始的下标
+	 * @param String typeId（类型id）
+	 * */
+	public List<Goods> getGoodsByTypeId(Integer pageStart, Integer num, String typeId);
+
+	/**
+	 * 修改商品购买人数
+	 * @param long num 购买人数
+	 * */
+	public void updateNum(Integer id, long num);
 	
 }

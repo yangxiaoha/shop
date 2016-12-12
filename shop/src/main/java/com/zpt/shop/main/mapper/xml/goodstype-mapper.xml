@@ -9,6 +9,12 @@
 		<result property="pid" column="pid"/>
 		<result property="name" column="name" />
 		<result property="isParent" column="isParent"/>
+		<collection property="goodsType" columnPrefix="type_" ofType="GoodsType">    
+            <id property="id" column="typeId" />
+            <result property="pid" column="pid"/>
+			<result property="name" column="name" />
+			<result property="isParent" column="isParent"/>
+        </collection>
 	</resultMap>
 	
 	<sql id="queryCondition">
@@ -57,7 +63,7 @@
 	</select>
 	
 	<select id="getGoodsType" resultMap="resultMap">
-		select * from t_goods_type
+		select * from t_goods_type where pid = 0
 	</select>
 	
 	<insert id="insertGoodsType" parameterType="goodstype">
@@ -70,5 +76,13 @@
 		update t_goods_type set name = #{name},pid = #{pid},meno = #{meno},isParent=#{isParent} 
 		where id = #{id}
 	</update>
+	
+	<select id="getType" resultMap="resultMap">
+	    select type.*, t_goods_type.id as type_id, t_goods_type.name as type_name, 
+	    t_goods_type.pid as type_pid, t_goods_type.isparent as type_isparent from  
+		(select * from t_goods_type where pid = 0) as type 
+		left join t_goods_type 
+		on type.id = t_goods_type.pid
+	</select>
 
 </mapper>

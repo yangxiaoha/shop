@@ -23,6 +23,7 @@
 		<property name="locations">
 			<list>
 				<value>/WEB-INF/jdbc.properties</value>
+				<value>/WEB-INF/weixin.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -34,11 +35,19 @@
 		<property name="user" value="${jdbc.c3p0.user}" />
 		<property name="password" value="${jdbc.c3p0.password}" />
 	</bean>
-	<!-- <bean id="weixin" class="com.jxy.common.pojo.Weixin"> <property name="token" 
-		value="${weixin.token}"/> <property name="appid" value="${weixin.appid}"/> 
-		<property name="secret" value="${weixin.secret}"/> <property name="site" 
-		value="${weixin.site}"/> <property name="welcomeMsg" value="${weixin.welcome_msg}"/> 
-		</bean> -->
+	<!-- <bean id="weixin" class="com.jxy.common.pojo.Weixin"> 
+		<property name="token" value="${weixin.token}"/> 
+		<property name="appid" value="${weixin.appid}"/> 
+		<property name="secret" value="${weixin.secret}"/> 
+		<property name="site" value="${weixin.site}"/> 
+		<property name="welcomeMsg" value="${weixin.welcome_msg}"/> 
+	</bean> -->
+	<bean id="weixin1" class="com.zpt.shop.common.weixin.WxMpConfigStorage">
+        <property name="appId" value="${weixin.appid}"/>
+        <property name="secret" value="${weixin.secret}"/>
+        <property name="token" value="${weixin.token}"/>
+        <property name="website" value="${weixin.site}"/> 
+	</bean>
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="WEB-INF/mybatis.xml" />

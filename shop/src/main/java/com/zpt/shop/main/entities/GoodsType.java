@@ -1,5 +1,7 @@
 package com.zpt.shop.main.entities;
 
+import java.util.List;
+
 public class GoodsType {
 
 	private Integer id;
@@ -11,6 +13,9 @@ public class GoodsType {
 	private String meno;
 	
 	private Boolean isParent;
+	
+	//商品类型详情
+	public List<GoodsType> goodsType;
 
 	public Integer getId() {
 		return id;
@@ -52,5 +57,12 @@ public class GoodsType {
 		this.isParent = isParent;
 	}
 
-	
+	public List<GoodsType> getGoodsType() {
+		return goodsType;
+	}
+
+	public void setGoodsType(List<GoodsType> goodsType) {
+		this.goodsType = goodsType;
+	}
+
 }

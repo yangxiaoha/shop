@@ -54,4 +54,15 @@ public class UserServiceImpl implements UserService {
 		}	
 	}
 
+	/**
+	 * 通过openId获取用户信息
+	 * @param String openid 用户openid
+	 * */
+	@Override
+	public User getUserByOpenId(String openid) {
+		// TODO Auto-generated method stub
+		User user = userMapper.getUserByOpenId(openid);
+		return user;
+	}
+
 }

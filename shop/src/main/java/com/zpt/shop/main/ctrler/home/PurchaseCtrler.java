@@ -5,6 +5,11 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,10 +22,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.zpt.shop.common.pojo.MyTime;
+import com.zpt.shop.common.pojo.RandomArray;
+import com.zpt.shop.common.weixin.WxMpConfigStorage;
 import com.zpt.shop.main.entities.Cart;
 import com.zpt.shop.main.entities.Order;
+import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.CartService;
 import com.zpt.shop.main.service.OrderService;
+import com.zpt.shop.weixin.utils.GetWxOrderno;
+import com.zpt.shop.weixin.utils.RequestHandler;
+import com.zpt.shop.weixin.utils.Sha1Util;
+import com.zpt.shop.weixin.utils.WeixinPayUtil;
 
 /**
  * 功能说明:
@@ -42,6 +55,9 @@ public class PurchaseCtrler {
 	
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private WxMpConfigStorage weixin;
 	
 	//购物车页面
 	@RequestMapping(value="/cart", method=RequestMethod.GET)
@@ -163,14 +179,14 @@ public class PurchaseCtrler {
 	
 	//结算（从购物车过来的购买）
 	@RequestMapping(value="/buyGoods", method=RequestMethod.POST)
-	public ModelAndView buyGoods(String cartIds) {
+	public ModelAndView buyGoods(HttpServletRequest request, HttpServletResponse response, String cartIds) throws Exception {
 		ModelAndView mv = new ModelAndView("home/order");
 		int num = 0;
 		BigDecimal price = new BigDecimal("0.0");
 		BigDecimal totalPrice = new BigDecimal("0.0");
 		double total = 0.0d;
-		String userId = "1";//先设置用户为1
-		List<Cart> cartsList = cartService.getCartByCartIds(userId, cartIds);
+		User user = (User) request.getSession().getAttribute("user");
+		List<Cart> cartsList = cartService.getCartByCartIds(user.getId().toString(), cartIds);
 		for(int i=0; i<cartsList.size(); i++) {
 			num = cartsList.get(i).getNum();
 			price = cartsList.get(i).getPrice();
@@ -178,9 +194,63 @@ public class PurchaseCtrler {
 			total = totalPrice.add(new BigDecimal(total)).doubleValue();
 		}
 		DecimalFormat df = new DecimalFormat("#.00");
+     
+        //订单号
+        String code1 = RandomArray.randomArray(0, 9, 2);
+        String code2 = RandomArray.randomArray(0, 9, 2);
+        String myTime = MyTime.getNowFormatDate();
+		String ordercode = code1 + myTime + code2;
+		
+		RequestHandler reqHandler = new RequestHandler(request, response); 
+
+		//初始化  
+		reqHandler.init();  
+		//记得填写
+		//reqHandler.init(weixin.getAppId(), "APP_SECRET", APP_KEY, PARTNER_KEY);  
+		
+        //获取预支付标示 
+        SortedMap<String, String> packageParams = new TreeMap<String, String>();
+        packageParams.put("appId", weixin.getAppId());  
+        packageParams.put("mch_id", "");//商户号   
+        packageParams.put("nonce_str", WeixinPayUtil.getNonceStr());//随机字符串   
+        packageParams.put("body", "一见喜-商品订单");//商品描述 
+        packageParams.put("out_trade_no", ordercode);//商户订单号
+        packageParams.put("total_fee", WeixinPayUtil.getMoney(String.valueOf(total)));//标价金额
+        packageParams.put("spbill_create_ip", request.getRemoteAddr());//订单生成的机器IP，指用户浏览器端IP  
+        packageParams.put("notify_url", "http://kjsx.ky365.com.cn/shop/goodsWsPay/result");//支付回调地址  
+        packageParams.put("trade_type", "JSAPI");//交易类型 
+        packageParams.put("openid", user.getOpenid()); 
+		
+        //获取package包  
+        String packageValue = reqHandler.genPackage(packageParams);  
+        String noncestr = Sha1Util.getNonceStr();  
+        String timestamp = Sha1Util.getTimeStamp();  
+        
+        //组装map用于生成sign  
+        SortedMap<String, String> signParams = new TreeMap<String, String>();
+		signParams.put("appid", weixin.getAppId());  
+		signParams.put("noncestr", noncestr);  
+		signParams.put("package", packageValue);  
+		signParams.put("timestamp", timestamp);  
+		signParams.put("appkey", "");
+		String sign = Sha1Util.createSHA1Sign(signParams);  
+        
+		//增加非参与签名的额外参数  
+		signParams.put("paySign", sign);  
+		signParams.put("signType", "SHA1");
+        
+        //支付接口所需的参数
+		mv.addObject("appId", weixin.getAppId());//公众号id
+		mv.addObject("timeStamp", System.currentTimeMillis());//当前的时间
+		mv.addObject("nonceStr", WeixinPayUtil.getNonceStr());//随机字符串，不长于32位。
+		mv.addObject("prepay_id", packageValue);//统一下单接口返回的prepay_id参数值，提交格式如：prepay_id=***
+		mv.addObject("paySign", sign);//签名
+		
+		//订单数据
 		mv.addObject("cartIds", cartIds);
 		mv.addObject("total", df.format(total));
-		mv.addObject("cartsMsg", cartsList);	
+		mv.addObject("cartsMsg", cartsList);
+		mv.addObject("ordercode", ordercode);//订单号
 		return mv;
 	}
 	
@@ -205,29 +275,30 @@ public class PurchaseCtrler {
 	//提交订单
 	//若未付款，跳到订单详细页
 	@RequestMapping(value="/submitOrder", method=RequestMethod.POST)
-	public ModelAndView submitOrder(String postData, String cartIds, String state) {
+	public ModelAndView submitOrder(HttpServletRequest request, HttpServletResponse response, String postData, String cartIds, String state) {
 		ModelAndView mv = new ModelAndView("home/order-detail");		
-		Integer userId = 1;//先设置用户为1
+		User user = (User) request.getSession().getAttribute("user");
 		if("0".equals(state)) {//从我的订单过来的付款			
 			//添加订单
 			Order order = (Order) JSON.parseObject(postData, Order.class);
-			orderService.addOrder(userId, order, cartIds);
+			orderService.addOrder(user.getId(), order, cartIds);
 		}else if("1".equals(state)) {//从购物车过来的付款
 			
 		}
 		//查询订单详情
-		List<Order> orderList = orderService.getOrderDetail(userId);
+		List<Order> orderList = orderService.getOrderDetail(user.getId());
 		mv.addObject("orderMsg", orderList);
+		
 		return mv;
 	}
 	
 	//订单详细页
 	@RequestMapping(value="/orderDetail", method=RequestMethod.GET)
-	public ModelAndView orderDetail() {
+	public ModelAndView orderDetail(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("home/order-detail");			
-		Integer userId = 1;//先设置用户为1
+		User user = (User) request.getSession().getAttribute("user");
 		//查询订单详情
-		List<Order> orderList = orderService.getOrderDetail(userId);
+		List<Order> orderList = orderService.getOrderDetail(user.getId());
 		mv.addObject("orderMsg", orderList);
 		return mv;
 	}

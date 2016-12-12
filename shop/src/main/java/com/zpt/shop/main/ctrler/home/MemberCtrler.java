@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +17,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zpt.shop.common.pojo.Contants;
+import com.zpt.shop.common.weixin.WeixinUserInfo;
+import com.zpt.shop.common.weixin.WxMpConfigStorage;
 import com.zpt.shop.main.entities.Order;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.entities.Withdraw;
 import com.zpt.shop.main.service.OrderService;
 import com.zpt.shop.main.service.UserService;
 import com.zpt.shop.main.service.WithdrawService;
+import com.zpt.shop.weixin.utils.WeixinUtils;
 
 /**
  * 功能说明:
@@ -48,13 +54,27 @@ public class MemberCtrler {
 	
 	//会员中心
 	@RequestMapping(value="/memberCenter", method=RequestMethod.GET)
-	public ModelAndView memberCenter() {
+	public ModelAndView memberCenter(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("home/member-center");
-		Integer userId = 1;//先设置用户为1
-		//用户上级、可提现金额、已提现金额
-		BigDecimal totalPrice = new BigDecimal("0.0");
-		User user = userService.getUserId(userId);
-		List<Withdraw> withdrawList = withdrawService.getMemberInfo(userId);
+		//获取用户信息
+		User user = (User) request.getSession().getAttribute("user");
+		//获取OAuth2.0请求后，服务器返回的code内容
+		String code = request.getParameter("code");
+		String accessToken = WeixinUtils.getAuthAccessToken(code);
+		//是否有上级
+		if(!("0".equals(user.getPid()))) {
+			User superiorUser = userService.getUserId(user.getPid());
+			WeixinUserInfo superiorUserInfo = WeixinUtils.getWeixinUserInfo(accessToken, superiorUser.getOpenid());
+			mv.addObject("superiorName", superiorUserInfo.getNickname());//用户上级昵称
+		}		
+        //获取用户微信信息（传入accessToken和openId获取用户信息）        
+        WeixinUserInfo userInfo = WeixinUtils.getWeixinUserInfo(accessToken, user.getOpenid()); 
+        mv.addObject("superiorName", "一见喜");//用户上级昵称
+		mv.addObject("name", userInfo.getNickname());//用户昵称
+		mv.addObject("headImg", userInfo.getHeadImgUrl());//用户头像
+        //用户上级、可提现金额、已提现金额
+		BigDecimal totalPrice = new BigDecimal("0.0");		
+		List<Withdraw> withdrawList = withdrawService.getMemberInfo(user.getId());
 		if(withdrawList != null && withdrawList.size() > 0) {
 			for(int i=0; i<withdrawList.size(); i++) {
 				BigDecimal price = new BigDecimal(withdrawList.get(i).getCashMoney());
@@ -65,7 +85,7 @@ public class MemberCtrler {
 			mv.addObject("totalPrice", "0.00");
 		}
 		//代理人信息
-		List<User> userList = userService.getAgentInfoByMyId(userId);
+		List<User> userList = userService.getAgentInfoByMyId(user.getId());
 		String primary = "";//一级分销
 		String second = "";//二级分销
 		String ids = "";//分销
@@ -136,7 +156,7 @@ public class MemberCtrler {
 		mv.addObject("withdrawMsg", withdrawList);
 		return mv;
 	}
-	
+
 	//提现
 	@RequestMapping(value="/withdrawals", method=RequestMethod.GET)
 	public ModelAndView withdrawals() {

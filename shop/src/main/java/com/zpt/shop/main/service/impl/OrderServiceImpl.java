@@ -13,6 +13,7 @@ import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.common.pojo.RandomArray;
 import com.zpt.shop.main.entities.Cart;
 import com.zpt.shop.main.entities.Order;
+import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.mapper.CartMapper;
 import com.zpt.shop.main.mapper.OrderDetailMapper;
 import com.zpt.shop.main.mapper.OrderMapper;
@@ -71,10 +72,6 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void addOrder(Integer userId, Order order, String cartIds) {
 		// TODO Auto-generated method stub
-		// 生成订单号
-		long time = System.currentTimeMillis();
-		String str = RandomArray.randomArray(0, 9, 2);
-		String ordernum = str + Long.toString(time) + str;
 		// 下单时间
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		Date ordertime = new Date();
@@ -86,12 +83,12 @@ public class OrderServiceImpl implements OrderService {
 		}
 		order.setUserId(userId);
 		order.setOrdertime(ordertime);
-		order.setOrdernum(ordernum);
+		order.setOrdernum(order.getOrdernum());
 		order.setState(1);
 		// 添加订单
 		orderMapper.addOrder(order);
 		// 获取添加的订单id
-		Order orderInfo = orderMapper.getOrder(userId, ordernum);
+		Order orderInfo = orderMapper.getOrder(userId, order.getOrdernum());
 		// 添加订单详情
 		List<Cart> cartsList = cartMapper.getCartByCartIdsAndUserId(userId, cartIds);	
 		orderDetailMapper.addOrderDetail(orderInfo.getId(), cartsList);
@@ -124,6 +121,20 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return null;
 	}
+	
+	/**
+	 * 订单详情
+	 * */
+	@Override
+	public List<Sku> getOrderByOrderNum(String orderNum) {
+		// TODO Auto-generated method stub
+		List<Sku> list = orderMapper.getOrderByOrderNum(orderNum);
+		if(list != null && list.size()>0){
+			return list;
+		}
+		return null;
+	}
+
 
 	/**
 	 * 分销下单未付款查询
@@ -149,6 +160,16 @@ public class OrderServiceImpl implements OrderService {
 			return list;
 		}
 		return null;
+	}
+
+	/**
+	 * 修改订单状态
+	 * */
+	@Override
+	public void updateOrderState(String ordercode) {
+		// TODO Auto-generated method stub
+		Integer state = 2;
+		orderMapper.updateOrderState(ordercode, state);
 	}
 
 }

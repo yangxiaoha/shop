@@ -122,11 +122,8 @@
 	<select id="getGoods" resultMap="resultMap">
 		select * from t_goods left join
 		(select sku.goodsid, sku.price as price, image.url from
-		(select * from t_goods_sku as t where exists(
-		select 1 from t_goods_sku where t.goodsid=goodsid
-		group by goodsid
-		having min(price)=t.price
-		)) as sku left join t_goods_image as image 
+		(select * from (select * from t_goods_sku order by goodsid, price) as t
+		group by t.goodsid) as sku left join t_goods_image as image 
 		on sku.id = image.skuid) as g 
 		on t_goods.id = g.goodsid
 		order by id desc
@@ -136,11 +133,8 @@
 	<select id="getGoodsByCondition" resultMap="resultMap">
 		select * from t_goods left join
 		(select sku.goodsid, sku.price as price, image.url from
-		(select * from t_goods_sku as t where exists(
-		select 1 from t_goods_sku where t.goodsid=goodsid
-		group by goodsid
-		having min(price)=t.price
-		)) as sku left join t_goods_image as image 
+		(select * from (select * from t_goods_sku order by goodsid, price) as t
+		group by t.goodsid) as sku left join t_goods_image as image 
 		on sku.id = image.skuid) as g 
 		on t_goods.id = g.goodsid 
 		<if test="flag == 1">
@@ -151,23 +145,24 @@
 		</if>
 		<if test="flag == 3">
 			where t_goods.quantity &gt; 0
+			ORDER BY t_goods.id DESC
 		</if>
 		<if test="keyword != null and keyword != ''">
 			where t_goods.name like CONCAT('%',#{keyword},'%')
+			ORDER BY t_goods.id DESC
 		</if>
 		<if test="typeId != null and typeId != ''">
 			where t_goods.typeid = #{typeId}
+			ORDER BY t_goods.id DESC
 		</if>
+		limit #{pageStart},#{num}
 	</select>
 	
 	<select id="getLowGoodsById" resultMap="resultMap">
 		select * from t_goods left join
 		(select sku.goodsid, sku.price as price, image.url from
-		(select * from t_goods_sku as t where exists(
-		select 1 from t_goods_sku where t.goodsid=goodsid
-		group by goodsid
-		having min(price)=t.price
-		)) as sku left join t_goods_image as image 
+		(select * from (select * from t_goods_sku order by goodsid, price) as t
+		group by t.goodsid) as sku left join t_goods_image as image 
 		on sku.id = image.skuid) as g 
 		on t_goods.id = g.goodsid where t_goods.id = #{goodsId}
 	</select>
@@ -175,11 +170,8 @@
 	<select id="getHighGoodsById" resultMap="resultMap">
 		select * from t_goods left join
 		(select sku.goodsid, sku.price as price, image.url from
-		(select * from t_goods_sku as t where exists(
-		select 1 from t_goods_sku where t.goodsid=goodsid
-		group by goodsid
-		having max(price)=t.price
-		)) as sku left join t_goods_image as image 
+		(select * from (select * from t_goods_sku order by goodsid, price) as t
+		group by t.goodsid) as sku left join t_goods_image as image 
 		on sku.id = image.skuid) as g 
 		on t_goods.id = g.goodsid where t_goods.id = #{goodsId}
 	</select>
@@ -187,5 +179,9 @@
 	<select id="getGoodsInfo" resultMap="resultMap">
 		select * from t_goods where id = #{goodsId}
 	</select>
+	
+	<update id="updateNum">
+		update t_goods set num = #{num} where id = #{id}
+	</update>
 	
 </mapper>

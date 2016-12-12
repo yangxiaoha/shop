@@ -19,12 +19,17 @@
 <body>
 	<div id="wrap">
 	    <div class="user-info">
-	      <img src="<%=basePath%>assets/home/images/head-portrait.png">
-	      <p style="color: #fff;">用户名</p>
+	      <c:if test="${empty headImg}">
+	      	<img src="<%=basePath%>assets/home/images/headImg.png">
+	      </c:if>
+	      <c:if test="${!empty headImg}">
+	      	<img src="${headImg}">
+	      </c:if>	      
+	      <p style="color: #fff;">${name}</p>
 	    </div>
 	
 	    <div class="present-info mb10">
-	      <p class="pv10 fc-595757">您是由[一见喜]推荐</p>	      
+	      <p class="pv10 fc-595757">您是由${superiorName}推荐</p>	      
 	      <ul class="clearfloat">
 	        <li class="fl clearfloat">
 	          <span class="fc-c8161d">${userMsg.money}元</span>

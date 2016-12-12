@@ -59,6 +59,7 @@
 		      <input type="hidden" id="name" name="name" value="" />
 		      <input type="hidden" id="phone" name="phone" value="" />
 		      <input type="hidden" id="address" name="address" value="" />
+		      <input type="hidden" id="ordercode" name="ordercode" value="${ordercode}" />
 		      <input type="hidden" id="totalprice" name="totalprice" value="${total}" />
 	        </form>
 	        <form id="buyGoodsSubForm" action="submitOrder" method="post" style="width: 0; height: 0;">
@@ -91,8 +92,42 @@
 	    		jsonString+= '}'; 
 	    		$("#postData").val(jsonString);
 	    		$("#buyGoodsSubForm").submit();
+	    		onBridgeReady();
 	    	});
 	    });
+	    var appId="${appId}";  
+        var timeStamp="${timeStamp}";  
+        var nonceStr="${nonceStr}";  
+        var prepay_id="${prepay_id}";
+        var sign="${paySign}"; 
+	    function onBridgeReady() {
+    	    WeixinJSBridge.invoke(
+    	        'getBrandWCPayRequest', {
+    	           "appId":appId, //公众号名称，由商户传入     
+    	           "timeStamp":timeStamp, //时间戳，自1970年以来的秒数     
+    	           "nonceStr":nonceStr, //随机串     
+    	           "package":prepay_id,     
+    	           "signType":"MD5", //微信签名方式   
+    	           "paySign":sign //微信签名 
+    	        },
+    	        function(res){     
+    	            if(res.err_msg == "get_brand_wcpay_request：ok" ) {
+    	            	// 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
+    	            	alert("支付成功");
+    	            }
+    	        }
+    	    ); 
+    	 }
+    	 if (typeof WeixinJSBridge == "undefined"){
+    	    if( document.addEventListener ){
+    	        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    	    }else if (document.attachEvent){
+    	        document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+    	        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    	    }
+    	 }else{
+    	    onBridgeReady();
+    	 }
     </script>
 </body>
 </html>

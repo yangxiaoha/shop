@@ -19,4 +19,10 @@ public interface UserService {
 	 * */
 	public List<User> getAgentInfoByMyId(Integer userId);
 
+	/**
+	 * 通过openId获取用户信息
+	 * @param Integer userId 用户id
+	 * */
+	public User getUserByOpenId(String openid);
+
 }

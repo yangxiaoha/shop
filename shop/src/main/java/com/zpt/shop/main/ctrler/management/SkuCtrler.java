@@ -71,13 +71,13 @@ public class SkuCtrler {
 		try {			
 			skuService.insertSku(sku, proId, value, request, session);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.ADD_GOODS_NAME);
+			msg.setMsg(Contants.ADD_SUCCESS);
 			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.MSG_GOODS_NAME);
+			msg.setMsg(Contants.ADD_LOST);
 			return msg;			
 		}
 	}
@@ -107,13 +107,13 @@ public class SkuCtrler {
 		try {
 			stockService.insertStock(skuId,num,batch);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
+			msg.setMsg(Contants.UPDATE_SUCCESS);
 			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.RETURN_STRING_EXCEPTION_FAIL);			
+			msg.setMsg(Contants.UPDATE_LOST);			
 			return msg;
 		}
 	}	
@@ -125,13 +125,13 @@ public class SkuCtrler {
 		try {
 			skuService.updateSku(sku, proId, value, request, session);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
+			msg.setMsg(Contants.UPDATE_SUCCESS);
 			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.RETURN_STRING_EXCEPTION_FAIL);			
+			msg.setMsg(Contants.UPDATE_LOST);			
 			return msg;
 		}
 	}

@@ -63,12 +63,14 @@
 				<li class="menu-title">现货<input type="hidden" value="3"></li>
 				<li class="menu-title menu-title-search">
 					<p class="fl screen clearfloat"><span class="glyphicon glyphicon-filter"></span>筛选</p>
-					<p class="fr search clearfloat"><span class="glyphicon glyphicon-search"></span></p>
+					<p class="fr search clearfloat">
+						<span class="glyphicon glyphicon-search" style="line-height: 40px;"></span>
+					</p>
 				</li>
-		    </ul>	    
+		    </ul>	
 		    <ul class="goods-type" style="display: none;">
 		    	<c:forEach items="${goodsTypeMsg}" var="goodsTypeList">
-					<li>${goodsTypeList.name}<input type="hidden" value="${goodsTypeList.id}"></li>
+					<li><a href="goodsType/${goodsTypeList.id}">${goodsTypeList.name}</a></li>
 				</c:forEach>
 		    </ul>
 		    <div class="goods-search" style="display: none;">
@@ -77,16 +79,18 @@
 		    </div>
 		</div>
 
-		<div class="goods-detail">
-			<c:forEach items="${goodsMsg}" var="goodsList">
-			    <div class="goods-show">
-			    	<a href="goodsDetail/${goodsList.id}">
-			    		<img src="<%=basePath%>${goodsList.url}" />
-						<p class="p5">${goodsList.name}</p>
-						<p class="mb5 font-price">￥${goodsList.price}</p>
-			    	</a>
-				</div>
-			</c:forEach>
+		<div id="loadGoods">
+			<div class="goods-detail">
+				<c:forEach items="${goodsMsg}" var="goodsList">
+				    <div class="goods-show">
+				    	<a href="goodsDetail/${goodsList.id}">
+				    		<img src="<%=basePath%>${goodsList.url}" />
+							<p class="p5">${goodsList.name}</p>
+							<p class="mb5 font-price">￥${goodsList.price}</p>
+				    	</a>
+					</div>
+				</c:forEach>
+			</div>
 		</div>
 
 		<ul class="tab-bar index-tab-bar">
@@ -168,13 +172,13 @@
     </script>
     <script>
 	    $(document).ready(function(){
-	    	//根据类型查找商品
+/* 	    	//根据类型查找商品
 			$(".goods-type li").click(function() {
 				var flag = 0;
 				var keyword = "";
 				var typeId = $(this).children("input[type=hidden]").val();
 				showGoods(flag, keyword, typeId);
-			});
+			}); */
 			//商品搜索
 			$("#searchKeyword").click(function() {				
 				var flag = 0;
@@ -188,6 +192,8 @@
 		   	    url: "selectGoods",
 		   		type: "Post",
 		   	    data: {
+		   	    	pageStart:0,
+		   	    	num:3,
 		   	    	flag:flag,
 		   	    	keyword:keyword,
 		   	    	typeId:typeId
@@ -199,7 +205,7 @@
 		   	    		$.each(data.goodsMsg, function(i, goodsList) {   
 		   	    			$(".goods-detail").append( 
 		   	    				'<div class="goods-show">'+
-   			          	  	    '<a href="goodsDetail/'+goodsList.typeId+'/'+goodsList.id+'">'+
+   			          	  	    '<a href="goodsDetail/'+'/'+goodsList.id+'">'+
    					            '<img src="<%=basePath%>'+goodsList.url+'">'+
 								'<p class="p5">'+goodsList.name+'</p>'+
 								'<p class="mb5 font-price">￥'+goodsList.price+'</p>'+
@@ -207,8 +213,6 @@
 								'</div>'
 		    				);
 	   		  			});
-		   			}else{
-		   			    alert("网络故障，稍后重试");
 		   			}
 		   	    }
 	        })
@@ -217,17 +221,21 @@
     <!-- 加载更多 -->
     <script>
 	    $(document).ready(function(){
-	    	var num = 1;
-    	    var pageStart = 0;
+	    	var num = 3;
+    	    var pageStart = 3;
     	    // dropload
-    	    $('.goods-detail').dropload({
-    	        scrollArea : window,
+    	    $('#loadGoods').dropload({
+    	    	scrollArea : window,
     	        loadDownFn : function(me){
     	            $.ajax({
     	                type: 'POST',
     	                url: 'loadIndex',
     	                data: {    	                
-    	                	pageStart:pageStart
+    	                	pageStart:pageStart,
+    	                	num:num,
+    	                	flag:0,
+    			   	    	keyword:"",
+    			   	    	typeId:""
     			   	    },
     	                dataType: 'json',
     	                success: function(data){
@@ -236,7 +244,7 @@
     	                    
     	                    for(var i = 0; i < data.goodsMsg.length; i++){
     	                        result += '<div class="goods-show">'+
-   			          	  	    		'<a href="goodsDetail/'+data.goodsMsg[i].typeId+'/'+data.goodsMsg[i].id+'">'+
+   			          	  	    		'<a href="goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
    					            		'<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
 										'<p class="p5">'+data.goodsMsg[i].name+'</p>'+
 										'<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
@@ -252,7 +260,7 @@
     	                    }
     	                    // 为了测试，延迟1秒加载
     	                    setTimeout(function(){
-    	                        $('.lists').append(result);
+    	                        $('.goods-detail').append(result);
     	                        // 每次数据加载完，必须重置
     	                        me.resetload();
     	                    },1000);

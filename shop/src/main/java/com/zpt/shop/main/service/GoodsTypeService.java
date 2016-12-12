@@ -21,5 +21,10 @@ public interface GoodsTypeService {
 	public void deleteGoodsType(String ids);
 	
 	public void updateGoodsType(GoodsType goodstype);
+
+	/**
+	 * 获取商品类型
+	 * */
+	public List<GoodsType> getType();
 	
 }

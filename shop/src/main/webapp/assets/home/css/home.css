@@ -73,6 +73,9 @@ a, a:link, a:visited, a:hover, a:active {
 .fc-000 {
 	color: #000 !important;
 }
+.fc-231815 {
+	color: #231815 !important;
+}
 .fc-c8161d {
 	color: #c8161d;
 }
@@ -188,13 +191,20 @@ a, a:link, a:visited, a:hover, a:active {
 	background-color: #fff;
 	border: 1px solid #968f8e;
 	border-radius: 5px;
-	z-index: 999;
+	z-index: 9999;
 }
 .index-menu .goods-type > li {
 	padding: 5px 3px;
 	height: 34px;
+	color: #231815;
     line-height: 24px;
 	border-bottom: 1px solid #968f8e;
+}
+.index-menu .goods-type > li > a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	color: #231815;
 }
 .index-menu .goods-search {
 	position: absolute;
@@ -320,6 +330,41 @@ a, a:link, a:visited, a:hover, a:active {
     border-radius: 45px;  
 }
 /************************index结束************************/
+
+/************************type-detail开始************************/
+.type-detail {
+	position: absolute;
+	top: 40px;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.type-detail .type-show {
+	width: 24%;
+	height: 100%;
+}
+.type-detail .type-show * {
+	width: 100%;
+}
+.type-detail .type-show {
+	border-right: 1px solid #968f8e;
+}
+.type-detail .type-show div p {
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border-bottom: 1px solid #968f8e;
+}
+.type-detail .type-show div ul li {
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border-bottom: 1px solid #968f8e;
+}
+.type-detail .goods-detail {
+	width: 76%;
+}
+/************************type-detail结束************************/
 
 /************************car开始************************/
 .no-shopping-car-show div {

@@ -72,13 +72,13 @@ public class ProCtrler {
 		try {
 			proService.insertPro(pro);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.ADD_GOODS_NAME);
+			msg.setMsg(Contants.ADD_SUCCESS);
 			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.MSG_GOODS_NAME);
+			msg.setMsg(Contants.ADD_LOST);
 			return msg;
 		}		
 	}
@@ -90,13 +90,13 @@ public class ProCtrler {
 		try {
 			proService.deletePro(ids);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
+			msg.setMsg(Contants.DELETE_SUCCESS);
 			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.RETURN_STRING_EXCEPTION_FAIL);			
+			msg.setMsg(Contants.DELTET_LOST);			
 			return msg;	
 		}
 	}
@@ -108,13 +108,13 @@ public class ProCtrler {
 		try {
 			proService.updatePro(pro);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
+			msg.setMsg(Contants.UPDATE_SUCCESS);
 			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.RETURN_STRING_EXCEPTION_FAIL);			
+			msg.setMsg(Contants.UPDATE_LOST);			
 			return msg;
 		}
 	}

@@ -113,8 +113,7 @@ public class GoodsServiceImpl implements GoodsService {
 
 
 	@Override
-	public List<Goods> getGoods(String pageStart) {
-		int num = 1;
+	public List<Goods> getGoods(Integer pageStart, Integer num) {
 		List<Goods> list = goodsMapper.getGoods(pageStart, num);
 		if(list != null && list.size() > 0){
 			return list;
@@ -124,9 +123,9 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public List<Goods> getGoodsByCondition(String flag, String keyword, String typeId) {
+	public List<Goods> getGoodsByCondition(Integer pageStart, Integer num, String flag, String keyword, String typeId) {
 		// TODO Auto-generated method stub
-		List<Goods> list = goodsMapper.getGoodsByCondition(flag, keyword, typeId);
+		List<Goods> list = goodsMapper.getGoodsByCondition(pageStart, num, flag, keyword, typeId);
 		if(list != null && list.size() > 0){
 			return list;
 		}else{
@@ -143,6 +142,29 @@ public class GoodsServiceImpl implements GoodsService {
 		highPrice = highGoods.getPrice();
 		lowGoods.setHighprice(highPrice);
 		return lowGoods;
+	}
+
+	@Override
+	public List<Goods> getGoodsByTypeId(Integer pageStart, Integer num, String typeId) {
+		// TODO Auto-generated method stub
+		String flag = "0";
+		String keyword = "";
+		List<Goods> list = goodsMapper.getGoodsByCondition(pageStart, num, flag, keyword, typeId);
+		if(list != null && list.size() > 0){
+			return list;
+		}else{
+			return null;			
+		}
+	}
+
+	/**
+	 * 修改商品购买人数
+	 * @param long num 购买人数
+	 * */
+	@Override
+	public void updateNum(Integer id, long num) {
+		// TODO Auto-generated method stub
+		goodsMapper.updateNum(id, num);
 	}
 
 }
