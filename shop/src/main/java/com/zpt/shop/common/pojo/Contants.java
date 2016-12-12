@@ -16,17 +16,17 @@ public final class Contants {
 	//登录错误
 	public static final String MSG_LOGIN_FAIL = "用户名或者密码错误";
 	
-	//供应商	
-	public static final Long SUPPLIER_ID = 2l;
-	public static final String SUPPLIER_NAME = "供应商";
-	public static final String ADD_SUPPLIER_NAME = "添加供应商成功";
+	//添加
+	public static final String ADD_SUCCESS = "添加成功";
+	public static final String ADD_LOST = "添加失败";
 	
-	//品牌
-	public static final String ADD_BRAND_NAME = "添加品牌成功";
+	//删除
+	public static final String DELETE_SUCCESS = "删除成功";
+	public static final String DELTET_LOST = "删除失败";
 	
-	//品牌
-	public static final String ADD_GOODS_NAME = "添加商品成功";
-	public static final String MSG_GOODS_NAME = "添加商品失败，请重试！";
+	//修改
+	public static final String UPDATE_SUCCESS = "修改成功";
+	public static final String UPDATE_LOST = "修改失败";	
 	
 	//置顶
 	public  static final String ADD_GOODS_STICK = "置顶成功";
@@ -46,13 +46,8 @@ public final class Contants {
 	
 	//异常返回消息
 	public static final String RETURN_STRING_EXCEPTION_FAIL = "系统故障，请稍后重试";
-	
-	//成功消息
-	public static final String RETURN_STRING_SUCCESS = "成功";
-	
+		
 	//充值成功
 	public static final String RETURN_SPREAD_SUCCESS = "充值成功";
-	
-	//试卷购买失败
-	public static final String RETURN_PURCHASE_SUCCESS = "余额不足";
+
 }

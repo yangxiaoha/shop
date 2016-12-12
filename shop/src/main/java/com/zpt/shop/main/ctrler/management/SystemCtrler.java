@@ -53,13 +53,13 @@ public class SystemCtrler {
 		try {
 			systemService.updateSystem(system);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
+			msg.setMsg(Contants.UPDATE_SUCCESS);
 			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.RETURN_STRING_EXCEPTION_FAIL);	
+			msg.setMsg(Contants.UPDATE_LOST);	
 			return msg;
 		}
 	}	

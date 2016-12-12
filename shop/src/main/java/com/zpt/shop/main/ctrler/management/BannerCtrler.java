@@ -40,13 +40,13 @@ public class BannerCtrler {
 		try {
 			bannerService.insertBanner(banner,request,session);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.ADD_GOODS_NAME);
+			msg.setMsg(Contants.ADD_SUCCESS);
 			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.MSG_GOODS_NAME);
+			msg.setMsg(Contants.ADD_LOST);
 			return msg;	
 		}
 	}
@@ -58,7 +58,7 @@ public class BannerCtrler {
 		try {
 			bannerService.updateBanner(banner,request,session);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
+			msg.setMsg(Contants.UPDATE_SUCCESS);
 			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -76,7 +76,7 @@ public class BannerCtrler {
 		try {
 			bannerService.deleteBanner(ids);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
+			msg.setMsg(Contants.DELETE_SUCCESS);
 			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception

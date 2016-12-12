@@ -79,8 +79,6 @@
 		        			   $("#addsubmit").removeAttr("disabled"); 
 		        		    },1000);
 		        			window.location.reload(); 
-		        			$("#imghead").attr("src","<%=basePath%>/res/bj_img1.jpg");
-		        			$("#imghead").css({"margin-top":"0px","width":"240px","height":"240px"});
 		        	    },
 	        	    	
 		        	    error:function(e){

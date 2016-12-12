@@ -17,13 +17,21 @@
 </head>
 <body>
 <style type="text/css">
-	#add,#update .pic {
+	#add .pic {
 	    width: 240px;
 	    height: 240px;
 	    position: relative;
 	    border: 1px solid #d2d2d2;
 	    overflow: hidden;
 	}
+	#update .pic {
+	    width: 240px;
+	    height: 240px;
+	    position: relative;
+	    border: 1px solid #d2d2d2;
+	    overflow: hidden;
+	}
+	
 	.pic div {
 	    width: 100%;
 	    cursor: pointer;

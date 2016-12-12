@@ -58,13 +58,13 @@ public class SupplierCtrler {
 		try {
 			supplierService.insertSupplier(supplier);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.ADD_SUPPLIER_NAME);
+			msg.setMsg(Contants.ADD_SUCCESS);
 			return msg;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.MSG_LOGIN_FAIL);
+			msg.setMsg(Contants.ADD_LOST);
 			return msg;
 		}		
 		
@@ -77,12 +77,12 @@ public class SupplierCtrler {
 		try {
 			supplierService.deleteSupplier(ids);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
+			msg.setMsg(Contants.DELETE_SUCCESS);
 			return msg;
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.RETURN_STRING_EXCEPTION_FAIL);
+			msg.setMsg(Contants.DELTET_LOST);
 			logger.error(e.getMessage());
 			return msg;
 		}		
@@ -96,13 +96,13 @@ public class SupplierCtrler {
 		try {
 			supplierService.updateSupplier(supplier);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.RETURN_STRING_SUCCESS);	
+			msg.setMsg(Contants.UPDATE_SUCCESS);	
 			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.RETURN_STRING_EXCEPTION_FAIL);
+			msg.setMsg(Contants.UPDATE_LOST);
 			return msg;
 		}	
 		

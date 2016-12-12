@@ -67,13 +67,13 @@ public class GoodsTypeCtrler {
 		try {
 			goodsTypeService.insertGoodsType(goodstype);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.ADD_GOODS_NAME);
+			msg.setMsg(Contants.ADD_SUCCESS);
 			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.MSG_GOODS_NAME);
+			msg.setMsg(Contants.ADD_LOST);
 			return msg;
 		}		
 	}
@@ -85,13 +85,13 @@ public class GoodsTypeCtrler {
 		try {
 			goodsTypeService.deleteGoodsType(ids);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.RETURN_STRING_SUCCESS);
+			msg.setMsg(Contants.DELETE_SUCCESS);
 			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
-			msg.setMsg(Contants.RETURN_STRING_EXCEPTION_FAIL);			
+			msg.setMsg(Contants.DELTET_LOST);			
 			return msg;	
 		}
 	}

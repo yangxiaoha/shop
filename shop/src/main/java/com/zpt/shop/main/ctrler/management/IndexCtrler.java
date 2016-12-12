@@ -9,7 +9,6 @@ public class IndexCtrler {
 
 	@RequestMapping("/index")
 	public String index(){
-		System.out.println("1111");
 		return "/management/index";
 	}
 }
