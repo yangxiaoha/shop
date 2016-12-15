@@ -848,4 +848,11 @@ a, a:link, a:visited, a:hover, a:active {
 .agent-show > p {
 	line-height: 81px; 
 }
+.agent-show img {
+	position: absolute !important;
+    top: 10px !important;
+    left: 10px !important;
+    width: 60px !important;
+    height: 60px !important;
+}
 /************************member-center结束************************/

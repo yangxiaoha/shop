@@ -89,4 +89,5 @@
 		left join t_goods_image as img
 		on t.id = img.skuid where t.goodsid = #{goodsId} and t.num &gt; 0
 	</select>
+
 </mapper>

@@ -65,4 +65,30 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	/**
+	 * 添加用户
+	 * @param String fromUserName 用户openId
+	 * @param String createTime 用户openId
+	 * */
+	@Override
+	public void addUser(String fromUserName, String createTime, String ticket, String money) {
+		// TODO Auto-generated method stub
+		userMapper.addUser(fromUserName, createTime, ticket, money);
+	}
+
+	/**
+	 * 获取分销信息
+	 * @param String ids 代理人id
+	 * */
+	@Override
+	public List<User> getAgentInfoByIds(String ids) {
+		// TODO Auto-generated method stub
+		List<User> list = userMapper.getAgentInfoByIds(ids);
+		if (list != null && list.size()>0) {
+			return list;
+		} else {
+			return null;
+		}	
+	}
+
 }

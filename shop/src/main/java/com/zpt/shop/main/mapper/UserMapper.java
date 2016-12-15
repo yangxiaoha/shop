@@ -28,4 +28,17 @@ public interface UserMapper {
 	 * */
 	public User getUserByOpenId(@Param("openId")String openid);
 
+	/**
+	 * 添加用户
+	 * @param String fromUserName 用户openId
+	 * @param String createTime 用户openId
+	 * */
+	public void addUser(@Param("openId")String fromUserName, @Param("regtime")String createTime, @Param("pid")String ticket, @Param("money")String money);
+
+	/**
+	 * 获取分销信息
+	 * @param String ids 代理人id
+	 * */
+	public List<User> getAgentInfoByIds(@Param("ids")String ids);
+
 }

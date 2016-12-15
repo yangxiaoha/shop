@@ -1,5 +1,6 @@
 package com.zpt.shop.main.ctrler.home;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -30,7 +31,6 @@ import com.zpt.shop.main.entities.Order;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.CartService;
 import com.zpt.shop.main.service.OrderService;
-import com.zpt.shop.weixin.utils.GetWxOrderno;
 import com.zpt.shop.weixin.utils.RequestHandler;
 import com.zpt.shop.weixin.utils.Sha1Util;
 import com.zpt.shop.weixin.utils.WeixinPayUtil;
@@ -206,7 +206,7 @@ public class PurchaseCtrler {
 		//初始化  
 		reqHandler.init();  
 		//记得填写
-		//reqHandler.init(weixin.getAppId(), "APP_SECRET", APP_KEY, PARTNER_KEY);  
+		//reqHandler.init(weixin.getAppId(), weixin.getSecret(), APP_KEY, PARTNER_KEY);  
 		
         //获取预支付标示 
         SortedMap<String, String> packageParams = new TreeMap<String, String>();
@@ -232,7 +232,6 @@ public class PurchaseCtrler {
 		signParams.put("noncestr", noncestr);  
 		signParams.put("package", packageValue);  
 		signParams.put("timestamp", timestamp);  
-		signParams.put("appkey", "");
 		String sign = Sha1Util.createSHA1Sign(signParams);  
         
 		//增加非参与签名的额外参数  
@@ -244,6 +243,7 @@ public class PurchaseCtrler {
 		mv.addObject("timeStamp", System.currentTimeMillis());//当前的时间
 		mv.addObject("nonceStr", WeixinPayUtil.getNonceStr());//随机字符串，不长于32位。
 		mv.addObject("prepay_id", packageValue);//统一下单接口返回的prepay_id参数值，提交格式如：prepay_id=***
+		System.out.println("packageValue"+packageValue);
 		mv.addObject("paySign", sign);//签名
 		
 		//订单数据
@@ -256,19 +256,74 @@ public class PurchaseCtrler {
 	
 	//支付（从详细页过来的支付）
 	@RequestMapping(value="/payment/{orderId}", method=RequestMethod.GET)
-	public ModelAndView payment(@PathVariable("orderId")Integer orderId) {
+	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response, @PathVariable("orderId")Integer orderId) throws Exception {
 		ModelAndView mv = new ModelAndView("home/order-payment");
+		User user = (User) request.getSession().getAttribute("user");
 		List<Order> orderList = orderService.getOrderByOrderId(orderId);
+	
+		//订单号
+        String code1 = RandomArray.randomArray(0, 9, 2);
+        String code2 = RandomArray.randomArray(0, 9, 2);
+        String myTime = MyTime.getNowFormatDate();
+		String ordercode = code1 + myTime + code2;
+		
+		RequestHandler reqHandler = new RequestHandler(request, response); 
+
+		//初始化  
+		reqHandler.init();  
+		//记得填写
+		//reqHandler.init(weixin.getAppId(), weixin.getSecret(), APP_KEY, PARTNER_KEY);  
+		
+        //获取预支付标示 
+        SortedMap<String, String> packageParams = new TreeMap<String, String>();
+        packageParams.put("appId", weixin.getAppId());  
+        packageParams.put("mch_id", "");//商户号   
+        packageParams.put("nonce_str", WeixinPayUtil.getNonceStr());//随机字符串   
+        packageParams.put("body", "一见喜-商品订单");//商品描述 
+        packageParams.put("out_trade_no", ordercode);//商户订单号
+        packageParams.put("total_fee", WeixinPayUtil.getMoney(String.valueOf(orderList.get(0).getTotalPrice())));//标价金额
+        packageParams.put("spbill_create_ip", request.getRemoteAddr());//订单生成的机器IP，指用户浏览器端IP  
+        packageParams.put("notify_url", "http://kjsx.ky365.com.cn/shop/goodsWsPay/result");//支付回调地址  
+        packageParams.put("trade_type", "JSAPI");//交易类型 
+        packageParams.put("openid", user.getOpenid()); 
+		
+        //获取package包  
+        String packageValue = reqHandler.genPackage(packageParams);  
+        String noncestr = Sha1Util.getNonceStr();  
+        String timestamp = Sha1Util.getTimeStamp();  
+        
+        //组装map用于生成sign  
+        SortedMap<String, String> signParams = new TreeMap<String, String>();
+		signParams.put("appid", weixin.getAppId());  
+		signParams.put("noncestr", noncestr);  
+		signParams.put("package", packageValue);  
+		signParams.put("timestamp", timestamp);  
+		String sign = Sha1Util.createSHA1Sign(signParams);  
+        
+		//增加非参与签名的额外参数  
+		signParams.put("paySign", sign);  
+		signParams.put("signType", "SHA1");
+        
+        //支付接口所需的参数
+		mv.addObject("appId", weixin.getAppId());//公众号id
+		mv.addObject("timeStamp", System.currentTimeMillis());//当前的时间
+		mv.addObject("nonceStr", WeixinPayUtil.getNonceStr());//随机字符串，不长于32位。
+		mv.addObject("prepay_id", packageValue);//统一下单接口返回的prepay_id参数值，提交格式如：prepay_id=***
+		System.out.println("packageValue"+packageValue);
+		mv.addObject("paySign", sign);//签名
+		
+		//订单数据
 		mv.addObject("orderId", orderId);
-		mv.addObject("orderMsg", orderList);	
+		mv.addObject("orderMsg", orderList);
+		mv.addObject("ordercode", ordercode);//订单号
 		return mv;
 	}
 	
 	//我的地址
-	@RequestMapping(value="/myAddr", method=RequestMethod.GET)
-	public ModelAndView myAddr() {
+	@ResponseBody
+	@RequestMapping(value="/myAddr", method=RequestMethod.POST)
+	public ModelAndView myAddr() throws Exception {
 		ModelAndView mv = new ModelAndView("home/my-addr");
-		
 		return mv;
 	}
 	
@@ -298,7 +353,7 @@ public class PurchaseCtrler {
 		ModelAndView mv = new ModelAndView("home/order-detail");			
 		User user = (User) request.getSession().getAttribute("user");
 		//查询订单详情
-		List<Order> orderList = orderService.getOrderDetail(user.getId());
+		List<Order> orderList = orderService.getOrderDetail(1);
 		mv.addObject("orderMsg", orderList);
 		return mv;
 	}

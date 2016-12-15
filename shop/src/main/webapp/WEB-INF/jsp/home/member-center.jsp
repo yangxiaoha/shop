@@ -51,8 +51,10 @@
 	          </div>         
 	          <ul class="user-power-detail" style="display: none;">
 	            <li>
-	              <span>我的代理人</span>
-	              <i class="fr fc-c8161d">${peopleNum}人</i>
+	              <a href="myAgent">
+	              	<span>我的代理人</span>
+	              	<i class="fr fc-c8161d">${peopleNum}人</i>
+	              </a>
 	            </li>
 	            <li>
 	              <span>下单未购买</span>
@@ -96,7 +98,7 @@
 	        </a>
 	      </li>
 	      <li>
-	        <a href="index.html">
+	        <a href="../member/myQr">
 	          <span class="tab-bar-bg qr-code"></span>
 	          <span>我的二维码</span>
 	        </a>

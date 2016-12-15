@@ -143,8 +143,8 @@
 		select * from t_order where userid in (${ids}) and (state = 2 or state = 3 or state = 4)
 	</select>
 	
-	<update id="getOrderInfoByPay">
-		update 表t_order set sate = #{state} where ordernum = #{ordercode}
+	<update id="updateOrderState">
+		update t_order set sate = #{state} where ordernum = #{ordercode}
 	</update>
 
 </mapper>

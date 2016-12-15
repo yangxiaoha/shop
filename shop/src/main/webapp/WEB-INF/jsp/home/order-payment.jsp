@@ -29,13 +29,13 @@
 	        <div class="order-detail-addr">
 	          <h4 class="mb5"><span id="oldName">${orderList.name}</span>，<span id="oldPhone">${orderList.phone}</span></h4>
 	          <p class="fc-9fa0a0 fs-12" id="oldAddress">${orderList.address}</p>
-	          <a href="../myAddr" class="icon-item" style="display: block; color: #231815;">
+	          <a href="javascript:void(0)" class="icon-item" style="display: block; color: #231815;">
 	            <span class="iconfont">&#xe7f7;</span>
 	          </a>
 	        </div>
 	        <p class="order-detail-total p5 clearfloat">
 	          <span class="fl">商品合计：</span>
-	          <span class="fr font-price">￥${orderList.totalprice}</span>
+	          <span class="fr font-price">￥${orderList.totalPrice}</span>
 	        </p>
 	        <div class="order-detail-goods p5">
 	          <c:forEach items="${orderList.orderDetail}" var="orderDetailList">
@@ -67,18 +67,98 @@
 	  	  <div class="tab-bar order-tab-bar">	
 	  		<p class="fl">实付款</p>	 		
 	  		<p class="fr payment">付款</p>
-	      <p class="fr font-price">￥${orderList.totalprice}</p>
+	      <p class="fr font-price">￥${orderList.totalPrice}</p>
 	  	  </div>
 	  	</c:forEach>
     </div>
     
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script type="text/javascript">
-	    $(document).ready(function() {
-	    	$(".payment").click(function() {    		
-	    		$("#postData").val("");
-	    		$("#buyGoodsSubForm").submit();
-	    	});
+	    var appId="${appId}";  
+	    var timeStamp="${timeStamp}";  
+	    var nonceStr="${nonceStr}";  
+	    var prepay_id="${prepay_id}";
+	    var sign="${paySign}"; 
+	    wx.config({
+	        debug: true,
+	        appId: appId,
+	        timestamp: timeStamp,
+	        nonceStr: nonceStr,
+	        signature: sign,
+	        jsApiList: [
+	        'checkJsApi',
+	        'editAddress',
+	        'chooseWXPay',
+	        'getLatestAddress',
+	        'openCard',
+	        'getLocation'
+	        ]
 	    });
+	    $(document).ready(function() {
+	    	$(".payment").click(function() {
+	  		    $("#name").val($("#oldName").text());
+	  		    $("#phone").val($("#oldPhone").text());
+	  		    $("#address").val($("#oldAddress").text());
+	    		var queryArray = $("#buyGoodsForm").serializeArray();
+	    		var jsonString= '{';  
+	    		for (var i = 0; i < queryArray.length; i++) {  
+	    		    jsonString+= JSON.stringify(queryArray[i].name) + ':' + JSON.stringify(queryArray[i].value) + ',';  
+	    		}  
+	    		jsonString= jsonString.substring(0, (jsonString.length - 1));  
+	    		jsonString+= '}'; 
+	    		$("#postData").val(jsonString);
+	    		onBridgeReady();
+	    	});
+		    $("#getAddr").click(function() {
+		    	getAddr();
+		    });
+	    });
+	    //获取地址
+	    function getAddr() {
+	    	wx.openAddress({
+	    	    success: function () { 
+	    	        // 用户成功拉出地址 
+	    	    },
+	    	    cancel: function () { 
+	    	        // 用户取消拉出地址
+	    		}
+	    	});
+	    }
+	    //付款
+	    function onBridgeReady() {
+    	    WeixinJSBridge.invoke(
+    	        'getBrandWCPayRequest', {
+    	           "appId":appId, //公众号名称，由商户传入     
+    	           "timeStamp":timeStamp, //时间戳，自1970年以来的秒数     
+    	           "nonceStr":nonceStr, //随机串     
+    	           "package":prepay_id,     
+    	           "signType":"MD5", //微信签名方式   
+    	           "paySign":sign //微信签名 
+    	        },
+    	        function(res){     
+    	        	if(res.err_msg == "get_brand_wcpay_request:ok"){  
+    	                alert("微信支付成功"); 
+    		    		$("#buyGoodsSubForm").submit();
+    	            }else if(res.err_msg == "get_brand_wcpay_request:cancel"){  
+    	                alert("用户取消支付"); 
+    		    		$("#buyGoodsSubForm").submit();
+    	            }else{  
+    	                alert("支付失败"); 
+    		    		$("#buyGoodsSubForm").submit();
+    	            } 
+    	        }
+    	    ); 
+    	 }
+    	 if (typeof WeixinJSBridge == "undefined"){
+    	    if( document.addEventListener ){
+    	        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    	    }else if (document.attachEvent){
+    	        document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+    	        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    	    }
+    	 }else{
+    	    onBridgeReady();
+    	 }
     </script>
 </body>
 </html>

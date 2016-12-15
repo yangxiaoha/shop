@@ -79,7 +79,7 @@ public class RequestHandler {
 	/**
 	 * 初始化函数。
 	 */
-	public void init(String app_id, String app_secret,	String partner_key) {
+	public void init(String app_id, String app_secret, String partner_key) {
 		this.last_errcode = "0";
 		this.Token = "token_";
 		this.debugInfo = "";

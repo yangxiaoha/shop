@@ -32,5 +32,12 @@
         	(#{orderId},#{item.skuId},#{item.num},#{item.price},#{item.totalprice}) 
 	    </foreach>		
 	</insert>
+	
+	<select id="getorderDetailBySkuIds" resultMap="resultMap">
+		select t_order_detail.*, t_order.ordertime from t_order_detail 
+		left join t_order
+		on t_order_detail.orderid = t_order.id
+		where t_order_detail.id in (${ids})
+	</select>
 
 </mapper>

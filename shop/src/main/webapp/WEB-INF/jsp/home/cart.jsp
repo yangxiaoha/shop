@@ -119,7 +119,7 @@
 	  			</div>
 	  		</c:if>
 		  	<!--有商品-->
-		  	<c:if test="${!empty cartsMsg}"> 
+		  	<c:if test="${!empty angent}"> 
 		  	    <c:forEach items="${cartsMsg}" var="cartsList">
 					<div class="shopping-car-show order-list clearfloat">
 				        <img src="<%=basePath%>${cartsList.url}">

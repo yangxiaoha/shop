@@ -13,9 +13,10 @@ import java.io.Writer;
 import java.net.URL;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Map;   
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -23,6 +24,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -30,6 +32,7 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 
@@ -40,15 +43,17 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 import com.zpt.shop.common.weixin.Article;
 import com.zpt.shop.common.weixin.ArticleResMsg;
+import com.zpt.shop.common.weixin.BaseResMsg;
 import com.zpt.shop.common.weixin.WeixinUserInfo;
 import com.zpt.shop.common.weixin.WxMpConfigStorage;
 
 public class WeixinUtils {
 
 	public static final String REQ_MSG_TYPE_EVENT = "event";
-	public static final String EVENT_TYPE_CLICK = "CLICK";
-	public static final String EVENT_TYPE_SUBSCRIBE = "subscribe";
-	public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";
+    public static final String EVENT_TYPE_SCAN = "scan";//事件类型：scan(用户已关注时的扫描带参数二维码)
+	public static final String EVENT_TYPE_CLICK = "CLICK";//事件类型：CLICK(自定义菜单)
+	public static final String EVENT_TYPE_SUBSCRIBE = "subscribe";//事件类型：subscribe(订阅)
+	public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";//事件类型：unsubscribe(取消订阅)
 
 	@Autowired
 	private static WxMpConfigStorage weixin;
@@ -146,15 +151,16 @@ public class WeixinUtils {
 	 * 获取返回的access_token
 	 * 获取返回的openid
 	 */
-	public static String getAuthAccessToken(String code) {
+	public static String getAuthAccessToken(String appId, String secret, String code) {
+/*		System.out.println(weixin.getAppId() + "appId");
+		System.out.println(weixin.getSecret() + "secret");*/
+		System.out.println(code + "code");
 		Map<String,Object> map = new HashMap<String, Object>();
 		String openid = null;
 		String accessToken = null;
-		String requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx0f2b5ab41414f9a0" 
-		+ "&secret=f49cf83d8cd3c19b6a6f09a650fc9dfd" + "&code=" + code
+		String requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appId
+		+ "&secret=" + secret + "&code=" + code
 		+ "&grant_type=authorization_code";
-		/*String requestUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + appid
-				+ "&secret=" + secret;*/
 		JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
 		if (null != jsonObject) {
 			try {
@@ -179,6 +185,7 @@ public class WeixinUtils {
 		+ "&openid=" + openid
 		+ "&lang=zh_CN";
 		JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
+		System.out.println(jsonObject + "jsonObject");
 		if (null != jsonObject) {
 			try {
 				userInfo.setOpenId(jsonObject.getString("openid"));
@@ -193,6 +200,26 @@ public class WeixinUtils {
 			}
 		}
 		return userInfo;
+	}
+	
+	/**
+	 * 批量获取用户信息
+	 * https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=ACCESS_TOKEN
+	 * @param openidList 
+	 * @param access_token
+	 * @return
+	 */
+	public static JSONObject getBatchWeixinUserInfo(String openidList, String accessToken) {
+		String requestUrl = "https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=" + accessToken;
+		JSONObject jsonObject = httpRequest(requestUrl, "POST", openidList);
+		if (null != jsonObject) {
+			try {
+
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return jsonObject;
 	}
 
 	/*
@@ -245,6 +272,12 @@ public class WeixinUtils {
 		xstream.alias("xml", articleResMsg.getClass());
 		xstream.alias("item", new Article().getClass());
 		return xstream.toXML(articleResMsg);
+	}
+	
+	public static String baseResToXml(BaseResMsg baseResMsg) {
+		xstream.alias("xml", baseResMsg.getClass());
+		xstream.alias("item", new BaseResMsg().getClass());
+		return xstream.toXML(baseResMsg);
 	}
 
 	// 请求方法
@@ -311,10 +344,10 @@ public class WeixinUtils {
 	}
 
 	/**
-	 * 模拟form表单的形式 ，上传文件 以输出流的形式把文件写入到url中，然后用输入流来获取url的响应
+	 * 模拟form表单的形式 ，上传文件以输出流的形式把文件写入到url中，然后用输入流来获取url的响应
 	 * 
 	 * @param url
-	 *            请求地址 form表单url地址
+	 *            请求地址form表单url地址
 	 * @param filePath
 	 *            文件在服务器保存路径
 	 * @return String url的响应信息返回值
@@ -354,6 +387,7 @@ public class WeixinUtils {
 			 * 设置关键值
 			 */
 			con.setRequestMethod("POST"); // 以Post方式提交表单，默认get方式
+		
 			con.setDoInput(true);
 			con.setDoOutput(true);
 			con.setUseCaches(false); // post方式不能使用缓存

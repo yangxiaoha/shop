@@ -38,13 +38,14 @@
 	    </div>
     </div>
     
-    <script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>   	
 	    $(document).ready(function(){
 	    	$(".order-detail-addr").click(function() {
 	    		$('.addr-choice').hide();
 	    		$(this).find('.addr-choice').show();
 	    	});	
-	    });   	
+	    }); 
     </script>
 </body>
 </html>
