@@ -28,9 +28,11 @@ public interface UserService {
 	/**
 	 * 添加用户
 	 * @param String fromUserName 用户openId
-	 * @param String createTime 用户openId
+	 * @param String createTime 关注时间
+	 * @param Integer pid 上级id
+	 * @param String money 可提现金额
 	 * */
-	public void addUser(String fromUserName, String createTime, String ticket, String money);
+	public void addUser(String fromUserName, String createTime, Integer pid, String money);
 
 	/**
 	 * 获取分销信息

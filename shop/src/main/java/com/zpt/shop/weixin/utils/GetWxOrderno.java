@@ -16,8 +16,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.jdom.input.SAXBuilder;
-
-
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -41,6 +40,7 @@ public class GetWxOrderno {
     * @author ex_yangxiaoyi
     * @see
     */
+    @ResponseBody
     public static String getPayNo(String url, String xmlParam){
 	    DefaultHttpClient client = new DefaultHttpClient();
 	    client.getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, true);
@@ -50,6 +50,7 @@ public class GetWxOrderno {
 		    httpost.setEntity(new StringEntity(xmlParam, "UTF-8"));
 		    HttpResponse response = httpclient.execute(httpost);
 	        String jsonStr = EntityUtils.toString(((org.apache.http.HttpResponse) response).getEntity(), "UTF-8");
+	        System.out.println("预支付:-----------"+jsonStr); 
 	        if(jsonStr.indexOf("FAIL")!=-1){
 	        	return prepay_id;
 	        }

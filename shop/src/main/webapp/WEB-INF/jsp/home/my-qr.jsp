@@ -22,31 +22,33 @@
 	<div id="wrap">
 	  	<p class="nav-bar clearfloat"><span class="red-block"></span>我的二维码</p>
 	
+		<div class="recharge-qr"></div>
+	
 	  	<ul class="tab-bar order-detail-tab-bar">
-	      <li>
-	        <a href="../mainindex/index">
-	          <span class="tab-bar-bg home-page"></span>
-	          <span>首页</span>
-	        </a>
-	      </li>
-	      <li>
-	        <a href="orderDetail">
-	          <span class="tab-bar-bg order"></span>
-	          <span>我的订单</span>
-	        </a>
-	      </li>
-	      <li>
-	        <a href="../member/memberCenter">
-	          <span class="tab-bar-bg member-center"></span>
-	          <span>会员中心</span>
-	        </a>
-	      </li>
-	      <li>
-	        <a href="index.html">
-	          <span class="tab-bar-bg qr-code"></span>
-	          <span>我的二维码</span>
-	        </a>
-	      </li>
+	        <li>
+		        <a href="../mainindex/index">
+		          <span class="tab-bar-bg home-page"></span>
+		          <span>首页</span>
+		        </a>
+	        </li>
+	        <li>
+		        <a href="orderDetail">
+		          <span class="tab-bar-bg order"></span>
+		          <span>我的订单</span>
+		        </a>
+	        </li>
+	        <li>
+		        <a href="../member/memberCenter">
+		          <span class="tab-bar-bg member-center"></span>
+		          <span>会员中心</span>
+		        </a>
+	        </li>
+	        <li>
+		        <a href="myQr">
+		          <span class="tab-bar-bg qr-code"></span>
+		          <span>我的二维码</span>
+		        </a>
+	        </li>
 	    </ul>
 	  	<input id="myQr" value="${myQr}">
     </div>

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zpt.shop.common.weixin.BaseResMsg;
 import com.zpt.shop.common.weixin.WxMpConfigStorage;
+import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.UserService;
 import com.zpt.shop.weixin.utils.Sha1Util;
 import com.zpt.shop.weixin.utils.WeixinUtils;
@@ -150,9 +151,15 @@ public class WeixinCtrler {
             if (eventType.equals(WeixinUtils.EVENT_TYPE_SUBSCRIBE)) {
             	//添加用户
             	if(ticket != null) {
-            		userService.addUser(fromUserName, createTime, ticket, money);
+            		System.out.println("eventKey" + eventKey);
+            		String superiorOpenId = eventKey.substring(eventKey.indexOf("_") + 1);
+            		System.out.println("上级的openId" + superiorOpenId);
+            		User user = userService.getUserByOpenId(superiorOpenId);
+            		if(user != null && !("".equals(user))) {
+            			userService.addUser(fromUserName, createTime, user.getId(), money);
+            		}           		
             	}else {
-            		userService.addUser(fromUserName, createTime, null, money);
+            		userService.addUser(fromUserName, createTime, 0, money);
             	}           	
             }
             // 扫描带参数二维码
@@ -172,6 +179,6 @@ public class WeixinCtrler {
              // 回复空串是微信的规定，代表不回复
              return "";
      }
-     return WeixinUtils.baseResToXml(msg);
+     return "";
     }
 }

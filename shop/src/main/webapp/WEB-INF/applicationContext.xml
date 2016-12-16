@@ -47,6 +47,8 @@
         <property name="secret" value="${weixin.secret}"/>
         <property name="token" value="${weixin.token}"/>
         <property name="website" value="${weixin.site}"/> 
+        <property name="partnerId" value="${weixin.partnerId}"/>
+        <property name="partnerKey" value="${weixin.partnerKey}"/>
         <property name="expiresTime" value="${weixin.expiresTime}"/>
 	</bean>
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

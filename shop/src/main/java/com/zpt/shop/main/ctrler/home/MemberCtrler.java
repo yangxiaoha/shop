@@ -229,8 +229,10 @@ public class MemberCtrler {
 		User user = (User) request.getSession().getAttribute("user");
 		String openId = user.getOpenid();
 		String accessToken = wxMpService.getAccessToken(false);
-		String jsonMsg = "{\"expire_seconds\": \"604800\", \"action_name\": \"QR_SCENE\", \"action_info\"：{\"scene\": {\"scene_id\": "+openId+"}}}";
+		String jsonMsg1 = "{\"expire_seconds\": \"604800\", \"action_name\": \"QR_SCENE\", \"action_info\"：{\"scene\": {\"scene_id\": "+openId+"}}}";
+		String jsonMsg = "{\"expire_seconds\": \"604800\", \"action_name\": \"QR_SCENE\", \"action_info\"：{\"scene\": {\"scene_id\": ozmycs6JuZxrpxDuNMluTyvyUDCY}}}";
 		JSONObject jsonObject = WeiXinQr.getQr(accessToken, jsonMsg);
+		System.out.println(jsonMsg1);
 		System.out.println(jsonObject);
 		String url = jsonObject.getString("url");
 		mv.addObject("myQr", url);

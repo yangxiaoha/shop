@@ -68,12 +68,14 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * 添加用户
 	 * @param String fromUserName 用户openId
-	 * @param String createTime 用户openId
+	 * @param String createTime 关注时间
+	 * @param Integer pid 上级id
+	 * @param String money 可提现金额
 	 * */
 	@Override
-	public void addUser(String fromUserName, String createTime, String ticket, String money) {
+	public void addUser(String fromUserName, String createTime, Integer pid, String money) {
 		// TODO Auto-generated method stub
-		userMapper.addUser(fromUserName, createTime, ticket, money);
+		userMapper.addUser(fromUserName, createTime, pid, money);
 	}
 
 	/**

@@ -13,7 +13,6 @@ import java.io.Writer;
 import java.net.URL;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;   
@@ -24,7 +23,6 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.text.html.HTMLDocument.Iterator;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -43,9 +41,10 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 import com.zpt.shop.common.weixin.Article;
 import com.zpt.shop.common.weixin.ArticleResMsg;
-import com.zpt.shop.common.weixin.BaseResMsg;
 import com.zpt.shop.common.weixin.WeixinUserInfo;
-import com.zpt.shop.common.weixin.WxMpConfigStorage;
+import com.zpt.shop.main.entities.PayCallback;
+
+import net.sf.json.xml.XMLSerializer;
 
 public class WeixinUtils {
 
@@ -55,9 +54,6 @@ public class WeixinUtils {
 	public static final String EVENT_TYPE_SUBSCRIBE = "subscribe";//事件类型：subscribe(订阅)
 	public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";//事件类型：unsubscribe(取消订阅)
 
-	@Autowired
-	private static WxMpConfigStorage weixin;
-	
 	@Autowired
 	private static WeixinUserInfo userInfo;
 
@@ -152,12 +148,8 @@ public class WeixinUtils {
 	 * 获取返回的openid
 	 */
 	public static String getAuthAccessToken(String appId, String secret, String code) {
-/*		System.out.println(weixin.getAppId() + "appId");
-		System.out.println(weixin.getSecret() + "secret");*/
-		System.out.println(code + "code");
 		Map<String,Object> map = new HashMap<String, Object>();
 		String openid = null;
-		String accessToken = null;
 		String requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appId
 		+ "&secret=" + secret + "&code=" + code
 		+ "&grant_type=authorization_code";
@@ -165,12 +157,11 @@ public class WeixinUtils {
 		if (null != jsonObject) {
 			try {
 				openid = jsonObject.getString("openid");
-				accessToken = jsonObject.getString("access_token");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
-		return accessToken;
+		return openid;
 	}
 
 	/**
@@ -221,6 +212,23 @@ public class WeixinUtils {
 		}
 		return jsonObject;
 	}
+	
+	/**
+	 * 获取预支付id
+	 * https://api.mch.weixin.qq.com/pay/unifiedorder
+	 */
+	public static String getPayNo(String content) {
+		String requestUrl = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+		JSONObject result = httpRequest(requestUrl, "POST", content);
+		String jsonObject = xmltoJson(result.toString());//返回的的结果 
+		System.out.println(jsonObject + "jsonObject");
+		return jsonObject;
+	}
+	
+	public static String xmltoJson(String xml) {  
+        XMLSerializer xmlSerializer = new XMLSerializer();  
+        return xmlSerializer.read(xml).toString();  
+    } 
 
 	/*
 	 * public static Map<String, String> parseXml2(HttpServletRequest request)
@@ -274,10 +282,10 @@ public class WeixinUtils {
 		return xstream.toXML(articleResMsg);
 	}
 	
-	public static String baseResToXml(BaseResMsg baseResMsg) {
-		xstream.alias("xml", baseResMsg.getClass());
-		xstream.alias("item", new BaseResMsg().getClass());
-		return xstream.toXML(baseResMsg);
+	public static String payCallbackToXml(PayCallback payCallback) {
+		xstream.alias("xml", payCallback.getClass());
+		xstream.alias("item", new PayCallback().getClass());
+		return xstream.toXML(payCallback);
 	}
 
 	// 请求方法
