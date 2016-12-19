@@ -11,7 +11,45 @@
 		<result property="cashTime" column="cashtime" />
 		<result property="cashMoney" column="money" />
 		<result property="state" column="state" />
+		<result property="username" column="username" />
+		<collection property="user" ofType="User">
+            <id property="id" column="userId" />
+			<result property="openid" column="openid" />
+			<result property="money" column="userMoney" />
+        </collection>
 	</resultMap>
+	
+	<sql id="queryCondition">
+		where 1 = 1
+		<if test="obj.username != null and obj.username != ''">
+			and cash.username like CONCAT('%',#{obj.username},'%')
+		</if>
+		<if test="obj.state != null and obj.state != ''">
+			and cash.state like CONCAT('%',#{obj.state},'%')
+		</if>
+		<if test="search != null and search != ''">
+			and cash.username like CONCAT('%',#{search},'%') 
+		</if>
+	</sql>
+	
+	<select id="listCash" resultMap="resultMap" parameterType="query">
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
+		select cash.id as id,cash.userId as cashuserId,cash.cashTime as cashTime,cash.money as money,
+		cash.state as state,cash.username as username,user.id as userId,user.openid as openid,user.money as userMoney
+		from t_withdraw_cash as cash 
+		left join t_user as user on cash.userId = user.id	
+		<include refid="queryCondition"/>
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
+	</select>
+	
+	<select id="countCash" resultType="java.lang.Integer" parameterType="query">
+		select count(cash.id) from t_withdraw_cash as cash
+		<include refid="queryCondition"/>
+	</select>	
+	
+	<update id="updateState" parameterType="withdraw">
+		update t_withdraw_cash set state = #{state} where id = #{id}
+	</update>
 	
 	<select id="getMemberInfo" resultMap="resultMap">
 		select user.*, cash.id as cashid, cash.cashtime as cashTime, 

@@ -121,6 +121,7 @@
 					 table.columns(targets[colIdx]).search($(this).val()).draw();
 				});	
 			});
+			
 		}
 		
 		var _formatData = function(d){

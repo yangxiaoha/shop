@@ -31,6 +31,10 @@ public class Withdraw {
 	
 	//提现状态
 	private Integer state;
+	
+	private User user;	
+	
+	private String username;
 
 	public Integer getId() {
 		return id;
@@ -83,5 +87,22 @@ public class Withdraw {
 	public void setState(Integer state) {
 		this.state = state;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
 
 }

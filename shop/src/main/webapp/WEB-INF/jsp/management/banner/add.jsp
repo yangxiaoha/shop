@@ -64,7 +64,7 @@
 				if (fileimage.length != 0) {
 					$.ajaxFileUpload({
 						data :{
-							url:$("#aurl").val(),							
+							url:$("#aurl").val(),
 							},
 						url: 'add',   
 			            type: 'post',  

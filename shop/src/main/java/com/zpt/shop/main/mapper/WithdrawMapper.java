@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Withdraw;
 
 /**
@@ -33,5 +34,13 @@ public interface WithdrawMapper {
 	 * 提现申请
 	 * */
 	public void addWithdrawsInfo(Withdraw withdraw);
+	
+	public List<Withdraw> listCash(Query<Withdraw> query);
+	
+	public Integer countCash(Query<Withdraw> query);
+	
+	public List<Withdraw> validate(Withdraw withdraw);
+	
+	public void updateState(Withdraw withdraw);
 
 }

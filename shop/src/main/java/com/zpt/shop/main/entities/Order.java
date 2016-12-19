@@ -43,6 +43,36 @@ public class Order {
 	
 	//订单编号
 	public String ordernum;	
+	
+	public String postalCode;
+	
+	public String provinceName;
+	
+	public String cityName;	
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+
+	public String getProvinceName() {
+		return provinceName;
+	}
+
+	public void setProvinceName(String provinceName) {
+		this.provinceName = provinceName;
+	}
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
 
 	public Integer getId() {
 		return id;

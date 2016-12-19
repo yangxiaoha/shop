@@ -17,6 +17,9 @@
 		<result property="totalPrice" column="totalPrice" />
 		<result property="memo" column="memo" />
 		<result property="ordernum" column="ordernum" />
+		<result property="postalCode" column="postalCode" />
+		<result property="provinceName" column="provinceName" />
+		<result property="cityName" column="cityName" />
 		<collection property="orderDetail" columnPrefix="detail_" ofType="OrderDetail" javaType="ArrayList">    
             <id property="id" column="detailId" />
 			<result property="orderId" column="orderId" />
@@ -143,8 +146,8 @@
 		select * from t_order where userid in (${ids}) and (state = 2 or state = 3 or state = 4)
 	</select>
 	
-	<update id="getOrderInfoByPay">
-		update 表t_order set sate = #{state} where ordernum = #{ordercode}
+	<update id="updateOrderState">
+		update t_order set sate = #{state} where ordernum = #{ordercode}
 	</update>
 
 </mapper>
