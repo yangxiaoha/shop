@@ -15,6 +15,12 @@ public interface OrderDetailMapper  {
 	 * 添加订单详情
 	 * */
 	public void addOrderDetail(@Param("orderId")Integer id, @Param("list")List<Cart> cartsList);
+
+	/**
+	 * 查询订单详情
+	 * @param String skuIds
+	 * */
+	public List<OrderDetail> getorderDetailBySkuIds(@Param("ids")String skuIds);
 	
 }
 

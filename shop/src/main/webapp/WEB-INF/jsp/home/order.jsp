@@ -28,7 +28,7 @@
 	      <div class="order-detail-addr">
 	        <h4 class="mb5">姓名，15750845026</h4>
 	        <p class="fc-9fa0a0 fs-12">福建省 福州市 仓山区 纵一号海峡科技园123456789</p>
-	        <a href="myAddr" class="icon-item" style="display: block; color: #231815;">
+	        <a href="javascript:void(0)" class="icon-item" id="getAddr" style="display: block; color: #231815;">
 	          <span class="iconfont">&#xe7f7;</span>
 	        </a>
 	      </div>
@@ -77,7 +77,28 @@
 	  	</div>
     </div>
     
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script type="text/javascript">
+	    var appId="${appId}";  
+	    var timeStamp="${timeStamp}";  
+	    var nonceStr="${nonceStr}";  
+	    var prepay_id="${prepay_id}";
+	    var sign="${paySign}"; 
+	    wx.config({
+	        debug: true,
+	        appId: appId,
+	        timestamp: timeStamp,
+	        nonceStr: nonceStr,
+	        signature: sign,
+	        jsApiList: [
+	        'checkJsApi',
+	        'editAddress',
+	        'chooseWXPay',
+	        'getLatestAddress',
+	        'openCard',
+	        'getLocation'
+	        ]
+	    });
 	    $(document).ready(function() {
 	    	$(".payment").click(function() {
 	  		    $("#name").val($("#oldName").text());
@@ -91,15 +112,24 @@
 	    		jsonString= jsonString.substring(0, (jsonString.length - 1));  
 	    		jsonString+= '}'; 
 	    		$("#postData").val(jsonString);
-	    		$("#buyGoodsSubForm").submit();
 	    		onBridgeReady();
 	    	});
+		    $("#getAddr").click(function() {
+		    	getAddr();
+		    });
 	    });
-	    var appId="${appId}";  
-        var timeStamp="${timeStamp}";  
-        var nonceStr="${nonceStr}";  
-        var prepay_id="${prepay_id}";
-        var sign="${paySign}"; 
+	    //获取地址
+	    function getAddr() {
+	    	wx.openAddress({
+	    	    success: function () { 
+	    	        // 用户成功拉出地址 
+	    	    },
+	    	    cancel: function () { 
+	    	        // 用户取消拉出地址
+	    		}
+	    	});
+	    }
+	    //付款
 	    function onBridgeReady() {
     	    WeixinJSBridge.invoke(
     	        'getBrandWCPayRequest', {
@@ -111,10 +141,16 @@
     	           "paySign":sign //微信签名 
     	        },
     	        function(res){     
-    	            if(res.err_msg == "get_brand_wcpay_request：ok" ) {
-    	            	// 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
-    	            	alert("支付成功");
-    	            }
+    	        	if(res.err_msg == "get_brand_wcpay_request:ok"){  
+    	                alert("微信支付成功"); 
+    		    		$("#buyGoodsSubForm").submit();
+    	            }else if(res.err_msg == "get_brand_wcpay_request:cancel"){  
+    	                alert("用户取消支付"); 
+    		    		$("#buyGoodsSubForm").submit();
+    	            }else{  
+    	                alert("支付失败"); 
+    		    		$("#buyGoodsSubForm").submit();
+    	            } 
     	        }
     	    ); 
     	 }

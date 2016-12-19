@@ -40,8 +40,8 @@ public class Sha1Util {
 			//要采用URLENCODER的原始值！
 		}
 		String params = sb.substring(0, sb.lastIndexOf("&"));
-		//System.out.println("sha1之前:" + params);
-		//System.out.println("SHA1签名为："+getSha1(params));
+		System.out.println("sha1之前:" + params);
+		System.out.println("SHA1签名为："+getSha1(params));
 		return getSha1(params);
 	}
 	

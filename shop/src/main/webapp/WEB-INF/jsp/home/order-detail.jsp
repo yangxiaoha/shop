@@ -89,7 +89,7 @@
 	        </a>
 	      </li>
 	      <li>
-	        <a href="index.html">
+	        <a href="../member/myQr">
 	          <span class="tab-bar-bg qr-code"></span>
 	          <span>我的二维码</span>
 	        </a>

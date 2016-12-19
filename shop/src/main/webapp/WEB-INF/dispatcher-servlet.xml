@@ -55,8 +55,10 @@
 	<mvc:interceptors>
 	    <!-- <mvc:interceptor>
 			<mvc:mapping path="/home/**" />
+			<mvc:exclude-mapping path="/home/mainindex/index" />
+			<mvc:exclude-mapping path="/home/mainindex/*" />
 			<bean class="com.zpt.shop.main.interceptor.WeixinInterceptor" />
-		</mvc:interceptor> -->
+		</mvc:interceptor> --> 
 		
 		<mvc:interceptor>
 			<mvc:mapping path="/management/**" />
@@ -75,6 +77,8 @@
 	<mvc:resources mapping="/test/**" location="/test/"
 		cache-period="31556926" />
 	<mvc:resources mapping="/page/**" location="/page/"
+		cache-period="31556926" />
+	<mvc:resources mapping="/*.txt" location="/"
 		cache-period="31556926" />
 
 	<mvc:annotation-driven />

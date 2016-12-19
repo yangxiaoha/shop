@@ -1,4 +1,8 @@
 package com.zpt.shop.common.weixin;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 功能说明:
  * 
@@ -11,6 +15,7 @@ package com.zpt.shop.common.weixin;
  * Copyright (C)2014－2016 智平台.All rights reserved. 
  */
 public class WeixinUserInfo {
+	
 	// 用户的标识
     private String openId;
     // 昵称
@@ -25,6 +30,9 @@ public class WeixinUserInfo {
     private String city;
     // 用户头像
     private String headImgUrl;
+    
+    // 批量用户信息
+    List<WeixinUserInfo> userList = new ArrayList<WeixinUserInfo>();
 
     public String getOpenId() {
         return openId;

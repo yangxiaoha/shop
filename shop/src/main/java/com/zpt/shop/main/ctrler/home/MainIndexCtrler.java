@@ -16,11 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zpt.shop.main.entities.Goods;
 import com.zpt.shop.main.entities.GoodsType;
+import com.zpt.shop.main.entities.OrderDetail;
 import com.zpt.shop.main.entities.ProVal;
 import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.service.CartService;
 import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.GoodsTypeService;
+import com.zpt.shop.main.service.OrderDetailService;
 import com.zpt.shop.main.service.ProValService;
 import com.zpt.shop.main.service.SkuService;
 
@@ -53,6 +55,9 @@ public class MainIndexCtrler {
 	
 	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+	private OrderDetailService orderDetailService;
 
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public ModelAndView index() {
@@ -149,6 +154,31 @@ public class MainIndexCtrler {
 		List<ProVal> proList = proValService.getProByTypeId(goodsId);
 		//库存信息
 		List<Sku> goodsSkuList = skuService.getGoodsStockInfo(goodsId);
+		//订单信息(获取下单时间，下单小于半小时的商品保留，超过半小时的修改状态)
+		String skuIds = "";
+		for(int i=0; i<goodsSkuList.size(); i++) {
+			if(skuIds != null && !("".equals(skuIds))) {
+				skuIds = skuIds + "," + goodsSkuList.get(i).getId();
+			}else {
+				skuIds = goodsSkuList.get(i).getId().toString();
+			}
+		}
+		List<OrderDetail> orderDetailList = orderDetailService.getorderDetailBySkuIds(skuIds);
+		/*if(orderDetailList != null && orderDetailList.size() > 0) {
+			for(int i=0; i<goodsSkuList.size(); i++) {
+				for(int j=0; j<orderDetailList.size(); j++) {
+					if(goodsSkuList.get(i).getId() == orderDetailList.get(j).getId()) {
+						SimpleDateFormat matter1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//格式化时间格式
+		                Date nowTime=new Date();//获取当前时间
+		                String tmf= matter1.format(nowTime);
+
+	                    Date now=matter1.parse(tmf);
+	                    Date end=matter1.parse(orderDetailList.get(j).getTime());
+	                    long cha=(now.getTime()-end.getTime())/ (1000 * 60 * 60 * 24);//计算时间差
+					}
+				}
+			}
+		}*/
 		map.put("state", true);
 		map.put("goodsMsg", goodsList);
 		map.put("proMsg", proList);

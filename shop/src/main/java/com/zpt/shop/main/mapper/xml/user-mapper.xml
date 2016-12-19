@@ -56,4 +56,13 @@
 		select * from t_user where openid = #{openId} 
 	</select>
 	
+	<insert id="addUser">
+		insert into t_user (openid, regtime, pid, money) 
+		values (#{openId}, #{regtime}, #{pid}, #{money})
+	</insert>
+	
+	<select id="getAgentInfoByIds" resultMap="resultMap">
+		select * from t_user where id in (${ids})
+	</select>
+	
 </mapper>
