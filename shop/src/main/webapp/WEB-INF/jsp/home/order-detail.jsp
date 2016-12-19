@@ -57,7 +57,8 @@
 		    	</c:forEach>
 		        <div class="order-total clearfloat">     
 		          <c:if test="${orderList.state == 1}">
-		  		  	<a href="payment/${orderList.id}" class="btn fr">去支付</a>
+		          	<input type="hidden" value="${orderList.id}" />
+		  		  	<button class="btn fr goPayment">去支付</button>
 		  		  </c:if> 
 		  		  <c:if test="${orderList.state == 4}">
 		  		  	<button class="btn fr">确认收货</button>
@@ -68,6 +69,10 @@
 		      </div>
 			</c:forEach>
 	    </div>
+	    
+	    <form id="paymentForm" action="payment" method="get">
+	    	<input type="text" name="orderId" class="orderId" id="orderId" value="" />
+	    </form>
 	
 	  	<ul class="tab-bar order-detail-tab-bar">
 	      <li>
@@ -97,6 +102,16 @@
 	    </ul>
 	  	
     </div>
+    
+    <script>
+	    $(document).ready(function(){
+			$(".goPayment").click(function(){
+				var id = $(this).siblings("input").val();
+				$("#orderId").val(id);	
+				$("#paymentForm").submit();
+			});
+		});    	
+    </script>
 
 </body>
 </html>

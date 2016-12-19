@@ -172,4 +172,14 @@ public class OrderServiceImpl implements OrderService {
 		orderMapper.updateOrderState(ordercode, state);
 	}
 
+	/**
+	 * 修改订单状态
+	 * */
+	@Override
+	public void updateOrderStateByOrderId(Integer orderId) {
+		// TODO Auto-generated method stub
+		Integer state = 0;
+		orderMapper.updateOrderStateByOrderId(orderId, state);
+	}
+
 }

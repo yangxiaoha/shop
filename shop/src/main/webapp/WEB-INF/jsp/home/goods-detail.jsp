@@ -136,7 +136,7 @@
 				}
 				//获取库存信息
 		    	$.ajax({
-			   	    url: "../../getGoodsStockInfo/"+goodsId,
+			   	    url: "../getGoodsStockInfo/"+goodsId,
 			   		type: "Post",
 			   	    dataType: "json",
 			   	    success: function(data) {

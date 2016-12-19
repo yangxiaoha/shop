@@ -228,15 +228,32 @@ public class MemberCtrler {
 		ModelAndView mv = new ModelAndView("home/my-qr");
 		User user = (User) request.getSession().getAttribute("user");
 		String openId = user.getOpenid();
-		String accessToken = wxMpService.getAccessToken(false);
+		/*String accessToken = wxMpService.getAccessToken(false);
 		String jsonMsg1 = "{\"expire_seconds\": \"604800\", \"action_name\": \"QR_SCENE\", \"action_info\"：{\"scene\": {\"scene_id\": "+openId+"}}}";
 		String jsonMsg = "{\"expire_seconds\": \"604800\", \"action_name\": \"QR_SCENE\", \"action_info\"：{\"scene\": {\"scene_id\": ozmycs6JuZxrpxDuNMluTyvyUDCY}}}";
 		JSONObject jsonObject = WeiXinQr.getQr(accessToken, jsonMsg);
 		System.out.println(jsonMsg1);
 		System.out.println(jsonObject);
-		String url = jsonObject.getString("url");
+		String url = jsonObject.getString("url");*/
+		String url = request.getRequestURL().toString()+"/getSuperiorInfo?openId="+openId;//二维码		
 		mv.addObject("myQr", url);
 		return mv;
+	}
+	
+	//绑定上级
+	@ResponseBody
+	@RequestMapping(value="/myQr/getSuperiorInfo", method=RequestMethod.GET)
+	public void getSuperiorInfo(HttpServletRequest request) throws WxErrorException {
+		User user = (User) request.getSession().getAttribute("user");
+		String openId = user.getOpenid();
+		/*String accessToken = wxMpService.getAccessToken(false);
+		String jsonMsg1 = "{\"expire_seconds\": \"604800\", \"action_name\": \"QR_SCENE\", \"action_info\"：{\"scene\": {\"scene_id\": "+openId+"}}}";
+		String jsonMsg = "{\"expire_seconds\": \"604800\", \"action_name\": \"QR_SCENE\", \"action_info\"：{\"scene\": {\"scene_id\": ozmycs6JuZxrpxDuNMluTyvyUDCY}}}";
+		JSONObject jsonObject = WeiXinQr.getQr(accessToken, jsonMsg);
+		System.out.println(jsonMsg1);
+		System.out.println(jsonObject);
+		String url = jsonObject.getString("url");*/
+		String superiorId = (String) request.getParameterMap().get("openId");	
 	}
 	
 	//我的代理人

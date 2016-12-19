@@ -149,5 +149,9 @@
 	<update id="updateOrderState">
 		update t_order set sate = #{state} where ordernum = #{ordercode}
 	</update>
+	
+	<update id="updateOrderStateByOrderId">
+		update t_order set sate = #{state} where id = #{orderId}
+	</update>
 
 </mapper>

@@ -95,8 +95,8 @@
 	} 
 }
 .active {
-    	color: #fff !important;
-    	background-color: #C8171F !important;	    	
+    color: #fff !important;
+    background-color: #C8171F !important;	    	
 }
 .select-no-active {
    	color: #C9CACB !important;

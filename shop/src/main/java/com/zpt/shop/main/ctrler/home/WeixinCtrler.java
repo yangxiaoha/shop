@@ -9,6 +9,7 @@ import java.util.SortedMap;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
+import javax.accessibility.AccessibleRelation;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -165,6 +166,7 @@ public class WeixinCtrler {
             // 扫描带参数二维码
             else if (eventType.equals(WeixinUtils.EVENT_TYPE_SCAN)) {
                 // TODO 处理扫描带参数二维码事件
+            	System.out.println("扫描带参数二维码事件");
             }
             // 自定义菜单
             else if (eventType.equals(WeixinUtils.EVENT_TYPE_CLICK)) {

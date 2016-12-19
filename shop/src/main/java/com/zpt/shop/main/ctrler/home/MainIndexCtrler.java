@@ -27,6 +27,7 @@ import com.zpt.shop.main.service.CartService;
 import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.GoodsTypeService;
 import com.zpt.shop.main.service.OrderDetailService;
+import com.zpt.shop.main.service.OrderService;
 import com.zpt.shop.main.service.ProValService;
 import com.zpt.shop.main.service.SkuService;
 
@@ -59,6 +60,9 @@ public class MainIndexCtrler {
 	
 	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+	private OrderService orderService;
 	
 	@Autowired
 	private OrderDetailService orderDetailService;
@@ -185,6 +189,7 @@ public class MainIndexCtrler {
 	                    }else {	                    	
 	                    	Integer val = goodsSkuList.get(i).getNum()+orderDetailList.get(j).getNum();
 	                    	goodsSkuList.get(i).setNum(val);
+	                    	orderService.updateOrderStateByOrderId(orderDetailList.get(j).getOrderId());
 	                    }
 					}
 				}

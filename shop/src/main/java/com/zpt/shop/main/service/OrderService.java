@@ -67,4 +67,10 @@ public interface OrderService {
 	 * */
 	public void updateOrderState(String ordercode);
 
+	/**
+	 * 修改订单状态
+	 * @param Integer orderId 订单id
+	 * */
+	public void updateOrderStateByOrderId(Integer orderId);
+
 }

@@ -82,6 +82,7 @@ public class WeixinInterceptor implements HandlerInterceptor {
 					System.out.println("-----------------headimgurl"+userInfoObject.getString("headimgurl"));
 					request.getSession().setAttribute("userName", userInfoObject.getString("nickname"));
 					request.getSession().setAttribute("userHeadImg", userInfoObject.getString("headimgurl"));
+					request.getSession().setAttribute("subscribe", userInfoObject.getString("subscribe"));
 				}
 				if (openid != null && openid != "") {
 					User user = userService.getUserByOpenId(openid);

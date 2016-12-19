@@ -36,4 +36,6 @@ public interface OrderMapper {
 
 	public List<Sku> getOrderByOrderNum(@Param("orderNum")String orderNum);
 
+	public void updateOrderStateByOrderId(@Param("orderId")Integer orderId, @Param("state")Integer state);
+
 }

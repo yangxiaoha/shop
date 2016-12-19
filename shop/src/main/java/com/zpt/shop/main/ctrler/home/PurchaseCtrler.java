@@ -264,9 +264,12 @@ public class PurchaseCtrler {
 	}
 	
 	//支付（从详细页过来的支付）
-	@RequestMapping(value="/payment/{orderId}", method=RequestMethod.GET)
-	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response, @PathVariable("orderId")Integer orderId) throws Exception {
+	@RequestMapping(value="/payment", method=RequestMethod.POST)
+	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response, Integer orderId) throws Exception {
 		ModelAndView mv = new ModelAndView("home/order-payment");
+        String url = request.getRequestURL().toString();//当前页面路径
+        System.out.println("当前页面路径:"+url);
+        System.out.println("orderId:"+orderId);
         User user = (User) request.getSession().getAttribute("user");
         List<Order> orderList = orderService.getOrderByOrderId(orderId);
         
@@ -282,8 +285,7 @@ public class PurchaseCtrler {
         String ordercode = code1 + myTime + code2;
         
         String noncestr = Sha1Util.getNonceStr();  //随机字符串
-        String timestamp = Sha1Util.getTimeStamp(); //当前时间戳
-        String url = request.getRequestURL().toString()+"?"+request.getQueryString(); //当前页面路径
+        String timestamp = Sha1Util.getTimeStamp(); //当前时间
         
         //config验证
         String JsapiTicket = wxMpService.getJsapiTicket(false);
