@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.StatisticsMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="statistics" id="resultMap">
+		<id property="id" column="id" />
+		<result property="cityname" column="cityname" />
+		<result property="ordertime" column="ordertime" />
+		<result property="name" column="name" />
+		<result property="num" column="num" />		
+		<result property="starttime" column="starttime" />		
+		<result property="endtime" column="endtime" />		
+	</resultMap>
+	
+	<sql id="beCurrent">
+		select torder.cityname as cityname,torder.id as id,torder.ordertime as ordertime,
+		goods.name as name,detail.num as num
+		from t_order as torder
+		left join t_order_detail as detail on torder.id = detail.orderid
+		left join t_goods_sku as sku on detail.skuid = sku.id
+		left join t_goods as goods on sku.goodsid = goods.id 
+	</sql>
+	
+	<sql id="queryCondition">		
+		where 1 = 1
+		<if test="obj.name != null and obj.name != ''">
+			and goods.name like CONCAT('%',#{obj.name},'%')
+		</if>
+		<if test="obj.cityname != null and obj.cityname != ''">
+			and torder.cityname like CONCAT('%',#{obj.cityname},'%')
+		</if>		
+		<if test="obj.starttime != null and obj.starttime != '' and obj.endtime != null and obj.endtime != ''">
+			and (torder.ordertime &gt; #{obj.starttime} and torder.ordertime &lt; #{obj.endtime})
+		</if>
+		<if test="search != null and search != ''">
+			and (goods.name like CONCAT('%',#{search},'%') or 
+			torder.cityname like CONCAT('%',#{search},'%'))
+		</if>
+	</sql>	
+	
+	<sql id="cityCondition">		
+		where 1 = 1
+		<if test="name != null and name != ''">
+			and goods.name like CONCAT('%',#{name},'%')
+		</if>
+		<if test="starttime != null and starttime !='' and endtime != null and endtime != ''">
+			and (torder.ordertime &gt; #{starttime} and torder.ordertime &lt; #{endtime})
+		</if>
+	</sql>	
+	<sql id="nameCondition">		
+		where 1 = 1
+		<if test="cityname != null and cityname != ''">
+			and torder.cityname like CONCAT('%',#{cityname},'%')
+		</if>		
+		<if test="starttime != null and starttime !='' and endtime != null and endtime != ''">
+			and (torder.ordertime &gt; #{starttime} and torder.ordertime &lt; #{endtime})
+		</if>
+	</sql>	
+	
+	<select id="listStatistics" resultMap="resultMap" parameterType="query">
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>		
+		<include refid="beCurrent"/>
+		<include refid="queryCondition"/>
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
+	</select>
+	
+	<select id="countStatistics" resultType="java.lang.Integer" parameterType="query">
+		select count(t.id) from		
+		(<include refid="beCurrent"/>
+		<include refid="queryCondition"/>) as t		
+	</select>
+	
+	<select id="getNumbyCity" resultMap="resultMap">
+		select t.name,sum(t.num) as num,t.cityname,t.ordertime,t.id as id from 
+		(<include refid="beCurrent"/>
+		<include refid="cityCondition"/>) as t
+		group by t.cityname
+	</select>
+	
+	<select id="getNumbyTime" resultMap="resultMap">
+		select tt.id as id,tt.name,group_concat(tt.num) as num,group_concat(tt.cityname) as cityname,
+		tt.ordertime as ordertime from
+		(select t.name,sum(t.num) as num,t.cityname,t.ordertime,t.id as id from 
+		(select torder.cityname as cityname,torder.id as id,torder.ordertime as ordertime,
+		goods.name as name,detail.num as num
+		from t_order as torder
+		left join t_order_detail as detail on torder.id = detail.orderid
+		left join t_goods_sku as sku on detail.skuid = sku.id
+		left join t_goods as goods on sku.goodsid = goods.id 
+		) as t
+		group by t.cityname) as tt
+	</select>
+	
+	<select id="getNumbyName" resultMap="resultMap">
+		select t.name,sum(t.num) as num,t.cityname,t.ordertime,t.id as id from 
+		(<include refid="beCurrent"/>
+		<include refid="nameCondition"/>) as t
+		group by t.name
+	</select>
+	
+</mapper>
