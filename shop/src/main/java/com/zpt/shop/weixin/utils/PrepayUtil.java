@@ -42,7 +42,7 @@ public class PrepayUtil {
         //MD5加密  
         String sign=MD5Util.MD5Encode(sort, "UTF-8").toUpperCase();  
         System.out.println("MD5加密:-----------"+sort);
-        System.out.println("MD5加密:-----------"+sign);
+        System.out.println("MD5加密后:-----------"+sign);
         return sign;  
     }  
       

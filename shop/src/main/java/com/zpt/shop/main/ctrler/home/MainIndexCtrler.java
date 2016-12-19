@@ -1,5 +1,9 @@
 package com.zpt.shop.main.ctrler.home;
 
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -146,7 +150,7 @@ public class MainIndexCtrler {
 	//商品详细页(库存信息)
 	@ResponseBody
 	@RequestMapping(value="/getGoodsStockInfo/{goodsId}", method=RequestMethod.POST)
-	public Map<String,Object> getGoodsInfo(@PathVariable("goodsId") Integer goodsId) {
+	public Map<String,Object> getGoodsInfo(@PathVariable("goodsId") Integer goodsId) throws ParseException {
 		Map<String,Object> map = new HashMap<String, Object>();
 		//商品数据
 		Goods goodsList = goodsService.getGoodsById(goodsId);
@@ -164,7 +168,7 @@ public class MainIndexCtrler {
 			}
 		}
 		List<OrderDetail> orderDetailList = orderDetailService.getorderDetailBySkuIds(skuIds);
-		/*if(orderDetailList != null && orderDetailList.size() > 0) {
+		if(orderDetailList != null && orderDetailList.size() > 0) {
 			for(int i=0; i<goodsSkuList.size(); i++) {
 				for(int j=0; j<orderDetailList.size(); j++) {
 					if(goodsSkuList.get(i).getId() == orderDetailList.get(j).getId()) {
@@ -173,12 +177,19 @@ public class MainIndexCtrler {
 		                String tmf= matter1.format(nowTime);
 
 	                    Date now=matter1.parse(tmf);
-	                    Date end=matter1.parse(orderDetailList.get(j).getTime());
+	                    Date end=orderDetailList.get(j).getOrdertime();
 	                    long cha=(now.getTime()-end.getTime())/ (1000 * 60 * 60 * 24);//计算时间差
+	                    if(cha <= 30) {
+	                    	Integer val = goodsSkuList.get(i).getNum()-orderDetailList.get(j).getNum();
+	                    	goodsSkuList.get(i).setNum(val);
+	                    }else {	                    	
+	                    	Integer val = goodsSkuList.get(i).getNum()+orderDetailList.get(j).getNum();
+	                    	goodsSkuList.get(i).setNum(val);
+	                    }
 					}
 				}
 			}
-		}*/
+		}
 		map.put("state", true);
 		map.put("goodsMsg", goodsList);
 		map.put("proMsg", proList);

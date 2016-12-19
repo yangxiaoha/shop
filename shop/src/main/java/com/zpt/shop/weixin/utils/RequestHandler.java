@@ -173,6 +173,7 @@ public class RequestHandler {
 		sb.append("key=" + this.getKey());
 		String sign = MD5Util.MD5Encode(sb.toString(), this.charset)
 				.toUpperCase();
+		 System.out.println("MD5加密dddd:-----------"+sign);
 		return sign;
 	}
 	

@@ -1,6 +1,7 @@
 package com.zpt.shop.main.entities;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class OrderDetail {
 	
@@ -28,6 +29,9 @@ public class OrderDetail {
 	
 	//商品属性
 	public String val;
+	
+	//下单时间
+	public Date ordertime;
 
 	public Integer getId() {
 		return id;
@@ -107,6 +111,14 @@ public class OrderDetail {
 
 	public void setVal(String val) {
 		this.val = val;
+	}
+
+	public Date getOrdertime() {
+		return ordertime;
+	}
+
+	public void setOrdertime(Date ordertime) {
+		this.ordertime = ordertime;
 	}
 
 }
