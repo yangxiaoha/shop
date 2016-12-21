@@ -180,7 +180,7 @@
 		<div class="navbar navbar-fixed-top scroll-hide">
 			<div class="container-fluid top-bar">
 				<div class="pull-right">
-					<ul class="nav navbar-nav pull-right">
+				<!-- 
 						<li class="dropdown notifications hidden-xs"><a
 							class="dropdown-toggle" data-toggle="dropdown" href="#"><span
 								aria-hidden="true" class="se7en-flag"></span>
@@ -244,6 +244,8 @@
 									href="javascript:chooseStyle('gray-theme', 30)"><span></span>Gray</a>
 								</li>
 							</ul></li>
+				 -->
+					<ul class="nav navbar-nav pull-right">
 						<li class="dropdown user hidden-xs"><a data-toggle="dropdown"
 							class="dropdown-toggle" href="#"> <img width="34" height="34"
 								src="../../assets/management/images/avatar-male.jpg" />用户信息
@@ -268,7 +270,7 @@
 			<div class="container-fluid main-nav clearfix">
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li><a class="current" href="../dashborad/index"><span
+						<li><a class="current" href="../statistics/index"><span
 								aria-hidden="true" class="se7en-home"></span>首页</a></li>
 						<li class="dropdown"><a data-toggle="dropdown" href="#">
 								<span aria-hidden="true" class="se7en-star"></span>会员管理<b
@@ -276,30 +278,35 @@
 						</a>
 							<ul class="dropdown-menu">
 								<li><a href="../user/index">会员信息</a></li>
+								<!-- 
 								<li><a href="../supplier/index">会员下线查询</a></li>
+								 -->
 							</ul></li>
 						<li class="dropdown"><a data-toggle="dropdown" href="#">
 								<span aria-hidden="true" class="se7en-forms"></span>商品管理<b
 								class="caret"></b>
 						</a>
 							<ul class="dropdown-menu">
-								<li><a href="../goodstype/index">商品类型管理</a></li>
 								<li><a href="../goods/index">商品管理</a></li>
+								<li><a href="../brand/index">品牌管理</a></li>																
 								<li><a href="../supplier/index">供应商管理</a></li>
-								<li><a href="../brand/index">品牌管理</a></li>
-								<li><a href="../sku/index">库存管理</a></li>
+								<li><a href="../goodstype/index">商品类型管理</a></li>
+								<li><a href="../pro/index">商品属性管理</a></li>
+								<li><a href="../order/index">订单管理</a></li>
 							</ul></li>
-						<li><a class="current" href="../dashborad/index"><span
+						<li><a class="current" href="../wdcash/index"><span
 								aria-hidden="true" class="se7en-home"></span>结算管理</a></li>
 						<li class="dropdown"><a data-toggle="dropdown" href="#">
 								<span aria-hidden="true" class="se7en-pages"></span>系统管理<b
 								class="caret"></b>
 						</a>
 							<ul class="dropdown-menu">
+							<!-- 
 								<li><a href="../testbuy/index">系统参数配置</a></li>
+							 -->
 								<li><a href="../system/index">公告发布</a></li>
-								<li><a href="../couponuse/index">公众号菜单修改</a></li>
-								<li><a href="../distribution/index">自定义回复</a></li>
+								<li><a href="../userDefined/index">公众号菜单修改</a></li>
+								<li><a href="../reply/index">自定义回复</a></li>
 								<li><a href="../banner/index">首页banner</a></li>
 							</ul></li>
 					</ul>

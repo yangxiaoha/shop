@@ -11,6 +11,16 @@ public class Brand {
 	private Integer supplierId;
 	
 	private String suppliername;
+	
+	private Integer state;
+	
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
 
 	public String getSuppliername() {
 		return suppliername;
