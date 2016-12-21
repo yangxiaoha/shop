@@ -49,8 +49,16 @@
 		select * from t_system
 		<include refid="validateCondition"/>
 	</select>
+	
+	<select id="suserDefined" resultMap="resultMap">
+		select sysvalue from t_system where skey = 'menu'
+	</select>
 
 	<update id="updateSystem" parameterType="system">
 		update t_system set skey = #{skey},sysvalue = #{sysvalue} where id = #{id}
+	</update>
+	
+	<update id="updateDefined" parameterType="system">
+		update t_system set sysvalue = #{sysvalue} where skey = 'menu'
 	</update>
 </mapper>

@@ -12,5 +12,9 @@ public interface SystemService {
 	public boolean validate(System system);
 		
 	public void updateSystem(System system);
+	
+	public void updateDefined(String sysvalue);
+	
+	public System suserDefined();
 
 }

@@ -47,5 +47,22 @@ public class SystemServiceImpl implements SystemService {
 		// TODO Auto-generated method stub
 		systemMapper.updateSystem(system);
 	}
+
+	@Override
+	public void updateDefined(String sysvalue) {
+		// TODO Auto-generated method stub
+		systemMapper.updateDefined(sysvalue);
+	}
+
+	@Override
+	public System suserDefined() {
+		// TODO Auto-generated method stub
+		System sys = systemMapper.suserDefined();
+		if(sys != null){
+			return sys;
+		}else{
+			return null;			
+		}
+	}
 	
 }

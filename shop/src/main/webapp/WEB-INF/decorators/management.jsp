@@ -283,12 +283,11 @@
 								class="caret"></b>
 						</a>
 							<ul class="dropdown-menu">
-								<li><a href="../testtype/index">商品类型管理</a></li>
-								<li><a href="../test/index">商品管理</a></li>
-								<li><a href="../image/index">供应商管理</a></li>
-								<li><a href="../testtype/index">品牌管理</a></li>
-								<li><a href="../test/index">库存管理</a></li>
-								<li><a href="../image/index">商品管理</a></li>
+								<li><a href="../goodstype/index">商品类型管理</a></li>
+								<li><a href="../goods/index">商品管理</a></li>
+								<li><a href="../supplier/index">供应商管理</a></li>
+								<li><a href="../brand/index">品牌管理</a></li>
+								<li><a href="../sku/index">库存管理</a></li>
 							</ul></li>
 						<li><a class="current" href="../dashborad/index"><span
 								aria-hidden="true" class="se7en-home"></span>结算管理</a></li>
@@ -298,10 +297,10 @@
 						</a>
 							<ul class="dropdown-menu">
 								<li><a href="../testbuy/index">系统参数配置</a></li>
-								<li><a href="../platrecharge/index">公告发布</a></li>
+								<li><a href="../system/index">公告发布</a></li>
 								<li><a href="../couponuse/index">公众号菜单修改</a></li>
 								<li><a href="../distribution/index">自定义回复</a></li>
-								<li><a href="../distribution/index">首页banner</a></li>
+								<li><a href="../banner/index">首页banner</a></li>
 							</ul></li>
 					</ul>
 				</div>

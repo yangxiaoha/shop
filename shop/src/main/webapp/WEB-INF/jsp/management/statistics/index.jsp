@@ -48,7 +48,7 @@
 				    </table>
 				    </div>				 
 				 	<div class="col-lg-12"> 				 
-						<button type="button" class="btn btn-md btn-info" id="btn-inquiry" style="float: right; margin: 0 0 0 15px;" disabled="disabled">查询</button>
+						<button type="button" class="btn btn-md btn-info" id="btn-inquiry" style="float: right; margin: 0 0 0 15px;" >查询</button>
 					 	<div class="select-time">	              
 			                <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="endtime" data-link-format="yyyy-mm-dd">
 			                    <input class="form-control" id="select-endtime" size="16" type="text" value="" placeholder="请选择查询结束时间" readonly>				                    
@@ -196,7 +196,7 @@ $("#btn-inquiry").click( function() {
 				width : "220",
 				offset : "+90",
 				sliceColors : colors
-			});		
+			});	
 		},
 		error:function(res){
 			$("#checkbok").html("");
