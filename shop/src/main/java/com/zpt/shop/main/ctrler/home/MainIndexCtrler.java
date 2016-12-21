@@ -1,6 +1,5 @@
 package com.zpt.shop.main.ctrler.home;
 
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -177,12 +176,12 @@ public class MainIndexCtrler {
 			for(int i=0; i<goodsSkuList.size(); i++) {
 				for(int j=0; j<orderDetailList.size(); j++) {
 					if(goodsSkuList.get(i).getId() == orderDetailList.get(j).getSkuId()) {
-		                SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");  
+		                SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");  
 		                Date nowTime=new Date();//获取当前时间
 		                String fromDate = simpleFormat.format(nowTime);  
 		                String toDate = simpleFormat.format(orderDetailList.get(j).getOrdertime());  
-		                long from = simpleFormat.parse(fromDate).getTime();  
-		                long to = simpleFormat.parse(toDate).getTime();  
+		                long from = simpleFormat.parse(toDate).getTime();
+		                long to = simpleFormat.parse(fromDate).getTime();             
 		                int minutes = (int) ((to - from)/(1000 * 60));
 	                    if(minutes <= 30) {
 	                    	Integer val = goodsSkuList.get(i).getNum()-orderDetailList.get(j).getNum();

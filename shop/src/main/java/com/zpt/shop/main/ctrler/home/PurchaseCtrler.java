@@ -381,7 +381,7 @@ public class PurchaseCtrler {
 		ModelAndView mv = new ModelAndView("home/order-detail");			
 		User user = (User) request.getSession().getAttribute("user");
 		//查询订单详情
-		List<Order> orderList = orderService.getOrderDetail(1);
+		List<Order> orderList = orderService.getOrderDetail(user.getId());
 		mv.addObject("orderMsg", orderList);
 		return mv;
 	}

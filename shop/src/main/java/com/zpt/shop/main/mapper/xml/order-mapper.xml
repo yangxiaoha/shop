@@ -148,11 +148,11 @@
 	</select>
 	
 	<update id="updateOrderState">
-		update t_order set sate = #{state} where ordernum = #{ordercode}
+		update t_order set state = #{state} where ordernum = #{ordercode}
 	</update>
 	
 	<update id="updateOrderStateByOrderId">
-		update t_order set sate = #{state} where id = #{orderId}
+		update t_order set state = #{state} where id = #{orderId}
 	</update>
 	
 	<select id="getOrderInfoByCode" resultMap="resultMap">
