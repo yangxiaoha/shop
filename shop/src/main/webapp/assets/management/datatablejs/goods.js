@@ -11,7 +11,6 @@ $(document).ready(function(){
                     { "data": "name"},
                     { "data": "exp_name" },
                     { "data": "quantity" },
-                    { "data": "content" },
                     { "data": "code" },
                     { "data": "brandName" },
                     { "data": "store" },
@@ -37,6 +36,7 @@ $(document).ready(function(){
                  			'<a class="table-actions del" data-id="'+data+'" href="javascript:void(0)"><i class="icon-trash"></i></a>'+
                  			'<a class="table-actions stick" data-id="'+data+'" href="javascript:void(0)"><i class="icon-arrow-up"></i></a>'+
                  			'<a class="" href="../sku/index?goodsId='+data+'"><i class="icon-sitemap"></i></a>'+
+                 			'<a class="table-actions detail" data-rowid="'+meta.row+'" data-id="'+data+'" href="javascript:void(0)"><i class="icon-arrow-up"></i></a>'+
                  		'</div>';
                }
             }
@@ -51,7 +51,16 @@ $(document).ready(function(){
         		$("#tid").val($(this).data("id"));
         		$("#stickModal").modal('show');
         	});
-        	        
+        	
+        	$(".detail").click(function(){
+        		var rowid = $(this).data("rowid");
+        		var api = new $.fn.dataTable.Api( settings );
+                var obj = api.rows(rowid).data()[0];
+        		$("#did").val($(this).data("id"));
+        		ue.setContent(obj.content);
+        		$("#detailModal").modal('show');
+        	});
+        	
         	$(".update").click(function(){
         		var rowid = $(this).data("rowid");
         		var api = new $.fn.dataTable.Api( settings );

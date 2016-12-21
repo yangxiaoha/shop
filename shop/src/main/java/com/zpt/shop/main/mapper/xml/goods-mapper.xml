@@ -119,6 +119,10 @@
 		update t_goods set top = #{top} where id = #{id}
 	</update>
 	
+	<update id="updateContent" parameterType="goods">
+		update t_goods set content = #{content} where id = #{id}
+	</update>
+	
 	<select id="getGoods" resultMap="resultMap">
 		select * from t_goods left join
 		(select sku.goodsid, sku.price as price, image.url from

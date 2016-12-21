@@ -4,6 +4,7 @@
 	<excludes>
 		<pattern>/app/*</pattern>
 		<pattern>/login</pattern>
+		<pattern>/management/ueditor/*</pattern>
 		<pattern>/management/login</pattern>
 	</excludes>
 	<decorator name="home" page="home.jsp">

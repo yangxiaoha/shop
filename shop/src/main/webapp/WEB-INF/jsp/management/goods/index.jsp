@@ -16,7 +16,11 @@
 <script
 	src="<%=basePath%>assets/management/datatablejs/goods.js"
 	type="text/javascript"></script>
-
+<script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/ueditor.all.js"> </script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
 <link rel="stylesheet"
 	href="<%=basePath%>assets/management/images/zTreeStyle.css"	type="text/css">
 
@@ -132,7 +136,6 @@
 									<th>商品名称</th>
 									<th>商品扩充名称</th>
 									<th>商品总量</th>
-									<th>描述信息</th>
 									<th>商品编码</th>
 									<th>商品品牌</th>
 									<th>所属门店</th>
@@ -153,5 +156,6 @@
 	<jsp:include page="delete.jsp"/>
 	<jsp:include page="update.jsp"/>
 	<jsp:include page="stick.jsp"/>
+	<jsp:include page="detailedit.jsp"/>
 </body>
 </html>

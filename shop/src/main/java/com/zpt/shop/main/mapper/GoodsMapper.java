@@ -38,5 +38,7 @@ public interface GoodsMapper {
 	public Goods getGoodsInfo(@Param("goodsId")Integer goodsId);
 
 	public void updateNum(@Param("id")Integer id, @Param("num")long num);
+	
+	public void updateContent(@Param("id")Integer id, @Param("content")String content);
 
 }
