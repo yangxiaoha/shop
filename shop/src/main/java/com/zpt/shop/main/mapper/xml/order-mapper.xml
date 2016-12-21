@@ -20,6 +20,7 @@
 		<result property="postalCode" column="postalCode" />
 		<result property="provinceName" column="provinceName" />
 		<result property="cityName" column="cityName" />
+		<result property="countryName" column="countryName" />
 		<collection property="orderDetail" columnPrefix="detail_" ofType="OrderDetail" javaType="ArrayList">    
             <id property="id" column="detailId" />
 			<result property="orderId" column="orderId" />
@@ -100,8 +101,8 @@
 	<!-- ******************************************************************************** -->
 	
 	<insert id="addOrder" parameterType="order">
-	    insert into t_order (userId, address, ordertime, name, phone, totalPrice, memo, ordernum, state) 
-		values (#{userId}, #{address}, #{ordertime}, #{name}, #{phone}, #{totalPrice}, #{memo}, #{ordernum}, #{state})
+	    insert into t_order (userId, address, postalCode, provinceName, cityName, countryName, ordertime, name, phone, totalPrice, memo, ordernum, state) 
+		values (#{userId}, #{address}, #{postalCode}, #{provinceName}, #{cityName}, #{countryName}, #{ordertime}, #{name}, #{phone}, #{totalPrice}, #{memo}, #{ordernum}, #{state})
 	</insert>
 	
 	<select id="getOrder" resultMap="resultMap">

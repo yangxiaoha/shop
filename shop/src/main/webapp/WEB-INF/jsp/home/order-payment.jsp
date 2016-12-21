@@ -55,13 +55,13 @@
               <div>
                 <label for="remarks" class="fc-9fa0a0">备注:</label>
                 <textarea id="remarks" name="memo">${orderList.memo}</textarea>
-                <input id="proviceFirstStageName" value="" />
-                <input id="addressCitySecondStageName" value="" />
-                <input id="addressCountiesThirdStageName" value="" />
-                <input id="addressPostalCode" value="" />
-                <input id="addressDetailInfo" value="" />       
-                <input id="telNumber" value="" />
-                <input id="username" value="" />
+                <input type="hidden" id="proviceFirstStageName" value="" />
+                <input type="hidden" id="addressCitySecondStageName" value="" />
+                <input type="hidden" id="addressCountiesThirdStageName" value="" />
+                <input type="hidden" id="addressPostalCode" value="" />
+                <input type="hidden" id="addressDetailInfo" value="" />       
+                <input type="hidden" id="telNumber" value="" />
+                <input type="hidden" id="username" value="" />
               </div>
             </form> 
             <form id="buyGoodsSubForm" action="../submitOrder" method="post" style="width: 0; height: 0;">
@@ -138,6 +138,10 @@
             ]
         }); 
         
+        wx.ready(function(){
+        	getAddr();          
+        });
+        
         $(document).ready(function() {
             $(".payment").click(function() {
                 var queryArray = $("#buyGoodsForm").serializeArray();
@@ -150,6 +154,7 @@
                 $("#postData").val(jsonString);
                 //onBridgeReady();
                 callpay();
+                $("#buyGoodsSubForm").submit();
             });
             $("#getAddr").click(function() {
                 getAddr();

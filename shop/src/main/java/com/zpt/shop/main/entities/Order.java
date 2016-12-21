@@ -49,6 +49,8 @@ public class Order {
 	public String provinceName;
 	
 	public String cityName;	
+	
+	public String countryName;
 
 	public String getPostalCode() {
 		return postalCode;
@@ -72,6 +74,14 @@ public class Order {
 
 	public void setCityName(String cityName) {
 		this.cityName = cityName;
+	}
+
+	public String getCountryName() {
+		return countryName;
+	}
+
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
 	}
 
 	public Integer getId() {

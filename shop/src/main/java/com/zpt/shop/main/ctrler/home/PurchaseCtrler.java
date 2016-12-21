@@ -324,7 +324,6 @@ public class PurchaseCtrler {
         payParams.put("package", "prepay_id="+preid);  
         payParams.put("signType", "MD5");
         String paySign = PrepayUtil.sign(payParams, weixin.getPartnerKey());
-        //String paySign = Sha1Util.createSHA1Sign(payParams);
         
         //组装map用于生成addrSign 
         String accessToken = wxMpService.getAccessToken(false);
@@ -355,14 +354,6 @@ public class PurchaseCtrler {
         return mv;
 	}
 	
-	//我的地址
-	@ResponseBody
-	@RequestMapping(value="/myAddr", method=RequestMethod.POST)
-	public ModelAndView myAddr() throws Exception {
-		ModelAndView mv = new ModelAndView("home/my-addr");
-		return mv;
-	}
-	
 	//提交订单
 	//若未付款，跳到订单详细页
 	@RequestMapping(value="/submitOrder", method=RequestMethod.POST)
@@ -372,6 +363,7 @@ public class PurchaseCtrler {
 		if("0".equals(state)) {//从我的订单过来的付款			
 			//添加订单
 			Order order = (Order) JSON.parseObject(postData, Order.class);
+			System.out.println("订单信息:-----------"+order); 
 			orderService.addOrder(user.getId(), order, cartIds);
 		}else if("1".equals(state)) {//从购物车过来的付款
 			

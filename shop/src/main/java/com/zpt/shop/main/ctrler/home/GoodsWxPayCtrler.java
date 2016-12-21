@@ -81,6 +81,12 @@ public class GoodsWxPayCtrler {
      				BigDecimal percentageMoney = orderMoney.multiply(percentage.getFirst().divide(new BigDecimal("100")));
      				BigDecimal money = superior.getMoney().add(percentageMoney);
      				userService.updateMoney(superior.getId(), money);
+     				if(pid != superior.getPid()) {//上级的上级
+     					User superiorInfo = userService.getUserByUserId(superior.getPid());//上级的上级的信息
+         				BigDecimal percentageMoneyInfo = orderMoney.multiply(percentage.getSecond().divide(new BigDecimal("100")));
+         				BigDecimal moneyInfo = superiorInfo.getMoney().add(percentageMoneyInfo);
+         				userService.updateMoney(superiorInfo.getId(), moneyInfo);
+     				}
      			}
              }
         } catch (Exception e) {
