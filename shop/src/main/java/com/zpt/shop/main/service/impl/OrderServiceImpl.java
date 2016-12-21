@@ -135,6 +135,18 @@ public class OrderServiceImpl implements OrderService {
 		return null;
 	}
 
+	/**
+	 * 订单详情
+	 * */
+	@Override
+	public Order getOrderInfoByCode(String ordercode) {
+		// TODO Auto-generated method stub
+		Order list = orderMapper.getOrderInfoByCode(ordercode);
+		if(list != null && !("".equals(list))){
+			return list;
+		}
+		return null;
+	}
 
 	/**
 	 * 分销下单未付款查询

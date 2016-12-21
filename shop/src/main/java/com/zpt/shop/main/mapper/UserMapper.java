@@ -1,5 +1,6 @@
 package com.zpt.shop.main.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -27,6 +28,12 @@ public interface UserMapper {
 	 * @param String openid 用户openid
 	 * */
 	public User getUserByOpenId(@Param("openId")String openid);
+	
+	/**
+	 * 通过用户id获取用户信息
+	 * @param Integer userId 用户id
+	 * */
+	public User getUserByUserId(@Param("userId")Integer userId);
 
 	/**
 	 * 添加用户
@@ -40,5 +47,24 @@ public interface UserMapper {
 	 * @param String ids 代理人id
 	 * */
 	public List<User> getAgentInfoByIds(@Param("ids")String ids);
+
+	/**
+	 * 扫码修改绑定的上级
+	 * @param User userInfo 用户信息
+	 * */
+	public void updateUserByScan(User userInfo);
+
+	/**
+	 * 扫码绑定上级
+	 * @param User userInfo 用户信息
+	 * */
+	public void addUserByScan(User userInfo);
+
+	/**
+	 * 修改可提现金额
+	 * @param Integer id 用户id
+	 * @param BigDecimal money 可提现金额
+	 * */
+	public void updateMoney(@Param("id")Integer id, @Param("money")BigDecimal money);
 
 }

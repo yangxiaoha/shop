@@ -151,7 +151,7 @@ public class WeixinCtrler {
             // 关注
             if (eventType.equals(WeixinUtils.EVENT_TYPE_SUBSCRIBE)) {
             	//添加用户
-            	if(ticket != null) {
+            	/*if(ticket != null) {
             		System.out.println("eventKey" + eventKey);
             		String superiorOpenId = eventKey.substring(eventKey.indexOf("_") + 1);
             		System.out.println("上级的openId" + superiorOpenId);
@@ -159,6 +159,12 @@ public class WeixinCtrler {
             		if(user != null && !("".equals(user))) {
             			userService.addUser(fromUserName, createTime, user.getId(), money);
             		}           		
+            	}else {
+            		userService.addUser(fromUserName, createTime, 0, money);
+            	} */   
+            	User user = userService.getUserByOpenId(fromUserName);
+            	if(user.getFpid() != null && !("".equals(user.getFpid()))) {
+            		userService.addUser(fromUserName, createTime, user.getFpid(), money);
             	}else {
             		userService.addUser(fromUserName, createTime, 0, money);
             	}           	

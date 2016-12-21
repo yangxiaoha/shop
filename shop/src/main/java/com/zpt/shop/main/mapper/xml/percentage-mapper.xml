@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.PercentageMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="percentage" id="resultMap">
+		<id property="id" column="id" />
+		<result property="first" column="first" />
+		<result property="second" column="second" />
+	</resultMap>
+	
+	<select id="getPercentage" resultMap="resultMap">
+		select * from t_percentage
+	</select>
+
+</mapper>

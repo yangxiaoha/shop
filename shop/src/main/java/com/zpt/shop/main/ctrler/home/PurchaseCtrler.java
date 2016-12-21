@@ -24,7 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import com.zpt.shop.common.pojo.MyTime;
 import com.zpt.shop.common.pojo.RandomArray;
-import com.zpt.shop.common.weixin.UnifiedOrder;
 import com.zpt.shop.common.weixin.WxMpConfigStorage;
 import com.zpt.shop.main.entities.Cart;
 import com.zpt.shop.main.entities.Order;
@@ -37,7 +36,6 @@ import com.zpt.shop.weixin.utils.PrepayUtil;
 import com.zpt.shop.weixin.utils.RequestHandler;
 import com.zpt.shop.weixin.utils.Sha1Util;
 import com.zpt.shop.weixin.utils.WeixinPayUtil;
-import com.zpt.shop.weixin.utils.WeixinUtils;
 
 /**
  * 功能说明:
@@ -264,27 +262,26 @@ public class PurchaseCtrler {
 	}
 	
 	//支付（从详细页过来的支付）
-	@RequestMapping(value="/payment", method=RequestMethod.POST)
+	@RequestMapping(value="/payment")
 	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response, Integer orderId) throws Exception {
 		ModelAndView mv = new ModelAndView("home/order-payment");
-        String url = request.getRequestURL().toString();//当前页面路径
+		
+		String path = request.getContextPath();
+        String basePath = request.getScheme() + "://" + request.getServerName() 
+                + path;
+        String url = basePath + "/home/purchase/payment";
         System.out.println("当前页面路径:"+url);
-        System.out.println("orderId:"+orderId);
+        
         User user = (User) request.getSession().getAttribute("user");
         List<Order> orderList = orderService.getOrderByOrderId(orderId);
         
-        RequestHandler createSign = new RequestHandler(request, response);
-	    //初始化  
-        createSign.init();  
-        createSign.init(weixin.getAppId(), weixin.getSecret(), "1234567890poiuytrewqasdfghjklmnb");  
-    
         //订单号
         String code1 = RandomArray.randomArray(0, 9, 2);
         String code2 = RandomArray.randomArray(0, 9, 2);
         String myTime = MyTime.getNowFormatDate();
         String ordercode = code1 + myTime + code2;
         
-        String noncestr = Sha1Util.getNonceStr();  //随机字符串
+        String noncestr = Sha1Util.getNonceStr(); //随机字符串
         String timestamp = Sha1Util.getTimeStamp(); //当前时间
         
         //config验证
@@ -299,21 +296,24 @@ public class PurchaseCtrler {
         //获取预支付标示 
         HashMap<String, String> map = new HashMap<String, String>();  
         map.put("appid", weixin.getAppId());  
-        map.put("mch_id", "1237966102");  
+        map.put("mch_id", weixin.getPartnerId());  
         map.put("attach", "一见喜商品购买");  
-        map.put("device_info", "WEB");  
+        //map.put("device_info", "WEB");  
         map.put("nonce_str", noncestr);  
         map.put("body", "一见喜-商品订单");  
         map.put("out_trade_no", ordercode);  
-        map.put("total_fee", WeixinPayUtil.getMoney(String.valueOf(orderList.get(0).getTotalPrice())));  
+        map.put("total_fee", "1");  
         map.put("spbill_create_ip", "115.159.26.174");  
         map.put("trade_type", "JSAPI");  
         map.put("notify_url", notifyurl);  
         map.put("openid", user.getOpenid());  
-        String sign = PrepayUtil.sign(map, "1234567890poiuytrewqasdfghjklmnb");//参数加密  
+        String sign = PrepayUtil.sign(map, weixin.getPartnerKey());//参数加密  
         System.out.println("支付签名:-----------"+sign);  
         map.put("sign", sign);  
         String content = PrepayUtil.MapToXml(map); 
+        System.out.println("---------------------------------------");
+        System.out.println(content);
+        System.out.println("---------------------------------------");
         String preid = GetWxOrderno.getPayNo("https://api.mch.weixin.qq.com/pay/unifiedorder",  content);
         
         //组装map用于生成paySign 
@@ -321,19 +321,20 @@ public class PurchaseCtrler {
         payParams.put("appId", weixin.getAppId());  
         payParams.put("timeStamp", timestamp);
         payParams.put("nonceStr", noncestr);  
-        payParams.put("package", preid);  
+        payParams.put("package", "prepay_id="+preid);  
         payParams.put("signType", "MD5");
-        String paySign = createSign.createSign(payParams);  
+        String paySign = PrepayUtil.sign(payParams, weixin.getPartnerKey());
+        //String paySign = Sha1Util.createSHA1Sign(payParams);
         
         //组装map用于生成addrSign 
         String accessToken = wxMpService.getAccessToken(false);
         SortedMap<String, String> addrParams = new TreeMap<String, String>();
-        addrParams.put("appId", weixin.getAppId());  
+        addrParams.put("appid", weixin.getAppId());  
         addrParams.put("url", url);  
-        addrParams.put("timeStamp", timestamp);
-        addrParams.put("nonceStr", noncestr);  
-        addrParams.put("accessToken", accessToken);  
-        String addrSign = createSign.createSign(addrParams);  
+        addrParams.put("timestamp", timestamp);
+        addrParams.put("noncestr", noncestr);  
+        addrParams.put("accesstoken", accessToken);  
+        String addrSign = Sha1Util.createSHA1Sign(addrParams);  
         
         //支付接口公用参数
         mv.addObject("appId", weixin.getAppId());//公众号id
@@ -342,7 +343,7 @@ public class PurchaseCtrler {
         
         mv.addObject("signature", signature);//config签名
         
-        mv.addObject("prepay_id", preid);//统一下单接口返回的prepay_id参数值，提交格式如：prepay_id=***
+        mv.addObject("prepay_id", "prepay_id="+preid);//统一下单接口返回的prepay_id参数值，提交格式如：prepay_id=***
         mv.addObject("paySign", paySign);//支付签名
         
         mv.addObject("addrSign", addrSign);//编辑地址签名

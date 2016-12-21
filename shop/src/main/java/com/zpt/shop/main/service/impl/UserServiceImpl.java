@@ -1,5 +1,6 @@
 package com.zpt.shop.main.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +65,13 @@ public class UserServiceImpl implements UserService {
 		User user = userMapper.getUserByOpenId(openid);
 		return user;
 	}
+	
+	@Override
+	public User getUserByUserId(Integer userId) {
+		// TODO Auto-generated method stub
+		User user = userMapper.getUserByUserId(userId);
+		return user;
+	}
 
 	/**
 	 * 添加用户
@@ -91,6 +99,29 @@ public class UserServiceImpl implements UserService {
 		} else {
 			return null;
 		}	
+	}
+
+	@Override
+	public void updateUserByScan(User userInfo) {
+		// TODO Auto-generated method stub
+		userMapper.updateUserByScan(userInfo);
+	}
+
+	@Override
+	public void addUserByScan(User userInfo) {
+		// TODO Auto-generated method stub
+		userMapper.addUserByScan(userInfo);
+	}
+
+	/**
+	 * 修改可提现金额
+	 * @param Integer id 用户id
+	 * @param BigDecimal money 可提现金额
+	 * */
+	@Override
+	public void updateMoney(Integer id, BigDecimal money) {
+		// TODO Auto-generated method stub
+		userMapper.updateMoney(id, money);
 	}
 
 }

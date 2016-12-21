@@ -38,7 +38,7 @@
 		select t_order_detail.*, t_order.ordertime from t_order_detail 
 		left join t_order
 		on t_order_detail.orderid = t_order.id
-		where t_order_detail.id in (${ids})
+		where t_order_detail.skuid in (${ids}) and t_order.state = 1
 	</select>
 
 </mapper>

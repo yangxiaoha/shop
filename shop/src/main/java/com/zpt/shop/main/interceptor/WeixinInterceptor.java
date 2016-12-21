@@ -71,6 +71,7 @@ public class WeixinInterceptor implements HandlerInterceptor {
 				System.out.println("-----------------拦截openId"+jsonObject.getString("openid"));			
 				String accessToken = jsonObject.getString("access_token");
 				System.out.println("-----------------拦截accessToken"+jsonObject.getString("access_token"));
+				request.getSession().setAttribute(Contants.SESSION_OPENID, openid);
 				
 				//通过openid和accessToken获取用户基本信息，并保存到session中
 				String userPath = "https://api.weixin.qq.com/sns/userinfo?access_token=" + accessToken

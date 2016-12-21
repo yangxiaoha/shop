@@ -172,18 +172,19 @@ public class MainIndexCtrler {
 			}
 		}
 		List<OrderDetail> orderDetailList = orderDetailService.getorderDetailBySkuIds(skuIds);
+		
 		if(orderDetailList != null && orderDetailList.size() > 0) {
 			for(int i=0; i<goodsSkuList.size(); i++) {
 				for(int j=0; j<orderDetailList.size(); j++) {
-					if(goodsSkuList.get(i).getId() == orderDetailList.get(j).getId()) {
-						SimpleDateFormat matter1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//格式化时间格式
+					if(goodsSkuList.get(i).getId() == orderDetailList.get(j).getSkuId()) {
+		                SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");  
 		                Date nowTime=new Date();//获取当前时间
-		                String tmf= matter1.format(nowTime);
-
-	                    Date now=matter1.parse(tmf);
-	                    Date end=orderDetailList.get(j).getOrdertime();
-	                    long cha=(now.getTime()-end.getTime())/ (1000 * 60 * 60 * 24);//计算时间差
-	                    if(cha <= 30) {
+		                String fromDate = simpleFormat.format(nowTime);  
+		                String toDate = simpleFormat.format(orderDetailList.get(j).getOrdertime());  
+		                long from = simpleFormat.parse(fromDate).getTime();  
+		                long to = simpleFormat.parse(toDate).getTime();  
+		                int minutes = (int) ((to - from)/(1000 * 60));
+	                    if(minutes <= 30) {
 	                    	Integer val = goodsSkuList.get(i).getNum()-orderDetailList.get(j).getNum();
 	                    	goodsSkuList.get(i).setNum(val);
 	                    }else {	                    	

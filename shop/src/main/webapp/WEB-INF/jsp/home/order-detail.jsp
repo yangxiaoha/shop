@@ -70,7 +70,7 @@
 			</c:forEach>
 	    </div>
 	    
-	    <form id="paymentForm" action="payment" method="get">
+	    <form id="paymentForm" action="payment" method="post">
 	    	<input type="text" name="orderId" class="orderId" id="orderId" value="" />
 	    </form>
 	

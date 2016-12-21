@@ -244,8 +244,6 @@ public class MemberCtrler {
 	@ResponseBody
 	@RequestMapping(value="/myQr/getSuperiorInfo", method=RequestMethod.GET)
 	public void getSuperiorInfo(HttpServletRequest request) throws WxErrorException {
-		User user = (User) request.getSession().getAttribute("user");
-		String openId = user.getOpenid();
 		/*String accessToken = wxMpService.getAccessToken(false);
 		String jsonMsg1 = "{\"expire_seconds\": \"604800\", \"action_name\": \"QR_SCENE\", \"action_info\"：{\"scene\": {\"scene_id\": "+openId+"}}}";
 		String jsonMsg = "{\"expire_seconds\": \"604800\", \"action_name\": \"QR_SCENE\", \"action_info\"：{\"scene\": {\"scene_id\": ozmycs6JuZxrpxDuNMluTyvyUDCY}}}";
@@ -253,7 +251,23 @@ public class MemberCtrler {
 		System.out.println(jsonMsg1);
 		System.out.println(jsonObject);
 		String url = jsonObject.getString("url");*/
+		String openid = (String) request.getSession().getAttribute("openid");
 		String superiorId = (String) request.getParameterMap().get("openId");	
+		User superiorUser = userService.getUserByOpenId(openid);
+		//判断此用户是否已经存在
+		User user = userService.getUserByOpenId(openid);
+		String subscribe = (String) request.getSession().getAttribute("subscribe");
+		User userInfo = new User();
+		userInfo.setOpenid(openid);
+		userInfo.setFpid(superiorUser.getId());
+		userInfo.setMoney(new BigDecimal(0));
+		if(user != null && !("".equals(user))) {
+			if("0".equals(subscribe)) {//未关注
+				userService.updateUserByScan(userInfo);
+			}
+		}else {
+			userService.addUserByScan(userInfo);
+		}
 	}
 	
 	//我的代理人
@@ -309,7 +323,6 @@ public class MemberCtrler {
         String accessToken = wxMpService.getAccessToken(false);
         System.out.println("accesstoken"+accessToken);
         JSONObject jsonObject = WeixinUtils.getBatchWeixinUserInfo(s.toString(), accessToken);
-        System.out.println("daili"+jsonObject);
         mv.addObject("agentMsg", jsonObject);
 		return mv;
 	}

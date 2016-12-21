@@ -9,6 +9,8 @@ public class User {
 	
 	private Integer pid;
 	
+	private Integer fpid;
+	
 	private String openid;
 	
 	private Date regtime;
@@ -49,6 +51,14 @@ public class User {
 
 	public void setPid(Integer pid) {
 		this.pid = pid;
+	}
+
+	public Integer getFpid() {
+		return fpid;
+	}
+
+	public void setFpid(Integer fpid) {
+		this.fpid = fpid;
 	}
 
 	public BigDecimal getMoney() {

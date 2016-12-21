@@ -79,7 +79,7 @@
         </c:forEach>
     </div>
     
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
     <script type="text/javascript">
         var appId = "${appId}";  
         var timeStamp = "${timeStamp}";  
@@ -87,7 +87,40 @@
         var signature = "${signature}"; 
         var prepay_id = "${prepay_id}";
         var paySign = "${paySign}";
-        var addrSign = "${addrSign}";
+        var addrSign = "${addrSign}"; 
+              
+        function jsApiCall()
+    	{
+    		WeixinJSBridge.invoke(
+  				'getBrandWCPayRequest', {
+  					"appId":appId, //公众号名称，由商户传入     
+                    "timeStamp":timeStamp, //时间戳，自1970年以来的秒数     
+                    "nonceStr":nonceStr, //随机串     
+                    "package":prepay_id,     
+                    "signType":"MD5", //微信签名方式   
+                    "paySign":paySign //微信签名 
+  			    },
+    		    function(res){
+    				WeixinJSBridge.log(res.err_msg);
+    				alert(res.err_code+res.err_desc+res.err_msg);
+    		    }
+    		);
+    	}
+
+    	function callpay()
+    	{
+    		if (typeof WeixinJSBridge == "undefined"){
+    		    if( document.addEventListener ){
+    		        document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+    		    }else if (document.attachEvent){
+    		        document.attachEvent('WeixinJSBridgeReady', jsApiCall); 
+    		        document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+    		    }
+    		}else{
+    		    jsApiCall();
+    		}
+    	}
+
         wx.config({
             debug: true,
             appId: appId,
@@ -100,9 +133,11 @@
             'chooseWXPay',
             'getLatestAddress',
             'openCard',
-            'getLocation'
+            'getLocation',
+            'openAddress'
             ]
-        });
+        }); 
+        
         $(document).ready(function() {
             $(".payment").click(function() {
                 var queryArray = $("#buyGoodsForm").serializeArray();
@@ -113,78 +148,32 @@
                 jsonString= jsonString.substring(0, (jsonString.length - 1));  
                 jsonString+= '}'; 
                 $("#postData").val(jsonString);
-                onBridgeReady();
+                //onBridgeReady();
+                callpay();
             });
             $("#getAddr").click(function() {
                 getAddr();
             });
         });
+        
         //获取地址
         function getAddr() {
-            WeixinJSBridge.invoke(
-                'editAddress', {
-                   "appId":appId, //公众号名称，由商户传入     
-                   "scope":"jsapi_address", 
-                   "signType":"sha1", //微信签名方式   
-                   "addrSign":addrSign,//微信签名 
-                   "timeStamp":timeStamp, //时间戳，自1970年以来的秒数  
-                   "nonceStr":nonceStr, //随机串     
-                },
-                function(res){     
-                    if(res != null && res != ""){  
-                        alert("获取收货地址"); 
-                        alert(res);
-                        $("#proviceFirstStageName").val(res.proviceFirstStageName);
-                        $("#addressCitySecondStageName").val(res.addressCitySecondStageName);
-                        $("#addressCountiesThirdStageName").val(res.addressCountiesThirdStageName);
-                        $("#addressPostalCode").val(res.addressPostalCode);
-                        $("#addressDetailInfo").val(res.addressDetailInfo);                 
-                        $("#telNumber").val(res.telNumber);
-                        $("#username").val(res.username);                   
-                        $("#oldName").text(res.username);
-                        $("#oldPhone").text(res.telNumber);
-                        $("#oldAddress").text();
-                    }else {
-                        alert("取消编辑收货地址"); 
-                    }
-                }
-            ); 
+        	wx.openAddress({ 
+                success:function (res) {
+                	var addr=res.provinceName+" "+res.cityName+" "+res.countryName+" "+res.detailInfo;
+                    $("#proviceFirstStageName").val(res.provinceName);
+                    $("#addressCitySecondStageName").val(res.cityName);
+                    $("#addressCountiesThirdStageName").val(res.countryName);
+                    $("#addressPostalCode").val(res.postalCode);
+                    $("#addressDetailInfo").val(res.detailInfo);                 
+                    $("#telNumber").val(res.telNumber);
+                    $("#username").val(res.userName);                   
+                    $("#oldName").text(res.userName);
+                    $("#oldPhone").text(res.telNumber);
+                    $("#oldAddress").text(addr); 	
+	       	    }
+            });          
         }
-        //付款
-        function onBridgeReady() {
-            WeixinJSBridge.invoke(
-                'getBrandWCPayRequest', {
-                   "appId":appId, //公众号名称，由商户传入     
-                   "timeStamp":timeStamp, //时间戳，自1970年以来的秒数     
-                   "nonceStr":nonceStr, //随机串     
-                   "package":"prepay_id="+prepay_id,     
-                   "signType":"MD5", //微信签名方式   
-                   "paySign":paySign //微信签名 
-                },
-                function(res){     
-                    if(res.err_msg == "get_brand_wcpay_request:ok"){  
-                        alert("微信支付成功"); 
-                        //$("#buyGoodsSubForm").submit();
-                    }else if(res.err_msg == "get_brand_wcpay_request:cancel"){  
-                        alert("用户取消支付"); 
-                        //$("#buyGoodsSubForm").submit();
-                    }else{  
-                        alert("支付失败"); 
-                        //$("#buyGoodsSubForm").submit();
-                    } 
-                }
-            ); 
-         }
-         if (typeof WeixinJSBridge == "undefined"){
-            if( document.addEventListener ){
-                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-            }else if (document.attachEvent){
-                document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
-                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-            }
-         }else{
-            onBridgeReady();
-         }
     </script>
 </body>
 </html>

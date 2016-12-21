@@ -16,6 +16,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>一见喜</title>
 <style>
+	.recharge-qr {
+	    width: 200px;
+    	height: 200px;
+    	margin: 60px auto;
+	}
 </style>
 </head>
 <body style="background-color: #ECECF2 !important">
@@ -55,26 +60,27 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			function qr(){
-		   		var url = $("#myQr").val();
-				//参数1表示图像大小，取值范围1-10；参数2表示质量，取值范围'L','M','Q','H'
-				var qr = qrcode(10, 'M');
-				qr.addData(url);
-				qr.make();
-				$(".recharge-qr").html(qr.createImgTag());
-		        function GetQueryString(name) { 
-		            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
-		            var r = window.location.search.substr(1).match(reg);  //获取url中"?"符后的字符串并正则匹配
-		            var context = ""; 
-		            if(r != null) {
-		                context = r[2]; 
-		            }
-		            reg = null; 
-		            r = null; 
-		            return context == null || context == "" || context == "undefined" ? "" : context; 
-		        }	        
-		   	}		
+			qr();		
 		});
+		function qr(){
+	   		var url = $("#myQr").val();
+			//参数1表示图像大小，取值范围1-10；参数2表示质量，取值范围'L','M','Q','H'
+			var qr = qrcode(10, 'M');
+			qr.addData(url);
+			qr.make();
+			$(".recharge-qr").html(qr.createImgTag());
+	        function GetQueryString(name) { 
+	            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+	            var r = window.location.search.substr(1).match(reg);  //获取url中"?"符后的字符串并正则匹配
+	            var context = ""; 
+	            if(r != null) {
+	                context = r[2]; 
+	            }
+	            reg = null; 
+	            r = null; 
+	            return context == null || context == "" || context == "undefined" ? "" : context; 
+	        }	        
+	   	}
 	</script>
 
 </body>

@@ -101,7 +101,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="index.html">
+				<a href="index">
 					<span class="tab-bar-bg home-page"></span>
 					<span>首页</span>
 				</a>

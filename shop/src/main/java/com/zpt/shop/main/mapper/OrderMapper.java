@@ -38,4 +38,6 @@ public interface OrderMapper {
 
 	public void updateOrderStateByOrderId(@Param("orderId")Integer orderId, @Param("state")Integer state);
 
+	public Order getOrderInfoByCode(@Param("orderNum")String ordercode);
+
 }

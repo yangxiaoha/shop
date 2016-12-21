@@ -153,5 +153,9 @@
 	<update id="updateOrderStateByOrderId">
 		update t_order set sate = #{state} where id = #{orderId}
 	</update>
+	
+	<select id="getOrderInfoByCode" resultMap="resultMap">
+		select * from t_order where ordernum = #{orderNum}
+	</select>
 
 </mapper>

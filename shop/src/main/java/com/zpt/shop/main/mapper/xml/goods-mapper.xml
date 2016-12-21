@@ -170,7 +170,7 @@
 	<select id="getHighGoodsById" resultMap="resultMap">
 		select * from t_goods left join
 		(select sku.goodsid, sku.price as price, image.url from
-		(select * from (select * from t_goods_sku order by goodsid, price) as t
+		(select * from (select * from t_goods_sku order by goodsid desc, price desc) as t
 		group by t.goodsid) as sku left join t_goods_image as image 
 		on sku.id = image.skuid) as g 
 		on t_goods.id = g.goodsid where t_goods.id = #{goodsId}

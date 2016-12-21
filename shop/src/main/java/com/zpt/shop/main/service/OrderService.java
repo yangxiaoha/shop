@@ -46,6 +46,13 @@ public interface OrderService {
 	 * @return List<Sku>
 	 * */
 	public List<Sku> getOrderByOrderNum(String orderNum);
+	
+	/**
+	 * 订单详情
+	 * @param String ordercode 订单号
+	 * @return Order
+	 * */
+	public Order getOrderInfoByCode(String ordercode);
 
 	/**
 	 * 分销下单未付款查询

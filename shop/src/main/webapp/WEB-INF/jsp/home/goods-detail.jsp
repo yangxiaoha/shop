@@ -64,7 +64,7 @@
 				     <img id="goodsImg" src="<%=basePath%>${goodsMsg.url}">
 			         <ul class="shopping-car-detail p5">
 			         	<c:if test="${goodsMsg.price != goodsMsg.highprice}">
-			         		<li class="mb5 font-price" id="goodsPrice">￥${goodsMsg.price} — ${goodsMsg.highprice}</li>
+			         		<li class="mb5 font-price" id="goodsPrice">￥${goodsMsg.price} ~ ${goodsMsg.highprice}</li>
 			         	</c:if>
 			         	<c:if test="${goodsMsg.price == goodsMsg.highprice}">
 			         		<li class="mb5 font-price">￥${goodsMsg.price}</li>
@@ -344,6 +344,8 @@
 						   	    success: function(data) {
 						   	    	if(data.state){
 						   	    		$("#shopping-num").text(data.amount);
+						   	    		$(".index-tab-bar").css("display", "block");
+										$(".goods-parameter-choice").slideUp();
 						   			}else{
 						   			    alert("网络故障，稍后重试");
 						   			}

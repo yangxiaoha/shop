@@ -1,5 +1,6 @@
 package com.zpt.shop.main.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.zpt.shop.common.pojo.Page;
@@ -21,9 +22,15 @@ public interface UserService {
 
 	/**
 	 * 通过openId获取用户信息
-	 * @param Integer userId 用户id
+	 * @param String openid openid
 	 * */
 	public User getUserByOpenId(String openid);
+	
+	/**
+	 * 通过userId获取用户信息
+	 * @param Integer userId 用户id
+	 * */
+	public User getUserByUserId(Integer userId);
 	
 	/**
 	 * 添加用户
@@ -39,5 +46,24 @@ public interface UserService {
 	 * @param String ids 代理人id
 	 * */
 	public List<User> getAgentInfoByIds(String ids);
+
+	/**
+	 * 扫码修改绑定的上级
+	 * @param User userInfo 用户信息
+	 * */
+	public void updateUserByScan(User userInfo);
+
+	/**
+	 * 扫码绑定上级
+	 * @param User userInfo 用户信息
+	 * */
+	public void addUserByScan(User userInfo);
+
+	/**
+	 * 修改可提现金额
+	 * @param Integer id 用户id
+	 * @param BigDecimal money 可提现金额
+	 * */
+	public void updateMoney(Integer id, BigDecimal money);
 
 }

@@ -65,4 +65,21 @@
 		select * from t_user where id in (${ids})
 	</select>
 	
+	<update id="updateUserByScan" parameterType="user">
+		update t_user set fpid = #{fpid} where openid = #{openid}
+	</update>
+	
+	<insert id="addUserByScan">
+		insert into t_user (openid, fpid, money) 
+		values (#{openId}, #{fpid}, #{money})
+	</insert>
+	
+	<select id="getUserByUserId" resultMap="resultMap">
+		select * from t_user where id = #{userId}
+	</select>
+	
+	<update id="updateMoney">
+		update t_user set money = #{money} where id = #{id}
+	</update>
+	
 </mapper>
