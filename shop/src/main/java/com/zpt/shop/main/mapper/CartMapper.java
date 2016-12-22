@@ -36,4 +36,6 @@ public interface CartMapper {
 
 	public List<Cart> getCartByCartIdsAndUserId(@Param("userId")Integer userId, @Param("cartIds")String cartIds);
 
+	public List<Cart> getCartInfoById(@Param("cartIds")String cartIds);
+
 }

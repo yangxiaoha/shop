@@ -150,6 +150,7 @@ public class WeixinCtrler {
             String money = "0";
             // 关注
             if (eventType.equals(WeixinUtils.EVENT_TYPE_SUBSCRIBE)) {
+            	
             	//添加用户
             	/*if(ticket != null) {
             		System.out.println("eventKey" + eventKey);
@@ -162,12 +163,17 @@ public class WeixinCtrler {
             	}else {
             		userService.addUser(fromUserName, createTime, 0, money);
             	} */   
+
             	User user = userService.getUserByOpenId(fromUserName);
-            	if(user.getFpid() != null && !("".equals(user.getFpid()))) {
-            		userService.addUser(fromUserName, createTime, user.getFpid(), money);
-            	}else {
-            		userService.addUser(fromUserName, createTime, 0, money);
-            	}           	
+        		if(user != null) {//扫过码
+                	if(user.getFpid() != null && !("".equals(user.getFpid()))) {//有上级
+                		userService.addUser(fromUserName, createTime, user.getFpid(), money);
+                	}else {//无上级
+                		userService.addUser(fromUserName, createTime, 0, money);
+                	}   
+        		}else {
+        			userService.addUser(fromUserName, createTime, 0, money);
+        		}       	
             }
             // 扫描带参数二维码
             else if (eventType.equals(WeixinUtils.EVENT_TYPE_SCAN)) {

@@ -55,9 +55,10 @@
 		        </a>
 	        </li>
 	    </ul>
-	  	<input id="myQr" value="${myQr}">
+	  	<input type="hidden" id="myQr" value="${myQr}">
     </div>
-
+    
+	<script src="<%=basePath%>assets/home/js/qrcode.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			qr();		

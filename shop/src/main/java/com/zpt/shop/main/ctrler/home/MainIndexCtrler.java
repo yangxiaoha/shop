@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import com.zpt.shop.main.entities.GoodsType;
 import com.zpt.shop.main.entities.OrderDetail;
 import com.zpt.shop.main.entities.ProVal;
 import com.zpt.shop.main.entities.Sku;
+import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.CartService;
 import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.GoodsTypeService;
@@ -29,6 +32,7 @@ import com.zpt.shop.main.service.OrderDetailService;
 import com.zpt.shop.main.service.OrderService;
 import com.zpt.shop.main.service.ProValService;
 import com.zpt.shop.main.service.SkuService;
+import com.zpt.shop.main.service.SystemService;
 
 /**
  * 功能说明:
@@ -64,12 +68,16 @@ public class MainIndexCtrler {
 	private OrderService orderService;
 	
 	@Autowired
+	private SystemService systemService;
+	
+	@Autowired
 	private OrderDetailService orderDetailService;
 
 	@RequestMapping(value="/index", method=RequestMethod.GET)
-	public ModelAndView index() {
+	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("home/index");
-		String userId = "1";//先设置用户为1
+		User user = (User) request.getSession().getAttribute("user");
+		String userId = user.getId().toString();//先设置用户为1
 		Integer pageStart = 0;
 		Integer num = 3;
 		//商品类型数据
@@ -78,9 +86,12 @@ public class MainIndexCtrler {
 		List<Goods> goodsList = goodsService.getGoods(pageStart, num);		
 		//购物车数量
 		Integer amount = cartService.selectAmount(userId);
+		//公告
+		String notice = systemService.getNotice();				
 		mv.addObject("goodsTypeMsg", goodsTypeList);
 		mv.addObject("goodsMsg", goodsList);
 		mv.addObject("amount", amount);
+		mv.addObject("notice", notice);
 		return mv;
 	}
 	
@@ -134,9 +145,10 @@ public class MainIndexCtrler {
 	
 	//商品详细页
 	@RequestMapping(value="/goodsDetail/{goodsId}", method=RequestMethod.GET)
-	public ModelAndView goodsDetail(@PathVariable("goodsId") Integer goodsId) {
+	public ModelAndView goodsDetail(HttpServletRequest request, @PathVariable("goodsId") Integer goodsId) {
 		ModelAndView mv = new ModelAndView("home/goods-detail");
-		String userId = "1";//先设置用户为1
+		User user = (User) request.getSession().getAttribute("user");
+		String userId = user.getId().toString();//先设置用户为1
 		//商品数据
 		Goods goodsList = goodsService.getGoodsById(goodsId);
 		//商品属性

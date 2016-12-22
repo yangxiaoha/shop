@@ -53,6 +53,10 @@
 	<select id="suserDefined" resultMap="resultMap">
 		select sysvalue from t_system where skey = 'menu'
 	</select>
+	
+	<select id="getNotice" resultType="java.lang.String">
+		select sysvalue from t_system where skey = 'notice'
+	</select>
 
 	<update id="updateSystem" parameterType="system">
 		update t_system set skey = #{skey},sysvalue = #{sysvalue} where id = #{id}

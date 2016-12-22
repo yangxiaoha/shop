@@ -61,7 +61,7 @@
 		  		  	<button class="btn fr goPayment">去支付</button>
 		  		  </c:if> 
 		  		  <c:if test="${orderList.state == 4}">
-		  		  	<button class="btn fr">确认收货</button>
+		  		  	<a href="receipt" class="btn fr">确认收货</a>
 		  		  </c:if>	  
 		      	  <p class="fr">合计：<span class="font-price">￥${orderList.totalPrice}</span></p>
 		      	  <p class="fr mr10">共1件商品</p>

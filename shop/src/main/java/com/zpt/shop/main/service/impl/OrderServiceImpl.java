@@ -95,6 +95,15 @@ public class OrderServiceImpl implements OrderService {
 		// 删除购物车
 		cartMapper.deleteCartInfo(cartIds);
 	}
+	
+	/**
+	 * 修改订单信息
+	 * */
+	@Override
+	public void updateOrder(Order order) {
+		// TODO Auto-generated method stub
+		orderMapper.updateOrder(order);
+	}
 
 	/**
 	 * 订单详情

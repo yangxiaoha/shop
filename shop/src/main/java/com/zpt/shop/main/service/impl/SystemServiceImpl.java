@@ -64,5 +64,12 @@ public class SystemServiceImpl implements SystemService {
 			return null;			
 		}
 	}
+
+	@Override
+	public String getNotice() {
+		// TODO Auto-generated method stub
+		String notice = systemMapper.getNotice();
+		return notice;
+	}
 	
 }

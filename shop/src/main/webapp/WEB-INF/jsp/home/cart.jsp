@@ -119,7 +119,7 @@
 	  			</div>
 	  		</c:if>
 		  	<!--有商品-->
-		  	<c:if test="${!empty angent}"> 
+		  	<c:if test="${!empty cartsMsg}"> 
 		  	    <c:forEach items="${cartsMsg}" var="cartsList">
 					<div class="shopping-car-show order-list clearfloat">
 				        <img src="<%=basePath%>${cartsList.url}">
@@ -138,8 +138,9 @@
 			  	    </div>
 				</c:forEach>				
 	        </c:if>
-	        <form id="buyGoodsForm" action="buyGoods" method="post">
-	        	<input id="cartIds" name="cartIds" />
+	        <form id="buyGoodsForm" action="payment" method="post">
+	        	<input type="hidden" name="cartIds" id="cartIds" value="" />
+	        	<input type="hidden" name="totalMoney" id="totalMoney" value="${total}" />
 	        </form>		  
 	    </div>
 

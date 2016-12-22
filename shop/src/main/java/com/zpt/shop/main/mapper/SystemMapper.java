@@ -21,4 +21,6 @@ public interface SystemMapper {
 	public void updateDefined(@Param("sysvalue")String sysvalue);
 	
 	public System suserDefined();
+
+	public String getNotice();
 }

@@ -36,6 +36,15 @@
 		on cart.skuid = t.skuid where cart.userid = #{userId}
 	</select>
 	
+	<select id="getCartInfoById" resultMap="resultMap" parameterType="java.lang.String">
+		select cart.*, t.goodsId, t.name, t.url, t.skuNum, t.value from t_cart as cart
+		left join (select goods.id as goodsid, goods.name as name, sku.num as skuNum, val.val as value, val.skuid as skuid, img.url from t_goods_sku as sku
+		left join t_goods as goods on sku.goodsid = goods.id
+		left join t_goods_image as img on sku.id = img.skuid
+		left join (select skuid, GROUP_CONCAT(value) as val from t_goods_pro_val group by skuid) as val on sku.id = val.skuid) as t
+		on cart.skuid = t.skuid where id in (${cartIds})
+	</select>
+	
 	<delete id="deleteCartInfo">
 		delete from t_cart where id in (${cartIds})	
 	</delete>

@@ -134,9 +134,7 @@
 			        <h4 class="modal-title ta-center" id="myModalLabel">公告</h4>
 		        </div>
 		        <div class="modal-body">
-		        	<p style="text-indent: 28px; word-wrap: break-word;">
-		        		替换文字替换文字替换文字替换文字替换文字替换文字替换文字替换文字替换文字
-		        	</p>		        	
+		        	<p style="text-indent: 28px; word-wrap: break-word;">${notice}</p>		        	
 		        </div>
 		    </div>
 	    </div>
