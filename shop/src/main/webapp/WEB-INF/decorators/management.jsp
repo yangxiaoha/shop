@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>单品商城平台</title>
+	<title>一见喜商城</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link
 		href="<%=basePath%>assets/management/stylesheets/bootstrap.min.css"
@@ -264,13 +264,12 @@
 				<button class="navbar-toggle">
 					<span class="icon-bar"></span><span class="icon-bar"></span><span
 						class="icon-bar"></span>
-				</button>
-				<a class="logo" href="index-2.html">单品商城平台</a>
+				</button>				
 			</div>
 			<div class="container-fluid main-nav clearfix">
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li><a class="current" href="../statistics/index"><span
+						<li><a class="dropdown" href="../statistics/index"><span
 								aria-hidden="true" class="se7en-home"></span>首页</a></li>
 						<li class="dropdown"><a data-toggle="dropdown" href="#">
 								<span aria-hidden="true" class="se7en-star"></span>会员管理<b
@@ -294,7 +293,7 @@
 								<li><a href="../pro/index">商品属性管理</a></li>
 								<li><a href="../order/index">订单管理</a></li>
 							</ul></li>
-						<li><a class="current" href="../wdcash/index"><span
+						<li><a class="dropdown" href="../wdcash/index"><span
 								aria-hidden="true" class="se7en-home"></span>结算管理</a></li>
 						<li class="dropdown"><a data-toggle="dropdown" href="#">
 								<span aria-hidden="true" class="se7en-pages"></span>系统管理<b

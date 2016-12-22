@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>单品商城</title>
+<title>一见喜商城</title>
 </head>
 <body>
 

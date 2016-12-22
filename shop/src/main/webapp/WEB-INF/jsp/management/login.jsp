@@ -53,13 +53,16 @@
 	<script src="<%=basePath %>assets/management/javascripts/respond.js" type="text/javascript"></script>
 	<script src="<%=basePath %>assets/management/javascripts/md5.js" type="text/javascript"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>单品商城</title>
+<title>一见喜商城</title>
 </head>
 <body class = "login1">
 	<div class="login-wrapper">
 		<div class="login-container">
+		<!-- 
 			<img width="154" height="40"
 				src="<%=basePath%>assets/management/images/logo.png" />
+		 -->
+		 	<p>一见喜商城平台</p>
 			<c:if test="${!empty msg}">
 				<div class="alert alert-danger">${msg}</div>
 			</c:if>

@@ -28,7 +28,7 @@ $(document).ready(function(){
              }
            },          
            {
-               "targets": [9],
+               "targets": [8],
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
@@ -36,7 +36,7 @@ $(document).ready(function(){
                  			'<a class="table-actions del" data-id="'+data+'" href="javascript:void(0)"><i class="icon-trash"></i></a>'+
                  			'<a class="table-actions stick" data-id="'+data+'" href="javascript:void(0)"><i class="icon-arrow-up"></i></a>'+
                  			'<a class="" href="../sku/index?goodsId='+data+'"><i class="icon-sitemap"></i></a>'+
-                 			'<a class="table-actions detail" data-rowid="'+meta.row+'" data-id="'+data+'" href="javascript:void(0)"><i class="icon-arrow-up"></i></a>'+
+                 			'<a class="table-actions detail" data-rowid="'+meta.row+'" data-id="'+data+'" href="javascript:void(0)"><i class="icon-edit"></i></a>'+
                  		'</div>';
                }
             }
