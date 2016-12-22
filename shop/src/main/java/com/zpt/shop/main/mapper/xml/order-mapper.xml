@@ -73,7 +73,8 @@
 		left join t_user as tuser on torder.userId = tuser.id 
 		left join t_order_detail as orderdetail on torder.id = orderdetail.orderId 
 		left join t_goods_sku as sku on sku.id = orderdetail.skuId 
-		left join t_goods as goods on sku.goodsid = goods.id		
+		left join t_goods as goods on sku.goodsid = goods.id
+		order by id desc		
 		<include refid="queryCondition"/>
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>

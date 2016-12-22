@@ -37,7 +37,7 @@
 		select cash.id as id,cash.userId as cashuserId,cash.cashTime as cashTime,cash.money as money,
 		cash.state as state,cash.username as username,user.id as userId,user.openid as openid,user.money as userMoney
 		from t_withdraw_cash as cash 
-		left join t_user as user on cash.userId = user.id	
+		left join t_user as user on cash.userId = user.id order by id desc
 		<include refid="queryCondition"/>
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>

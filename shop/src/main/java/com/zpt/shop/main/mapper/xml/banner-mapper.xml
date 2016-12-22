@@ -11,7 +11,7 @@
 	</resultMap>
 	
 	<select id="getAllBanner" resultMap="resultMap">
-	    select * from t_banner
+	    select * from t_banner order by id desc
 	</select>
 	
 	<insert id="insertBanner" parameterType="banner">

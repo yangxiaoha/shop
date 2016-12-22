@@ -17,6 +17,14 @@
 	src="<%=basePath%>assets/management/datatablejs/pro.js"	type="text/javascript"></script>
 <link rel="stylesheet" href="<%=basePath%>assets/management/images/zTreeStyle.css"
 	type="text/css">
+<style type="text/css">
+.cztree li {
+    padding: 3px;
+}
+.cztree * {
+    font-size: 13.5px;
+}
+</style>
 </head>
 <body>
 	<div class="container-fluid main-content">
@@ -29,7 +37,7 @@
 							<tr>
 								<td width=260px align=left valign=top
 									style="BORDER-RIGHT: #999999 1px dashed">
-									<ul id="tree" class="ztree"
+									<ul id="tree" class="ztree cztree"
 										style="width: 260px; overflow: auto;"></ul>
 								</td>
 							</tr>

@@ -95,16 +95,22 @@
 		console.log(treeNode);
 		$("#aaname").val(treeNode.name);
 		$("#apid").val(treeNode.id);
-		$("#dpid").click(function(){
+		if(treeNode.isParent == 0){
+			alert("菜单只能有2级！");
 			$("#apid").val("0");
 			$("#aisParent").val("1");
 			$("#aaname").val("");
-		});
+		}
 		if(apid.value != 0){
 			$("#aisParent").val(0);
 		}
 	//   alert(apid.value);
 	};
+	$("#dpid").click(function(){
+		$("#apid").val("0");
+		$("#aisParent").val("1");
+		$("#aaname").val("");
+	});
 	function filter(treeId, parentNode, childNodes) {
 		if (!childNodes) return null;
 		for (var i=0, l=childNodes.length; i<l; i++) {
@@ -177,6 +183,7 @@
 	        		   tableI.table().draw();
 	        		   it.reAsyncChildNodes(null, "refresh");
 	        		   t.reAsyncChildNodes(null, "refresh");
+	        		   et.reAsyncChildNodes(null, "refresh");
 	        	   },
 	        	   error:function(){
 	        		   $("#loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");

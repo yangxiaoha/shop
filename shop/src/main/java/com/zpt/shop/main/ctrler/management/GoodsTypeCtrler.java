@@ -79,6 +79,24 @@ public class GoodsTypeCtrler {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/update",method = RequestMethod.POST)
+	public Msg update(GoodsType goodstype){
+		Msg msg = new Msg();
+		try {
+			goodsTypeService.updateGoodsType(goodstype);
+			msg.setState(Contants.RETURN_INT_SUCCESS);
+			msg.setMsg(Contants.UPDATE_SUCCESS);
+			return msg;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			msg.setState(Contants.RETURN_INT_FAIL);
+			msg.setMsg(Contants.UPDATE_LOST);	
+			return msg;
+		}		
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/delete",method = RequestMethod.POST)
 	public Msg delete(String ids){
 		Msg msg = new Msg();

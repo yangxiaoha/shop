@@ -23,6 +23,14 @@
 <script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
 <link rel="stylesheet"
 	href="<%=basePath%>assets/management/images/zTreeStyle.css"	type="text/css">
+<style type="text/css">
+.cztree li {
+    padding: 3px;
+}
+.cztree * {
+    font-size: 13.5px;
+}
+</style>
 
 <script type="text/javascript">
 	var zTree;
@@ -93,7 +101,7 @@
 							<tr>
 								<td width=260px align=left valign=top
 									style="BORDER-RIGHT: #999999 1px dashed">
-									<ul id="tree" class="ztree"
+									<ul id="tree" class="ztree cztree"
 										style="width: 260px; overflow: auto;"></ul>
 								</td>
 							</tr>

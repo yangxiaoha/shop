@@ -54,6 +54,8 @@
 	        		   },1000);
 	        		   tableI.table().draw();
 	        		   it.reAsyncChildNodes(null, "refresh");
+	        		   t.reAsyncChildNodes(null, "refresh");
+	        		   et.reAsyncChildNodes(null, "refresh");
 	        	   },
 	        	   error:function(){
 	        		   $("#dcontext").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");

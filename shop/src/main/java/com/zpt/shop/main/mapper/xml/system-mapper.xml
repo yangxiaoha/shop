@@ -36,6 +36,7 @@
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
 		select sys.id as id,sys.skey as skey,sys.sysvalue as sysvalue
 		from t_system as sys
+		order by id desc
 		<include refid="queryCondition"/>
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>

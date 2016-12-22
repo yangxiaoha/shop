@@ -42,8 +42,19 @@ $(document).ready(function(){
         		var rowid = $(this).data("rowid");
         		var api = new $.fn.dataTable.Api( settings );
                 var obj = api.rows(rowid).data()[0];
+                if(obj.pid != 0){                	
+                	var treeObj = $.fn.zTree.getZTreeObj("tree");
+                	var nodes = treeObj.getNodesByParam("id",obj.pid, null);
+                	$("#uuname").val(nodes[0].name);
+                };
         		$("#uid").val(obj.id);
+        		$("#upid").val(obj.pid);
         		$("#uname").val(obj.name);
+        		if(obj.isParent){
+        			$("#uisParent").val(1);
+        		}else{
+        			$("#uisParent").val(0);
+        		}
         		$("#updateModal").modal("show");
         	});
         },
