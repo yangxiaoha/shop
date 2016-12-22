@@ -53,6 +53,7 @@
 		        		   $("#dcontext").html("确认删除当前选项？");
 	        		   },1000);
 	        		   tableI.table().draw();
+	        		   it.reAsyncChildNodes(null, "refresh");
 	        	   },
 	        	   error:function(){
 	        		   $("#dcontext").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");

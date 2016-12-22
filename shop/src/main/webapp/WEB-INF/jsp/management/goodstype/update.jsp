@@ -53,6 +53,10 @@
 													<input type="hidden"	placeholder="" 
 													id="uisParent" name="isParent" value = "1" type="text">
 											</div>
+											<div>
+												<button class="btn btn-default-outline" style ="float:right;margin:5px" 
+												id = "dpid"	type="button">取消上级类型</button>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -72,7 +76,7 @@
 <script>
 	var zTreeUpdate;
 	var domeIframeUpdate;
-
+	var et;
 	var settingUpdate = {
 			view: {
 				selectedMulti: false
@@ -107,6 +111,7 @@
 	$(document).ready(function() {
 		var t = $("#etree");
 		t = $.fn.zTree.init(t, settingUpdate);
+		et = t;
 		domeIframeUpdate = $("#testIframe");
 		domeIframeUpdate.bind("load", loadReady);
 		var zTreeUpdate = $.fn.zTree.getZTreeObj("etree");
@@ -171,6 +176,8 @@
         		   },1000);
         		   reset(form);
         		   tableI.table().draw();
+        		   it.reAsyncChildNodes(null, "refresh");
+        		   et.reAsyncChildNodes(null, "refresh");
         	   },
         	   error:function(){
         		   $(".loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");

@@ -111,9 +111,11 @@
 		}
 		return childNodes;
 	};
+	var it;
 	$(document).ready(function() {
 		var t = $("#tree");
 		t = $.fn.zTree.init(t, setting);
+		it = t;
 		demoIframe = $("#testIframe");
 		demoIframe.bind("load", loadReady);
 	});

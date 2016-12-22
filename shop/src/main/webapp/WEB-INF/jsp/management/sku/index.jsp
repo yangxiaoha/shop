@@ -60,7 +60,6 @@
 								<p>商品编码：${goodsM.code }</p>
 								<p>商品品牌：${goodsM.brandName }</p>
 								<p>所属门店：${goodsM.store }</p>
-								<p>描述信息：${goodsM.content }</p>
 							</div>
 						</div>
 					</div>

@@ -157,6 +157,24 @@ public class GoodsCtrler {
 		}		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/updateContent",method = RequestMethod.POST)
+	public Msg updateContent(Integer id, String content){
+		Msg msg = new Msg();
+		try {
+			goodsService.updateContent(id,content);
+			msg.setState(Contants.RETURN_INT_SUCCESS);
+			msg.setMsg(Contants.UPDATE_SUCCESS);
+			return msg;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			msg.setState(Contants.RETURN_INT_FAIL);
+			msg.setMsg(Contants.UPDATE_LOST);
+			return msg;
+		}		
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value ="/getTreeData", method = RequestMethod.POST)

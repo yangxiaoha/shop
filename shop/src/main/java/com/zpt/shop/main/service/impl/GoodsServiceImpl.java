@@ -167,4 +167,10 @@ public class GoodsServiceImpl implements GoodsService {
 		goodsMapper.updateNum(id, num);
 	}
 
+	@Override
+	public void updateContent(Integer id, String content) {
+		// TODO Auto-generated method stub
+		goodsMapper.updateContent(id, content);
+	}
+
 }

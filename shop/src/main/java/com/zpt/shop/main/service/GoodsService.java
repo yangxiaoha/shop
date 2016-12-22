@@ -26,6 +26,8 @@ public interface GoodsService {
 	
 	public List<Goods> getGoodsByBrandId(String brandId);
 	
+	public void updateContent(Integer id, String content);
+	
 	/**
 	 * 分页查找商品
 	 * @param String pageStart 开始的下标
