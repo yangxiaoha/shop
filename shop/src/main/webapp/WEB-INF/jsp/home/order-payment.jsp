@@ -20,15 +20,69 @@
 </head>
 <body style="background-color: #ECECF2">
     <div id="wrap">
-        <div class="nav-bar write-order ta-center clearfloat">
-          <p class="clearfloat">返回</p>填写订单
+      <div class="nav-bar write-order ta-center clearfloat">
+        <p class="clearfloat">返回</p>填写订单
+      </div>
+      
+      <c:if test="${!empty cartsMsg}">
+      <div class="order-detail p10"> 
+        <div class="order-detail-addr">
+          <h4 class="mb5"><span id="oldName"></span>,<span id="oldPhone"></span></h4>
+          <p class="fc-9fa0a0 fs-12" id="oldAddress"></p>
+          <a href="javascript:void(0)" class="icon-item" id="getAddr" style="display: block; color: #231815;">
+            <span class="iconfont">&#xe7f7;</span>
+          </a>
         </div>
+        <p class="order-detail-total p5 clearfloat">
+          <span class="fl">商品合计：</span>
+          <span class="fr font-price">￥${money}</span>
+        </p>
+        <c:forEach items="${cartsMsg}" var="cartsList">     
+            <div class="order-detail-goods p5">
+              <div class="order-show order-list clearfloat">
+                <img src="<%=basePath%>${cartsList.url}">
+                <ul class="shopping-car-detail pv5">
+                  <li class="fc-595757 mb5">${cartsList.name}</li>
+                  <li class="fc-9fa0a0 fs-1rem">已选 ${cartsList.value}</li>
+                </ul>
+                <div class="shopping-car-edit pv5">
+                  <p class="font-price">￥${cartsList.price} x${cartsList.num}</p>
+                </div>
+              </div>
+            </div>                        
+        </c:forEach>
+        <form class="order-remarks" id="buyGoodsForm">
+          <div>
+            <label for="remarks" class="fc-9fa0a0">备注:</label>
+            <textarea id="remarks" name="memo"></textarea>
+            <input type="hidden" id="proviceFirstStageName" value="" />
+            <input type="hidden" id="addressCitySecondStageName" value="" />
+            <input type="hidden" id="addressCountiesThirdStageName" value="" />
+            <input type="hidden" id="addressPostalCode" value="" />
+            <input type="hidden" id="addressDetailInfo" value="" />       
+            <input type="hidden" id="telNumber" value="" />
+            <input type="hidden" id="username" value="" />
+          </div>
+        </form> 
+        <form id="buyGoodsSubForm" action="submitOrder" method="post" style="width: 0; height: 0;">
+          <input type="hidden" id="postData" name="postData" />
+          <input type="hidden" id="cartIds" name="cartIds" />
+          <input type="hidden" id="state" name="state" value="${state}" />
+        </form> 
+        <div class="tab-bar order-tab-bar">   
+	      <p class="fl">实付款</p>           
+	      <p class="fr payment">付款</p>
+	      <p class="fr font-price">￥${money}</p>
+	    </div>
+	  </div>
+      </c:if>
     
+      <c:if test="${!empty orderMsg}">
         <c:forEach items="${orderMsg}" var="orderList">
           <div class="order-detail p10">      
             <div class="order-detail-addr">
               <h4 class="mb5"><span id="oldName">${orderList.name}</span>，<span id="oldPhone">${orderList.phone}</span></h4>
-              <p class="fc-9fa0a0 fs-12"  id="oldAddress">${orderList.address}</p>
+              <p class="fc-9fa0a0 fs-12" id="oldAddress">${orderList.address}</p>
               <a href="javascript:void(0)" class="icon-item" id="getAddr" style="display: block; color: #231815;">
                 <span class="iconfont">&#xe7f7;</span>
               </a>
@@ -64,19 +118,20 @@
                 <input type="hidden" id="username" value="" />
               </div>
             </form> 
-            <form id="buyGoodsSubForm" action="../submitOrder" method="post" style="width: 0; height: 0;">
+            <form id="buyGoodsSubForm" action="submitOrder" method="post" style="width: 0; height: 0;">
               <input type="hidden" id="postData" name="postData" />
-              <input type="hidden" id="orderId" name="orderId" value="${orderId}" />
-              <input type="hidden" id="state" name="state" value="1" />
+              <input type="hidden" id="orderId" name="orderId" />
+              <input type="hidden" id="state" name="state" value="${state}" />
             </form>                         
           </div>
-    
           <div class="tab-bar order-tab-bar">   
-            <p class="fl">实付款</p>           
-            <p class="fr payment">付款</p>
-          <p class="fr font-price">￥${orderList.totalPrice}</p>
-          </div>
-        </c:forEach>
+	        <p class="fl">实付款</p>           
+	        <p class="fr payment">付款</p>
+	        <p class="fr font-price">￥${orderList.totalPrice}</p>
+	      </div>
+	    </c:forEach>
+      </c:if>
+   
     </div>
     
     <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
@@ -103,6 +158,7 @@
     		    function(res){
     				WeixinJSBridge.log(res.err_msg);
     				alert(res.err_code+res.err_desc+res.err_msg);
+                    $("#buyGoodsSubForm").submit();
     		    }
     		);
     	}
@@ -139,7 +195,7 @@
         }); 
         
         wx.ready(function(){
-        	getAddr();          
+            getAddr();         
         });
         
         $(document).ready(function() {
@@ -154,7 +210,6 @@
                 $("#postData").val(jsonString);
                 //onBridgeReady();
                 callpay();
-                $("#buyGoodsSubForm").submit();
             });
             $("#getAddr").click(function() {
                 getAddr();

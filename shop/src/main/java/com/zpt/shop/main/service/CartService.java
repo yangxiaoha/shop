@@ -26,6 +26,12 @@ public interface CartService {
 	 * @param String userId 用户id
 	 * */
 	public List<Cart> getCartInfo(String userId);
+	
+	/**
+	 * 购物车信息
+	 * @param String cartIds 购物车id
+	 * */
+	public List<Cart> getCartInfoById(String cartIds);
 
 	/**
 	 * 删除购物车

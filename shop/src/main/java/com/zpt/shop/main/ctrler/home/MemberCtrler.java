@@ -31,7 +31,6 @@ import com.zpt.shop.main.service.OrderService;
 import com.zpt.shop.main.service.UserService;
 import com.zpt.shop.main.service.WithdrawService;
 import com.zpt.shop.main.service.WxMpService;
-import com.zpt.shop.weixin.utils.WeiXinQr;
 import com.zpt.shop.weixin.utils.WeixinUtils;
 
 /**
@@ -201,10 +200,10 @@ public class MemberCtrler {
 
 	//提现
 	@RequestMapping(value="/withdrawals", method=RequestMethod.GET)
-	public ModelAndView withdrawals() {
+	public ModelAndView withdrawals(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("home/withdrawals");
-		Integer userId = 1;//先设置用户为1
-		List<Withdraw> withdrawsList = withdrawService.getWithdrawsInfo(userId);
+		User user = (User) request.getSession().getAttribute("user");
+		List<Withdraw> withdrawsList = withdrawService.getWithdrawsInfo(user.getId());
 		mv.addObject("withdrawsMsg", withdrawsList);
 		return mv;
 	}
@@ -212,9 +211,10 @@ public class MemberCtrler {
 	//提现
 	@ResponseBody
 	@RequestMapping(value="/withdrawalsApply", method=RequestMethod.POST)
-	public Map<String,Object> withdrawalsApply(String money) {
+	public Map<String,Object> withdrawalsApply(HttpServletRequest request, String money) {
 		Map<String,Object> map = new HashMap<String, Object>();
-		Integer userId = 1;//先设置用户为1
+		User user = (User) request.getSession().getAttribute("user");
+		Integer userId = user.getId();//先设置用户为1
 		//提现申请
 		List<Withdraw> withdrawsList = withdrawService.addWithdrawsInfo(userId, money);
 		map.put("state", true);
@@ -275,7 +275,6 @@ public class MemberCtrler {
 	public ModelAndView myAgent(HttpServletRequest request) throws WxErrorException {
 		ModelAndView mv = new ModelAndView("home/my-agent");
 		//获取用户信息
-		//User user = userService.getUserByOpenId("1111");
 		User user = (User) request.getSession().getAttribute("user");
 		//代理人信息
 		List<User> userList = userService.getAgentInfoByMyId(user.getId());

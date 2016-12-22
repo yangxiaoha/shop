@@ -40,4 +40,8 @@ public interface OrderMapper {
 
 	public Order getOrderInfoByCode(@Param("orderNum")String ordercode);
 
+	public void updateOrder(Integer userId, Order order);
+
+	public void updateOrder(Order order);
+
 }

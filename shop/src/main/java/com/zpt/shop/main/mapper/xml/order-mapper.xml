@@ -106,6 +106,17 @@
 		values (#{userId}, #{address}, #{postalCode}, #{provinceName}, #{cityName}, #{countryName}, #{ordertime}, #{name}, #{phone}, #{totalPrice}, #{memo}, #{ordernum}, #{state})
 	</insert>
 	
+	<update id="updateOrder">
+		update t_order set 
+		address = #{address},
+		postalCode = #{postalCode},
+		provinceName = #{provinceName},
+		cityName = #{cityName},
+		name = #{name},
+		phone = #{phone}
+		where id = #{id}
+	</update>
+	
 	<select id="getOrder" resultMap="resultMap">
 		select * from t_order where userId = #{userId} and ordernum = #{orderNum}
 	</select>
@@ -149,11 +160,11 @@
 	</select>
 	
 	<update id="updateOrderState">
-		update t_order set sate = #{state} where ordernum = #{ordercode}
+		update t_order set state = #{state} where ordernum = #{ordercode}
 	</update>
 	
 	<update id="updateOrderStateByOrderId">
-		update t_order set sate = #{state} where id = #{orderId}
+		update t_order set state = #{state} where id = #{orderId}
 	</update>
 	
 	<select id="getOrderInfoByCode" resultMap="resultMap">

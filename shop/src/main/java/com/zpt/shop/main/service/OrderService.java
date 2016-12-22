@@ -27,6 +27,12 @@ public interface OrderService {
 	public void addOrder(Integer userId, Order order, String cartIds);
 	
 	/**
+	 * 修改订单信息
+	 * @param Order order 订单信息 
+	 * */
+	public void updateOrder(Order order);
+	
+	/**
 	 * 订单详情
 	 * @param Integer userId 用户id
 	 * @return List<Order>

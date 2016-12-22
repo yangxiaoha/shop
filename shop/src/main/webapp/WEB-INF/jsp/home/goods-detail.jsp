@@ -29,10 +29,9 @@
 </head>
 <body>
 	<div id="wrap">
-	    <div class="goods-parameter-detail mb80">
-			<img src="<%=basePath%>assets/home/images/goods-detail.png">
-			<img src="<%=basePath%>assets/home/images/goods-detail.png">
-		</div>
+		<c:if test="${!empty goodsMsg}">
+			<div class="goods-parameter-detail mb80">${goodsMsg.content}</div>
+		</c:if>
 	
 		<ul class="tab-bar index-tab-bar">
 			<li>
@@ -105,7 +104,7 @@
 	        </div>
 	        <div class="goods-purchase" style="position: relative; border-top: 1px solid #C7C3C5;">
 	        	<p class="parameter-prompt">请选择商品属性</p>
-	        	<a href="#" class="purchase" id="purchase">立即购买</a>
+	        	<a href="javascript:void(0)" class="purchase" id="purchase">立即购买</a>
 	        </div>
 		</div>
 	
@@ -353,7 +352,7 @@
 					        })
 		        		}
 						if(state == 1) {
-							$("#purchase").attr('href','buyImmediately/'+goodsStock[sub].id+'/'+$("#purchaseNum").text()+'/'+goodsStock[sub].price);
+							$("#purchase").attr('href','../buyImmediately/'+goodsStock[sub].id+'/'+$("#purchaseNum").text()+'/'+goodsStock[sub].price);
 		        		}
 		        	}						
 				}else {

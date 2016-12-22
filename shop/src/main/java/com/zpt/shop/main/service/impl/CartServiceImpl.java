@@ -33,7 +33,7 @@ public class CartServiceImpl implements CartService {
 		BigDecimal totalPrice = new BigDecimal("0.0");
         BigDecimal money = new BigDecimal(price);
 		totalPrice = money.multiply(new BigDecimal(num));
-		if(cart != null && "".equals(cart)) {
+		if(cart != null && !("".equals(cart))) {
 			num = num + cart.getNum();
 			cartMapper.updateGoodsIntoCart(userId, skuId, num, price, totalPrice);
 		}else {
@@ -54,6 +54,17 @@ public class CartServiceImpl implements CartService {
 	public List<Cart> getCartInfo(String userId) {
 		// TODO Auto-generated method stub
 		List<Cart> list = cartMapper.getCartInfo(userId);
+		if(list != null && list.size() > 0) {
+			return list;	
+		}else {
+			return null;
+		}
+	}
+	
+	@Override
+	public List<Cart> getCartInfoById(String cartIds) {
+		// TODO Auto-generated method stub
+		List<Cart> list = cartMapper.getCartInfoById(cartIds);
 		if(list != null && list.size() > 0) {
 			return list;	
 		}else {
