@@ -47,7 +47,7 @@
 	<select id="listBrand" resultMap="resultMap" parameterType="query">
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
 		select brand.id as id,brand.name as name,brand.content as content,brand.supplierId as supplierId,supplier.name as suppliername 
-		 from t_goods_brand as brand left join t_goods_supplier as supplier on brand.supplierId=supplier.id
+		 from t_goods_brand as brand left join t_goods_supplier as supplier on brand.supplierId=supplier.id order by id desc
 		<include refid="queryCondition"/>
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>

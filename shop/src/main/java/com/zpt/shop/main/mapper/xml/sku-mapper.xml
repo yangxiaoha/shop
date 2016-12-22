@@ -54,6 +54,7 @@
 		left join (select pro_val.skuId,group_concat(pro_val.value SEPARATOR '|#$%|') as value,
 		group_concat(pro_val.id) as ids from t_goods_pro_val as pro_val group by pro_val.skuId) 
 		as t on t.skuid = sku.id
+		order by id desc
 		<include refid="queryCondition"/>
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>

@@ -38,7 +38,7 @@
 										<div class="col-md-12">
 											<div class="form-group divb0"
 												style="margin-bottom: 0px !important;">
-												<label for="name">商品名称</label><input class="form-control"
+												<label for="name">商品类型名称</label><input class="form-control"
 													placeholder="请输入商品类型名称" id="uname" name="name" type="text">
 											</div>
 										</div>
@@ -46,16 +46,16 @@
 									<div class="row">
 										<div class="col-md-12">
 											<div class="form-group divb0">
-												<label for="pid">商品类型</label> <input class="form-control"
+												<label for="pid">上级商品类型</label> <input class="form-control"
 													placeholder="请输入商品类型" readonly="readonly" id="uuname"
 													name="" type="text"><input type="hidden"
-													placeholder="" id="upid" name="pid" value = "0" type="text">
+													placeholder="" id="upid" name="pid" type="text">
 													<input type="hidden"	placeholder="" 
-													id="uisParent" name="isParent" value = "1" type="text">
+													id="uisParent" name="isParent" type="text">
 											</div>
 											<div>
 												<button class="btn btn-default-outline" style ="float:right;margin:5px" 
-												id = "dpid"	type="button">取消上级类型</button>
+												id = "dupid"	type="button">取消上级类型</button>
 											</div>
 										</div>
 									</div>
@@ -76,7 +76,7 @@
 <script>
 	var zTreeUpdate;
 	var domeIframeUpdate;
-	var et;
+	var et;	
 	var settingUpdate = {
 			view: {
 				selectedMulti: false
@@ -93,14 +93,26 @@
 			}
 	};
 	function zTreeOnClickUpdate(event, treeId, treeNode) {
-		console.log(treeNode);
+		console.log(treeNode);		
 		$("#upid").val(treeNode.id);
 		$("#uuname").val(treeNode.name);
-		if(apid.value != 0){
+		$("#uisParent").val(0);
+		if(treeNode.isParent == 0){
+			alert("菜单只能有2级！");
+			$("#upid").val("0");
+			$("#uisParent").val("1");
+			$("#uname").val("");
+		}
+		if(upid.value != 0){
 			$("#uisParent").val(0);
 		}
 	   //alert(treeNode.id + ", " + treeNode.name);
 	};
+	$("#dupid").click(function(){
+		$("#upid").val(0);
+		$("#uisParent").val(1);
+		$("#uuname").val("");
+	});
 	function filter(treeId, parentNode, childNodes) {
 		if (!childNodes) return null;
 		for (var i=0, l=childNodes.length; i<l; i++) {
@@ -111,7 +123,7 @@
 	$(document).ready(function() {
 		var t = $("#etree");
 		t = $.fn.zTree.init(t, settingUpdate);
-		et = t;
+		et = t;		
 		domeIframeUpdate = $("#testIframe");
 		domeIframeUpdate.bind("load", loadReady);
 		var zTreeUpdate = $.fn.zTree.getZTreeObj("etree");
@@ -155,8 +167,8 @@
         },
         messages: {
           name: {
-	        	 required:"请输入商品名称",
-	        	 remote:"该商品已存在"
+	        	 required:"请输入商品类型名称",
+	        	 remote:"该类型已存在"
 	      }
         },
         submitHandler: function(form) {   
@@ -178,6 +190,7 @@
         		   tableI.table().draw();
         		   it.reAsyncChildNodes(null, "refresh");
         		   et.reAsyncChildNodes(null, "refresh");
+        		   t.reAsyncChildNodes(null, "refresh");
         	   },
         	   error:function(){
         		   $(".loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");

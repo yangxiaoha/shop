@@ -17,6 +17,15 @@
 	src="<%=basePath%>assets/management/datatablejs/goodstype.js"	type="text/javascript"></script>
 <link rel="stylesheet" href="<%=basePath%>assets/management/images/zTreeStyle.css"
 	type="text/css">
+<style type="text/css">
+.cztree li {
+    padding: 3px;
+}
+.cztree * {
+    font-size: 13.5px;
+}
+</style>
+	
 </head>
 <body>
 	<div class="container-fluid main-content">
@@ -28,8 +37,8 @@
 						<table border=0 height=600px align=left>
 							<tr>
 								<td width=260px align=left valign=top
-									style="BORDER-RIGHT: #999999 1px dashed">
-									<ul id="tree" class="ztree"
+									style="BORDER-RIGHT: #999999 1px dashed; ">
+									<ul id="tree" class="ztree cztree"
 										style="width: 260px; overflow: auto;"></ul>
 								</td>
 							</tr>
@@ -46,21 +55,13 @@
 								class="icon-plus"></i>添加</a>
 						</div>
 						<div class="widget-content padded clearfix">
-							<div class="col-lg-12">
-								<table class="table table-bordered table-striped table-hover">
-									<tr>
-										<td>商品类型名称:</td>
-										<td><input class="form-control" type="text" id="name"
-											name="name" >	
-									</tr>
-								</table>
-							</div>
+							
 							<hr>
 							<table class="table table-bordered table-striped table-hover"
 								id="datatable" width="100%">
 								<thead>
 									<th></th>
-									<th class="check-header hidden-xs"><label><input
+									<th class="check-header hidden-xs " width = 10%><label><input
 											id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 									</th>									
 									<th>商品类型名称</th>																	

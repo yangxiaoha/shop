@@ -36,7 +36,7 @@
 	
 	<select id="listSupplier" resultMap="resultMap" parameterType="query">
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
-		select * from t_goods_supplier
+		select * from t_goods_supplier order by id desc
 		<include refid="queryCondition"/>
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>

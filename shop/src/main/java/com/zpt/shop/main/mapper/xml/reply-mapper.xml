@@ -39,6 +39,7 @@
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
 		select reply.id as id,reply.skey as skey,reply.reply as reply
 		from t_reply as reply
+		order by id desc
 		<include refid="queryCondition"/>
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>
