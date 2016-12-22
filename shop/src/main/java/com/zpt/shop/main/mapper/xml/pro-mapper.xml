@@ -37,9 +37,9 @@
 	<select id="listPro" resultMap="resultMap" parameterType="query">
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
 		select pro.id as id,pro.name as name,pro.typeId as typeId,type.name as typeName 
-		from t_goods_pro as pro left join t_goods_type as type on pro.typeId = type.id
-		order by id desc
+		from t_goods_pro as pro left join t_goods_type as type on pro.typeId = type.id		
 		<include refid="queryCondition"/>
+		order by id desc
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>
 	

@@ -43,8 +43,9 @@
 	<select id="listGoodsType" resultMap="resultMap" parameterType="query">
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
 		select type.id as id,type.name as name,type.pid as pid,type.isParent as isParent 
-		from t_goods_type as type order by id desc
+		from t_goods_type as type 
 		<include refid="queryCondition"/>
+		order by id desc
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>
 	

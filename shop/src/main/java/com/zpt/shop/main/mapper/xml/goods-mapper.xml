@@ -77,8 +77,9 @@
 		goods.brandId as brandId,goods.ids as ids,brand.name as brandName,type.name as typename,
 		goods.store as store 
 		from t_goods as goods left join t_goods_brand as brand on goods.brandId = brand.id left join 
-		t_goods_type as type on goods.typeId = type.id order by id desc
+		t_goods_type as type on goods.typeId = type.id 
 		<include refid="queryCondition"/>
+		order by id desc
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>
 	
