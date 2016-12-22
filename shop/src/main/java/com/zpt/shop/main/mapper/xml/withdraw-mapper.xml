@@ -67,8 +67,8 @@
 	</select>
 	
 	<insert id="addWithdrawsInfo" parameterType="withdraw">
-	    insert into t_withdraw_cash (userId, cashnum, cashtime, money, state) 
-		values (#{userId}, #{cashNum}, #{cashTime}, #{cashMoney}, #{state})
+	    insert into t_withdraw_cash (userId, username, cashnum, cashtime, money, state) 
+		values (#{userId}, #{username}, #{cashNum}, #{cashTime}, #{cashMoney}, #{state})
 	</insert>
 	
 </mapper>

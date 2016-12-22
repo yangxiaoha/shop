@@ -25,7 +25,7 @@
 	      <c:if test="${!empty headImg}">
 	      	<img src="${headImg}">
 	      </c:if>	      
-	      <p style="color: #fff;">${name}</p>
+	      <p style="color: #fff; font-size: 1.8rem; line-height: 120px;">${name}</p>
 	    </div>
 	
 	    <div class="present-info mb10">
@@ -80,19 +80,19 @@
 	
 	  	<ul class="tab-bar order-detail-tab-bar">
 	      <li>
-	        <a href="index.html">
+	        <a href="../mainindex/index">
 	          <span class="tab-bar-bg home-page"></span>
 	          <span>首页</span>
 	        </a>
 	      </li>
 	      <li>
-	        <a href="order.html">
+	        <a href="../purchase/orderDetail">
 	          <span class="tab-bar-bg order"></span>
 	          <span>我的订单</span>
 	        </a>
 	      </li>
 	      <li>
-	        <a href="withdrawals.html">
+	        <a href="withdrawals">
 	          <span class="tab-bar-bg member-center"></span>
 	          <span>会员中心</span>
 	        </a>

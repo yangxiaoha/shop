@@ -19,8 +19,13 @@
 <body>
 	<div id="wrap">
 		<div class="user-info">
-	      <img src="images/carousel-img1.jpg">
-	      <p style="color: #fff;">用户名</p>
+	      <c:if test="${empty headImg}">
+	      	<img src="<%=basePath%>assets/home/images/headImg.png">
+	      </c:if>
+	      <c:if test="${!empty headImg}">
+	      	<img src="${headImg}">
+	      </c:if>	      
+	      <p style="color: #fff; font-size: 1.8rem; line-height: 120px;">${name}</p>
 	    </div>
 	
 	    <div class="withdrawals-info p10 mb10 bc-fff">
@@ -78,7 +83,7 @@
 	        </a>
 	      </li>
 	      <li>
-	        <a href="index.html">
+	        <a href="myQr">
 	          <span class="tab-bar-bg qr-code"></span>
 	          <span>我的二维码</span>
 	        </a>

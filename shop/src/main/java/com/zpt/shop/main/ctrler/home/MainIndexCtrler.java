@@ -201,7 +201,8 @@ public class MainIndexCtrler {
 	                    }else {	                    	
 	                    	Integer val = goodsSkuList.get(i).getNum()+orderDetailList.get(j).getNum();
 	                    	goodsSkuList.get(i).setNum(val);
-	                    	orderService.updateOrderStateByOrderId(orderDetailList.get(j).getOrderId());
+	                    	Integer state = 0;
+	                    	orderService.updateOrderStateByOrderId(orderDetailList.get(j).getOrderId(), state);
 	                    }
 					}
 				}

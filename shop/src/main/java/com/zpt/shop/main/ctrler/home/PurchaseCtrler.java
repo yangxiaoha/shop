@@ -331,15 +331,20 @@ public class PurchaseCtrler {
 		ModelAndView mv = new ModelAndView("home/order-detail");		
 		User user = (User) request.getSession().getAttribute("user");
 		Order order = (Order) JSON.parseObject(postData, Order.class);
+		System.out.println("订单地址:-----------"+order.getAddress()); 
+		System.out.println("订单provinceName:-----------"+order.getProvinceName()); 
+		System.out.println("订单cityName:-----------"+order.getCityName()); 
+		System.out.println("订单countryName:-----------"+order.getCountryName()); 
+		System.out.println("订单postalCode:-----------"+order.getPostalCode()); 
 		if("0".equals(state)) {//从我的购物车过来的付款			
 			//添加订单
-			System.out.println("订单信息:-----------"+order); 
+			System.out.println("添加订单信息:-----------"); 
 			orderService.addOrder(user.getId(), order, cartIds);
 		}else if("1".equals(state)) {//从订单过来的付款
 			//修改订单
 			order.setUserId(user.getId());
 			order.setId(orderId);
-			System.out.println("订单信息:-----------"+order); 
+			System.out.println("修改订单信息:-----------"); 
 			orderService.updateOrder(order);
 		}
 		//查询订单详情
@@ -361,9 +366,10 @@ public class PurchaseCtrler {
 	}
 	
 	//确认收货
-	@RequestMapping(value="/receipt", method=RequestMethod.POST)
-	public String receipt(HttpServletRequest request) {
-		return "";
+	@RequestMapping(value="/receipt/{orderId}", method=RequestMethod.POST)
+	public void receipt(HttpServletRequest request, @PathVariable("orderId")Integer orderId) {
+		Integer state = 4;
+		orderService.updateOrderStateByOrderId(orderId, state);
 	}
 	
 }

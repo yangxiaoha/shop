@@ -17,9 +17,13 @@
 <title>一见喜</title>
 <style>
 	.recharge-qr {
-	    width: 200px;
-    	height: 200px;
-    	margin: 60px auto;
+	    margin: 120px auto;
+	}
+	.recharge-qr > img {
+		display: block;
+		margin: 0 auto;
+		text-align: center;
+	    vertical-align: middle;
 	}
 </style>
 </head>

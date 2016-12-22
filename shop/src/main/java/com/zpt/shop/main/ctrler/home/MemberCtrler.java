@@ -118,7 +118,7 @@ public class MemberCtrler {
 		List<Withdraw> withdrawList = withdrawService.getMemberInfo(user.getId());
 		if(withdrawList != null && withdrawList.size() > 0) {
 			for(int i=0; i<withdrawList.size(); i++) {
-				BigDecimal price = new BigDecimal(withdrawList.get(i).getCashMoney());
+				BigDecimal price = withdrawList.get(i).getCashMoney();
 				totalPrice = totalPrice.add(price);
 			}
 			mv.addObject("totalPrice", totalPrice);
@@ -203,7 +203,11 @@ public class MemberCtrler {
 	public ModelAndView withdrawals(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("home/withdrawals");
 		User user = (User) request.getSession().getAttribute("user");
+		String userName = (String) request.getSession().getAttribute("userName");
+		String userHeadImg = (String) request.getSession().getAttribute("userHeadImg");
 		List<Withdraw> withdrawsList = withdrawService.getWithdrawsInfo(user.getId());
+		mv.addObject("userName", userName);
+		mv.addObject("userHeadImg", userHeadImg);
 		mv.addObject("withdrawsMsg", withdrawsList);
 		return mv;
 	}
@@ -214,9 +218,10 @@ public class MemberCtrler {
 	public Map<String,Object> withdrawalsApply(HttpServletRequest request, String money) {
 		Map<String,Object> map = new HashMap<String, Object>();
 		User user = (User) request.getSession().getAttribute("user");
-		Integer userId = user.getId();//先设置用户为1
+		Integer userId = user.getId();
+		String userName = (String) request.getSession().getAttribute("userName");
 		//提现申请
-		List<Withdraw> withdrawsList = withdrawService.addWithdrawsInfo(userId, money);
+		List<Withdraw> withdrawsList = withdrawService.addWithdrawsInfo(userId, userName, money);
 		map.put("state", true);
 		map.put("withdrawsMsg", withdrawsList);
 		return map;

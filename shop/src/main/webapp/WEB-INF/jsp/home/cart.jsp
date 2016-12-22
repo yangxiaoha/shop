@@ -114,8 +114,8 @@
 	  		<!--无商品-->
 	  		<c:if test="${empty cartsMsg}">
 	  			<div class="no-shopping-car-show ta-center">
-		  			<div></div>
-		  			<a href="../mainindex/index" class="btn bc-c8161d" style="font-size: 2rem;">去逛逛</a>
+		  			<div><img src="<%=basePath%>assets/home/images/no-goods.png" /></div>
+		  			<a href="../mainindex/index" class="btn bc-c8161d" style="font-size: 1.4rem;">去逛逛</a>
 	  			</div>
 	  		</c:if>
 		  	<!--有商品-->
@@ -130,7 +130,7 @@
 				        </ul>
 				        <div class="shopping-car-edit">
 				          <p class="modify">修改</p>
-				          <p class="iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>
+				          <p class="mt8 iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>
 				          <input class="cartId" type="hidden" value="${cartsList.id}">
 				          <input class="goodsId" type="hidden" value="${cartsList.goodsId}">
 				          <input class="goodsSkuNum" type="hidden" value="${cartsList.skuNum}">
@@ -263,20 +263,24 @@
     	$(document).ready(function() {
     	    //结算
     	    $("#submitOrder").click(function() {
-    	    	var ids = "";
-    	    	$(".shopping-car-show").each(function() {
-   		        	if(ids != ""){
-   		            	ids+=","+$(this).find(".cartId").val();	
-   		        	}else{
-   		        		ids = $(this).find(".cartId").val();
-   		        	}
-    	    	});
-    	    	if(ids != ""){
-					$("#cartIds").val(ids);
-					$("#buyGoodsForm").submit();
-	        	}else{
-	        		$("#myModal").show();
-	        	}
+    	    	if($("#settlement").text() == 0) {
+    	    		alert("暂无商品，先去逛逛？");
+    	    	}else{
+        	    	var ids = "";
+        	    	$(".shopping-car-show").each(function() {
+       		        	if(ids != ""){
+       		            	ids+=","+$(this).find(".cartId").val();	
+       		        	}else{
+       		        		ids = $(this).find(".cartId").val();
+       		        	}
+        	    	});
+        	    	if(ids != ""){
+    					$("#cartIds").val(ids);
+    					$("#buyGoodsForm").submit();
+    	        	}else{
+    	        		$("#myModal").show();
+    	        	}
+    	    	}    	 
     	    });
     	});
     </script>
