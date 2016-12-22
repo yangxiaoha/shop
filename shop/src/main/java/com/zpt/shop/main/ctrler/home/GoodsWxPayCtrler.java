@@ -59,7 +59,8 @@ public class GoodsWxPayCtrler {
                 //这里写成功后的业务逻辑
                 
                 //付款状态改为2(支付未发货)
-     			orderService.updateOrderState(ordercode);
+                Integer state = 2;
+     			orderService.updateOrderState(ordercode, state);
      			
      			//增加购买人数
      			List<Sku> goodsidList = orderService.getOrderByOrderNum(ordercode);

@@ -56,7 +56,7 @@ public class WithdrawServiceImpl implements WithdrawService {
 	 * @param String money 提现金额
 	 * */
 	@Override
-	public List<Withdraw> addWithdrawsInfo(Integer userId, String money) {
+	public List<Withdraw> addWithdrawsInfo(Integer userId, String userName, String money) {
 		// TODO Auto-generated method stub
 		// 生成编号
 		long time = System.currentTimeMillis();
@@ -73,6 +73,7 @@ public class WithdrawServiceImpl implements WithdrawService {
 		}
 		Withdraw withdraw = new Withdraw();
 		BigDecimal cashMoney = new BigDecimal(money);
+		withdraw.setUsername(userName);
 		withdraw.setCashNum(cashNum);
 		withdraw.setCashTime(cashTime);
 		withdraw.setCashMoney(cashMoney);

@@ -21,7 +21,7 @@
 <body style="background-color: #ECECF2">
     <div id="wrap">
       <div class="nav-bar write-order ta-center clearfloat">
-        <p class="clearfloat">返回</p>填写订单
+        <a href="" class="clearfloat">返回</a>填写订单
       </div>
       
       <c:if test="${!empty cartsMsg}">

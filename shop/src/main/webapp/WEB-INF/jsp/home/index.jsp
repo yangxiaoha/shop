@@ -86,7 +86,12 @@
 				    	<a href="goodsDetail/${goodsList.id}">
 				    		<img src="<%=basePath%>${goodsList.url}" />
 							<p class="p5">${goodsList.name}</p>
-							<p class="mb5 font-price">￥${goodsList.price}</p>
+							<c:if test="${!empty goodsList.price}">
+								<p class="mb5 font-price">￥${goodsList.price}</p>
+							</c:if>
+							<c:if test="${empty goodsList.price}">
+								<p class="mb5 font-price">￥0.00</p>
+							</c:if>
 				    	</a>
 					</div>
 				</c:forEach>
@@ -95,7 +100,7 @@
 
 		<ul class="tab-bar index-tab-bar">
 			<li>
-				<a href="index.html">
+				<a href="index">
 					<span class="tab-bar-bg customer-service"></span>
 					<span>在线客服</span>
 				</a>

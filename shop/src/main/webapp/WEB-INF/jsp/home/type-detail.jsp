@@ -50,16 +50,23 @@
 	          </div>
 			</c:forEach>
 	      </div>
-	      <div class="goods-detail fr">
-	        <c:forEach items="${goodsMsg}" var="goodsList">
-			  <div class="goods-show">
-			    <a href="../goodsDetail/${goodsList.id}">
-			      <img src="<%=basePath%>${goodsList.url}" />
-				  <p class="p5">${goodsList.name}</p>
-				  <p class="mb5 font-price">￥${goodsList.price}</p>
-			    </a>
-			  </div>
-	        </c:forEach>
+	      <div id="loadGoods">
+	        <div class="goods-detail fr">
+	          <c:forEach items="${goodsMsg}" var="goodsList">
+			    <div class="goods-show">
+			      <a href="../goodsDetail/${goodsList.id}">
+			        <img src="<%=basePath%>${goodsList.url}" />
+				    <p class="p5">${goodsList.name}</p>
+				    <c:if test="${!empty goodsList.price}">
+				      <p class="mb5 font-price">￥${goodsList.price}</p>
+					</c:if>
+				    <c:if test="${empty goodsList.price}">
+					  <p class="mb5 font-price">￥0.00</p>
+					</c:if>
+			      </a>
+			    </div>
+	          </c:forEach>
+	        </div>
 	      </div>
 	    </div>
     </div>
@@ -119,7 +126,7 @@
 			}
 		});
 	</script>
-	    <!-- 加载更多 -->
+	<!-- 加载更多 -->
     <script>
 	    $(document).ready(function(){
 	    	var num = 3;

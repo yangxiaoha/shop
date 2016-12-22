@@ -187,9 +187,8 @@ public class OrderServiceImpl implements OrderService {
 	 * 修改订单状态
 	 * */
 	@Override
-	public void updateOrderState(String ordercode) {
+	public void updateOrderState(String ordercode, Integer state) {
 		// TODO Auto-generated method stub
-		Integer state = 2;
 		orderMapper.updateOrderState(ordercode, state);
 	}
 
@@ -197,9 +196,8 @@ public class OrderServiceImpl implements OrderService {
 	 * 修改订单状态
 	 * */
 	@Override
-	public void updateOrderStateByOrderId(Integer orderId) {
+	public void updateOrderStateByOrderId(Integer orderId, Integer state) {
 		// TODO Auto-generated method stub
-		Integer state = 0;
 		orderMapper.updateOrderStateByOrderId(orderId, state);
 	}
 

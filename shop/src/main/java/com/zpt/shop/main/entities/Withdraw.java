@@ -29,7 +29,7 @@ public class Withdraw {
 	//提现金额
 	private BigDecimal cashMoney;
 	
-	//提现状态
+	//提现状态(0等待，1成功)
 	private Integer state;
 	
 	private User user;	
@@ -72,8 +72,8 @@ public class Withdraw {
 		this.cashTime = cashTime;
 	}
 
-	public String getCashMoney() {
-		return cashMoney.toString();
+	public BigDecimal getCashMoney() {
+		return cashMoney;
 	}
 
 	public void setCashMoney(BigDecimal cashMoney) {

@@ -24,7 +24,7 @@ public interface WithdrawService {
 	 * 提现申请
 	 * @param Integer userId 用户id
 	 * */
-	public List<Withdraw> addWithdrawsInfo(Integer userId, String money);
+	public List<Withdraw> addWithdrawsInfo(Integer userId, String userName, String money);
 	
 	public Page<Withdraw> page(Query<Withdraw> query);
 	

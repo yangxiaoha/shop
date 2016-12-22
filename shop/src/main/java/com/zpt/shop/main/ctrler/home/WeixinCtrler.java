@@ -166,12 +166,16 @@ public class WeixinCtrler {
 
             	User user = userService.getUserByOpenId(fromUserName);
         		if(user != null) {//扫过码
+        			System.out.println("扫过码" + eventKey);
                 	if(user.getFpid() != null && !("".equals(user.getFpid()))) {//有上级
+                		System.out.println("有上级" + eventKey);
                 		userService.addUser(fromUserName, createTime, user.getFpid(), money);
                 	}else {//无上级
+                		System.out.println("无上级" + eventKey);
                 		userService.addUser(fromUserName, createTime, 0, money);
                 	}   
         		}else {
+        			System.out.println("关注" + eventKey);
         			userService.addUser(fromUserName, createTime, 0, money);
         		}       	
             }

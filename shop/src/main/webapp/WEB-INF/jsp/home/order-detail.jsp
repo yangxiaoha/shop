@@ -21,8 +21,16 @@
 <body style="background-color: #ECECF2 !important">
 	<div id="wrap">
 	  	<p class="nav-bar clearfloat"><span class="red-block"></span>订单详情</p>
-
-	    <div class="order-detail pv10">
+	  	
+	  	<c:if test="${empty orderMsg}">
+	  	  <div class="no-shopping-car-show ta-center">
+		  	<div><img src="<%=basePath%>assets/home/images/no-order.png" /></div>
+		  	<a href="../mainindex/index" class="btn bc-c8161d" style="font-size: 1.4rem;">去逛逛</a>
+	  	  </div>
+	  	</c:if>
+	
+		<c:if test="${!empty orderMsg}">
+		  <div class="order-detail pv10">
 	    	<c:forEach items="${orderMsg}" var="orderList">
 	    	  <div class="order-state-detail">
 		      	<div class="order-state clearfloat">
@@ -61,17 +69,18 @@
 		  		  	<button class="btn fr goPayment">去支付</button>
 		  		  </c:if> 
 		  		  <c:if test="${orderList.state == 4}">
-		  		  	<a href="receipt" class="btn fr">确认收货</a>
+		  		  	<a href="receipt/${orderList.id}" class="btn fr">确认收货</a>
 		  		  </c:if>	  
 		      	  <p class="fr">合计：<span class="font-price">￥${orderList.totalPrice}</span></p>
 		      	  <p class="fr mr10">共1件商品</p>
 		      	</div>
 		      </div>
 			</c:forEach>
-	    </div>
+	      </div>
+		</c:if>
 	    
 	    <form id="paymentForm" action="payment" method="post">
-	    	<input type="text" name="orderId" class="orderId" id="orderId" value="" />
+	    	<input type="hidden" name="orderId" class="orderId" id="orderId" value="" />
 	    </form>
 	
 	  	<ul class="tab-bar order-detail-tab-bar">

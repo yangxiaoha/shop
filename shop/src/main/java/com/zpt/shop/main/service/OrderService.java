@@ -78,12 +78,12 @@ public interface OrderService {
 	 * 修改订单状态
 	 * @param String ordercode 订单号
 	 * */
-	public void updateOrderState(String ordercode);
+	public void updateOrderState(String ordercode, Integer state);
 
 	/**
 	 * 修改订单状态
 	 * @param Integer orderId 订单id
 	 * */
-	public void updateOrderStateByOrderId(Integer orderId);
+	public void updateOrderStateByOrderId(Integer orderId, Integer state);
 
 }
