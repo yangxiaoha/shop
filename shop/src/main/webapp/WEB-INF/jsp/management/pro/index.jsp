@@ -53,22 +53,13 @@
 								data-toggle="modal" href="#addModal" id="add-row"><i
 								class="icon-plus"></i>添加</a>
 						</div>
-						<div class="widget-content padded clearfix">
-							<div class="col-lg-12">
-								<table class="table table-bordered table-striped table-hover">
-									<tr>
-										<td>商品属性名称:</td>
-										<td><input class="form-control" type="text" id="name"
-											name="name" >	
-									</tr>
-								</table>
-							</div>
+						<div class="widget-content padded clearfix">							
 							<hr>
 							<table class="table table-bordered table-striped table-hover"
 								id="datatable" width="100%">
 								<thead>
 									<th></th>
-									<th class="check-header hidden-xs"><label><input
+									<th class="check-header hidden-xs"  width = 10%><label><input
 											id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 									</th>									
 									<th>商品属性名称</th>																	

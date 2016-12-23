@@ -14,19 +14,19 @@
 				<form action="add" id="add" method="post">
 					<fieldset>
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<div class="form-group">
-									<label for="name">供应商名称</label><input
+									<label for="name">供应商名称(*)</label><input
 										class="form-control" placeholder="请输入供应商名称" id="aname" name="name"
 										type="text">
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<div class="form-group">
-									<label for="brief">供应商简介</label><input
-										class="form-control" placeholder="请输入供应商简介" id="abrief" name="brief" type="text">
+									<label for="brief">供应商简介</label><textarea class="form-control" rows="3"
+										placeholder="请输入供应商简介" id="abrief" name="brief"></textarea>
 								</div>
-							</div>
+							</div>							
 						</div>												
 					</fieldset>
 				</form>

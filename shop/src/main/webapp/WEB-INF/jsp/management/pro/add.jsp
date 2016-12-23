@@ -37,7 +37,7 @@
 										<div class="col-md-12">
 											<div class="form-group divb0"
 												style="margin-bottom: 0px !important;">
-												<label for="name">商品属性</label><input class="form-control"
+												<label for="name">商品属性(*)</label><input class="form-control"
 													placeholder="请输入商品属性名称" id="aname" name="name" type="text">
 											</div>
 										</div>
@@ -45,7 +45,7 @@
 									<div class="row">
 										<div class="col-md-12">
 											<div class="form-group divb0">
-												<label for="typeId">商品类型</label> <input class="form-control"
+												<label for="typeId">商品类型(*)</label> <input class="form-control"
 													placeholder="" readonly="readonly" id="atypeName"
 													name="typeName" type="text"> <input type="hidden"
 													placeholder="" id="atypeId" name="typeId" type="text">

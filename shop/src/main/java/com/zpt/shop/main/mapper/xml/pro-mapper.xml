@@ -8,11 +8,12 @@
 		<id property="id" column="id" />
 		<result property="name" column="name" />		
 		<result property="typeId" column="typeId" />								
+		<result property="state" column="state" />								
 	</resultMap>
 	
 	
 	<sql id="queryCondition">
-		where 1 = 1
+		where 1 = 1 and pro.state = 1
 		<if test="obj.name != null and obj.name != ''">
 			and pro.name like CONCAT('%',#{obj.name},'%')
 		</if>
@@ -25,7 +26,7 @@
 	</sql>
 	
 	<sql id="validateCondition">
-		where 1 = 1
+		where 1 = 1 and state = 1
 		<if test="id != null and id != ''">
 			and id != #{id}
 		</if>
@@ -36,10 +37,9 @@
 		
 	<select id="listPro" resultMap="resultMap" parameterType="query">
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
-		select pro.id as id,pro.name as name,pro.typeId as typeId,type.name as typeName 
+		select pro.id as id,pro.name as name,pro.typeId as typeId,type.name as typeName,pro.state as state
 		from t_goods_pro as pro left join t_goods_type as type on pro.typeId = type.id		
 		<include refid="queryCondition"/>
-		order by id desc
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>
 	
@@ -53,14 +53,14 @@
 		<include refid="validateCondition"/>
 	</select>
 	<select id="getAllPro" resultMap="resultMap" parameterType="pro">
-		select * from t_goods_pro where typeId = #{typeId}
+		select * from t_goods_pro where typeId = #{typeId} and state = 1
 	</select>
 		
 	<insert id="insertPro" parameterType="pro">
-		insert into t_goods_pro(name,typeId) values(#{name},#{typeId})
+		insert into t_goods_pro(name,typeId,state) values(#{name},#{typeId},1)
 	</insert>
 	<delete id="deletePro">
-		delete from t_goods_pro where id in (${ids})	
+		update t_goods_pro set state = 0 where id in (${ids})	
 	</delete>
 	<update id="updatePro" parameterType="pro">
 		update t_goods_pro set name = #{name},typeId = #{typeId} where id = #{id}

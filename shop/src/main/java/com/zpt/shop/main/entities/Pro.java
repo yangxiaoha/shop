@@ -9,6 +9,16 @@ public class Pro {
 	private Integer typeId;
 	
 	private String typeName;
+	
+	private Integer state;
+	
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
 
 	public Integer getId() {
 		return id;

@@ -16,8 +16,14 @@
 					<fieldset>
 						<div class="row">
 							<input type="hidden" id="eid" name="id">
-							<div class="col-md-12">
-								<label for="supplierId">供应商名称</label> <select
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="name">品牌名称(*)</label><input class="form-control"
+										placeholder="请输入品牌名称" id="ename" name="name" type="text">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label for="supplierId">供应商名称(*)</label> <select
 									class="reg-sel form-control" id="esupplierId" name="supplierId">
 									<c:forEach items="${supplierMsg}" var="supplierList">
 										<option value="${supplierList.id}">${supplierList.name}</option>
@@ -26,16 +32,10 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<div class="form-group">
-									<label for="name">品牌名称</label><input class="form-control"
-										placeholder="请输入品牌名称" id="ename" name="name" type="text">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="content">品牌简介</label><input class="form-control"
-										placeholder="请输入品牌简介" id="econtent" name="content" type="text">
+									<label for="content">品牌简介</label><textarea class="form-control" rows="3"
+										placeholder="请输入品牌简介" id="econtent" name="content"></textarea>
 								</div>
 							</div>
 						</div>

@@ -8,8 +8,8 @@ $(document).ready(function(){
         "columns": [
                     { "data": "id","orderable":false},
                     { "data": "name" },
-                    { "data": "content" },
                     { "data": "suppliername" },
+                    { "data": "content" },
                     { "data":"id","className": "actions","orderable":false },
                     { "data": "supplierId" }
                 ],
@@ -61,6 +61,6 @@ $(document).ready(function(){
         "className" : "Brand",
         "chosen" : true,
         "ids" : "#name,#content,#suppliername,#supplierId",
-        "targets":"1,2,3,5"
+        "targets":"1,3,2,5"
 	});
 });

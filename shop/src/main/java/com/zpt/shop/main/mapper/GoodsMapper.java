@@ -25,7 +25,7 @@ public interface GoodsMapper {
 	
 	public List<Goods> getGoodsByBrand(@Param("brandId")String brandId);
 	
-	public Goods getGoodsId(@Param("goodsId")Integer goodsId);
+	public Goods getGoodsId(@Param("goodsId")Integer goodsId,@Param("proId")Integer proId);
 
 	public List<Goods> getGoods(@Param("pageStart")Integer pageStart, @Param("num")Integer num);
 

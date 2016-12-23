@@ -30,12 +30,21 @@
 .cztree * {
     font-size: 13.5px;
 }
+.modal-backdrop{
+	z-index:900;
+}
+.navbar-fixed-top {
+    z-index: 800;
+}
+.modal {
+    z-index: 910;
+}
 </style>
 
 <script type="text/javascript">
 	var zTree;
 	
-	var demoIframe;
+	var demoIframe;	
 	
 	var setting = {
 			view: {
@@ -54,7 +63,7 @@
 		};
 	
 	function zTreeOnClick(event, treeId, treeNode) {
-		tableI.table().columns(11).search(treeNode.id).draw();
+		tableI.table().columns(10).search(treeNode.id).draw();
 	};
 
 	function filter(treeId, parentNode, childNodes) {
@@ -123,13 +132,13 @@
 									<tr>
 										<td>商品名称:</td>
 										<td><input class="form-control" type="text" id="name"
-											name="name"></td>
+											name="name" placeholder="商品名称模糊搜索"></td>
 										<td>商品描述:</td>
 										<td><input class="form-control" type="text" id="content"
-											name="content"></td>
+											name="content" placeholder="商品描述模糊搜索"></td>
 										<td>商品编码:</td>
 										<td><input class="form-control" type="text" id="code"
-											name="code"></td>										
+											name="code" placeholder="商品编码模糊搜索"></td>										
 									</tr>
 								</table>
 							</div>

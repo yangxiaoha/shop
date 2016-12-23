@@ -29,20 +29,20 @@
 						<div class="col-lg-12">
 							<table class="table table-bordered table-striped table-hover">
 								<tr>
-						            <td>供应商名称:</td>
-						            <td><input class="form-control" type="text" id="name" name="name"></td>
-						            <td>供应商简介:</td>
-						            <td><input class="form-control" type="text" id="brief" name="brief"></td>
+						            <td width="8%">供应商名称:</td>
+						            <td><input class="form-control" type="text" id="name" name="name" placeholder="供应商名称模糊搜索"></td>
+						            <td width="8%">供应商简介:</td>
+						            <td><input class="form-control" type="text" id="brief" name="brief" placeholder="供应商简介模糊搜索"></td>
 						        </tr>
 						    </table>
 						 </div>
 						 <hr>
 						<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
 							<thead>
-								<th class="check-header hidden-xs"><label><input
+								<th class="check-header hidden-xs" width="8%"><label><input
 										id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 								</th>
-								<th>供应商名称</th>
+								<th width="20%">供应商名称</th>
 								<th>供应商简介</th>		
 								<th></th>
 							</thead>
