@@ -131,7 +131,11 @@
      	   data.start = d.start;
      	   data.length = d.length;
      	   data.orderName = columns[d.order[0].column].data;
-     	   data.orderDir = d.order[0].dir;
+     	   if(d.order[0].column == 0){
+     		   data.orderDir = "desc";
+     	   }else{
+     		   data.orderDir = d.order[0].dir;
+     	   }
      	   data.search = d.search.value;
      	   var obj = new Object();
      	   for(var i = 0; i < columns.length; i++){

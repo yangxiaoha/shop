@@ -8,10 +8,11 @@
 		<id property="id" column="id" />
 		<result property="name" column="name" />
 		<result property="brief" column="brief" />		
+		<result property="state" column="state" />		
 	</resultMap>
 	
 	<sql id="queryCondition">
-		where 1 = 1
+		where 1 = 1 and state = 1
 		<if test="obj.name != null and obj.name != ''">
 			and name like CONCAT('%',#{obj.name},'%')
 		</if>
@@ -38,7 +39,6 @@
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
 		select * from t_goods_supplier 
 		<include refid="queryCondition"/>
-		order by id desc
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>
 	
@@ -57,11 +57,11 @@
 	</select>
 	
 	<insert id="insertSupplier" parameterType="supplier">
-		insert into t_goods_supplier(name,brief) values(#{name},#{brief})
+		insert into t_goods_supplier(name,brief,state) values(#{name},#{brief},1)
 	</insert>	
 		
 	<delete id="deleteSupplier">
-		delete from t_goods_supplier where id in (${ids})	
+		update t_goods_supplier set state = 0 where id in (${ids})	
 	</delete>
 	
 	<update id="updateSupplier" parameterType="supplier">

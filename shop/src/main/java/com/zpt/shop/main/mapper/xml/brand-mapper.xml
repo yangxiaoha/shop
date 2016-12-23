@@ -10,11 +10,12 @@
 		<result property="content" column="content" />	
 		<result property="supplierId" column="supplierId" />	
 		<result property="suppliername" column="suppliername" />
+		<result property="state" column="state" />
 	</resultMap>
 	
 	
 	<sql id="queryCondition">
-		where 1 = 1
+		where 1 = 1 and brand.state = 1
 		<if test="obj.name != null and obj.name != ''">
 			and brand.name like CONCAT('%',#{obj.name},'%')
 		</if>
@@ -46,10 +47,10 @@
 		
 	<select id="listBrand" resultMap="resultMap" parameterType="query">
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
-		select brand.id as id,brand.name as name,brand.content as content,brand.supplierId as supplierId,supplier.name as suppliername 
-		 from t_goods_brand as brand left join t_goods_supplier as supplier on brand.supplierId=supplier.id
+		select brand.id as id,brand.name as name,brand.content as content,brand.supplierId as supplierId,
+		supplier.name as suppliername,brand.state as state
+		from t_goods_brand as brand left join t_goods_supplier as supplier on brand.supplierId=supplier.id
 		<include refid="queryCondition"/>
-		 order by id desc
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>
 	
@@ -72,11 +73,11 @@
 	</select>
 	
 	<insert id="insertBrand" parameterType="brand">
-		insert into t_goods_brand(name,content,supplierId) values(#{name},#{content},#{supplierId})
+		insert into t_goods_brand(name,content,supplierId,state) values(#{name},#{content},#{supplierId},1)
 	</insert>	
 
 	<delete id="deleteBrand">
-		delete from t_goods_brand where id in (${ids})	
+		update t_goods_brand set state = 0 where id in (${ids})	
 	</delete>
 	
 	<update id="updateBrand" parameterType="brand">

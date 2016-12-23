@@ -21,6 +21,7 @@
 		<result property="num" column="num" />
 		<result property="price" column="price" />
 		<result property="url" column="url" />		
+		<result property="state" column="state" />		
 		<collection property="pros" column="pros" ofType="Pro">    
             <id property="id" column="proId" />
             <result property="name" column="proname" />
@@ -29,7 +30,7 @@
 	
 	
 	<sql id="queryCondition">
-		where 1 = 1
+		where 1 = 1 and goods.state = 1
 		<if test="obj.name != null and obj.name != ''">
 			and goods.name like CONCAT('%',#{obj.name},'%')
 		</if>
@@ -75,11 +76,10 @@
 		select goods.id as id,goods.name as name,goods.exp_name as exp_name,goods.typeId as typeId,goods.top as top,
 		goods.quantity as quantity,goods.content as content,goods.code as code,goods.searchval as searchval,
 		goods.brandId as brandId,goods.ids as ids,brand.name as brandName,type.name as typename,
-		goods.store as store 
+		goods.store as store,goods.state as state 
 		from t_goods as goods left join t_goods_brand as brand on goods.brandId = brand.id left join 
 		t_goods_type as type on goods.typeId = type.id 
 		<include refid="queryCondition"/>
-		order by id desc
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>
 	
@@ -105,12 +105,12 @@
 	</select>
 		
 	<insert id="insertGoods" parameterType="goods">
-		insert into t_goods(name,exp_name,quantity,content,code,brandId,store,typeId,ids) 
-		values(#{name},#{exp_name},#{quantity},#{content},#{code},#{brandId},#{store},#{typeId},#{ids})
+		insert into t_goods(name,exp_name,quantity,content,code,brandId,store,typeId,ids,state) 
+		values(#{name},#{exp_name},#{quantity},#{content},#{code},#{brandId},#{store},#{typeId},#{ids},1)
 	</insert>
-	<delete id="deleteGoods">
-		delete from t_goods where id in (${ids})	
-	</delete>
+	<update id="deleteGoods" parameterType="goods">
+		update t_goods set state = 0 where id in (${ids})
+	</update>
 	<update id="updateGoods" parameterType="goods">
 		update t_goods set name = #{name},exp_name = #{exp_name},quantity = #{quantity},
 		content = #{content},code = #{code},brandId = #{brandId},store = #{store},

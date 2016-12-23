@@ -30,6 +30,15 @@
 .cztree * {
     font-size: 13.5px;
 }
+.modal-backdrop{
+	z-index:900;
+}
+.navbar-fixed-top {
+    z-index: 800;
+}
+.modal {
+    z-index: 910;
+}
 </style>
 
 <script type="text/javascript">

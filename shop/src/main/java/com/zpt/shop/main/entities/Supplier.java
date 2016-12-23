@@ -6,6 +6,16 @@ public class Supplier {
 	private String name;
 	
 	private String brief;
+	
+	private Integer state;
+	
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
 
 	public Integer getId() {
 		return id;

@@ -47,8 +47,12 @@
 											<div class="form-group divb0">
 												<label for="typeId">商品类型</label> <input class="form-control"
 													placeholder="" readonly="readonly" id="atypeName"
-													name="typeName" type="text"> <input type="hidden"
+													name="typeName" type="text"> <input type=""
 													placeholder="" id="atypeId" name="typeId" type="text">
+											</div>
+											<div>
+												<button class="btn btn-default-outline" style ="float:right;margin:5px" 
+												id = "datypeId"	type="button">取消商品属性</button>
 											</div>
 										</div>
 									</div>
@@ -85,6 +89,10 @@
 				onClick: zTreeOnClickAdd
 			}
 	};
+	$("#datypeId").click(function(){
+		$("#atypeId").val("");
+		$("#atypeName").val("");
+	});
 	function zTreeOnClickAdd(event, treeId, treeNode) {
 		console.log(treeNode);
 		$("#atypeId").val(treeNode.id);

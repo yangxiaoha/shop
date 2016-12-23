@@ -9,6 +9,7 @@
 		<result property="pid" column="pid"/>
 		<result property="name" column="name" />
 		<result property="isParent" column="isParent"/>
+		<result property="state" column="state"/>
 		<collection property="goodsType" columnPrefix="type_" ofType="GoodsType">    
             <id property="id" column="typeId" />
             <result property="pid" column="pid"/>
@@ -18,7 +19,7 @@
 	</resultMap>
 	
 	<sql id="queryCondition">
-		where 1 = 1
+		where 1 = 1 and type.state = 1
 		<if test="obj.name != null and obj.name != ''">
 			and type.name like CONCAT('%',#{obj.name},'%')
 		</if>
@@ -42,10 +43,9 @@
 	
 	<select id="listGoodsType" resultMap="resultMap" parameterType="query">
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
-		select type.id as id,type.name as name,type.pid as pid,type.isParent as isParent 
+		select type.id as id,type.name as name,type.pid as pid,type.isParent as isParent ,type.state as state
 		from t_goods_type as type 
 		<include refid="queryCondition"/>
-		order by id desc
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>
 	
@@ -68,10 +68,10 @@
 	</select>
 	
 	<insert id="insertGoodsType" parameterType="goodstype">
-		insert into t_goods_type(name,pid,meno,isParent) values(#{name},#{pid},#{meno},#{isParent})
+		insert into t_goods_type(name,pid,meno,isParent,state) values(#{name},#{pid},#{meno},#{isParent},1)
 	</insert>
 	<delete id="deleteGoodsType">
-		delete from t_goods_type where id in (${ids})	
+		update t_goods_type set state = 0 where id in (${ids})	
 	</delete>
 	<update id="updateGoodsType" parameterType="goodstype">
 		update t_goods_type set name = #{name},pid = #{pid},meno = #{meno},isParent=#{isParent} 

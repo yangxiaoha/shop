@@ -14,8 +14,18 @@ public class GoodsType {
 	
 	private Boolean isParent;
 	
+	private Integer state;
+	
 	//商品类型详情
 	public List<GoodsType> goodsType;
+	
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
 
 	public Integer getId() {
 		return id;
