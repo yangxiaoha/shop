@@ -188,6 +188,7 @@
 				var keyword = $("#keyword").val();
 				var typeId = "";
 				showGoods(flag, keyword, typeId);
+				$(".goods-search").hide();
 			});
 		}); 
 	    function showGoods(flag, keyword, typeId) {

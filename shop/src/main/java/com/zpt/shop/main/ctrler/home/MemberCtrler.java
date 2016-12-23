@@ -118,7 +118,7 @@ public class MemberCtrler {
 		List<Withdraw> withdrawList = withdrawService.getMemberInfo(user.getId());
 		if(withdrawList != null && withdrawList.size() > 0) {
 			for(int i=0; i<withdrawList.size(); i++) {
-				BigDecimal price = withdrawList.get(i).getCashMoney();
+				BigDecimal price = new BigDecimal(withdrawList.get(i).getCashMoney().toString());
 				totalPrice = totalPrice.add(price);
 			}
 			mv.addObject("totalPrice", totalPrice);
@@ -206,8 +206,8 @@ public class MemberCtrler {
 		String userName = (String) request.getSession().getAttribute("userName");
 		String userHeadImg = (String) request.getSession().getAttribute("userHeadImg");
 		List<Withdraw> withdrawsList = withdrawService.getWithdrawsInfo(user.getId());
-		mv.addObject("userName", userName);
-		mv.addObject("userHeadImg", userHeadImg);
+		mv.addObject("name", userName);
+		mv.addObject("headImg", userHeadImg);
 		mv.addObject("withdrawsMsg", withdrawsList);
 		return mv;
 	}
@@ -312,22 +312,27 @@ public class MemberCtrler {
 	        }
 		}
 		//通过ids获取代理人信息
-		List<User> agentList = userService.getAgentInfoByIds(ids);
-		List<UserList> list = new ArrayList<UserList>();         
-        for(int i=0; i<agentList.size(); i++) {          
-            UserList agent = new UserList();   
-            agent.setOpenid("ozmycs6JuZxrpxDuNMluTyvyUDCY");  
-            agent.setLang("zh-CN");                   
-            list.add(agent);
-        }
-        System.out.println(list);
-        JSONObject s = new JSONObject(); 
-        s.put("user_list", list);
-        System.out.println(s);
-        String accessToken = wxMpService.getAccessToken(false);
-        System.out.println("accesstoken"+accessToken);
-        JSONObject jsonObject = WeixinUtils.getBatchWeixinUserInfo(s.toString(), accessToken);
-        mv.addObject("agentMsg", jsonObject);
+		if(ids.length() > 0) {
+			List<User> agentList = userService.getAgentInfoByIds(ids);
+			List<UserList> list = new ArrayList<UserList>();         
+	        for(int i=0; i<agentList.size(); i++) {          
+	            UserList agent = new UserList();   
+	            agent.setOpenid(agentList.get(i).getOpenid());  
+	            agent.setLang("zh-CN");                   
+	            list.add(agent);
+	        }
+	        System.out.println(list);
+	        JSONObject s = new JSONObject(); 
+	        s.put("user_list", list);
+	        System.out.println(s);
+	        String accessToken = wxMpService.getAccessToken(false);
+	        System.out.println("accesstoken"+accessToken);
+	        JSONObject jsonObject = WeixinUtils.getBatchWeixinUserInfo(s.toString(), accessToken);
+	        mv.addObject("agentMsg", jsonObject);
+		}else {
+			mv.addObject("agentMsg", null);
+		}
+
 		return mv;
 	}
 

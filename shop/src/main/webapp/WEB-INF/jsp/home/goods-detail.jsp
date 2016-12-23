@@ -35,7 +35,7 @@
 	
 		<ul class="tab-bar index-tab-bar">
 			<li>
-				<a href="index">
+				<a href="../index">
 					<span class="tab-bar-bg customer-service"></span>
 					<span>在线客服</span>
 				</a>
@@ -352,7 +352,7 @@
 					        })
 		        		}
 						if(state == 1) {
-							$("#purchase").attr('href','../buyImmediately/'+goodsStock[sub].id+'/'+$("#purchaseNum").text()+'/'+goodsStock[sub].price);
+							$("#purchase").attr('href','../../purchase/buyImmediately/'+goodsStock[sub].id+'/'+$("#purchaseNum").text()+'/'+goodsStock[sub].price);
 		        		}
 		        	}						
 				}else {

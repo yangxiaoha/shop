@@ -261,6 +261,7 @@
     </script>
     <script type="text/javascript">
     	$(document).ready(function() {
+    		var state = ${state}
     	    //结算
     	    $("#submitOrder").click(function() {
     	    	if($("#settlement").text() == 0) {
@@ -276,6 +277,9 @@
         	    	});
         	    	if(ids != ""){
     					$("#cartIds").val(ids);
+    					if(state == 1) {//从立即购买过来
+    						$("#buyGoodsForm").attr("action", "../../../payment");
+    					}
     					$("#buyGoodsForm").submit();
     	        	}else{
     	        		$("#myModal").show();

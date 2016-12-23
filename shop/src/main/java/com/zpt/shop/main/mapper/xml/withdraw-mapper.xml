@@ -54,14 +54,14 @@
 	
 	<select id="getMemberInfo" resultMap="resultMap">
 		select user.*, cash.id as cashid, cash.cashtime as cashTime, 
-		cash.money as cashMoney, cash.state as state from t_user as user 
+		cash.money as money, cash.state as state from t_user as user 
 		left join t_withdraw_cash as cash
 		on user.id = cash.userid
 		where user.id = #{userId} and cash.state = 1
 	</select>
 	
 	<select id="getWithdrawsInfo" resultMap="resultMap">
-		select cash.id, cash.cashnum as cashNum, cash.cashtime as cashTime, cash.money as cashMoney, cash.userid, cash.state
+		select cash.id, cash.cashnum as cashNum, cash.cashtime as cashTime, cash.money as money, cash.userid, cash.state
 		from t_withdraw_cash as cash 
 		where userid = #{userId} order by id desc
 	</select>

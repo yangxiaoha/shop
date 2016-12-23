@@ -21,7 +21,7 @@
 <body style="background-color: #ECECF2">
     <div id="wrap">
       <div class="nav-bar write-order ta-center clearfloat">
-        <a href="" class="clearfloat">返回</a>填写订单
+        <p class="clearfloat" onclick="history.go(-1)">返回</p>填写订单
       </div>
       
       <c:if test="${!empty cartsMsg}">
@@ -109,13 +109,13 @@
               <div>
                 <label for="remarks" class="fc-9fa0a0">备注:</label>
                 <textarea id="remarks" name="memo">${orderList.memo}</textarea>
-                <input type="hidden" id="proviceFirstStageName" value="" />
-                <input type="hidden" id="addressCitySecondStageName" value="" />
-                <input type="hidden" id="addressCountiesThirdStageName" value="" />
-                <input type="hidden" id="addressPostalCode" value="" />
-                <input type="hidden" id="addressDetailInfo" value="" />       
-                <input type="hidden" id="telNumber" value="" />
-                <input type="hidden" id="username" value="" />
+                <input type="hidden" id="proviceFirstStageName" name="provinceName" value="" />
+                <input type="hidden" id="addressCitySecondStageName" name="cityName" value="" />
+                <input type="hidden" id="addressCountiesThirdStageName" name="countryName" value="" />
+                <input type="hidden" id="addressPostalCode" name="postalCode" value="" />
+                <input type="hidden" id="addressDetailInfo" name="address" value="" />       
+                <input type="hidden" id="telNumber" name="phone" value="" />
+                <input type="hidden" id="username" name="name" value="" />
               </div>
             </form> 
             <form id="buyGoodsSubForm" action="submitOrder" method="post" style="width: 0; height: 0;">
@@ -195,7 +195,9 @@
         }); 
         
         wx.ready(function(){
-            getAddr();         
+        	if($("#state") == 0) {
+                getAddr(); 
+        	}        
         });
         
         $(document).ready(function() {
@@ -208,6 +210,7 @@
                 jsonString= jsonString.substring(0, (jsonString.length - 1));  
                 jsonString+= '}'; 
                 $("#postData").val(jsonString);
+                alert($("#postData").val(jsonString));
                 //onBridgeReady();
                 callpay();
             });

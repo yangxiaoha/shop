@@ -51,7 +51,7 @@
 	          </div>         
 	          <ul class="user-power-detail" style="display: none;">
 	            <li>
-	              <a href="myAgent">
+	              <a href="myAgent" style="color: #231815;">
 	              	<span>我的代理人</span>
 	              	<i class="fr fc-c8161d">${peopleNum}人</i>
 	              </a>

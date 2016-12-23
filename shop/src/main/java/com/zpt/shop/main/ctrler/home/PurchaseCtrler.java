@@ -87,10 +87,12 @@ public class PurchaseCtrler {
 				total = totalPrice.add(new BigDecimal(total)).doubleValue();
 			}
 			DecimalFormat df = new DecimalFormat("#.00");  
+			mv.addObject("state", 0);
 			mv.addObject("totalNum", totalNum);
 			mv.addObject("total", df.format(total));
 			mv.addObject("cartsMsg", cartsList);	
 		}else {
+			mv.addObject("state", 0);
 			mv.addObject("totalNum", "0");
 			mv.addObject("total", "0.00");
 			mv.addObject("cartsMsg", null);
@@ -203,11 +205,13 @@ public class PurchaseCtrler {
 				totalPrice = price.multiply(new BigDecimal(num));
 				total = totalPrice.add(new BigDecimal(total)).doubleValue();
 			}
-			DecimalFormat df = new DecimalFormat("#.00");  
+			DecimalFormat df = new DecimalFormat("#.00");
+			mv.addObject("state", 1);
 			mv.addObject("totalNum", totalNum);
 			mv.addObject("total", df.format(total));
 			mv.addObject("cartsMsg", cartsList);	
 		}else {
+			mv.addObject("state", 1);
 			mv.addObject("totalNum", "0");
 			mv.addObject("total", "0.00");
 			mv.addObject("cartsMsg", null);

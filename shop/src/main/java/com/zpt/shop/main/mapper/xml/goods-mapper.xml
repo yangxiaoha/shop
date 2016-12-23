@@ -108,9 +108,9 @@
 		insert into t_goods(name,exp_name,quantity,content,code,brandId,store,typeId,ids) 
 		values(#{name},#{exp_name},#{quantity},#{content},#{code},#{brandId},#{store},#{typeId},#{ids})
 	</insert>
-	<delete id="deleteGoods">
-		delete from t_goods where id in (${ids})	
-	</delete>
+	<update id="deleteGoods" parameterType="goods">
+		update t_goods set state = 0 where id in (${ids})
+	</update>
 	<update id="updateGoods" parameterType="goods">
 		update t_goods set name = #{name},exp_name = #{exp_name},quantity = #{quantity},
 		content = #{content},code = #{code},brandId = #{brandId},store = #{store},
