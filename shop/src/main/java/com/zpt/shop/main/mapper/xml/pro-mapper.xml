@@ -26,7 +26,7 @@
 	</sql>
 	
 	<sql id="validateCondition">
-		where 1 = 1
+		where 1 = 1 and state = 1
 		<if test="id != null and id != ''">
 			and id != #{id}
 		</if>
@@ -53,7 +53,7 @@
 		<include refid="validateCondition"/>
 	</select>
 	<select id="getAllPro" resultMap="resultMap" parameterType="pro">
-		select * from t_goods_pro where typeId = #{typeId}
+		select * from t_goods_pro where typeId = #{typeId} and state = 1
 	</select>
 		
 	<insert id="insertPro" parameterType="pro">

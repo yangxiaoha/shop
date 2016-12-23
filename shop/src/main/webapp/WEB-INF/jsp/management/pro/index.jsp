@@ -59,7 +59,7 @@
 								id="datatable" width="100%">
 								<thead>
 									<th></th>
-									<th class="check-header hidden-xs"><label><input
+									<th class="check-header hidden-xs"  width = 10%><label><input
 											id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 									</th>									
 									<th>商品属性名称</th>																	

@@ -22,7 +22,7 @@ public interface GoodsService {
 	
 	public boolean validate(Goods goods);
 	
-	public Goods getGoodsId(Integer goodsId);
+	public Goods getGoodsId(Integer goodsId,Integer proId);
 	
 	public List<Goods> getGoodsByBrandId(String brandId);
 	

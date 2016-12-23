@@ -33,7 +33,7 @@
 	</sql>
 	
 	<sql id="validateCondition">
-		where 1 = 1
+		where 1 = 1 and state = 1
 		<if test="id != null and id != ''">
 			and id != #{id}
 		</if>
@@ -65,11 +65,11 @@
 	</select>
 	
 	<select id="getBrandBySupplierId" resultMap="resultMap">
-		select * from t_goods_brand where supplierId = #{supplierId}
+		select * from t_goods_brand where supplierId = #{supplierId} and state = 1
 	</select>
 	
 	<select id="getAllBrand" resultMap="resultMap">
-	    select * from t_goods_brand
+	    select * from t_goods_brand where state = 1
 	</select>
 	
 	<insert id="insertBrand" parameterType="brand">
