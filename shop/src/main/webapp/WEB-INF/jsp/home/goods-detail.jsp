@@ -41,7 +41,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="../index">
+				<a href="../../index">
 					<span class="tab-bar-bg home-page"></span>
 					<span>首页</span>
 				</a>
@@ -108,7 +108,7 @@
 	        </div>
 		</div>
 	
-		<a class="shopping-cart" href="../../purchase/cart">
+		<a class="shopping-cart" href="../../../purchase/cart">
 	 		<span class="shopping-num" id="shopping-num">${amount}</span>
 	    </a>
     </div>
@@ -135,7 +135,7 @@
 				}
 				//获取库存信息
 		    	$.ajax({
-			   	    url: "../getGoodsStockInfo/"+goodsId,
+			   	    url: "../../getGoodsStockInfo/"+goodsId,
 			   		type: "Post",
 			   	    dataType: "json",
 			   	    success: function(data) {
@@ -332,7 +332,7 @@
 		        	}else {
 		        		if(state == 0) {
 		        			$.ajax({
-						   	    url: "../../purchase/addCart",
+						   	    url: "../../../purchase/addCart",
 						   		type: "Post",
 						   		data: {
 						   	    	skuId:goodsStock[sub].id,

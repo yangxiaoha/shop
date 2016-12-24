@@ -86,12 +86,7 @@
 				    	<a href="goodsDetail/${goodsList.id}">
 				    		<img src="<%=basePath%>${goodsList.url}" />
 							<p class="p5">${goodsList.name}</p>
-							<c:if test="${!empty goodsList.price}">
-								<p class="mb5 font-price">￥${goodsList.price}</p>
-							</c:if>
-							<c:if test="${empty goodsList.price}">
-								<p class="mb5 font-price">￥0.00</p>
-							</c:if>
+							<p class="mb5 font-price">￥${goodsList.price}</p>
 				    	</a>
 					</div>
 				</c:forEach>

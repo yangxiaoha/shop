@@ -27,7 +27,7 @@
 		select t.*, pro.name as name from 
 		(select val.id as valid, val.proid, GROUP_CONCAT(val.value) as value from 
 		(select * from t_goods_pro_val where proid in
-		(${ids}) group by proid, value order by id) as val group by val.proid) as t
+		(${ids}) and skuid in (${skuIds}) group by proid, value order by id) as val group by val.proid) as t
 		left join t_goods_pro as pro
 		on t.proid = pro.id
 	</select>

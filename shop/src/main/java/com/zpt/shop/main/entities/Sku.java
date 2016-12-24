@@ -6,7 +6,7 @@ public class Sku {
 	
 	public Integer num;
 	
-	public long price;
+	public Float price;
 	
 	public String name;	
 	
@@ -58,11 +58,11 @@ public class Sku {
 		this.num = num;
 	}
 
-	public long getPrice() {
+	public Float getPrice() {
 		return price;
 	}
 
-	public void setPrice(long price) {
+	public void setPrice(Float price) {
 		this.price = price;
 	}
 

@@ -98,5 +98,9 @@
 	<update id="updateSkuNum">
 		update t_goods_sku set num = ${num} where id = #{id}
 	</update>
+	
+	<select id="getSkuIdsByGoodsId" resultMap="resultMap">
+		select * from t_goods_sku where goodsid = #{goodsId}
+	</select>
 
 </mapper>

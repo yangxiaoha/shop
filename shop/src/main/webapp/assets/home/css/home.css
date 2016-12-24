@@ -100,10 +100,6 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .ta-center {
 	text-align: center;
-	position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 .bc-fff {
 	background-color: #fff !important;
@@ -375,6 +371,12 @@ a, a:link, a:visited, a:hover, a:active {
 /************************type-detail结束************************/
 
 /************************car开始************************/
+.no-shopping-car-show {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 .no-shopping-car-show div {
 	width: 130px;
 	margin: 0 auto;
@@ -383,6 +385,10 @@ a, a:link, a:visited, a:hover, a:active {
 	width: 100%;
 }
 .go-shopping {
+	position: absolute;
+    top: 0;
+    left: 0;
+	width: 100%;
 	height: 60px;
 	padding: 13px 10px;
 	line-height: 34px;
@@ -429,6 +435,12 @@ a, a:link, a:visited, a:hover, a:active {
 	left: 0 !important;
     width: 80px !important;
     height: 80px !important;
+}
+.have-data {
+	position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
 }
 /************************car结束************************/
 
