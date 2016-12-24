@@ -83,15 +83,15 @@ public class OrderServiceImpl implements OrderService {
 		}
 		order.setUserId(userId);
 		order.setOrdertime(ordertime);
-		order.setOrdernum(order.getOrdernum());
 		order.setState(1);
 		// 添加订单
 		orderMapper.addOrder(order);
 		// 获取添加的订单id
 		Order orderInfo = orderMapper.getOrder(userId, order.getOrdernum());
 		// 添加订单详情
-		List<Cart> cartsList = cartMapper.getCartByCartIdsAndUserId(userId, cartIds);	
+		List<Cart> cartsList = cartMapper.getCartByCartIdsAndUserId(userId, cartIds);			
 		orderDetailMapper.addOrderDetail(orderInfo.getId(), cartsList);
+		
 		// 删除购物车
 		cartMapper.deleteCartInfo(cartIds);
 	}

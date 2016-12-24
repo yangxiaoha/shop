@@ -66,16 +66,16 @@ public class GoodsWxPayCtrler {
             if (map.get("result_code").toString().equalsIgnoreCase("SUCCESS")) {
                 String ordercode = map.get("out_trade_no");
                 //这里写成功后的业务逻辑
-                
                 //付款状态改为2(支付未发货)
                 Integer state = 2;
      			orderService.updateOrderState(ordercode, state);
      			
      			//增加购买人数
+     			Long n = new Long(1l);
      			List<Sku> goodsidList = orderService.getOrderByOrderNum(ordercode);
      			for(int i=0; i<goodsidList.size(); i++) {
      				Goods goods = goodsService.getGoodsById(goodsidList.get(i).getGoodsId());
-     				goodsService.updateNum(goodsidList.get(i).getGoodsId(), goods.getNum()+1);
+     				goodsService.updateNum(goodsidList.get(i).getGoodsId(), goods.getNum()+n);
      			}
      			
      			//减少库存

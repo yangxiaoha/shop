@@ -112,6 +112,8 @@
 		postalCode = #{postalCode},
 		provinceName = #{provinceName},
 		cityName = #{cityName},
+		countryName = #{countryName},
+		memo = #{memo},
 		name = #{name},
 		phone = #{phone}
 		where id = #{id}

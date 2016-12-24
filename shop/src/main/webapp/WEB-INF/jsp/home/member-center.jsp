@@ -92,7 +92,7 @@
 	        </a>
 	      </li>
 	      <li>
-	        <a href="withdrawals">
+	        <a href="memberCenter">
 	          <span class="tab-bar-bg member-center"></span>
 	          <span>会员中心</span>
 	        </a>

@@ -55,18 +55,20 @@
           <div>
             <label for="remarks" class="fc-9fa0a0">备注:</label>
             <textarea id="remarks" name="memo"></textarea>
-            <input type="hidden" id="proviceFirstStageName" value="" />
-            <input type="hidden" id="addressCitySecondStageName" value="" />
-            <input type="hidden" id="addressCountiesThirdStageName" value="" />
-            <input type="hidden" id="addressPostalCode" value="" />
-            <input type="hidden" id="addressDetailInfo" value="" />       
-            <input type="hidden" id="telNumber" value="" />
-            <input type="hidden" id="username" value="" />
+            <input type="hidden" id="proviceFirstStageName" name="provinceName" value="" />
+            <input type="hidden" id="addressCitySecondStageName" name="cityName" value="" />
+            <input type="hidden" id="addressCountiesThirdStageName" name="countryName" value="" />
+            <input type="hidden" id="addressPostalCode" name="postalCode" value="" />
+            <input type="hidden" id="addressDetailInfo" name="address" value="" />       
+            <input type="hidden" id="telNumber" name="phone" value="" />
+            <input type="hidden" id="username" name="name" value="" />
+            <input type="hidden" id="totalPrice" name="totalPrice" value="${money}" />
+            <input type="hidden" id="ordercode" name="ordernum" value="${ordercode}" />
           </div>
         </form> 
         <form id="buyGoodsSubForm" action="submitOrder" method="post" style="width: 0; height: 0;">
           <input type="hidden" id="postData" name="postData" />
-          <input type="hidden" id="cartIds" name="cartIds" />
+          <input type="hidden" id="cartIds" name="cartIds" value="${cartIds}" />
           <input type="hidden" id="state" name="state" value="${state}" />
         </form> 
         <div class="tab-bar order-tab-bar">   
@@ -116,11 +118,13 @@
                 <input type="hidden" id="addressDetailInfo" name="address" value="" />       
                 <input type="hidden" id="telNumber" name="phone" value="" />
                 <input type="hidden" id="username" name="name" value="" />
+                <input type="hidden" id="totalPrice" name="totalPrice" value="${orderList.totalPrice}" />
+                <input type="hidden" id="ordercode" name="ordernum" value="${ordercode}" />
               </div>
             </form> 
             <form id="buyGoodsSubForm" action="submitOrder" method="post" style="width: 0; height: 0;">
               <input type="hidden" id="postData" name="postData" />
-              <input type="hidden" id="orderId" name="orderId" />
+              <input type="hidden" id="orderId" name="orderId" value="${orderId}" />
               <input type="hidden" id="state" name="state" value="${state}" />
             </form>                         
           </div>

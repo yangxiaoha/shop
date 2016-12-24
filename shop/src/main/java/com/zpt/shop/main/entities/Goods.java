@@ -208,7 +208,12 @@ public class Goods {
 	}
 
 	public BigDecimal getPrice() {
-		return price;
+		if(price == null) {
+			BigDecimal money = new BigDecimal("0.00");
+			return money;
+		}else {
+			return price;
+		}
 	}
 
 	public void setPrice(BigDecimal price) {

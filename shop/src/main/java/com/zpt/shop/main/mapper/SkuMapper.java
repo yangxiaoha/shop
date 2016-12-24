@@ -41,5 +41,12 @@ public interface SkuMapper {
 	 * @param int num 剩余数量
 	 * */
 	public void updateSkuNum(@Param("id")Integer id, @Param("num")int num);
+
+	/**
+	 * 通过商品id获取库存信息
+	 * @param Integer goodsId 商品id
+	 * @return List<Sku>
+	 * */
+	public List<Sku> getSkuIdsByGoodsId(@Param("goodsId")Integer goodsId);
 	
 }
