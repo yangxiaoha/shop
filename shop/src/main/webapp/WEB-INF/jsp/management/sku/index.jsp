@@ -71,15 +71,6 @@
 								class="icon-plus"></i>添加</a>
 						</div>
 						<div class="widget-content padded clearfix">
-							<div class="col-lg-12">
-								<table class="table table-bordered table-striped table-hover">
-									<tr>
-										<td>特征量编码:</td>
-										<td><input class="form-control" type="text" id="code"
-											name="code"></td>
-									</tr>
-								</table>
-							</div>
 							<table class="table table-bordered table-striped table-hover"
 								id="datatable" width="100%">
 								<thead>

@@ -65,7 +65,7 @@
 			}
 			var buttonobj = new Object;
 			buttonobj.type = "view";
-			buttonobj.url = "www.baidu.com";
+			buttonobj.url = "http://www.baidu.com";
 			buttonobj.name = "菜单" + (button.length + 1);
 			button[button.length] = buttonobj;
 			showmenu();

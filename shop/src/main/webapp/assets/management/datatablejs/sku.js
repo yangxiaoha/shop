@@ -106,7 +106,7 @@ $(document).ready(function(){
         },
         "className" : "Sku",
         "chosen" : true,
-        "ids" : "#code",
-        "targets":"5"
+        "ids" : "#name,#code",
+        "targets":"2,5"
 	});
 });

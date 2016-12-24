@@ -63,34 +63,25 @@
 									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group divb0">
-												<label for="quantity">商品数量(*)</label><input
-													class="form-control" placeholder="请输入商品数量" id="uquantity"
-													name="quantity" type="text">
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group divb0">
 												<label for="content">描述信息</label><input class="form-control"
 													placeholder="请输入描述信息" id="ucontent" name="content"
 													type="text">
 											</div>
-										</div>
-									</div>
-									<div class="row">
+										</div>										
 										<div class="col-md-6">
 											<div class="form-group divb0">
 												<label for="code">商品编码</label><input class="form-control"
 													placeholder="请输入商品编码" id="ucode" name="code" type="text">
 											</div>
 										</div>
+									</div>
+									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group divb0">
 												<label for="store">所属门店</label><input class="form-control"
 													placeholder="请输入所属门店" id="ustore" name="store" type="text">
 											</div>
-										</div>
-									</div>
-									<div class="row">
+										</div>										
 										<div class="col-md-6">
 											<div class="form-group divb0">
 												<label for="typeId">商品类型(*)</label> <input class="form-control"
@@ -207,10 +198,6 @@
 	        	brandId:{
 	        		required:true,
 	        	},
-	        	quantity:{
-	        		required:true,	
-	        		digits:true,
-	        	},
  	         name: {
  		       	 required:true,
   		      	 remote: {
@@ -267,10 +254,6 @@
 	        	 required:"请输入商品扩充名称",
 	        	 remote:"该名称已存在"
 	      },
-	      quantity: {
-	        	 required:"请输入商品数量",	
-	        	 digits:"请输入一个整数"
-	      },
 	      content: {
 	        	 required:"请输入描述信息",		        	
 	      },
@@ -285,7 +268,11 @@
 	        	 required:"请输入所属门店",		        	 
 	      }
         },
-        submitHandler: function(form) {   
+        submitHandler: function(form) {
+	       if($("[name=idstemp]:checked").val()==null ||$("[name=idstemp]:checked").val()=="" ){
+        	   alert("属性必选");
+        	   return;
+	       };
            $(this).attr("disabled","disabled"); 
 		   $("#loading").html("<i class=\"icon-spinner icon-spin\"></i>");
            $(form).ajaxSubmit({

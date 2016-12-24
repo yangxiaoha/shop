@@ -40,10 +40,10 @@
 					<div class="col-lg-12">
 					<table class="table table-bordered table-striped table-hover">
 						<tr>
-				            <td>城市:</td>
-				            <td><input class="form-control" type="text" id="cityname" name="cityname"></td>
-				            <td>商品名称:</td>
-				            <td><input class="form-control" type="text" id="name" name="name"></td>
+				            <td width="8%">城市:</td>
+				            <td><input class="form-control" type="text" id="cityname" name="cityname" placeholder="城市模糊搜索"></td>
+				            <td width="8%">商品名称:</td>
+				            <td><input class="form-control" type="text" id="name" name="name" placeholder="商品名称模糊搜索"></td>
 				        </tr>
 				    </table>
 				    </div>				 

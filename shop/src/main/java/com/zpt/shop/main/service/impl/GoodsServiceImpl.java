@@ -105,9 +105,9 @@ public class GoodsServiceImpl implements GoodsService {
 	
 
 	@Override
-	public Goods getGoodsId(Integer goodsId,Integer proId) {
+	public Goods getGoodsId(Integer goodsId) {
 		// TODO Auto-generated method stub
-		Goods goods = goodsMapper.getGoodsId(goodsId,proId);
+		Goods goods = goodsMapper.getGoodsId(goodsId);
 		return goods;
 	}
 

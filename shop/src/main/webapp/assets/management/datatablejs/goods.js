@@ -10,7 +10,6 @@ $(document).ready(function(){
                     { "data": "id","orderable":false},
                     { "data": "name"},
                     { "data": "exp_name" },
-                    { "data": "quantity" },
                     { "data": "code" },
                     { "data": "brandName" },
                     { "data": "store" },
@@ -28,7 +27,7 @@ $(document).ready(function(){
              }
            },          
            {
-               "targets": [8],
+               "targets": [7],
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+

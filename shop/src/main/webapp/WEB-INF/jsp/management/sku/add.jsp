@@ -10,6 +10,7 @@
 <script src="<%=basePath%>assets/management/javascripts/ajaxfileupload1.js"
 	type="text/javascript"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <div class="modal fade" id="addModal">
 	<div class="modal-dialog" style="width:700px;">
 		<div class="modal-content">
@@ -49,22 +50,29 @@
 										</div>
 									</div>
 								</div>
-								<div class="row">
-									<c:forEach items="${goodsM.pros}" var="p" varStatus="status">
+								<c:forEach items="${goodsM.pros}" var="p" varStatus="status">
+									<c:if test="${status.index%2 == 0}">
+										<div class="row">
+									</c:if>
 										<div class="col-md-6">
 											<div class="form-group">
-												<label for="proId">${p.name }</label><input
+												<label for="proId">${p.name }(*)</label><input
 													class="form-control avalue" placeholder="请输入${p.name }"
-													id="avalue" name="value" type="text"> <input
+													title="${p.name }不能为空" id="avalue" required="required"
+													 name="value" type="text"> <input
 													class=aproId type="hidden" id="" name="proId" value="${p.id }"
 													type="text">
 											</div>
 										</div>
-									</c:forEach>
+									 <c:set var="last" value="${status.last }"></c:set>
+									 <c:set var="odd" value="${status.index%2 == 1}"></c:set>										 
+									<c:if test="${(odd)||(last)}">
+										</div>
+									</c:if>
+								</c:forEach>
 								</div>
-							</div>
-							<div class="col-md-5">
-								<div class="row">
+								<div class="col-md-5" align="right">
+									<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
 											<p>请选择图片</p>
@@ -80,7 +88,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div>							
 						</div>
 					</fieldset>
 				</form>

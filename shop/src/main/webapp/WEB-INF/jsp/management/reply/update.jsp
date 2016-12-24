@@ -16,18 +16,18 @@
 					<fieldset>
 						<div class="row">
 							<input type="hidden" id="uid" name="id" >
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<div class="form-group">
-									<label for="name">skey</label><input class="form-control"
+									<label for="name">skey(*)</label><input class="form-control"
 										placeholder="请输入skey" id="uskey" name="skey" type="text">
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<div class="form-group">
-									<label for="content">自动回复内容</label><input class="form-control"
-										placeholder="请输入自动回复内容" id="ureply" name="reply" type="text">
+									<label for="brief">自动回复内容(*)</label><textarea class="form-control" rows="3"
+										placeholder="请输入自动回复内容" id="ureply" name="reply"></textarea>
 								</div>
-							</div>
+							</div>							
 						</div>
 					</fieldset>
 				</form>

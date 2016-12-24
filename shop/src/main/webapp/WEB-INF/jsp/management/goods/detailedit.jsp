@@ -14,7 +14,7 @@
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
 				<h4 class="modal-title">
-					修改副文本信息 <span class="loading" style=""></span>
+					修改富文本信息 <span class="loading" style=""></span>
 				</h4>
 			</div>
 			<div class="modal-body">
