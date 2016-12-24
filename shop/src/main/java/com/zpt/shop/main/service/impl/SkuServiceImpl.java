@@ -192,4 +192,21 @@ public class SkuServiceImpl implements SkuService{
 		return path;
 	}
 
+	@Override
+	public List<Sku> getSkuInfoByIds(String skuIds) {
+		// TODO Auto-generated method stub
+		List<Sku> list = skuMapper.getSkuInfoByIds(skuIds);
+		if (list != null && list.size()>0) {
+			return list;
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public void updateSkuNum(Integer id, int num) {
+		// TODO Auto-generated method stub
+		skuMapper.updateSkuNum(id, num);
+	}
+
 }

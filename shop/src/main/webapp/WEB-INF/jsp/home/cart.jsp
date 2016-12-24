@@ -120,23 +120,29 @@
 	  		</c:if>
 		  	<!--有商品-->
 		  	<c:if test="${!empty cartsMsg}"> 
-		  	    <c:forEach items="${cartsMsg}" var="cartsList">
-					<div class="shopping-car-show order-list clearfloat">
-				        <img src="<%=basePath%>${cartsList.url}">
-				        <ul class="shopping-car-detail ph5">
-				          <li><a href="../mainindex/goodsDetail/${cartsList.goodsId}" class="fc-000 goodsName">${cartsList.name}</a></li>
-				          <li>商品规格：<span class="goodsValue">${cartsList.value}</span></li>
-				          <li><span class="fl goodsPrice">￥${cartsList.price}</span><span class="fr">x${cartsList.num}</span></li>
-				        </ul>
-				        <div class="shopping-car-edit">
-				          <p class="modify">修改</p>
-				          <p class="mt8 iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>
-				          <input class="cartId" type="hidden" value="${cartsList.id}">
-				          <input class="goodsId" type="hidden" value="${cartsList.goodsId}">
-				          <input class="goodsSkuNum" type="hidden" value="${cartsList.skuNum}">
-				        </div>
-			  	    </div>
-				</c:forEach>				
+		  	    <div class="have-data">
+		  	    	<c:forEach items="${cartsMsg}" var="cartsList">
+						<div class="shopping-car-show order-list clearfloat">
+					        <img src="<%=basePath%>${cartsList.url}">
+					        <ul class="shopping-car-detail ph5">
+					          <li><a href="../mainindex/goodsDetail/${cartsList.goodsId}" class="fc-000 goodsName">${cartsList.name}</a></li>
+					          <li>商品规格：<span class="goodsValue">${cartsList.value}</span></li>
+					          <li>
+					          	<span class="fl goodsPrice">￥${cartsList.price}</span>
+					          	<span class="fr">x${cartsList.num}</span>
+					          	<input type="hidden" class="goodsNum" value="${cartsList.num}" />
+					          </li>
+					        </ul>
+					        <div class="shopping-car-edit">
+					          <p class="modify">修改</p>
+					          <p class="mt8 iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>
+					          <input class="cartId" type="hidden" value="${cartsList.id}">
+					          <input class="goodsId" type="hidden" value="${cartsList.goodsId}">
+					          <input class="goodsSkuNum" type="hidden" value="${cartsList.skuNum}">
+					        </div>
+				  	    </div>
+					</c:forEach>
+		  	    </div>				
 	        </c:if>
 	        <form id="buyGoodsForm" action="payment" method="post">
 	        	<input type="hidden" name="cartIds" id="cartIds" value="" />
@@ -234,6 +240,7 @@
     		   	    		$(".shopping-car").html("");
     		   	    		$.each(data.cartsMsg, function(i, cartsList) {   
     		   	    			$(".shopping-car").append( 
+    		   	    				'<div class="have-data">'+
     		   	    				'<div class="shopping-car-show order-list clearfloat">'+
     		   	    				'<img src="<%=basePath%>'+cartsList.url+'">'+
        			          	  	    '<ul class="shopping-car-detail ph5">'+
@@ -248,6 +255,7 @@
 									'<input class="goodsId" type="hidden" value="'+cartsList.goodsId+'">'+
 									'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
 									'</div>'+
+									'</div>'+
 									'</div>'
     		    				);
     	   		  			});
@@ -261,6 +269,7 @@
     </script>
     <script type="text/javascript">
     	$(document).ready(function() {
+    		var state = ${state};
     	    //结算
     	    $("#submitOrder").click(function() {
     	    	if($("#settlement").text() == 0) {
@@ -276,6 +285,9 @@
         	    	});
         	    	if(ids != ""){
     					$("#cartIds").val(ids);
+    					if(state == 1) {//从立即购买过来
+    						$("#buyGoodsForm").attr("action", "../../../payment");
+    					}
     					$("#buyGoodsForm").submit();
     	        	}else{
     	        		$("#myModal").show();
@@ -293,6 +305,8 @@
 	    	var goodsId = $("#goodsId").val();//商品id
 	    	var select = false;//属性是否已选
 	    	$(".shopping-car").on("click", ".modify", function() {
+	    		var num = $(this).parent().siblings("ul").find("input.goodsNum").val();
+	    		$("#purchaseNum").text(num);
 				$(".car-tab-bar").css("display", "none");
 				$("#modifyAttr").show();
 				$(".goods-parameter-choice").slideDown();
@@ -553,6 +567,7 @@
 									$(".shopping-car").html("");
 		    		   	    		$.each(data.cartsMsg, function(i, cartsList) {   
 		    		   	    			$(".shopping-car").append( 
+		    		   	    				'<div class="have-data">'+
 		    		   	    				'<div class="shopping-car-show order-list clearfloat">'+
 		    		   	    				'<img src="<%=basePath%>'+cartsList.url+'">'+
 		       			          	  	    '<ul class="shopping-car-detail ph5">'+
@@ -566,6 +581,7 @@
 											'<input class="cartId" type="hidden" value="'+cartsList.id+'">'+
 											'<input class="goodsId" type="hidden" value="'+cartsList.goodsId+'">'+
 											'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
+											'</div>'+
 											'</div>'+
 											'</div>'
 		    		    				);

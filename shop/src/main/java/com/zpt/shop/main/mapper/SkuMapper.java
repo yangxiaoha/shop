@@ -27,5 +27,26 @@ public interface SkuMapper {
 	public List<Sku> getSkuByGoods(@Param("goods")String goodsId);
 
 	public List<Sku> getGoodsStockInfo(@Param("goodsId")Integer goodsId);
+
+	/**
+	 * 通过id获取库存信息
+	 * @param String skuIds 库存ids
+	 * @return List<Sku>
+	 * */
+	public List<Sku> getSkuInfoByIds(@Param("ids")String skuIds);
+
+	/**
+	 * 修改库存数量
+	 * @param Integer id 库存id
+	 * @param int num 剩余数量
+	 * */
+	public void updateSkuNum(@Param("id")Integer id, @Param("num")int num);
+
+	/**
+	 * 通过商品id获取库存信息
+	 * @param Integer goodsId 商品id
+	 * @return List<Sku>
+	 * */
+	public List<Sku> getSkuIdsByGoodsId(@Param("goodsId")Integer goodsId);
 	
 }

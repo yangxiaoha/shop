@@ -17,7 +17,10 @@
 <title>一见喜</title>
 <style>
 	.recharge-qr {
-	    margin: 120px auto;
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
 	}
 	.recharge-qr > img {
 		display: block;
@@ -41,7 +44,7 @@
 		        </a>
 	        </li>
 	        <li>
-		        <a href="orderDetail">
+		        <a href="../purchase/orderDetail">
 		          <span class="tab-bar-bg order"></span>
 		          <span>我的订单</span>
 		        </a>

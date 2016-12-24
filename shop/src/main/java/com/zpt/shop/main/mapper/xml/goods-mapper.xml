@@ -131,6 +131,7 @@
 		group by t.goodsid) as sku left join t_goods_image as image 
 		on sku.id = image.skuid) as g 
 		on t_goods.id = g.goodsid
+		where state = 1
 		order by id desc
 		limit #{pageStart},#{num}
 	</select>
@@ -142,6 +143,7 @@
 		group by t.goodsid) as sku left join t_goods_image as image 
 		on sku.id = image.skuid) as g 
 		on t_goods.id = g.goodsid 
+		where state = 1
 		<if test="flag == 1">
 			ORDER BY t_goods.id DESC
 		</if>

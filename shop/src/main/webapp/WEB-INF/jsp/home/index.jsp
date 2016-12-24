@@ -86,12 +86,7 @@
 				    	<a href="goodsDetail/${goodsList.id}">
 				    		<img src="<%=basePath%>${goodsList.url}" />
 							<p class="p5">${goodsList.name}</p>
-							<c:if test="${!empty goodsList.price}">
-								<p class="mb5 font-price">￥${goodsList.price}</p>
-							</c:if>
-							<c:if test="${empty goodsList.price}">
-								<p class="mb5 font-price">￥0.00</p>
-							</c:if>
+							<p class="mb5 font-price">￥${goodsList.price}</p>
 				    	</a>
 					</div>
 				</c:forEach>
@@ -188,6 +183,7 @@
 				var keyword = $("#keyword").val();
 				var typeId = "";
 				showGoods(flag, keyword, typeId);
+				$(".goods-search").hide();
 			});
 		}); 
 	    function showGoods(flag, keyword, typeId) {
@@ -245,21 +241,23 @@
     	                    var result = '';
     	                    pageStart = pageStart + num;
     	                    
-    	                    for(var i = 0; i < data.goodsMsg.length; i++){
-    	                        result += '<div class="goods-show">'+
-   			          	  	    		'<a href="goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
-   					            		'<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
-										'<p class="p5">'+data.goodsMsg[i].name+'</p>'+
-										'<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
-										'</a>'+
-										'</div>';
-    	                        if((i + 1) >= data.goodsMsg.length){
-    	                            // 锁定
-    	                            me.lock();
-    	                            // 无数据
-    	                            me.noData();
-    	                            break;
-    	                        }
+    	                    if(data.goodsMsg != null) {
+        	                    for(var i = 0; i < data.goodsMsg.length; i++){
+        	                        result += '<div class="goods-show">'+
+       			          	  	    		'<a href="goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
+       					            		'<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
+    										'<p class="p5">'+data.goodsMsg[i].name+'</p>'+
+    										'<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
+    										'</a>'+
+    										'</div>';
+        	                        if((i + 1) >= data.goodsMsg.length){
+        	                            // 锁定
+        	                            me.lock();
+        	                            // 无数据
+        	                            me.noData();
+        	                            break;
+        	                        }
+        	                    }
     	                    }
     	                    // 为了测试，延迟1秒加载
     	                    setTimeout(function(){

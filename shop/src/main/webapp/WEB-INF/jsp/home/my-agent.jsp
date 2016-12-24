@@ -31,6 +31,9 @@
 			  	  </div>
 				</c:forEach>				
 	        </c:if>
+	        <c:if test="${empty agentMsg}">
+	        	<p>暂无代理人</p>
+	        </c:if>
 	  	</div>
 	
 	  	<ul class="tab-bar order-detail-tab-bar">
@@ -41,7 +44,7 @@
 	        </a>
 	      </li>
 	      <li>
-	        <a href="orderDetail">
+	        <a href="../purchase/orderDetail">
 	          <span class="tab-bar-bg order"></span>
 	          <span>我的订单</span>
 	        </a>

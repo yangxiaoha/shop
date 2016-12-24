@@ -21,6 +21,12 @@ public interface OrderDetailMapper  {
 	 * @param String skuIds
 	 * */
 	public List<OrderDetail> getorderDetailBySkuIds(@Param("ids")String skuIds);
+
+	/**
+	 * 添加订单详情
+	 * @param String skuIds
+	 * */
+	public List<OrderDetail> getOrderDetail(@Param("ordercode")String ordercode);
 	
 }
 

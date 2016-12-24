@@ -30,11 +30,12 @@ public class CartServiceImpl implements CartService {
 		// TODO Auto-generated method stub
 		// 添加购物车之前先判断之前是否已经有此商品
 		Cart cart = cartMapper.selectCart(userId, skuId);
-		BigDecimal totalPrice = new BigDecimal("0.0");
+		BigDecimal totalPrice = new BigDecimal("0.00");
         BigDecimal money = new BigDecimal(price);
-		totalPrice = money.multiply(new BigDecimal(num));
+		totalPrice = money.multiply(new BigDecimal(num));//本次总金额
 		if(cart != null && !("".equals(cart))) {
 			num = num + cart.getNum();
+			totalPrice = totalPrice.add(cart.getTotalprice());//totalPrice=本次总金额+之前的金额
 			cartMapper.updateGoodsIntoCart(userId, skuId, num, price, totalPrice);
 		}else {
 			cartMapper.addGoodsIntoCart(userId, skuId, num, price, totalPrice);

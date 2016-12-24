@@ -72,8 +72,8 @@ public class Withdraw {
 		this.cashTime = cashTime;
 	}
 
-	public BigDecimal getCashMoney() {
-		return cashMoney;
+	public String getCashMoney() {
+		return cashMoney.toString();
 	}
 
 	public void setCashMoney(BigDecimal cashMoney) {

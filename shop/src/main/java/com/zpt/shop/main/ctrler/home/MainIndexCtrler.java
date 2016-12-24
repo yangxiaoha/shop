@@ -2,6 +2,7 @@ package com.zpt.shop.main.ctrler.home;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -171,7 +172,7 @@ public class MainIndexCtrler {
 		Goods goodsList = goodsService.getGoodsById(goodsId);
 		//商品属性
 		List<ProVal> proList = proValService.getProByTypeId(goodsId);
-		//库存信息
+		//查询库存信息
 		List<Sku> goodsSkuList = skuService.getGoodsStockInfo(goodsId);
 		//订单信息(获取下单时间，下单小于半小时的商品保留，超过半小时的修改状态)
 		String skuIds = "";
@@ -207,11 +208,20 @@ public class MainIndexCtrler {
 					}
 				}
 			}
+			for(int i=0; i<goodsSkuList.size(); i++) {
+				//返回库存信息(去掉数量为0的)
+				List<Sku> goodsSkuListReturn = new ArrayList<Sku>();
+            	if(goodsSkuList.get(i).getNum() > 0) {
+            		goodsSkuListReturn.add(goodsSkuList.get(i));
+            	}
+            	map.put("goodsSkuMsg", goodsSkuListReturn);
+			}
+		}else {
+			map.put("goodsSkuMsg", goodsSkuList);
 		}
 		map.put("state", true);
 		map.put("goodsMsg", goodsList);
 		map.put("proMsg", proList);
-		map.put("goodsSkuMsg", goodsSkuList);
 		return map;
 	}
 

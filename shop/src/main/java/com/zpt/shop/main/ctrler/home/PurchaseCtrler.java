@@ -71,26 +71,23 @@ public class PurchaseCtrler {
 	public ModelAndView cart(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("home/cart");
 		int num = 0;
-		BigDecimal price = new BigDecimal("0.0");
 		int totalNum = 0;
-		BigDecimal totalPrice = new BigDecimal("0.0");
-		double total = 0.0d;
+		BigDecimal total = new BigDecimal("0.0");
 		User user = (User) request.getSession().getAttribute("user");
 		Integer userId = user.getId();//先设置用户为1
 		List<Cart> cartsList = cartService.getCartInfo(userId.toString());
 		if(cartsList != null && cartsList.size() > 0) {
 			for(int i=0; i<cartsList.size(); i++) {
 				num = cartsList.get(i).getNum();
-				price = cartsList.get(i).getPrice();
 				totalNum += num;
-				totalPrice = price.multiply(new BigDecimal(num));
-				total = totalPrice.add(new BigDecimal(total)).doubleValue();
+				total= total.add(cartsList.get(i).getTotalprice());
 			}
-			DecimalFormat df = new DecimalFormat("#.00");  
+			mv.addObject("state", 0);
 			mv.addObject("totalNum", totalNum);
-			mv.addObject("total", df.format(total));
+			mv.addObject("total", total.toString());
 			mv.addObject("cartsMsg", cartsList);	
 		}else {
+			mv.addObject("state", 0);
 			mv.addObject("totalNum", "0");
 			mv.addObject("total", "0.00");
 			mv.addObject("cartsMsg", null);
@@ -203,11 +200,13 @@ public class PurchaseCtrler {
 				totalPrice = price.multiply(new BigDecimal(num));
 				total = totalPrice.add(new BigDecimal(total)).doubleValue();
 			}
-			DecimalFormat df = new DecimalFormat("#.00");  
+			DecimalFormat df = new DecimalFormat("#.00");
+			mv.addObject("state", 1);
 			mv.addObject("totalNum", totalNum);
 			mv.addObject("total", df.format(total));
 			mv.addObject("cartsMsg", cartsList);	
 		}else {
+			mv.addObject("state", 1);
 			mv.addObject("totalNum", "0");
 			mv.addObject("total", "0.00");
 			mv.addObject("cartsMsg", null);
@@ -217,7 +216,7 @@ public class PurchaseCtrler {
 	
 	//支付（从详细页过来的支付）
 	@RequestMapping(value="/payment")
-	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response, Integer orderId, String cartIds, String totalMoney) throws Exception {
+	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response, Integer orderId, String orderNum, String cartIds, String totalMoney) throws Exception {
 		ModelAndView mv = new ModelAndView("home/order-payment");
 
 		String path = request.getContextPath();
@@ -226,18 +225,21 @@ public class PurchaseCtrler {
         String url = basePath + "/home/purchase/payment";
         System.out.println("当前页面路径:"+url);
         
-        User user = (User) request.getSession().getAttribute("user"); 
+        User user = (User) request.getSession().getAttribute("user");  
         
-        //订单号
-        String code1 = RandomArray.randomArray(0, 9, 2);
-        String code2 = RandomArray.randomArray(0, 9, 2);
-        String myTime = MyTime.getNowFormatDate();
-        String ordercode = code1 + myTime + code2;
+        String ordercode = "";
         
         //下单金额
         String money = "";
         if(cartIds != null) {
         	money = totalMoney;
+        	
+            //订单号
+            String code1 = RandomArray.randomArray(0, 9, 2);
+            String code2 = RandomArray.randomArray(0, 9, 2);
+            String myTime = MyTime.getNowFormatDate();
+            ordercode = code1 + myTime + code2;
+            
         	List<Cart> cartsList = cartService.getCartInfoById(cartIds);
             //订单数据
         	mv.addObject("state", 0);
@@ -246,6 +248,7 @@ public class PurchaseCtrler {
             mv.addObject("cartsMsg", cartsList);
             mv.addObject("ordercode", ordercode);//订单号
         }else {
+        	ordercode = orderNum;
             List<Order> orderList = orderService.getOrderByOrderId(orderId);
             money = String.valueOf(orderList.get(0).getTotalPrice());
             //订单数据
@@ -257,6 +260,8 @@ public class PurchaseCtrler {
         
         String noncestr = Sha1Util.getNonceStr(); //随机字符串
         String timestamp = Sha1Util.getTimeStamp(); //当前时间
+        
+        System.out.println(ordercode);
         
         //config验证
         String JsapiTicket = wxMpService.getJsapiTicket(false);

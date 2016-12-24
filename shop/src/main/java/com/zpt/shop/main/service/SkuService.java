@@ -30,4 +30,18 @@ public interface SkuService {
 	//上传图片到服务器
 	public String uploadPhoto(CommonsMultipartFile cmFile, String relaPath);
 
+	/**
+	 * 通过id获取库存信息
+	 * @param String skuIds 库存ids
+	 * @return List<Sku>
+	 * */
+	public List<Sku> getSkuInfoByIds(String skuIds);
+
+	/**
+	 * 修改库存数量
+	 * @param Integer id 库存id
+	 * @param int num 剩余数量
+	 * */
+	public void updateSkuNum(Integer id, int num);
+
 }

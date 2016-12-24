@@ -138,7 +138,7 @@ public class GoodsServiceImpl implements GoodsService {
 		// TODO Auto-generated method stub
 		Goods lowGoods = goodsMapper.getLowGoodsById(goodsId);
 		Goods highGoods = goodsMapper.getHighGoodsById(goodsId);
-		BigDecimal highPrice = new BigDecimal("0");
+		BigDecimal highPrice = new BigDecimal("0.00");
 		highPrice = highGoods.getPrice();
 		lowGoods.setHighprice(highPrice);
 		return lowGoods;

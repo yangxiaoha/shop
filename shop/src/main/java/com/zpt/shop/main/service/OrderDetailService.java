@@ -23,4 +23,10 @@ public interface OrderDetailService {
 	 * */
 	public List<OrderDetail> getorderDetailBySkuIds(String skuIds);
 
+	/**
+	 * 查询订单详情
+	 * @param String ordercode 订单号
+	 * */
+	public List<OrderDetail> getOrderDetail(String ordercode);
+
 }

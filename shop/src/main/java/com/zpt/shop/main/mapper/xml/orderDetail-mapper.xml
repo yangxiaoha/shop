@@ -40,5 +40,12 @@
 		on t_order_detail.orderid = t_order.id
 		where t_order_detail.skuid in (${ids}) and t_order.state = 1
 	</select>
+	
+	<select id="getOrderDetail" resultMap="resultMap">
+		select t_order_detail.* from t_order_detail 
+		left join t_order
+		on t_order_detail.orderid = t_order.id
+		where t_order.ordernum = #{ordercode}
+	</select>
 
 </mapper>

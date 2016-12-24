@@ -371,6 +371,12 @@ a, a:link, a:visited, a:hover, a:active {
 /************************type-detail结束************************/
 
 /************************car开始************************/
+.no-shopping-car-show {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 .no-shopping-car-show div {
 	width: 130px;
 	margin: 0 auto;
@@ -379,6 +385,10 @@ a, a:link, a:visited, a:hover, a:active {
 	width: 100%;
 }
 .go-shopping {
+	position: absolute;
+    top: 0;
+    left: 0;
+	width: 100%;
 	height: 60px;
 	padding: 13px 10px;
 	line-height: 34px;
@@ -426,6 +436,12 @@ a, a:link, a:visited, a:hover, a:active {
     width: 80px !important;
     height: 80px !important;
 }
+.have-data {
+	position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+}
 /************************car结束************************/
 
 /************************order开始************************/
@@ -443,11 +459,13 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .write-order p {
 	position: absolute;
+	left: 15px;
+	color: #000; 
     text-indent: 15px;
-	background-image: url(../images/banner.png);    
+    background-image: url(../images/banner.png);
     background-size: 150px 150px;
-    background-position: -15px -95px;  
-    background-repeat: no-repeat;    
+    background-position: -15px -95px;
+    background-repeat: no-repeat;  
 }
 .order-detail,
 .agent-detail {
@@ -523,7 +541,7 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .order-tab-bar {
 	padding-left: 15px;
-	line-height: 60px;
+	line-height: 52px;
 }
 .order-tab-bar .payment {
 	width: 60px;
