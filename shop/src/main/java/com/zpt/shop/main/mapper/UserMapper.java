@@ -43,6 +43,13 @@ public interface UserMapper {
 	public void addUser(@Param("openId")String fromUserName, @Param("regtime")String createTime, @Param("pid")Integer pid, @Param("money")String money);
 
 	/**
+	 * 修改用户
+	 * @param String fromUserName 用户openId
+	 * @param String createTime 用户openId
+	 * */
+	public void updateUser(@Param("openId")String fromUserName, @Param("regtime")String createTime, @Param("pid")Integer pid, @Param("money")String money);
+	
+	/**
 	 * 获取分销信息
 	 * @param String ids 代理人id
 	 * */

@@ -49,4 +49,6 @@ public interface SkuMapper {
 	 * */
 	public List<Sku> getSkuIdsByGoodsId(@Param("goodsId")Integer goodsId);
 	
+	public List<Sku> getOrderByOrderNum(@Param("orderNum")String orderNum);
+	
 }

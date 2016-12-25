@@ -273,7 +273,7 @@
     	    //结算
     	    $("#submitOrder").click(function() {
     	    	if($("#settlement").text() == 0) {
-    	    		alert("暂无商品，先去逛逛？");
+    	    		alert("暂无商品");
     	    	}else{
         	    	var ids = "";
         	    	$(".shopping-car-show").each(function() {

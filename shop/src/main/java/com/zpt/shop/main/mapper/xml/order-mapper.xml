@@ -147,12 +147,6 @@
 		where t_order.id = t2.orderid and id = #{orderId}
 	</select>
 	
-	<select id="getOrderByOrderNum" resultMap="resultMap">
-		select goodsid from t_goods_sku where id in
-		(select skuid from t_order_detail where orderid in
-		(select id from t_order where ordernum = #{orderNum}))
-	</select>
-	
 	<select id="getOrderInfoByNoPay" resultMap="resultMap">
 		select * from t_order where userid in (${ids}) and (state = 0 or state = 1)
 	</select>

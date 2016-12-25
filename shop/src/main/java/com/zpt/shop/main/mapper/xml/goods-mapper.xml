@@ -147,23 +147,24 @@
 		group by t.goodsid) as sku left join t_goods_image as image 
 		on sku.id = image.skuid) as g 
 		on t_goods.id = g.goodsid 
-		where state = 1
 		<if test="flag == 1">
+		    where state = 1
 			ORDER BY t_goods.id DESC
 		</if>
 		<if test="flag == 2">
+		    where state = 1
 			ORDER BY t_goods.num DESC
 		</if>
 		<if test="flag == 3">
-			where t_goods.quantity &gt; 0
+			where state = 1 and t_goods.quantity &gt; 0
 			ORDER BY t_goods.id DESC
 		</if>
 		<if test="keyword != null and keyword != ''">
-			where t_goods.name like CONCAT('%',#{keyword},'%')
+			where state = 1 and t_goods.name like CONCAT('%',#{keyword},'%')
 			ORDER BY t_goods.id DESC
 		</if>
 		<if test="typeId != null and typeId != ''">
-			where t_goods.typeid = #{typeId}
+			where state = 1 and t_goods.typeid = #{typeId}
 			ORDER BY t_goods.id DESC
 		</if>
 		limit #{pageStart},#{num}

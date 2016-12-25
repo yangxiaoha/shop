@@ -69,44 +69,7 @@ public class MemberCtrler {
 		ModelAndView mv = new ModelAndView("home/member-center");
 		//获取用户信息
 		User user = (User) request.getSession().getAttribute("user");
-		//User user = userService.getUserByOpenId("1111");
-		//获取OAuth2.0请求后，服务器返回的code内容
-		/*System.out.println(request.getParameter("code") + "code");
-		String code = request.getParameter("code");
-		String accessToken = WeixinUtils.getAuthAccessToken(code);
-		System.out.println(user.getPid() + "pid");*/
 		
-		/*String appId = wxMpConfigStorage.getAppId();
-		String secret = wxMpConfigStorage.getSecret();
-		//第一步：用户同意授权，获取code  
-		String code = (String)request.getParameter("code");
-		System.out.println(code+"----------------------membercode");
-        if(null == code || code.equals("")){        	
-        	String requestPath = URLEncoder.encode(request.getRequestURL().toString(), "UTF-8");
-			String codePath = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + wxMpConfigStorage.getAppId()
-					+ "&redirect_uri=" + requestPath
-					+ "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
-			System.out.println(codePath+"----------------------codepath");
-			response.sendRedirect(codePath);
-        }else {       	
-        	String accessToken = WeixinUtils.getAuthAccessToken(appId, secret, code);
-        	System.out.println(accessToken+"----------------------accessToken");
-    		Integer pid = 0;
-    		//是否有上级
-    		if(!(pid.equals(user.getPid()))) {
-    			User superiorUser = userService.getUserId(user.getPid());
-    			WeixinUserInfo superiorUserInfo = WeixinUtils.getWeixinUserInfo(accessToken, superiorUser.getOpenid());
-    			mv.addObject("superiorName", superiorUserInfo.getNickname());//用户上级昵称
-    		}		
-            //获取用户微信信息（传入accessToken和openId获取用户信息）        
-            WeixinUserInfo userInfo = WeixinUtils.getWeixinUserInfo(accessToken, user.getOpenid()); 
-            mv.addObject("superiorName", "一见喜");//用户上级昵称
-    		mv.addObject("name", userInfo.getNickname());//用户昵称
-    		mv.addObject("headImg", userInfo.getHeadImgUrl());//用户头像
-        }*/
-		
-/*		String openId = (String) request.getSession().getAttribute("openid");
-		String accessToken = (String) request.getSession().getAttribute("accessToken");*/
 		String nickname = (String) request.getSession().getAttribute("userName");
 		String headimgurl = (String) request.getSession().getAttribute("userHeadImg");
 		String superiorName = (String) request.getSession().getAttribute("superiorName");
@@ -150,6 +113,8 @@ public class MemberCtrler {
 			}
 			if(second != null && !("".equals(second))) {
 				ids = primary + "," + second;
+			}else {
+				ids = primary;
 			}
 			String[] strArray = null;   
 	        strArray = ids.split(","); //拆分字符为"," ,然后把结果交给数组strArray 
@@ -206,8 +171,11 @@ public class MemberCtrler {
 		String userName = (String) request.getSession().getAttribute("userName");
 		String userHeadImg = (String) request.getSession().getAttribute("userHeadImg");
 		List<Withdraw> withdrawsList = withdrawService.getWithdrawsInfo(user.getId());
+		//获取用户信息
+		User userInfo  = userService.getUserByUserId(user.getId());
 		mv.addObject("name", userName);
 		mv.addObject("headImg", userHeadImg);
+		mv.addObject("money", userInfo.getMoney());//可提现金额
 		mv.addObject("withdrawsMsg", withdrawsList);
 		return mv;
 	}
@@ -256,9 +224,10 @@ public class MemberCtrler {
 		System.out.println(jsonMsg1);
 		System.out.println(jsonObject);
 		String url = jsonObject.getString("url");*/
-		String openid = (String) request.getSession().getAttribute("openid");
-		String superiorId = (String) request.getParameterMap().get("openId");	
-		User superiorUser = userService.getUserByOpenId(openid);
+		String openid = (String) request.getSession().getAttribute("openid");//扫码用户的openId
+		String[] superiorId = (String[]) request.getParameterMap().get("openId");//二维码持有者的openId
+		System.out.println(superiorId);
+		User superiorUser = userService.getUserByOpenId(String.valueOf(superiorId[0]));
 		//判断此用户是否已经存在
 		User user = userService.getUserByOpenId(openid);
 		String subscribe = (String) request.getSession().getAttribute("subscribe");

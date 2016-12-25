@@ -71,6 +71,7 @@
 	    </div>
     </div>
     
+    <script src="<%=basePath%>assets/home/dropload-gh-pages/dist/dropload.min.js"></script>
 	<script type="text/javascript">
     	$(document).ready(function(){
     		var typeId = $("#typeId").val();
@@ -82,6 +83,16 @@
 	    			$(this).children("p").addClass("active");
 	    			$(this).children("ul").show();
 	    		}
+			});
+			$(".type-detail-show ul li").click(function() {
+				var typeId = $(this).find(".getTypeId").val();
+				if($(this).hasClass("active")) {
+					$(this).removeClass("active");
+				}else {
+					$(".type-detail-show ul li").removeClass("active");
+					$(this).addClass("active");
+					showGoodsByType(typeId);
+				}				
 			});
 			$(".type-detail-show p").click(function() {
 				var typeId = $(this).siblings(".getTypeId").val();
@@ -137,7 +148,7 @@
     	        loadDownFn : function(me){
     	            $.ajax({
     	                type: 'POST',
-    	                url: 'loadIndex',
+    	                url: '../loadIndex',
     	                data: {    	                
     	                	pageStart:pageStart,
     	                	num:num,
