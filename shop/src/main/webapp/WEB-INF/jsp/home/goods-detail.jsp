@@ -352,7 +352,7 @@
 					        })
 		        		}
 						if(state == 1) {
-							$("#purchase").attr('href','../../purchase/buyImmediately/'+goodsStock[sub].id+'/'+$("#purchaseNum").text()+'/'+goodsStock[sub].price);
+							$("#purchase").attr('href','../../../purchase/buyImmediately/'+goodsStock[sub].id+'/'+$("#purchaseNum").text()+'/'+goodsStock[sub].price);
 		        		}
 		        	}						
 				}else {

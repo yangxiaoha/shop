@@ -93,37 +93,42 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$(".withdrawals-submit").click(function() {				
-				$.ajax({
-			   	    url: "withdrawalsApply",
-			   		type: "Post",
-			   	    data: {
-			   	    	money:$("#withdrawalsPrice").val()
-			   	    },
-			   	    dataType: "json",
-			   	    success: function(data) {
-			   	    	if(data.state){
-			   	    		$("#withdrawals-info-detail > tbody").html("");
-			   	    		$.each(data.withdrawsMsg, function(i, withdrawsList) {   
-			   	    			if(withdrawsList.state == 1) {
-				   	    			$("#withdrawals-info-detail > tbody").append( 
-			   	    					'<tr>'+
-			   	    					'<td>'+withdrawsList.cashNum+'</td>'+
-			   	    					'<td>￥'+withdrawsList.cashMoney+'</td>'+
-			   	    					'<td>已提现</td>'
-				    				);
-			   	    			}else if(withdrawsList.state == 0) {
-				   	    			$("#withdrawals-info-detail > tbody").append( 
-			   	    					'<tr>'+
-			   	    					'<td>'+withdrawsList.cashNum+'</td>'+
-			   	    					'<td>￥'+withdrawsList.cashMoney+'</td>'+
-			   	    					'<td>等待</td>'
-				    				);
-			   	    			}
-		   		  			});
-			   			}
-			   	    }
-		        })
+			var money = "${money}";
+			$(".withdrawals-submit").click(function() {	
+				if(money == 0) {
+					alert("无可提现金额！");
+				}else{
+					$.ajax({
+				   	    url: "withdrawalsApply",
+				   		type: "Post",
+				   	    data: {
+				   	    	money:$("#withdrawalsPrice").val()
+				   	    },
+				   	    dataType: "json",
+				   	    success: function(data) {
+				   	    	if(data.state){
+				   	    		$("#withdrawals-info-detail > tbody").html("");
+				   	    		$.each(data.withdrawsMsg, function(i, withdrawsList) {   
+				   	    			if(withdrawsList.state == 1) {
+					   	    			$("#withdrawals-info-detail > tbody").append( 
+				   	    					'<tr>'+
+				   	    					'<td>'+withdrawsList.cashNum+'</td>'+
+				   	    					'<td>￥'+withdrawsList.cashMoney+'</td>'+
+				   	    					'<td>已提现</td>'
+					    				);
+				   	    			}else if(withdrawsList.state == 0) {
+					   	    			$("#withdrawals-info-detail > tbody").append( 
+				   	    					'<tr>'+
+				   	    					'<td>'+withdrawsList.cashNum+'</td>'+
+				   	    					'<td>￥'+withdrawsList.cashMoney+'</td>'+
+				   	    					'<td>等待</td>'
+					    				);
+				   	    			}
+			   		  			});
+				   			}
+				   	    }
+			        })
+				}
 			});
 		});
 	</script>

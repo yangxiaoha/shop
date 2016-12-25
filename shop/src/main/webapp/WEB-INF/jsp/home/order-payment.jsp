@@ -161,7 +161,6 @@
   			    },
     		    function(res){
     				WeixinJSBridge.log(res.err_msg);
-    				alert(res.err_code+res.err_desc+res.err_msg);
                     $("#buyGoodsSubForm").submit();
     		    }
     		);
@@ -199,7 +198,7 @@
         }); 
         
         wx.ready(function(){
-        	if($("#state") == 0) {
+        	if($("#state") == "0") {
                 getAddr(); 
         	}        
         });
@@ -214,7 +213,6 @@
                 jsonString= jsonString.substring(0, (jsonString.length - 1));  
                 jsonString+= '}'; 
                 $("#postData").val(jsonString);
-                alert($("#postData").val(jsonString));
                 //onBridgeReady();
                 callpay();
             });

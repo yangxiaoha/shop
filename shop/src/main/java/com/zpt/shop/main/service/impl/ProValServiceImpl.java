@@ -1,5 +1,6 @@
 package com.zpt.shop.main.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,12 @@ public class ProValServiceImpl implements ProValService {
 				}
 			}
 		}
-
-		List<ProVal> list = proValMapper.getProByTypeId(ids, skuIds);
+		List<ProVal> list = new ArrayList<ProVal>();
+        if(skuIds != null && skuIds.length() > 0) {
+    		list = proValMapper.getProByTypeId(ids, skuIds);
+        }else {
+        	list = null;
+        }
 		if (list != null && list.size() > 0) {			
 			return list;
 		} else {

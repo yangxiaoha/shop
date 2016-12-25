@@ -93,7 +93,9 @@ public class WeixinInterceptor implements HandlerInterceptor {
 			    		//是否有上级
 						Integer pid = 0;
 			    		if(!(pid.equals(user.getPid()))) {
+			    			System.out.println(user.getPid());
 			    			User superior = userService.getUserId(user.getPid());
+			    			System.out.println(superior.getOpenid());
 			    			String superiorPath = "https://api.weixin.qq.com/sns/userinfo?access_token=" + accessToken
 									+ "&openid=" + superior.getOpenid() + "&lang=zh_CN";
 			    			JSONObject superiorInfoObject = WeixinUtils.httpRequest(superiorPath, "GET", null);

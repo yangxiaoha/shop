@@ -85,6 +85,19 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		userMapper.addUser(fromUserName, createTime, pid, money);
 	}
+	
+	/**
+	 * 修改用户
+	 * @param String fromUserName 用户openId
+	 * @param String createTime 关注时间
+	 * @param Integer pid 上级id
+	 * @param String money 可提现金额
+	 * */
+	@Override
+	public void updateUser(String fromUserName, String createTime, Integer pid, String money) {
+		// TODO Auto-generated method stub
+		userMapper.updateUser(fromUserName, createTime, pid, money);
+	}
 
 	/**
 	 * 获取分销信息

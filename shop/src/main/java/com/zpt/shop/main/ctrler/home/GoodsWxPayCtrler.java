@@ -72,7 +72,7 @@ public class GoodsWxPayCtrler {
      			
      			//增加购买人数
      			Long n = new Long(1l);
-     			List<Sku> goodsidList = orderService.getOrderByOrderNum(ordercode);
+     			List<Sku> goodsidList = skuService.getOrderByOrderNum(ordercode);
      			for(int i=0; i<goodsidList.size(); i++) {
      				Goods goods = goodsService.getGoodsById(goodsidList.get(i).getGoodsId());
      				goodsService.updateNum(goodsidList.get(i).getGoodsId(), goods.getNum()+n);

@@ -208,5 +208,19 @@ public class SkuServiceImpl implements SkuService{
 		// TODO Auto-generated method stub
 		skuMapper.updateSkuNum(id, num);
 	}
+	
+	
+	/**
+	 * 订单详情
+	 * */
+	@Override
+	public List<Sku> getOrderByOrderNum(String orderNum) {
+		// TODO Auto-generated method stub
+		List<Sku> list = skuMapper.getOrderByOrderNum(orderNum);
+		if(list != null && list.size()>0){
+			return list;
+		}
+		return null;
+	}
 
 }

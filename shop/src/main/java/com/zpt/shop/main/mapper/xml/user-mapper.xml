@@ -62,6 +62,13 @@
 		values (#{openId}, #{regtime}, #{pid}, #{money})
 	</insert>
 	
+	<update id="updateUser" parameterType="user">
+		update t_user set 
+		regtime = #{regtime},
+		pid = #{pid}
+		where openid = #{openid}
+	</update>
+	
 	<select id="getAgentInfoByIds" resultMap="resultMap">
 		select * from t_user where id in (${ids})
 	</select>
@@ -72,7 +79,7 @@
 	
 	<insert id="addUserByScan">
 		insert into t_user (openid, fpid, money) 
-		values (#{openId}, #{fpid}, #{money})
+		values (#{openid}, #{fpid}, #{money})
 	</insert>
 	
 	<select id="getUserByUserId" resultMap="resultMap">

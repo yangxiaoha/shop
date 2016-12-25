@@ -44,4 +44,11 @@ public interface SkuService {
 	 * */
 	public void updateSkuNum(Integer id, int num);
 
+	/**
+	 * 订单详情
+	 * @param String orderNum 订单号
+	 * @return List<Sku>
+	 * */
+	public List<Sku> getOrderByOrderNum(String orderNum);
+
 }

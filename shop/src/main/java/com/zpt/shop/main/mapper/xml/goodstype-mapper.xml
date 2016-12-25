@@ -11,7 +11,7 @@
 		<result property="isParent" column="isParent"/>
 		<result property="state" column="state"/>
 		<collection property="goodsType" columnPrefix="type_" ofType="GoodsType">    
-            <id property="id" column="typeId" />
+            <id property="id" column="id" />
             <result property="pid" column="pid"/>
 			<result property="name" column="name" />
 			<result property="isParent" column="isParent"/>

@@ -130,19 +130,6 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return null;
 	}
-	
-	/**
-	 * 订单详情
-	 * */
-	@Override
-	public List<Sku> getOrderByOrderNum(String orderNum) {
-		// TODO Auto-generated method stub
-		List<Sku> list = orderMapper.getOrderByOrderNum(orderNum);
-		if(list != null && list.size()>0){
-			return list;
-		}
-		return null;
-	}
 
 	/**
 	 * 订单详情
