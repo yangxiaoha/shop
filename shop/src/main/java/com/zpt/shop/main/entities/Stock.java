@@ -11,6 +11,16 @@ public class Stock {
 	private Integer skuId;
 	
 	private Integer id;
+	
+	private Integer goodsId;	
+
+	public Integer getGoodsId() {
+		return goodsId;
+	}
+
+	public void setGoodsId(Integer goodsId) {
+		this.goodsId = goodsId;
+	}
 
 	public Integer getId() {
 		return id;

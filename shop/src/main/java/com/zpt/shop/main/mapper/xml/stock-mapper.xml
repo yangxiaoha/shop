@@ -10,6 +10,7 @@
 		<result property="batck" column="batck" />
 		<result property="skuId" column="skuId"/>
 		<result property="ttime" column="ttime"/>
+		<result property="goodsId" column="goodsId"/>
 	</resultMap>
 	
 	<insert id="insertStock" parameterType="stock" useGeneratedKeys="true"

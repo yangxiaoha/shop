@@ -32,6 +32,7 @@ public class GoodsServiceImpl implements GoodsService {
 			}
 		}
 		goods.setIds(ids.toString());
+		goods.setQuantity(0);
 		goodsMapper.insertGoods(goods);
 
 	}

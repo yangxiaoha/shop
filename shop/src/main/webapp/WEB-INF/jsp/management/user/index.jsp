@@ -47,20 +47,7 @@
 								class="icon-reply"></i>返回用户列表</a>
 							</c:if>
 						</div>
-						<div class="widget-content padded clearfix">
-							<div class="col-lg-12">
-								<table class="table table-bordered table-striped table-hover">
-									<tr>
-										<td width="8%">用户名:</td>
-										<td><input class="form-control" type="text" id="openid"
-											name="openid" placeholder="用户名模糊搜索"></td>
-										<td width="8%">财富:</td>
-										<td><input class="form-control" type="text" id="money"
-											name="money"></td>
-									</tr>
-								</table>
-							</div>
-							<hr>
+						<div class="widget-content padded clearfix">							
 							<table class="table table-bordered table-striped table-hover"
 								id="datatable" width="100%">
 								<thead>

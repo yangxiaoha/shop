@@ -15,7 +15,8 @@
 				<form action="updateAdd" id="updateAdd" method="post">
 					<fieldset>
 						<div class="row">
-						<input type="hidden" id="aid" name="skuId" >											
+						<input type="hidden" id="aid" name="skuId" >	
+						<input type="hidden" name="goodsId" value="${goodsM.id }" type="text">									
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="num">商品数量</label><input class="form-control"

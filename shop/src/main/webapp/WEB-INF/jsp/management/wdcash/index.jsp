@@ -33,7 +33,8 @@
 								<tr>						            
 						            <td width="8%">用户id:</td>
 									<td><input class="form-control" type="text" id="username" name="username" placeholder="用户id模糊搜索"></td>
-									<td>
+									<td width="8%">审核已否:</td>
+									<td>									
 									<select class="reg-sel form-control" id="state" name="state">
 										<option value=""></option>
 										<option name="state" value="1">未审核</option>

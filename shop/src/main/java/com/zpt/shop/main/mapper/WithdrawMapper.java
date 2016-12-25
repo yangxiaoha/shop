@@ -42,5 +42,5 @@ public interface WithdrawMapper {
 	public List<Withdraw> validate(Withdraw withdraw);
 	
 	public void updateState(Withdraw withdraw);
-
+	
 }
