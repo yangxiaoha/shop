@@ -70,12 +70,6 @@
 			and code = #{code}
 		</if>										
 	</sql>	
-	
-	<sql id="getGoodsPro">		
-		<if test="proId != null and proId != ''">
-			 and concat(',',goods.ids,',') like CONCAT('%,',pro.id,',%')
-		</if>									
-	</sql>	
 		
 	<select id="listGoods" resultMap="resultMap" parameterType="query">
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
@@ -102,8 +96,7 @@
 		pro.name as proname,pro.id as proId,goods.state as state 
 		from t_goods as goods left join t_goods_brand as brand on goods.brandId = brand.id left join 
 		t_goods_type as type on goods.typeId = type.Id left join t_goods_pro as pro on pro.typeId = type.id 
-		where goods.state = 1 and goods.id = #{goodsId}
-		<include refid="getGoodsPro"/>
+		where goods.state = 1 and goods.id = #{goodsId} and concat(',',goods.ids,',') like CONCAT('%,',pro.id,',%')	
 	</select>
 	<!-- 验证当前数据是否存在 -->
 	<select id="validate" resultMap="resultMap" parameterType="goods">

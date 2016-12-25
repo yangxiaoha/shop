@@ -28,20 +28,20 @@
 						<div class="col-lg-12">
 							<table class="table table-bordered table-striped table-hover">
 								<tr>
-						            <td>skey:</td>
-						            <td><input class="form-control" type="text" id="skey" name="skey"></td>
-						            <td>sysvalue:</td>
-									<td><input class="form-control" type="text" id="sysvalue" name="sysvalue"></td>																				
+						            <td width="8%">skey:</td>
+						            <td><input class="form-control" type="text" id="skey" name="skey" placeholder="skey模糊搜索"></td>
+						            <td width="8%">sysvalue:</td>
+									<td><input class="form-control" type="text" id="sysvalue" name="sysvalue" placeholder="sysvalue模糊搜索"></td>																				
 								</tr>
 						    </table>
 						 </div>						 
 						 <hr>
 						<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
 							<thead>
-								<th class="check-header hidden-xs"><label><input
+								<th class="check-header hidden-xs"  width="8%"><label><input
 										id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 								</th>
-								<th>skey</th>
+								<th  width="20%">skey</th>
 								<th>sysvalue</th>	
 								<th></th>
 							</thead>

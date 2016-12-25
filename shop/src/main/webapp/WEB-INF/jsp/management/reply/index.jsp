@@ -30,21 +30,21 @@
 						<div class="col-lg-12">
 							<table class="table table-bordered table-striped table-hover">
 								<tr>
-						            <td>skey:</td>
-						            <td><input class="form-control" type="text" id="skey" name="skey"></td>
-						            <td>reply:</td>
-									<td><input class="form-control" type="text" id="reply" name="reply"></td>																				
+						            <td width="8%">skey:</td>
+						            <td width="30%"><input class="form-control" type="text" id="skey" name="skey" placeholder="skey模糊搜索"></td>
+						            <td width="8%">回复内容:</td>
+									<td><input class="form-control" type="text" id="reply" name="reply" placeholder="回复内容模糊搜索"></td>																				
 								</tr>
 						    </table>
 						 </div>						 
 						 <hr>
 						<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
 							<thead>
-								<th class="check-header hidden-xs"><label><input
+								<th class="check-header hidden-xs" width="8%"><label><input
 										id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 								</th>
-								<th>skey</th>
-								<th>reply</th>	
+								<th width="20%">skey</th>
+								<th>回复内容</th>	
 								<th></th>
 							</thead>
 							<tbody>

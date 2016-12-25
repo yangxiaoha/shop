@@ -25,16 +25,16 @@
 				<div div class="widget-container fluid-height clearfix">
 					<c:set var = "ids" value = "${id}"></c:set>
 					<c:if test="${ ids > 0 }">
-					<div class="col-lg-3">
+					<div class="col-lg-2">
 						<div class="row">
-							<div class="col-lg-7">
+							<div class="col-lg-12">
 								<p>用户名&nbsp：${user.openid}</p>
 								<p>注册时间：${user.regtime}</p>
 								<p>财&nbsp;&nbsp富：${user.money}</p>
 							</div>
 						</div>
 					</div>					
-					<div class="col-lg-9">
+					<div class="col-lg-10">
 					</c:if>
 					<c:if test="${ ids == 0 }">
 						<div class="col-lg-12">
@@ -51,10 +51,10 @@
 							<div class="col-lg-12">
 								<table class="table table-bordered table-striped table-hover">
 									<tr>
-										<td>用户名:</td>
+										<td width="8%">用户名:</td>
 										<td><input class="form-control" type="text" id="openid"
-											name="openid"></td>
-										<td>财富:</td>
+											name="openid" placeholder="用户名模糊搜索"></td>
+										<td width="8%">财富:</td>
 										<td><input class="form-control" type="text" id="money"
 											name="money"></td>
 									</tr>
@@ -64,10 +64,10 @@
 							<table class="table table-bordered table-striped table-hover"
 								id="datatable" width="100%">
 								<thead>
-									<th class="check-header hidden-xs"><label><input
+									<th class="check-header hidden-xs" width="8%"><label><input
 											id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 									</th>
-									<th>用户名</th>
+									<th width="20%">用户名</th>
 									<th>注册时间</th>
 									<th>财富</th>
 									<th></th>

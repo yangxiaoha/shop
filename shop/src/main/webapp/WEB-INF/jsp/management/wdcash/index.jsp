@@ -31,8 +31,8 @@
 						<div class="col-lg-12">
 							<table class="table table-bordered table-striped table-hover">
 								<tr>						            
-						            <td>用户id:</td>
-									<td><input class="form-control" type="text" id="username" name="username"></td>
+						            <td width="8%">用户id:</td>
+									<td><input class="form-control" type="text" id="username" name="username" placeholder="用户id模糊搜索"></td>
 									<td>
 									<select class="reg-sel form-control" id="state" name="state">
 										<option value=""></option>
@@ -48,13 +48,13 @@
 						<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
 							<thead>
 								<th></th>
-								<th class="check-header hidden-xs"><label><input
+								<th class="check-header hidden-xs" width="8%"><label><input
 										id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 								</th>
-								<th>用户id</th>
-								<th>用户财富</th>
+								<th width="15%">用户id</th>
+								<th width="15%">用户财富</th>
 								<th>提现时间</th>
-								<th>提现金额</th>		
+								<th width="15%">提现金额</th>		
 								<th>提现状态</th>
 								<th></th>
 							</thead>

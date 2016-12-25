@@ -254,8 +254,6 @@
 								<li><a data-toggle="modal" data-target="#myModal"> <i
 										class="icon-user"></i>修改密码
 								</a></li>
-								<li><a href="#"> <i class="icon-gear"></i>账号信息设置
-								</a></li>
 								<li><a href="../exit"> <i class="icon-signout"></i>退出
 								</a></li>
 							</ul></li>

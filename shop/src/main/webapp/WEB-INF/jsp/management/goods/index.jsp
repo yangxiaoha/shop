@@ -63,7 +63,7 @@
 		};
 	
 	function zTreeOnClick(event, treeId, treeNode) {
-		tableI.table().columns(10).search(treeNode.id).draw();
+		tableI.table().columns(9).search(treeNode.id).draw();
 	};
 
 	function filter(treeId, parentNode, childNodes) {
@@ -152,7 +152,6 @@
 									</th>									
 									<th>商品名称</th>
 									<th>商品扩充名称</th>
-									<th>商品总量</th>
 									<th>商品编码</th>
 									<th>商品品牌</th>
 									<th>所属门店</th>
