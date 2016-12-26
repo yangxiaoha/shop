@@ -18,9 +18,29 @@ public class User {
 	//可提现金额
 	private BigDecimal money;
 	
+	private BigDecimal startmoney;
+	
+	private BigDecimal endmoney;
+	
 	//用户名
 	private String name;
 	
+	public BigDecimal getStartmoney() {
+		return startmoney;
+	}
+
+	public void setStartmoney(BigDecimal startmoney) {
+		this.startmoney = startmoney;
+	}
+
+	public BigDecimal getEndmoney() {
+		return endmoney;
+	}
+
+	public void setEndmoney(BigDecimal endmoney) {
+		this.endmoney = endmoney;
+	}
+
 	public Integer getId() {
 		return id;
 	}

@@ -41,7 +41,7 @@
 			and goods.code like CONCAT('%',#{obj.code},'%')
 		</if>
 		<if test="obj.typeId != null and obj.typeId != ''">
-			and goods.typeId = #{obj.typeId}
+			and (goods.typeId = #{obj.typeId} or type.pid = #{obj.typeId})
 		</if>		
 		<if test="search != null and search != ''">
 			and (goods.name like CONCAT('%',#{search},'%') or
@@ -76,7 +76,7 @@
 		select goods.id as id,goods.name as name,goods.exp_name as exp_name,goods.typeId as typeId,goods.top as top,
 		goods.quantity as quantity,goods.content as content,goods.code as code,goods.searchval as searchval,
 		goods.brandId as brandId,goods.ids as ids,brand.name as brandName,type.name as typename,
-		goods.store as store,goods.state as state 
+		goods.store as store,goods.state as state,type.pid as pid
 		from t_goods as goods left join t_goods_brand as brand on goods.brandId = brand.id left join 
 		t_goods_type as type on goods.typeId = type.id 
 		<include refid="queryCondition"/>

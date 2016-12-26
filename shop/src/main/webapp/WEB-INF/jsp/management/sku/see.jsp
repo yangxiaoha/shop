@@ -22,8 +22,7 @@
 									<p>商品编码：${goodsM.code }</p>									
 								</div>
 								<div class="col-lg-6">
-									<p>商品品牌：${goodsM.brandName }</p>
-									<p>描述信息：${goodsM.content }</p>
+									<p>商品品牌：${goodsM.brandName }</p>									
 								</div>										
 							</div>
 							<div class="row">

@@ -10,6 +10,8 @@ $(document).ready(function(){
                     { "data": "openid" },
                     { "data": "regtime" },
                     { "data": "money" },
+                    { "data": "startmoney","orderable":false,"visible":false },
+                    { "data": "endmoney","orderable":false,"visible":false },
                     { "data":"id","className": "actions","orderable":false }
                 ],
         "aoColumnDefs": [
@@ -21,7 +23,7 @@ $(document).ready(function(){
              }
            },
            {
-               "targets": [4],
+               "targets": [6],
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
@@ -35,7 +37,7 @@ $(document).ready(function(){
         },
         "className" : "User",
         "chosen" : true,
-        "ids" : "#openid,#money",
-        "targets":"1,3"
+        "ids" : "#openid,#money,startmoney,endmoney",
+        "targets":"1,3,4,5"
 	});
 });

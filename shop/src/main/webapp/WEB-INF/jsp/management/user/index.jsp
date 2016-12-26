@@ -22,7 +22,7 @@
 		<!-- DataTables Example -->
 		<div class="row">
 			<div class="col-lg-12">
-				<div div class="widget-container fluid-height clearfix">
+				<div class="widget-container fluid-height clearfix">
 					<c:set var = "ids" value = "${id}"></c:set>
 					<c:if test="${ ids > 0 }">
 					<div class="col-lg-2">
@@ -47,7 +47,24 @@
 								class="icon-reply"></i>返回用户列表</a>
 							</c:if>
 						</div>
-						<div class="widget-content padded clearfix">							
+						<div class="widget-content padded clearfix">
+							<div class="col-lg-12">
+								<table class="table table-bordered table-striped table-hover">
+									<tr>
+										<td width="8%">用户名:</td>
+										<td><input class="form-control" type="text" id="openid"
+											name="openid" placeholder="用户名模糊搜索"></td>
+										<td width="8%">财富:</td>
+										<td  width="23%"><input class="form-control" type="text" id="startmoney"
+											name="startmoney" placeholder="财富值下限"></td>
+										<td width="23%"><input class="form-control" type="text" id="endmoney"
+											name="endmoney" placeholder="财富值上限"></td>
+										<td width="7%"><button type="button" class="btn btn-md btn-info" id="btn-inquiry" 
+										style="float: right; margin: 0 0 0 15px;" >查询</button></td>
+									</tr>
+								</table>
+							</div>
+							<hr>
 							<table class="table table-bordered table-striped table-hover"
 								id="datatable" width="100%">
 								<thead>
@@ -58,6 +75,8 @@
 									<th>注册时间</th>
 									<th>财富</th>
 									<th></th>
+									<th></th>
+									<th></th>
 								</thead>
 								<tbody>
 								</tbody>
@@ -66,7 +85,14 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+		</div>	
+	</div>	
+	<script type="text/javascript">
+	$("#btn-inquiry").click( function() {	
+		tableI.table().columns(4).search($("#startmoney").val());
+		tableI.table().columns(5).search($("#endmoney").val());
+		tableI.table().draw();
+	});
+	</script>
 </body>
 </html>
