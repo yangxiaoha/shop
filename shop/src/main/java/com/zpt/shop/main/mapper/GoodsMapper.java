@@ -23,6 +23,8 @@ public interface GoodsMapper {
 	
 	public List<Goods> validate(Goods goods);
 	
+	public void updateQuantity(@Param("id")Integer id,@Param("quantity")Integer quantity);
+	
 	public List<Goods> getGoodsByBrand(@Param("brandId")String brandId);
 	
 	public Goods getGoodsId(@Param("goodsId")Integer goodsId);

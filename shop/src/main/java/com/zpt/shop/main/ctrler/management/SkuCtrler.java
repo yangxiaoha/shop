@@ -102,10 +102,10 @@ public class SkuCtrler {
 	
 	@ResponseBody
 	@RequestMapping(value = "/updateAdd",method = RequestMethod.POST)
-	public Msg updateAdd(Integer skuId,Integer num,String batch){
+	public Msg updateAdd(Integer skuId,Integer num,String batch,Integer goodsId){
 		Msg msg = new Msg();
 		try {
-			stockService.insertStock(skuId,num,batch);
+			stockService.insertStock(skuId,num,batch,goodsId);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.UPDATE_SUCCESS);
 			return msg;

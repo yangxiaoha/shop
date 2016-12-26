@@ -14,6 +14,11 @@
 	<script
 	src="<%=basePath%>assets/management/datatablejs/order.js"
 	type="text/javascript"></script>
+<style type="text/css">
+	#control {
+			color: #007aff;
+		}
+</style>
 </head>
 <body>
 	<div class="container-fluid main-content">
@@ -29,11 +34,11 @@
 							<table class="table table-bordered table-striped table-hover">
 								<tr>						            
 						            <td>物流商家:</td>
-									<td><input class="form-control" type="text" id="logistics" name="logistics"></td>	
+									<td><input class="form-control" type="text" id="logistics" name="logistics" placeholder="物流商家模糊搜索"></td>	
 									<td>物流编号:</td>
-									<td><input class="form-control" type="text" id="logisticsnum" name="logisticsnum"></td>
+									<td><input class="form-control" type="text" id="logisticsnum" name="logisticsnum" placeholder="物流编号模糊搜索"></td>
 									<td>订单编号:</td>
-									<td><input class="form-control" type="text" id="ordernum" name="ordernum"></td>									
+									<td><input class="form-control" type="text" id="ordernum" name="ordernum" placeholder="订单编号模糊搜索"></td>									
 									<td>订单状态:</td>
 									<td>
 									<select class="reg-sel form-control" id="state" name="state">

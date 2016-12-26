@@ -267,9 +267,9 @@
 			<div class="container-fluid main-nav clearfix">
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li><a class="dropdown" href="../statistics/index"><span
+						<li><a class="dropdown" id = "homepage" href="../statistics/index"><span
 								aria-hidden="true" class="se7en-home"></span>首页</a></li>
-						<li class="dropdown"><a data-toggle="dropdown" href="#">
+						<li class="dropdown"><a data-toggle="dropdown" id = "member" href="#">
 								<span aria-hidden="true" class="se7en-star"></span>会员管理<b
 								class="caret"></b>
 						</a>
@@ -279,7 +279,7 @@
 								<li><a href="../supplier/index">会员下线查询</a></li>
 								 -->
 							</ul></li>
-						<li class="dropdown"><a data-toggle="dropdown" href="#">
+						<li class="dropdown"><a data-toggle="dropdown" href="#" id = "control">
 								<span aria-hidden="true" class="se7en-forms"></span>商品管理<b
 								class="caret"></b>
 						</a>
@@ -291,9 +291,9 @@
 								<li><a href="../pro/index">商品属性管理</a></li>
 								<li><a href="../order/index">订单管理</a></li>
 							</ul></li>
-						<li><a class="dropdown" href="../wdcash/index"><span
+						<li><a class="dropdown" href="../wdcash/index" id = "settlement"><span
 								aria-hidden="true" class="se7en-home"></span>结算管理</a></li>
-						<li class="dropdown"><a data-toggle="dropdown" href="#">
+						<li class="dropdown"><a data-toggle="dropdown" href="#" id = "systems">
 								<span aria-hidden="true" class="se7en-pages"></span>系统管理<b
 								class="caret"></b>
 						</a>

@@ -16,6 +16,11 @@
 	<script type="text/javascript" src="<%=basePath%>assets/management/javascripts/bootstrap-datetimepicker.js"></script>
 	<script type="text/javascript" src="<%=basePath%>assets/management/javascripts/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 	<style type="text/css">
+		.btn-info-a {
+		    color: #fff;
+		    background-color: #C0C0C0;
+		    border-color: #C0C0C0;
+		}
 		.error {
 		    margin: 10px 0px;
     		color: #EA4242;
@@ -24,6 +29,9 @@
 		    float: right;
 			width: 300px;
 			height: 34px;
+		}
+		#homepage {
+			color: #007aff;
 		}
 	</style>
 </head>
@@ -48,6 +56,7 @@
 				    </table>
 				    </div>				 
 				 	<div class="col-lg-12"> 				 
+						<button type="button" class="btn btn-md btn-info-a" id="btn-inquiry-a" style="float: right; margin: 0 0 0 15px;" >清除</button>
 						<button type="button" class="btn btn-md btn-info" id="btn-inquiry" style="float: right; margin: 0 0 0 15px;" >查询</button>
 					 	<div class="select-time">	              
 			                <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="endtime" data-link-format="yyyy-mm-dd">
@@ -59,7 +68,7 @@
 			            <div style="float:right;height:34px;line-height:34px;margin:0 6px;">至</div>
 			            <div class="select-time">				              
 			                <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="starttime" data-link-format="yyyy-mm-dd">
-			                    <input class="form-control" size="16" type="text" value="" placeholder="请选择查询开始时间" readonly>
+			                    <input class="form-control" id="select-starttime" size="16" type="text" value="" placeholder="请选择查询开始时间" readonly>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 			                </div>
 							<input name="starttime" type="hidden" id="starttime" /><br/>
@@ -164,7 +173,14 @@ $("#select-endtime").change(function(){
 	}
 });
 
-$("#btn-inquiry").click( function() {
+$("#btn-inquiry-a").click( function() {	
+	$("#select-starttime").val("");
+	$("#select-endtime").val("");
+	$("#starttime").val("");
+	$("#endtime").val("");
+	
+});
+$("#btn-inquiry").click( function() {	
 	tableI.table().columns(5).search($("#starttime").val());
 	tableI.table().columns(6).search($("#endtime").val());
 	tableI.table().columns(1).search($("#cityname").val());
@@ -173,6 +189,7 @@ $("#btn-inquiry").click( function() {
 	countCity();
 	countName();
 });
+
  var countCity=function(){
 	$.ajax({
 		url:"getNumbyCity",

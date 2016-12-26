@@ -10,6 +10,8 @@
 		<result property="regtime" column="regtime" />
 		<result property="pid" column="pid" />
 		<result property="money" column="money" />
+		<result property="startmoney" column="startmoney" />
+		<result property="endmoney" column="endmoney" />
 	</resultMap>
 	
 	<sql id="queryCondition">
@@ -17,15 +19,17 @@
 		<if test="obj.openid != null and obj.openid != ''">
 			and openid like CONCAT('%',#{obj.openid},'%')
 		</if>
-		<if test="obj.money != null and obj.money != ''">
-			and money like CONCAT('%',#{obj.money},'%')
+		<if test="obj.startmoney != null and obj.startmoney != ''">
+			and money &gt; #{obj.startmoney}
+		</if>		
+		<if test="obj.endmoney != null and obj.endmoney != ''">
+			and money &lt; #{obj.endmoney}
 		</if>
 		<if test="obj.id != null and obj.id != ''">
 			and pid = #{obj.id}
 		</if>
 		<if test="search != null and search != ''">
-			and (money like CONCAT('%',#{obj.search},'%') or
-			openid like CONCAT('%',#{obj.search},'%'))
+			and openid like CONCAT('%',#{obj.search},'%')
 		</if>
 	</sql>
 	
@@ -33,7 +37,6 @@
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
 		select * from t_user 
 		<include refid="queryCondition"/>
-		order by id desc
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>
 	

@@ -57,6 +57,9 @@
 		margin: 10px 0;
 		color: red;
 	}
+	#systems {
+			color: #007aff;
+		}
 </style>
 	<div class="container-fluid main-content">
 		<!-- DataTables Example -->

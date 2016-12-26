@@ -22,6 +22,7 @@ import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Image;
 import com.zpt.shop.main.entities.ProVal;
 import com.zpt.shop.main.entities.Sku;
+import com.zpt.shop.main.mapper.GoodsMapper;
 import com.zpt.shop.main.mapper.ImageMapper;
 import com.zpt.shop.main.mapper.ProValMapper;
 import com.zpt.shop.main.mapper.SkuMapper;
@@ -40,6 +41,9 @@ public class SkuServiceImpl implements SkuService{
 	
 	@Autowired
 	private ImageMapper imageMapper;
+	
+	@Autowired
+	private GoodsMapper goodsMapper;
 
 	@Override
 	public void insertSku(Sku sku,Integer[] proId,String[] value,HttpServletRequest request, HttpSession session) {
@@ -74,7 +78,8 @@ public class SkuServiceImpl implements SkuService{
 			proVal.setValue(value[i]);
 			list.add(proVal);
 		}
-		proValMapper.insertProVal(list);		
+		proValMapper.insertProVal(list);
+		goodsMapper.updateQuantity(sku.getGoodsId(),sku.getNum());
 	}
 
 	@Override

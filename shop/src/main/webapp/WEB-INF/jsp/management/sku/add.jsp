@@ -29,13 +29,13 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="num">商品数量</label><input class="form-control"
+											<label for="num">商品数量(*)</label><input class="form-control"
 												placeholder="请输入商品数量" id="anum" name="num" type="text">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="price">商品价格</label><input class="form-control"
+											<label for="price">商品价格(*)</label><input class="form-control"
 												placeholder="请输入商品价格" id="aprice" name="price" type="text">
 										</div>
 									</div>

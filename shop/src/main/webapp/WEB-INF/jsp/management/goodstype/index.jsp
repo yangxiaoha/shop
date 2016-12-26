@@ -24,6 +24,9 @@
 .cztree * {
     font-size: 13.5px;
 }
+#control {
+			color: #007aff;
+		}
 </style>
 	
 </head>

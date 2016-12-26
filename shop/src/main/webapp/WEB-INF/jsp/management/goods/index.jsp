@@ -39,6 +39,9 @@
 .modal {
     z-index: 910;
 }
+#control {
+			color: #007aff;
+		}
 </style>
 
 <script type="text/javascript">
@@ -132,10 +135,7 @@
 									<tr>
 										<td>商品名称:</td>
 										<td><input class="form-control" type="text" id="name"
-											name="name" placeholder="商品名称模糊搜索"></td>
-										<td>商品描述:</td>
-										<td><input class="form-control" type="text" id="content"
-											name="content" placeholder="商品描述模糊搜索"></td>
+											name="name" placeholder="商品名称模糊搜索"></td>										
 										<td>商品编码:</td>
 										<td><input class="form-control" type="text" id="code"
 											name="code" placeholder="商品编码模糊搜索"></td>										
