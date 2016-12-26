@@ -17,6 +17,11 @@
 	type="text/javascript"></script>
 	<link href="<%=basePath %>assets/management/stylesheets/sweetalert.css" 
 	 rel="stylesheet" type="text/css" />
+	 <style type="text/css">
+		#settlement {
+				color: #007aff;
+			}
+	</style>
 </head>
 <body>
 	<div class="container-fluid main-content">

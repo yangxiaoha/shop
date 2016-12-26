@@ -39,6 +39,9 @@
 .modal {
     z-index: 910;
 }
+#control {
+			color: #007aff;
+		}
 </style>
 
 <script type="text/javascript">

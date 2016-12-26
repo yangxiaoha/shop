@@ -14,6 +14,11 @@
 	<script
 	src="<%=basePath%>assets/management/datatablejs/reply.js"
 	type="text/javascript"></script>
+	<style type="text/css">
+		#systems {
+			color: #007aff;
+		}
+	</style>
 </head>
 <body>
 	<div class="container-fluid main-content">

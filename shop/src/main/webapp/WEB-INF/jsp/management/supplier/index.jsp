@@ -13,6 +13,11 @@
 	<script
 	src="<%=basePath%>assets/management/datatablejs/supplier.js"
 	type="text/javascript"></script>
+<style type="text/css">
+	#control {
+			color: #007aff;
+		}
+</style>
 </head>
 <body>
 	<div class="container-fluid main-content">

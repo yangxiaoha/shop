@@ -30,6 +30,9 @@
 			width: 300px;
 			height: 34px;
 		}
+		#homepage {
+			color: #007aff;
+		}
 	</style>
 </head>
 <body>

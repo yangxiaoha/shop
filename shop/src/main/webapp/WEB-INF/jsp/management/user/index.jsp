@@ -15,7 +15,12 @@
  	var userId = ${id};
 </script>
 <script src="<%=basePath%>assets/management/datatablejs/user.js"
-	type="text/javascript"></script>	
+	type="text/javascript"></script>
+<style type="text/css">
+	#member {
+			color: #007aff;
+		}
+</style>	
 </head>
 <body>
 	<div class="container-fluid main-content">
