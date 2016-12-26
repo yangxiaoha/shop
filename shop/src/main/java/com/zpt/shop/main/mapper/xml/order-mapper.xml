@@ -36,7 +36,7 @@
 	</resultMap>
 	
 	<sql id="queryCondition">
-		where 1 = 1
+		where 1 = 1 and torder.state &gt; 1
 		<if test="obj.logistics != null and obj.logistics != ''">
 			and torder.logistics like CONCAT('%',#{obj.logistics},'%')
 		</if>

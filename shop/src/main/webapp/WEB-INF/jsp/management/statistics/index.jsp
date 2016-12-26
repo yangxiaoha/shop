@@ -178,6 +178,13 @@ $("#btn-inquiry-a").click( function() {
 	$("#select-endtime").val("");
 	$("#starttime").val("");
 	$("#endtime").val("");
+	tableI.table().columns(5).search($("#starttime").val());
+	tableI.table().columns(6).search($("#endtime").val());
+	tableI.table().columns(1).search($("#cityname").val());
+	tableI.table().columns(2).search($("#name").val());
+	tableI.table().draw();
+	countCity();
+	countName();
 	
 });
 $("#btn-inquiry").click( function() {	

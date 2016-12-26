@@ -1,6 +1,7 @@
 package com.zpt.shop.main.entities;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class User {
@@ -25,6 +26,34 @@ public class User {
 	//用户名
 	private String name;
 	
+	public Date starttime;
+	
+	public Date endtime;
+	
+	public String getStarttime() {
+		if(this.starttime != null){
+			return new SimpleDateFormat("yyyy-MM-dd").format(this.starttime);
+		}else{
+			return "";
+		}
+	}
+
+	public void setStarttime(Date starttime) {
+		this.starttime = starttime;
+	}
+
+	public String getEndtime() {
+		if(this.endtime != null){
+			return new SimpleDateFormat("yyyy-MM-dd").format(this.endtime);
+		}else{
+			return "";
+		}
+	}
+
+	public void setEndtime(Date endtime) {
+		this.endtime = endtime;
+	}
+
 	public BigDecimal getStartmoney() {
 		return startmoney;
 	}
@@ -57,8 +86,12 @@ public class User {
 		this.openid = openid;
 	}
 
-	public Date getRegtime() {
-		return regtime;
+	public String getRegtime() {
+		if(this.regtime != null){
+			return new SimpleDateFormat("yyyy-MM-dd").format(this.regtime);
+		}else{
+			return "";
+		}
 	}
 
 	public void setRegtime(Date regtime) {

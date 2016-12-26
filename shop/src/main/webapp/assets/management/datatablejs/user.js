@@ -12,6 +12,8 @@ $(document).ready(function(){
                     { "data": "money" },
                     { "data": "startmoney","orderable":false,"visible":false },
                     { "data": "endmoney","orderable":false,"visible":false },
+                    { "data": "starttime","orderable":false,"visible":false },
+                    { "data": "endtime","orderable":false,"visible":false },
                     { "data":"id","className": "actions","orderable":false }
                 ],
         "aoColumnDefs": [
@@ -23,7 +25,7 @@ $(document).ready(function(){
              }
            },
            {
-               "targets": [6],
+               "targets": [8],
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
@@ -37,7 +39,7 @@ $(document).ready(function(){
         },
         "className" : "User",
         "chosen" : true,
-        "ids" : "#openid,#money,startmoney,endmoney",
-        "targets":"1,3,4,5"
+        "ids" : "#openid,#money",
+        "targets":"1,3"
 	});
 });
