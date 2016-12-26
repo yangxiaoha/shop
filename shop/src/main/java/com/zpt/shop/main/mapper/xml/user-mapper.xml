@@ -12,6 +12,8 @@
 		<result property="money" column="money" />
 		<result property="startmoney" column="startmoney" />
 		<result property="endmoney" column="endmoney" />
+		<result property="starttime" column="starttime" />
+		<result property="endtime" column="endtime" />
 	</resultMap>
 	
 	<sql id="queryCondition">
@@ -24,6 +26,9 @@
 		</if>		
 		<if test="obj.endmoney != null and obj.endmoney != ''">
 			and money &lt; #{obj.endmoney}
+		</if>
+		<if test="obj.starttime != null and obj.starttime != '' and obj.endtime != null and obj.endtime != ''">
+			and (regtime &gt; #{obj.starttime} and regtime &lt; #{obj.endtime})
 		</if>
 		<if test="obj.id != null and obj.id != ''">
 			and pid = #{obj.id}
