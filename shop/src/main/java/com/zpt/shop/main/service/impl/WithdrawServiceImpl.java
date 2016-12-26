@@ -78,7 +78,7 @@ public class WithdrawServiceImpl implements WithdrawService {
 		withdraw.setCashTime(cashTime);
 		withdraw.setCashMoney(cashMoney);
 		withdraw.setUserId(userId);
-		withdraw.setState(0);
+		withdraw.setState(1);
 		withdrawMapper.addWithdrawsInfo(withdraw);
 		List<Withdraw> withdrawList = withdrawMapper.getWithdrawsInfo(userId);
 		if(withdrawList != null && withdrawList.size() > 0){

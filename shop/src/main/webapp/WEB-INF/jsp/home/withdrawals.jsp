@@ -51,10 +51,13 @@
 		      <tr>
 		        <td>${withdrawsList.cashNum}</td>
 		        <td>￥${withdrawsList.cashMoney}</td>
-		        <c:if test="${withdrawsList.state == 1}">
+		        <c:if test="${withdrawsList.state == 3}">
 		          <td>已提现</td>
 		        </c:if>
-		        <c:if test="${withdrawsList.state == 0}">
+		        <c:if test="${withdrawsList.state == 2}">
+		          <td>审批不通过</td>
+		        </c:if>
+		        <c:if test="${withdrawsList.state == 1}">
 		          <td>等待</td>
 		        </c:if>
 		      </tr>

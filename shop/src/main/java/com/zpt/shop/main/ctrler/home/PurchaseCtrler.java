@@ -114,25 +114,20 @@ public class PurchaseCtrler {
 	public Map<String,Object> deleteGoods(HttpServletRequest request, String cartId) {
 		Map<String,Object> map = new HashMap<String, Object>();
 		int num = 0;
-		BigDecimal price = new BigDecimal("0.0");
 		int totalNum = 0;
-		BigDecimal totalPrice = new BigDecimal("0.0");
-		double total = 0.0d;
+		BigDecimal total = new BigDecimal("0.0");
 		User user = (User) request.getSession().getAttribute("user");
 		String userId = user.getId().toString();//先设置用户为1
 		List<Cart> cartsList = cartService.deleteCartInfo(userId, cartId);
 		if(cartsList != null && cartsList.size() > 0) {
 			for(int i=0; i<cartsList.size(); i++) {
 				num = cartsList.get(i).getNum();
-				price = cartsList.get(i).getPrice();
 				totalNum += num;
-				totalPrice = price.multiply(new BigDecimal(num));
-				total = totalPrice.add(new BigDecimal(total)).doubleValue();
+				total= total.add(cartsList.get(i).getTotalprice());
 			}
-			DecimalFormat df = new DecimalFormat("#.00");  
 			map.put("state", true);
 			map.put("totalNum", totalNum);
-			map.put("total", df.format(total));
+			map.put("total", total.toString());
 			map.put("cartsMsg", cartsList);
 		}else {
 			map.put("state", true);
@@ -149,25 +144,21 @@ public class PurchaseCtrler {
 	public Map<String,Object> modifyCart(HttpServletRequest request, String cartId, String skuId, Integer goodsNum, String goodsPrice) {
 		Map<String,Object> map = new HashMap<String, Object>();
 		int num = 0;
-		BigDecimal price = new BigDecimal("0.0");
 		int totalNum = 0;
-		BigDecimal totalPrice = new BigDecimal("0.0");
-		double total = 0.0d;
+		BigDecimal total = new BigDecimal("0.0");
 		User user = (User) request.getSession().getAttribute("user");
 		String userId = user.getId().toString();//先设置用户为1
 		List<Cart> cartsList = cartService.modifyGoodsIntoCart(userId, cartId, skuId, goodsNum, goodsPrice);
 		if(cartsList != null && cartsList.size() > 0) {
 			for(int i=0; i<cartsList.size(); i++) {
 				num = cartsList.get(i).getNum();
-				price = cartsList.get(i).getPrice();
 				totalNum += num;
-				totalPrice = price.multiply(new BigDecimal(num));
-				total = totalPrice.add(new BigDecimal(total)).doubleValue();
+				total= total.add(cartsList.get(i).getTotalprice());
 			}
 			DecimalFormat df = new DecimalFormat("#.00"); 
 			map.put("state", true);
 			map.put("totalNum", totalNum);
-			map.put("total", df.format(total));
+			map.put("total", total.toString());
 			map.put("cartsMsg", cartsList);	
 		}else {
 			map.put("state", true);

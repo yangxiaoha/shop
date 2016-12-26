@@ -138,6 +138,7 @@
 					          <p class="mt8 iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>
 					          <input class="cartId" type="hidden" value="${cartsList.id}">
 					          <input class="goodsId" type="hidden" value="${cartsList.goodsId}">
+					          <input class="goodsNameInput" type="hidden" value="${cartsList.name}">
 					          <input class="goodsSkuNum" type="hidden" value="${cartsList.skuNum}">
 					        </div>
 				  	    </div>
@@ -237,10 +238,9 @@
     		   	    success: function(data) {
     		   	    	if(data.state){
     		   	    		$('#loading').hide();
-    		   	    		$(".shopping-car").html("");
+    		   	    		$(".have-data").html("");
     		   	    		$.each(data.cartsMsg, function(i, cartsList) {   
-    		   	    			$(".shopping-car").append( 
-    		   	    				'<div class="have-data">'+
+    		   	    			$(".have-data").append( 
     		   	    				'<div class="shopping-car-show order-list clearfloat">'+
     		   	    				'<img src="<%=basePath%>'+cartsList.url+'">'+
        			          	  	    '<ul class="shopping-car-detail ph5">'+
@@ -255,11 +255,11 @@
 									'<input class="goodsId" type="hidden" value="'+cartsList.goodsId+'">'+
 									'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
 									'</div>'+
-									'</div>'+
 									'</div>'
     		    				);
     	   		  			});
     		   	    		$("#total").text("合计：￥"+data.total);
+    		   	    		$("#totalMoney").val(data.total);
     		   	    		$("#settlement").text(data.totalNum);
     		   			}
     		   	    }
@@ -272,26 +272,39 @@
     		var state = ${state};
     	    //结算
     	    $("#submitOrder").click(function() {
+    			var str = "";
     	    	if($("#settlement").text() == 0) {
     	    		alert("暂无商品");
     	    	}else{
-        	    	var ids = "";
-        	    	$(".shopping-car-show").each(function() {
-       		        	if(ids != ""){
-       		            	ids+=","+$(this).find(".cartId").val();	
-       		        	}else{
-       		        		ids = $(this).find(".cartId").val();
-       		        	}
-        	    	});
-        	    	if(ids != ""){
-    					$("#cartIds").val(ids);
-    					if(state == 1) {//从立即购买过来
-    						$("#buyGoodsForm").attr("action", "../../../payment");
-    					}
-    					$("#buyGoodsForm").submit();
-    	        	}else{
-    	        		$("#myModal").show();
-    	        	}
+    	    		$(".shopping-car-show").each(function(){
+    	    			var goodsNum = $(this).find(".goodsNum").val();   	    			
+    	    			var goodsName = $(this).find(".goodsNameInput").val();
+    	    			var skuNum = $(this).find(".goodsSkuNum").val();
+    	    		    if(parseInt(goodsNum, 10) > parseInt(skuNum, 10)) {
+    	    		    	str = str + goodsName + "\n";
+    	    		    }
+    	    		});
+    	    		if(str.length > 0){
+    	    			alert("商品:\n"+str+"的购买数量已超过库存数，请修改购买数量！");
+    	    		}else {
+            	    	var ids = "";
+            	    	$(".shopping-car-show").each(function() {
+           		        	if(ids != ""){
+           		            	ids+=","+$(this).find(".cartId").val();	
+           		        	}else{
+           		        		ids = $(this).find(".cartId").val();
+           		        	}
+            	    	});
+            	    	if(ids != ""){
+        					$("#cartIds").val(ids);
+        					if(state == 1) {//从立即购买过来
+        						$("#buyGoodsForm").attr("action", "../../../payment");
+        					}
+        					$("#buyGoodsForm").submit();
+        	        	}else{
+        	        		$("#myModal").show();
+        	        	}
+    	    		}
     	    	}    	 
     	    });
     	});
@@ -564,10 +577,9 @@
 					   	    		$(".car-tab-bar").css("display", "block");					   	    										
 									$("#modifyAttr").hide();
 									$(".goods-parameter-choice").slideUp();	
-									$(".shopping-car").html("");
+									$(".have-data").html("");
 		    		   	    		$.each(data.cartsMsg, function(i, cartsList) {   
-		    		   	    			$(".shopping-car").append( 
-		    		   	    				'<div class="have-data">'+
+		    		   	    			$(".have-data").append( 
 		    		   	    				'<div class="shopping-car-show order-list clearfloat">'+
 		    		   	    				'<img src="<%=basePath%>'+cartsList.url+'">'+
 		       			          	  	    '<ul class="shopping-car-detail ph5">'+
@@ -582,11 +594,11 @@
 											'<input class="goodsId" type="hidden" value="'+cartsList.goodsId+'">'+
 											'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
 											'</div>'+
-											'</div>'+
 											'</div>'
 		    		    				);
 		    	   		  			});
 		    		   	    		$("#total").text("合计：￥"+data.total);
+		    		   	    		$("#totalMoney").val(data.total);
 		    		   	    		$("#settlement").text(data.totalNum);
 					   			}
 					   	    }

@@ -410,10 +410,21 @@ a, a:link, a:visited, a:hover, a:active {
 	width: 180px;
 	height: 100%;
 }
-.shopping-car-show .shopping-car-detail li:nth-child(odd) {
+.shopping-car-show .shopping-car-detail li:first-child {
+	height: 30px;
+	color: #595757;
+	line-height: 30px;
+	font-size: 1.2rem; 
+}
+.shopping-car-show .shopping-car-detail li:nth-child(2) {
+	color: #9fa0a0;
+	font-size: 1rem; 
+}
+.shopping-car-show .shopping-car-detail li:nth-child(3) {
 	height: 30px;
 	line-height: 30px;
-	font-size: 1.8rem; 
+	color: #595757;
+	font-size: 1.5rem; 
 }
 .shopping-car-show .shopping-car-edit {
 	width: 40px;
@@ -655,7 +666,7 @@ a, a:link, a:visited, a:hover, a:active {
 
 /************************goods-detail开始************************/
 .goods-parameter-detail,
-.goods-parameter-detail > img,
+.goods-parameter-detail img,
 .goods-purchase {
 	width: 100%;
 }
