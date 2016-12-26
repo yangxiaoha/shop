@@ -60,28 +60,21 @@
 											</div>
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group divb0">
-												<label for="content">描述信息</label><input class="form-control"
-													placeholder="请输入描述信息" id="ucontent" name="content"
-													type="text">
-											</div>
-										</div>										
+									<div class="row">																				
 										<div class="col-md-6">
 											<div class="form-group divb0">
 												<label for="code">商品编码</label><input class="form-control"
 													placeholder="请输入商品编码" id="ucode" name="code" type="text">
 											</div>
 										</div>
-									</div>
-									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group divb0">
 												<label for="store">所属门店</label><input class="form-control"
 													placeholder="请输入所属门店" id="ustore" name="store" type="text">
 											</div>
-										</div>										
+										</div>
+									</div>
+									<div class="row">							
 										<div class="col-md-6">
 											<div class="form-group divb0">
 												<label for="typeId">商品类型(*)</label> <input class="form-control"
@@ -205,7 +198,7 @@
  		       		    type: "post",               //数据发送方式
         			    dataType: "json",           //接受数据格式   
         			    data: {                     //要传递的数据
-        			    	schoolName: function() {
+        			    	name: function() {
         		    	        return $("#uname").val();	        		           
         			       },
         			       id:function(){
@@ -220,7 +213,7 @@
 	        		    type: "post",               //数据发送方式
 	        		    dataType: "json",           //接受数据格式   
 	        		    data: {                     //要传递的数据
-	        		    	schoolName: function() {
+	        		    	exp_name: function() {
 	        		            return $("#uexp_name").val();	        		           
 	        		       },
         			       id:function(){
@@ -235,7 +228,7 @@
 	        		    type: "post",               //数据发送方式
 	        		    dataType: "json",           //接受数据格式   
 	        		    data: {                     //要传递的数据
-	        		    	schoolName: function() {
+	        		    	code: function() {
 	        		            return $("#ucode").val();	        		           
 	        		       },
         			       id:function(){

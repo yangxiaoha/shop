@@ -37,7 +37,7 @@
 							<table class="table table-bordered table-striped table-hover">
 								<tr>						            
 						            <td width="8%">用户id:</td>
-									<td><input class="form-control" type="text" id="username" name="username" placeholder="用户id模糊搜索"></td>
+									<td><input class="form-control" type="text" id="username" name="username" placeholder="搜索用户id"></td>
 									<td width="8%">审核已否:</td>
 									<td>									
 									<select class="reg-sel form-control" id="state" name="state">
@@ -62,7 +62,7 @@
 								<th>提现时间</th>
 								<th width="15%">提现金额</th>		
 								<th>提现状态</th>
-								<th></th>
+								<th style="color: #007aff;">操作</th>
 							</thead>
 						</table>
 					</div>

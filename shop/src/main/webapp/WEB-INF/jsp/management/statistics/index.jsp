@@ -49,9 +49,9 @@
 					<table class="table table-bordered table-striped table-hover">
 						<tr>
 				            <td width="8%">城市:</td>
-				            <td><input class="form-control" type="text" id="cityname" name="cityname" placeholder="城市模糊搜索"></td>
+				            <td><input class="form-control" type="text" id="cityname" name="cityname" placeholder="搜索城市"></td>
 				            <td width="8%">商品名称:</td>
-				            <td><input class="form-control" type="text" id="name" name="name" placeholder="商品名称模糊搜索"></td>
+				            <td><input class="form-control" type="text" id="name" name="name" placeholder="搜索商品名称"></td>
 				        </tr>
 				    </table>
 				    </div>				 
@@ -79,6 +79,7 @@
 					 <hr>
 					<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
 						<thead>
+							<th></th>
 							<th class="check-header hidden-xs"><label><input
 									id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 							</th>							
@@ -178,20 +179,20 @@ $("#btn-inquiry-a").click( function() {
 	$("#select-endtime").val("");
 	$("#starttime").val("");
 	$("#endtime").val("");
-	tableI.table().columns(5).search($("#starttime").val());
-	tableI.table().columns(6).search($("#endtime").val());
-	tableI.table().columns(1).search($("#cityname").val());
-	tableI.table().columns(2).search($("#name").val());
+	tableI.table().columns(6).search($("#starttime").val());
+	tableI.table().columns(7).search($("#endtime").val());
+	tableI.table().columns(2).search($("#cityname").val());
+	tableI.table().columns(3).search($("#name").val());
 	tableI.table().draw();
 	countCity();
 	countName();
 	
 });
 $("#btn-inquiry").click( function() {	
-	tableI.table().columns(5).search($("#starttime").val());
-	tableI.table().columns(6).search($("#endtime").val());
-	tableI.table().columns(1).search($("#cityname").val());
-	tableI.table().columns(2).search($("#name").val());
+	tableI.table().columns(6).search($("#starttime").val());
+	tableI.table().columns(7).search($("#endtime").val());
+	tableI.table().columns(2).search($("#cityname").val());
+	tableI.table().columns(3).search($("#name").val());
 	tableI.table().draw();
 	countCity();
 	countName();

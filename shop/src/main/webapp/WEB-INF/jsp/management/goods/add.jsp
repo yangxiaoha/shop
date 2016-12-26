@@ -37,6 +37,7 @@
 									<div class="col-md-12">
 										<label for="name">商品品牌(*)</label> <select
 											class="reg-sel form-control" name="brandId">
+											<option value=""></option>
 											<c:forEach items="${brandMsg}" var="brandList">
 												<option value="${brandList.id}">${brandList.name}</option>
 											</c:forEach>
@@ -58,28 +59,21 @@
 											</div>
 										</div>
 									</div>
-									<div class="row">										
-										<div class="col-md-6">
-											<div class="form-group divb0">
-												<label for="content">描述信息</label><input class="form-control"
-													placeholder="请输入描述信息" id="acontent" name="content"
-													type="text">
-											</div>
-										</div>
+									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group divb0">
 												<label for="code">商品编码</label><input class="form-control"
 													placeholder="请输入商品编码" id="acode" name="code" type="text">
 											</div>
 										</div>
-									</div>
-									<div class="row">										
 										<div class="col-md-6">
 											<div class="form-group divb0">
 												<label for="store">所属门店</label><input class="form-control"
 													placeholder="请输入所属门店" id="astore" name="store" type="text">
 											</div>
 										</div>
+									</div>
+									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group divb0">
 												<label for="typeId">商品类型(*)</label> <input class="form-control"
@@ -201,7 +195,7 @@
 	        		    type: "post",               //数据发送方式
 	        		    dataType: "json",           //接受数据格式   
 	        		    data: {                     //要传递的数据
-	        		    	schoolName: function() {
+	        		    	name: function() {
 	        		            return $("#aname").val();	        		           
 	        		       }
 	        		  }	    
@@ -213,7 +207,7 @@
 		        		    type: "post",               //数据发送方式
 		        		    dataType: "json",           //接受数据格式   
 		        		    data: {                     //要传递的数据
-		        		    	schoolName: function() {
+		        		    	exp_name: function() {
 		        		            return $("#aexp_name").val();	        		           
 		        		       }
 		        		  }	    
@@ -225,7 +219,7 @@
 		        		    type: "post",               //数据发送方式
 		        		    dataType: "json",           //接受数据格式   
 		        		    data: {                     //要传递的数据
-		        		    	schoolName: function() {
+		        		    	code: function() {
 		        		            return $("#acode").val();	        		           
 		        		       }
 		        		  }	    

@@ -155,7 +155,7 @@
  		       		    type: "post",               //数据发送方式
         			    dataType: "json",           //接受数据格式   
         			    data: {                     //要传递的数据
-        			    	schoolName: function() {
+        			    	name: function() {
         		    	        return $("#uname").val();	        		           
         			       },
         			       id:function(){

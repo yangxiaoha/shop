@@ -45,6 +45,9 @@
 		margin: 10px 0;
 		color: red;
 	}
+	#control {
+		color: #007aff;
+	}
 </style>
 	<div class="container-fluid main-content">
 		<!-- DataTables Example -->
@@ -84,7 +87,7 @@
 									<th>特征量编码</th>
 									<th></th>
 									<th></th>
-									<th></th>
+									<th style="color: #007aff;">操作</th>
 									<th></th>
 								</thead>
 								<tbody>

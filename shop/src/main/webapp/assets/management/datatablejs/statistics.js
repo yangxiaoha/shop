@@ -6,6 +6,7 @@ $(document).ready(function(){
         "ajax": "listData",
         "language":  "/shop/assets/management/datatablejs/Chinese.json",
         "columns": [
+                    { "data": "id","orderable":false,"visible":false},
                     { "data": "id","orderable":false },
                     { "data": "cityname" },
                     { "data": "name" },
@@ -16,7 +17,7 @@ $(document).ready(function(){
                 ],
         "aoColumnDefs": [
            {
-             "targets": [0],
+             "targets": [1],
              "data": "id",
              "render": function(data, type, full,meta) {
                return '<label><input name="id" type="checkbox" value="'+data+'"><span></span></label>';
@@ -26,6 +27,6 @@ $(document).ready(function(){
         "className" : "Statistics",
         "chosen" : true,
         "ids" : "#cityname,#name,#endtime,#starttime",
-        "targets":"1,2,5,6"
+        "targets":"2,3,6,7"
 	});
 });

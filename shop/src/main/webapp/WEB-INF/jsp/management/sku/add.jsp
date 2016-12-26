@@ -58,7 +58,7 @@
 											<div class="form-group">
 												<label for="proId">${p.name }(*)</label><input
 													class="form-control avalue" placeholder="请输入${p.name }"
-													title="${p.name }不能为空" id="avalue" required="required"
+													title="${p.name }不能为空" id="a${status.index}" required="required"
 													 name="value" type="text"> <input
 													class=aproId type="hidden" id="" name="proId" value="${p.id }"
 													type="text">
@@ -126,7 +126,7 @@
 	        		    type: "post",               //数据发送方式
 	        		    dataType: "json",           //接受数据格式   
 	        		    data: {                     //要传递的数据
-	        		    	schoolName: function() {
+	        		    	code: function() {
 	        		            return $("#acode").val();
 	        		       }
 	        		  }

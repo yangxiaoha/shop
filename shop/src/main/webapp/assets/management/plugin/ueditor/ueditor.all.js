@@ -1,7 +1,7 @@
 /*!
  * UEditor
  * version: ueditor
- * build: Wed Aug 10 2016 11:06:16 GMT+0800 (CST)
+ * build: Wed Aug 10 2016 11:06:02 GMT+0800 (CST)
  */
 
 (function(){
@@ -24483,7 +24483,7 @@ UE.plugin.register('simpleupload', function (){
 
             wrapper.innerHTML = '<form id="edui_form_' + timestrap + '" target="edui_iframe_' + timestrap + '" method="POST" enctype="multipart/form-data" action="' + me.getOpt('serverUrl') + '" ' +
             'style="' + btnStyle + '">' +
-            '<input id="edui_input_' + timestrap + '" type="file" accept="image/*" name="' + me.options.imageFieldName + '" ' +
+            '<input id="edui_input_' + timestrap + '" type="file" accept="image/jpg,image/jpeg,image/png" name="' + me.options.imageFieldName + '" ' +
             'style="' + btnStyle + '">' +
             '</form>' +
             '<iframe id="edui_iframe_' + timestrap + '" name="edui_iframe_' + timestrap + '" style="display:none;width:0;height:0;border:0;margin:0;padding:0;position:absolute;"></iframe>';
@@ -24554,7 +24554,7 @@ UE.plugin.register('simpleupload', function (){
 
                 /* 判断后端配置是否没有加载成功 */
                 if (!me.getOpt('imageActionName')) {
-                	showErrorLoader(me.getLang('autoupload.errorLoadConfig'));
+                    errorHandler(me.getLang('autoupload.errorLoadConfig'));
                     return;
                 }
                 // 判断文件格式是否错误
@@ -29060,12 +29060,13 @@ UE.ui = baidu.editor.ui = {};
                     var bk = editor.selection.getRange().createBookmark();
                 }
                 if (fullscreen) {
-                    while (container.tagName != "BODY") {
-                        var position = baidu.editor.dom.domUtils.getComputedStyle(container, "position");
-                        nodeStack.push(position);
-                        container.style.position = "static";
-                        container = container.parentNode;
-                    }
+                	while (container.tagName != "BODY") {
+                	    if (!$(container).hasClass("modal")) {
+                	        //nodeStack.push(baidu.editor.dom.domUtils.getComputedStyle(container, "position"));
+                	        //container.style.position = "static";
+                	    }
+                	    container = container.parentNode;
+                	}
                     this._bakHtmlOverflow = document.documentElement.style.overflow;
                     this._bakBodyOverflow = document.body.style.overflow;
                     this._bakAutoHeight = this.editor.autoHeightEnabled;
@@ -29130,7 +29131,7 @@ UE.ui = baidu.editor.ui = {};
             if (this._fullscreen) {
                 var vpRect = uiUtils.getViewportRect();
                 this.getDom().style.cssText = 'border:0;position:absolute;left:0;top:' + (this.editor.options.topOffset || 0) + 'px;width:' + vpRect.width + 'px;height:' + vpRect.height + 'px;z-index:' + (this.getDom().style.zIndex * 1 + 100);
-                uiUtils.setViewportOffset(this.getDom(), { left:0, top:this.editor.options.topOffset || 0 });
+                uiUtils.setViewportOffset(this.getDom(), { left:-3, top:this.editor.options.topOffset || 0 });
                 this.editor.setHeight(vpRect.height - this.getDom('toolbarbox').offsetHeight - this.getDom('bottombar').offsetHeight - (this.editor.options.topOffset || 0),true);
                 //不手动调一下，会导致全屏失效
                 if(browser.gecko){

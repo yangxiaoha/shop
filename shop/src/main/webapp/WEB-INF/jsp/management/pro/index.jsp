@@ -66,7 +66,7 @@
 											id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 									</th>									
 									<th>商品属性名称</th>																	
-									<th></th>																	
+									<th style="color: #007aff;">操作</th>																	
 									<th></th>																	
 								</thead>
 								<tbody>

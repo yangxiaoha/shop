@@ -16,6 +16,7 @@
 <script
 	src="<%=basePath%>assets/management/datatablejs/goods.js"
 	type="text/javascript"></script>
+<script src="<%=basePath%>assets/management/javascripts/select2.js" type="text/javascript"></script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/ueditor.all.js"> </script>
 <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
@@ -135,10 +136,10 @@
 									<tr>
 										<td>商品名称:</td>
 										<td><input class="form-control" type="text" id="name"
-											name="name" placeholder="商品名称模糊搜索"></td>										
+											name="name" placeholder="搜索商品名称"></td>										
 										<td>商品编码:</td>
 										<td><input class="form-control" type="text" id="code"
-											name="code" placeholder="商品编码模糊搜索"></td>										
+											name="code" placeholder="搜索商品编码"></td>										
 									</tr>
 								</table>
 							</div>
@@ -152,10 +153,11 @@
 									</th>									
 									<th>商品名称</th>
 									<th>商品扩充名称</th>
+									<th>商品总量</th>
 									<th>商品编码</th>
 									<th>商品品牌</th>
 									<th>所属门店</th>
-									<th></th>
+									<th style="color: #007aff;">操作</th>
 									<th></th>
 									<th></th>																	
 								</thead>
