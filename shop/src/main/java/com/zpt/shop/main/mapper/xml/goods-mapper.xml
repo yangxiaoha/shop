@@ -136,7 +136,7 @@
 		on sku.id = image.skuid) as g 
 		on t_goods.id = g.goodsid
 		where state = 1
-		order by id desc
+		order by top desc, id desc
 		limit #{pageStart},#{num}
 	</select>
 	

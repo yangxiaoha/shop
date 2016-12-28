@@ -51,6 +51,6 @@ public final class Contants {
 	public static final String RETURN_SPREAD_SUCCESS = "充值成功";
 
 	//openid
-	public static final String SESSION_OPENID = "openid";
+	public static String SESSION_OPENID = "openid";
 
 }

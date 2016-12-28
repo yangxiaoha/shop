@@ -110,7 +110,7 @@ public class Order {
 
 	public String getOrdertime() {
 		if(this.ordertime != null){
-			return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(this.ordertime);
+			return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(this.ordertime);
 		}else{
 			return "";
 		}

@@ -36,6 +36,12 @@ public interface SkuService {
 	 * @return List<Sku>
 	 * */
 	public List<Sku> getSkuInfoByIds(String skuIds);
+	
+	/**
+	 * 查询所有商品的库存信息
+	 * @return List<Sku>
+	 * */
+	public List<Sku> getAllGoodsStockInfo();
 
 	/**
 	 * 修改库存数量

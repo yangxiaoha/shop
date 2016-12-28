@@ -1,11 +1,11 @@
 package com.zpt.shop.main.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Order;
-import com.zpt.shop.main.entities.Sku;
 
 public interface OrderService {
 	
@@ -70,13 +70,28 @@ public interface OrderService {
 	/**
 	 * 修改订单状态
 	 * @param String ordercode 订单号
+	 * @param Integer state 订单状态
 	 * */
 	public void updateOrderState(String ordercode, Integer state);
+	
+	/**
+	 * 修改订单状态
+	 * @param Integer orderId 订单id
+	 * @param Integer state 订单状态
+	 * */
+	public void updateOrderStateById(Integer orderId, Integer state);
 
 	/**
 	 * 修改订单状态
 	 * @param Integer orderId 订单id
+	 * @param Integer state 订单状态
 	 * */
-	public void updateOrderStateByOrderId(Integer orderId, Integer state);
+	public List<Order> updateOrderStateByOrderId(Integer orderId, Integer state);
+
+	/**
+	 * 查询未支付订单
+	 * @param Integer orderId 订单id
+	 * */
+	public void closeOrder() throws ParseException ;
 
 }

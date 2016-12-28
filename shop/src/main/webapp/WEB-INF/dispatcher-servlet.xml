@@ -53,10 +53,10 @@
 	</bean>
 	
 	<mvc:interceptors>
-	    <!-- <mvc:interceptor>
+	    <mvc:interceptor>
 			<mvc:mapping path="/home/**" />
 			<bean class="com.zpt.shop.main.interceptor.WeixinInterceptor" />
-		</mvc:interceptor> -->
+		</mvc:interceptor>
 		
 		<mvc:interceptor>
 			<mvc:mapping path="/management/**" />

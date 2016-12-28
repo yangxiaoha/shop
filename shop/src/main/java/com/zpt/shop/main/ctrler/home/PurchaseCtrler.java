@@ -1,7 +1,6 @@
 package com.zpt.shop.main.ctrler.home;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,9 +26,11 @@ import com.zpt.shop.common.pojo.RandomArray;
 import com.zpt.shop.common.weixin.WxMpConfigStorage;
 import com.zpt.shop.main.entities.Cart;
 import com.zpt.shop.main.entities.Order;
+import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.CartService;
 import com.zpt.shop.main.service.OrderService;
+import com.zpt.shop.main.service.SkuService;
 import com.zpt.shop.main.service.WxMpService;
 import com.zpt.shop.weixin.utils.GetWxOrderno;
 import com.zpt.shop.weixin.utils.PrepayUtil;
@@ -50,6 +51,9 @@ import com.zpt.shop.weixin.utils.WeixinPayUtil;
 public class PurchaseCtrler {
 	
 	private static Logger logger = LogManager.getLogger(PurchaseCtrler.class.getName());
+	
+	@Autowired
+	private SkuService skuService;
 	
 	@Autowired
 	private CartService cartService;
@@ -148,6 +152,7 @@ public class PurchaseCtrler {
 		BigDecimal total = new BigDecimal("0.0");
 		User user = (User) request.getSession().getAttribute("user");
 		String userId = user.getId().toString();//先设置用户为1
+		//判断购物车是否有此商品		
 		List<Cart> cartsList = cartService.modifyGoodsIntoCart(userId, cartId, skuId, goodsNum, goodsPrice);
 		if(cartsList != null && cartsList.size() > 0) {
 			for(int i=0; i<cartsList.size(); i++) {
@@ -155,7 +160,6 @@ public class PurchaseCtrler {
 				totalNum += num;
 				total= total.add(cartsList.get(i).getTotalprice());
 			}
-			DecimalFormat df = new DecimalFormat("#.00"); 
 			map.put("state", true);
 			map.put("totalNum", totalNum);
 			map.put("total", total.toString());
@@ -170,31 +174,28 @@ public class PurchaseCtrler {
 	}
 	
 	//立即购买
-	@RequestMapping(value="/buyImmediately/{skuId}/{num}/{price}", method=RequestMethod.GET)
-	public ModelAndView buyImmediately(HttpServletRequest request, @PathVariable("skuId")String skuId, @PathVariable("num")Integer goodsNum, @PathVariable("price")String goodsPrice) {
+	@RequestMapping(value="/buyImmediately/{skuId}/{num}", method=RequestMethod.GET)
+	public ModelAndView buyImmediately(HttpServletRequest request, @PathVariable("skuId")String skuId, @PathVariable("num")Integer goodsNum) {
 		ModelAndView mv = new ModelAndView("home/cart");
 		//立即购买的商品放入购物车内
+		List<Sku> sku = skuService.getSkuInfoByIds(skuId);
 		int num = 0;
-		BigDecimal price = new BigDecimal("0.0");
 		int totalNum = 0;
-		BigDecimal totalPrice = new BigDecimal("0.0");
-		double total = 0.0d;
+		String goodsPrice = sku.get(0).getPrice().toString();
+		BigDecimal total = new BigDecimal("0.0");
 		User user = (User) request.getSession().getAttribute("user");
-		String userId = user.getId().toString();//先设置用户为1
+		String userId = user.getId().toString();
 		Integer amount = cartService.addGoodsIntoCart(userId, skuId, goodsNum, goodsPrice);
 		List<Cart> cartsList = cartService.getCartInfo(userId);
 		if(cartsList != null && cartsList.size() > 0) {
 			for(int i=0; i<cartsList.size(); i++) {
 				num = cartsList.get(i).getNum();
-				price = cartsList.get(i).getPrice();
 				totalNum += num;
-				totalPrice = price.multiply(new BigDecimal(num));
-				total = totalPrice.add(new BigDecimal(total)).doubleValue();
+				total= total.add(cartsList.get(i).getTotalprice());
 			}
-			DecimalFormat df = new DecimalFormat("#.00");
 			mv.addObject("state", 1);
 			mv.addObject("totalNum", totalNum);
-			mv.addObject("total", df.format(total));
+			mv.addObject("total", total.toString());
 			mv.addObject("cartsMsg", cartsList);	
 		}else {
 			mv.addObject("state", 1);
@@ -362,10 +363,13 @@ public class PurchaseCtrler {
 	}
 	
 	//确认收货
-	@RequestMapping(value="/receipt/{orderId}", method=RequestMethod.POST)
-	public void receipt(HttpServletRequest request, @PathVariable("orderId")Integer orderId) {
+	@RequestMapping(value="/receipt/{orderId}", method=RequestMethod.GET)
+	public ModelAndView receipt(@PathVariable("orderId")Integer orderId) {
+		ModelAndView mv = new ModelAndView("home/order-detail");
 		Integer state = 4;
-		orderService.updateOrderStateByOrderId(orderId, state);
+		List<Order> orderList = orderService.updateOrderStateByOrderId(orderId, state);
+		mv.addObject("orderMsg", orderList);
+		return mv;
 	}
 	
 }
