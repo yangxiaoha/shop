@@ -35,21 +35,22 @@
 							<table class="table table-bordered table-striped table-hover">
 								<tr>
 						            <td width="8%">供应商名称:</td>
-						            <td><input class="form-control" type="text" id="name" name="name" placeholder="供应商名称模糊搜索"></td>
+						            <td><input class="form-control" type="text" id="name" name="name" placeholder="搜索sysvalue"></td>
 						            <td width="8%">供应商简介:</td>
-						            <td><input class="form-control" type="text" id="brief" name="brief" placeholder="供应商简介模糊搜索"></td>
+						            <td><input class="form-control" type="text" id="brief" name="brief" placeholder="搜索供应商简介"></td>
 						        </tr>
 						    </table>
 						 </div>
 						 <hr>
 						<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
 							<thead>
+								<th></th>
 								<th class="check-header hidden-xs" width="8%"><label><input
 										id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 								</th>
 								<th width="20%">供应商名称</th>
 								<th>供应商简介</th>		
-								<th></th>
+								<th style="color: #007aff;">操作</th>
 							</thead>
 							<tbody>
 							</tbody>

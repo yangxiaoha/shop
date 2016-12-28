@@ -21,18 +21,18 @@
 					<fieldset>
 						<div class="col-lg-12">
 							<input type="hidden" id="uid" name="id">
-							<div class="col-lg-3">
+							<div class="col-lg-4">
 								<table border=0 height=200px align=left>
 									<tr>
-										<td width=100px align=left valign=top
+										<td width=150px align=left valign=top
 											style="BORDER-RIGHT: #999999 1px dashed">
 											<ul id="etree" class="ztree"
-												style="width: 100px; overflow: auto;"></ul>
+												style="width: 150px; overflow: auto;"></ul>
 										</td>
 									</tr>
 								</table>
 							</div>
-							<div class="col-lg-9">
+							<div class="col-lg-8">
 								<div class="row">
 									<div class="row">
 										<div class="col-md-12">
@@ -133,11 +133,14 @@
  		       		    type: "post",               //数据发送方式
         			    dataType: "json",           //接受数据格式   
         			    data: {                     //要传递的数据
-        			    	schoolName: function() {
+        			    	name: function() {
         		    	        return $("#uname").val();	        		           
         			       },
         			       id:function(){
 	    				    	return $("#uid").val();
+	    				   },
+        			       typeId:function(){
+	    				    	return $("#utypeId").val();
 	    				   }
         			  }	    
         		  }
@@ -151,7 +154,7 @@
         },
         submitHandler: function(form) {   
            $(this).attr("disabled","disabled"); 
-		   $("#loading").html("<i class=\"icon-spinner icon-spin\"></i>");
+		   $(".loading").html("<i class=\"icon-spinner icon-spin\"></i>");
            $(form).ajaxSubmit({
         	   success:function(data){
         		   if(data.state == 1){

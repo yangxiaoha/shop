@@ -285,8 +285,8 @@
 						</a>
 							<ul class="dropdown-menu">
 								<li><a href="../goods/index">商品管理</a></li>
-								<li><a href="../brand/index">品牌管理</a></li>																
 								<li><a href="../supplier/index">供应商管理</a></li>
+								<li><a href="../brand/index">品牌管理</a></li>																
 								<li><a href="../goodstype/index">商品类型管理</a></li>
 								<li><a href="../pro/index">商品属性管理</a></li>
 								<li><a href="../order/index">订单管理</a></li>

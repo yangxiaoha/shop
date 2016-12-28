@@ -40,7 +40,10 @@
 						<table border=0 height=600px align=left>
 							<tr>
 								<td width=260px align=left valign=top
-									style="BORDER-RIGHT: #999999 1px dashed; ">
+									style="BORDER-RIGHT: #999999 1px dashed;position: relative; ">
+									<div style="position: absolute;right:10px;top:8px">
+									 	<button class="btn btn-xs btn-info-outline" id = "blank">重置</button>
+									</div>
 									<ul id="tree" class="ztree cztree"
 										style="width: 260px; overflow: auto;"></ul>
 								</td>
@@ -68,7 +71,7 @@
 											id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 									</th>									
 									<th>商品类型名称</th>																	
-									<th></th>																	
+									<th style="color: #007aff;">操作</th>																	
 									<th></th>																	
 								</thead>
 								<tbody>
@@ -102,7 +105,12 @@
 			callback:{
 				onClick: zTreeOnClick
 			}
-		};
+	};
+	$("#blank").click(function(){
+		tableI.table().columns(4).search("").draw();
+		var treeObj = $.fn.zTree.getZTreeObj("tree");
+		treeObj.cancelSelectedNode();
+	});
 	
 	function zTreeOnClick(event, treeId, treeNode) {
 		tableI.table().columns(4).search(treeNode.id).draw();

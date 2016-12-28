@@ -6,6 +6,7 @@ $(document).ready(function(){
         "ajax": "listData",
         "language":  "/shop/assets/management/datatablejs/Chinese.json",
         "columns": [
+                    { "data": "id","orderable":false,"visible":false},
                     { "data": "id","orderable":false},
                     { "data": "skey" },
                     { "data": "sysvalue" },
@@ -13,14 +14,14 @@ $(document).ready(function(){
                 ],
         "aoColumnDefs": [
            {
-             "targets": [0],
+             "targets": [1],
              "data": "id",
              "render": function(data, type, full,meta) {
                return '<label><input name="id" type="checkbox" value="'+data+'"><span></span></label>';
              }
            },
            {
-               "targets": [3],
+               "targets": [4],
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
@@ -44,6 +45,6 @@ $(document).ready(function(){
         "className" : "System",
         "chosen" : true,
         "ids" : "#skey,#sysvalue",
-        "targets":"1,2"
+        "targets":"2,3"
 	});
 });

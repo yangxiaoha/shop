@@ -9,17 +9,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">	
 	<title>品牌管理</title>
 	<script
 	src="<%=basePath%>assets/management/datatablejs/brand.js"
 	type="text/javascript"></script>
+	<script src="<%=basePath%>assets/management/javascripts/select2.js" type="text/javascript"></script>
 <style type="text/css">
 	#control {
 			color: #007aff;
 		}
 </style>
 </head>
+<link href="<%=basePath%>assets/management/stylesheets/select2.css" media="all" rel="stylesheet" type="text/css" />
 <body>
 	<div class="container-fluid main-content">
 		<!-- DataTables Example -->
@@ -36,13 +38,14 @@
 							<table class="table table-bordered table-striped table-hover">
 								<tr>
 						            <td width="8%">品牌名称:</td>
-						            <td><input class="form-control" type="text" id="name" name="name" placeholder="品牌名称模糊搜索"></td>
+						            <td width="25%"><input class="form-control" type="text" id="name" name="name" placeholder="搜索品牌名称"></td>
 						            <td width="8%">品牌简介:</td>
-									<td><input class="form-control" type="text" id="content" name="content" placeholder="品牌简介模糊搜索"></td>	
+									<td width="30%"><input class="form-control" type="text" id="content" name="content" placeholder="搜索品牌简介"></td>	
 									<td width="8%">供应商名称:</td>
 									<td>									
-									<select class="reg-sel form-control" id="suppliername" name="suppliername">
+									<select class="reg-sel-index " id="suppliername"  name="suppliername">
 										<option value=""></option>
+										<option value="">全部</option>
 										<c:forEach items="${supplierMsg}" var="supplierList">
 											<option value="${supplierList.name}">${supplierList.name}</option>
 										</c:forEach>
@@ -54,13 +57,14 @@
 						 <hr>
 						<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
 							<thead>
+								<th></th>
 								<th class="check-header hidden-xs" width="8%"><label><input
 										id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 								</th>
 								<th width="20%">品牌名称</th>
 								<th width="20%">供应商名称</th>		
 								<th>品牌简介</th>
-								<th></th>
+								<th style="color: #007aff;">操作</th>
 								<th></th>
 							</thead>
 							<tbody>
@@ -74,5 +78,12 @@
 	<jsp:include page="add.jsp"/>
 	<jsp:include page="delete.jsp"/>
 	<jsp:include page="update.jsp"/>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.reg-sel-index').select2({
+				  placeholder: "搜索供应商"
+			});
+		});
+	</script>
 </body>
 </html>

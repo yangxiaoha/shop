@@ -6,6 +6,7 @@ $(document).ready(function(){
         "ajax": "listData",
         "language":  "/shop/assets/management/datatablejs/Chinese.json",
         "columns": [
+                    { "data": "id","orderable":false,"visible":false},
                     { "data": "id","orderable":false},
                     { "data": "name" },
                     { "data": "suppliername" },
@@ -15,18 +16,18 @@ $(document).ready(function(){
                 ],
         "aoColumnDefs": [
            {
-             "targets": [0],
+             "targets": [1],
              "data": "id",
              "render": function(data, type, full,meta) {
                return '<label><input name="id" type="checkbox" value="'+data+'"><span></span></label>';
              }
            },
            {    
-             "targets": [ 5 ], //隐藏第六列，从第0列开始   
+             "targets": [ 6 ], //隐藏第六列，从第0列开始   
              "visible": false    
            }, 
            {
-               "targets": [4],
+               "targets": [5],
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
@@ -61,6 +62,6 @@ $(document).ready(function(){
         "className" : "Brand",
         "chosen" : true,
         "ids" : "#name,#content,#suppliername,#supplierId",
-        "targets":"1,3,2,5"
+        "targets":"2,4,3,5"
 	});
 });

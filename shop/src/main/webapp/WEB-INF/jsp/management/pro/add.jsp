@@ -20,18 +20,18 @@
 				<form action="add" id="add" method="post">
 					<fieldset>
 						<div class="col-lg-12">						
-							<div class="col-lg-3">
+							<div class="col-lg-4">
 								<table border=0 height=200px align=left>
 									<tr>
-										<td width=100px align=left valign=top
+										<td width=150px align=left valign=top
 											style="BORDER-RIGHT: #999999 1px dashed">
 											<ul id="atree" class="ztree"
-												style="width: 100px; overflow: auto;"></ul>
+												style="width: 150px; overflow: auto;"></ul>
 										</td>
 									</tr>
 								</table>
 							</div>
-							<div class="col-lg-9">
+							<div class="col-lg-8">
 								<div class="row">
 									<div class="row">
 										<div class="col-md-12">
@@ -39,6 +39,8 @@
 												style="margin-bottom: 0px !important;">
 												<label for="name">商品属性(*)</label><input class="form-control"
 													placeholder="请输入商品属性名称" id="aname" name="name" type="text">
+												<input style = "opacity: 0; width: 0px"
+													placeholder="" id="atypeId" name="typeId" type="text">												
 											</div>
 										</div>
 									</div>
@@ -47,8 +49,7 @@
 											<div class="form-group divb0">
 												<label for="typeId">商品类型(*)</label> <input class="form-control"
 													placeholder="" readonly="readonly" id="atypeName"
-													name="typeName" type="text"> <input type="hidden"
-													placeholder="" id="atypeId" name="typeId" type="text">
+													name="typeName" type="text">
 											</div>
 										</div>
 									</div>
@@ -132,18 +133,41 @@
 	        		    type: "post",               //数据发送方式
 	        		    dataType: "json",           //接受数据格式   
 	        		    data: {                     //要传递的数据
-	        		    	schoolName: function() {
+	        		    	name: function() {
 	        		            return $("#aname").val();	        		           
+	        		       },
+	        		       typeId: function() {
+	        		            return $("#atypeId").val();	        		           
 	        		       }
 	        		  }	    
 	        	  }
 	          },
+	          typeId: {
+	        		 required:true,
+		        	 remote: {
+		        		    url: "validate",     //后台处理程序
+		        		    type: "post",               //数据发送方式
+		        		    dataType: "json",           //接受数据格式   
+		        		    data: {
+		        		       typeId: function() {
+		        		            return $("#atypeId").val();	        		           
+		        		       },
+		        		       name: function() {
+		        		            return $("#aname").val();	        		           
+		        		       }
+		        		  }	    
+		        	  }
+		          },
 	        },
 	        messages: {
 	          name: {
 		        	 required:"请输入商品名称",
-		        	 remote:"该商品已存在"
-		      }		     
+		        	 remote:"该属性已存在"
+		      },
+		      typeId: {
+		        	 required:"请输入商品名称",
+		        	 remote:"该属性已存在"
+		      }	        
 	        },
 	        submitHandler: function(form) {   
 	           $(this).attr("disabled","disabled"); 

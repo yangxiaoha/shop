@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <style>
 	.divb0{
 		margin-bottom:0px;
@@ -23,10 +28,10 @@
 							<div class="col-lg-3">
 								<table border=0 height=200px align=left>
 									<tr>
-										<td width=100px align=left valign=top
+										<td width=150px align=left valign=top
 											style="BORDER-RIGHT: #999999 1px dashed">
 											<ul id="atree" class="ztree"
-												style="width: 100px; overflow: auto;"></ul>
+												style="width: 150px; overflow: auto;"></ul>
 										</td>
 									</tr>
 								</table>
@@ -35,8 +40,9 @@
 								<div class="row">
 									<div class="row">
 									<div class="col-md-12">
-										<label for="name">商品品牌(*)</label> <select
-											class="reg-sel form-control" name="brandId">
+										<label for="name">商品品牌(*)</label> 
+										<select	class="reg-sel-add" id = "" name="brandId">
+											<option value=""></option>
 											<c:forEach items="${brandMsg}" var="brandList">
 												<option value="${brandList.id}">${brandList.name}</option>
 											</c:forEach>
@@ -58,28 +64,21 @@
 											</div>
 										</div>
 									</div>
-									<div class="row">										
-										<div class="col-md-6">
-											<div class="form-group divb0">
-												<label for="content">描述信息</label><input class="form-control"
-													placeholder="请输入描述信息" id="acontent" name="content"
-													type="text">
-											</div>
-										</div>
+									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group divb0">
 												<label for="code">商品编码</label><input class="form-control"
 													placeholder="请输入商品编码" id="acode" name="code" type="text">
 											</div>
 										</div>
-									</div>
-									<div class="row">										
 										<div class="col-md-6">
 											<div class="form-group divb0">
 												<label for="store">所属门店</label><input class="form-control"
 													placeholder="请输入所属门店" id="astore" name="store" type="text">
 											</div>
 										</div>
+									</div>
+									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group divb0">
 												<label for="typeId">商品类型(*)</label> <input class="form-control"
@@ -124,6 +123,11 @@
 				onClick: zTreeOnClickAdd
 			}
 	};
+	$(document).ready(function(){
+		$('.reg-sel-add').select2({
+			  placeholder: "请选择商品品牌"
+		});
+	});
 	function zTreeOnClickAdd(event, treeId, treeNode) {
 		console.log(treeNode);
 		$("#typeId").val(treeNode.id);
@@ -201,7 +205,7 @@
 	        		    type: "post",               //数据发送方式
 	        		    dataType: "json",           //接受数据格式   
 	        		    data: {                     //要传递的数据
-	        		    	schoolName: function() {
+	        		    	name: function() {
 	        		            return $("#aname").val();	        		           
 	        		       }
 	        		  }	    
@@ -213,7 +217,7 @@
 		        		    type: "post",               //数据发送方式
 		        		    dataType: "json",           //接受数据格式   
 		        		    data: {                     //要传递的数据
-		        		    	schoolName: function() {
+		        		    	exp_name: function() {
 		        		            return $("#aexp_name").val();	        		           
 		        		       }
 		        		  }	    
@@ -225,7 +229,7 @@
 		        		    type: "post",               //数据发送方式
 		        		    dataType: "json",           //接受数据格式   
 		        		    data: {                     //要传递的数据
-		        		    	schoolName: function() {
+		        		    	code: function() {
 		        		            return $("#acode").val();	        		           
 		        		       }
 		        		  }	    

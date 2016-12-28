@@ -71,8 +71,8 @@ public class GoodsServiceImpl implements GoodsService {
 	public Page<Goods> page(Query<Goods> query) {
 		// TODO Auto-generated method stub
 		Page<Goods> page = new Page<Goods>();
-		query.setOrderName("top");
-		query.setOrderDir("desc");
+		query.setOrderName("top desc,");
+		query.setOrderDir("id desc");
 		List<Goods> list = goodsMapper.listGoods(query);
 		Integer count = goodsMapper.countGoods(query);
 		page.setAaData(list);

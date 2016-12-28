@@ -78,7 +78,7 @@
 									<tr>
 										<td width="8%">用户名:</td>
 										<td><input class="form-control" type="text" id="openid"
-											name="openid" placeholder="用户名模糊搜索"></td>
+											name="openid" placeholder="搜索用户名"></td>
 										<td width="8%">财富:</td>
 										<td  width="23%"><input class="form-control" type="text" id="startmoney"
 											name="startmoney" placeholder="财富值下限"></td>
@@ -113,6 +113,7 @@
 							<table class="table table-bordered table-striped table-hover"
 								id="datatable" width="100%">
 								<thead>
+									<th></th>
 									<th class="check-header hidden-xs" width="8%"><label><input
 											id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 									</th>
@@ -123,7 +124,7 @@
 									<th></th>
 									<th></th>
 									<th></th>
-									<th></th>
+									<th style="color: #007aff;">操作</th>
 								</thead>
 								<tbody>
 								</tbody>
@@ -136,8 +137,8 @@
 	</div>	
 	<script type="text/javascript">
 	$("#btn-inquiry-m").click( function() {	
-		tableI.table().columns(4).search($("#startmoney").val());
-		tableI.table().columns(5).search($("#endmoney").val());
+		tableI.table().columns(5).search($("#startmoney").val());
+		tableI.table().columns(6).search($("#endmoney").val());
 		tableI.table().draw();
 	});
 	$('.form_date').datetimepicker({
@@ -179,14 +180,14 @@
 		$("#select-endtime").val("");
 		$("#starttime").val("");
 		$("#endtime").val("");
-		tableI.table().columns(6).search($("#starttime").val());
-		tableI.table().columns(7).search($("#endtime").val());
+		tableI.table().columns(7).search($("#starttime").val());
+		tableI.table().columns(8).search($("#endtime").val());
 		tableI.table().draw();
 		
 	});
 	$("#btn-inquiry").click( function() {	
-		tableI.table().columns(6).search($("#starttime").val());
-		tableI.table().columns(7).search($("#endtime").val());
+		tableI.table().columns(7).search($("#starttime").val());
+		tableI.table().columns(8).search($("#endtime").val());
 		tableI.table().draw();
 	});
 	</script>

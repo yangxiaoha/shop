@@ -18,6 +18,7 @@
 	type="text/javascript"></script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/ueditor.all.js"> </script>
+<script src="<%=basePath%>assets/management/javascripts/select2.js" type="text/javascript"></script>
 <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
 <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
 <script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
@@ -43,7 +44,83 @@
 			color: #007aff;
 		}
 </style>
-
+</head>
+<link href="<%=basePath%>assets/management/stylesheets/select2.css" media="all" rel="stylesheet" type="text/css" />
+<body>
+	<div class="container-fluid main-content">
+		<!-- DataTables Example -->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="widget-container fluid-height clearfix">
+					<div class="col-lg-3">
+						<table border=0 height=600px align=left>
+							<tr>
+								<td width=260px align=left valign=top
+									style="BORDER-RIGHT: #999999 1px dashed;position: relative;">
+									<div style="position: absolute;right:10px;top:8px">
+									 	<button class="btn btn-xs btn-info-outline" id = "blank">重置</button>
+									</div>
+									<ul id="tree" class="ztree cztree"
+										style="width: 260px; overflow: auto;"></ul>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="col-lg-9">
+						<div class="heading">
+							<i class="icon-table"></i>商品管理 <a
+								class="btn btn-sm btn-primary-outline pull-right"
+								data-toggle="modal" href="javascript:void(0)" id="delete-row"><i
+								class="icon-trash"></i>删除</a> <a
+								class="btn btn-sm btn-primary-outline pull-right"
+								data-toggle="modal" href="#addModal" id="add-row"><i
+								class="icon-plus"></i>添加</a>
+						</div>
+						<div class="widget-content padded clearfix">
+							<div class="col-lg-12">
+								<table class="table table-bordered table-striped table-hover">
+									<tr>
+										<td>商品名称:</td>
+										<td><input class="form-control" type="text" id="name"
+											name="name" placeholder="搜索商品名称"></td>										
+										<td>商品编码:</td>
+										<td><input class="form-control" type="text" id="code"
+											name="code" placeholder="搜索商品编码"></td>										
+									</tr>
+								</table>
+							</div>
+							<hr>
+							<table class="table table-bordered table-striped table-hover"
+								id="datatable" width="100%">
+								<thead>
+									<th></th>
+									<th class="check-header hidden-xs"><label><input
+											id="checkAll" name="checkAll" type="checkbox"><span></span></label>
+									</th>									
+									<th>商品名称</th>
+									<th>商品扩充名称</th>
+									<th>商品总量</th>
+									<th>商品编码</th>
+									<th>商品品牌</th>
+									<th>所属门店</th>
+									<th style="color: #007aff;">操作</th>
+									<th></th>
+									<th></th>																	
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<jsp:include page="add.jsp"/>
+	<jsp:include page="delete.jsp"/>
+	<jsp:include page="update.jsp"/>
+	<jsp:include page="stick.jsp"/>
+	<jsp:include page="detailedit.jsp"/>
 <script type="text/javascript">
 	var zTree;
 	
@@ -65,8 +142,16 @@
 			}
 		};
 	
+	$("#blank").click(function(){
+		alert("1111");
+		tableI.table().columns(10).search("").draw();
+		var treeObj = $.fn.zTree.getZTreeObj("tree");
+		treeObj.cancelSelectedNode();
+	});
+	
 	function zTreeOnClick(event, treeId, treeNode) {
-		tableI.table().columns(9).search(treeNode.id).draw();
+		alert("11111");
+		tableI.table().columns(10).search(treeNode.id).draw();
 	};
 
 	function filter(treeId, parentNode, childNodes) {
@@ -100,78 +185,5 @@
 	
 	
 </script>
-
-</head>
-<body>
-	<div class="container-fluid main-content">
-		<!-- DataTables Example -->
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="widget-container fluid-height clearfix">
-					<div class="col-lg-3">
-						<table border=0 height=600px align=left>
-							<tr>
-								<td width=260px align=left valign=top
-									style="BORDER-RIGHT: #999999 1px dashed">
-									<ul id="tree" class="ztree cztree"
-										style="width: 260px; overflow: auto;"></ul>
-								</td>
-							</tr>
-						</table>
-					</div>
-					<div class="col-lg-9">
-						<div class="heading">
-							<i class="icon-table"></i>商品管理 <a
-								class="btn btn-sm btn-primary-outline pull-right"
-								data-toggle="modal" href="javascript:void(0)" id="delete-row"><i
-								class="icon-trash"></i>删除</a> <a
-								class="btn btn-sm btn-primary-outline pull-right"
-								data-toggle="modal" href="#addModal" id="add-row"><i
-								class="icon-plus"></i>添加</a>
-						</div>
-						<div class="widget-content padded clearfix">
-							<div class="col-lg-12">
-								<table class="table table-bordered table-striped table-hover">
-									<tr>
-										<td>商品名称:</td>
-										<td><input class="form-control" type="text" id="name"
-											name="name" placeholder="商品名称模糊搜索"></td>										
-										<td>商品编码:</td>
-										<td><input class="form-control" type="text" id="code"
-											name="code" placeholder="商品编码模糊搜索"></td>										
-									</tr>
-								</table>
-							</div>
-							<hr>
-							<table class="table table-bordered table-striped table-hover"
-								id="datatable" width="100%">
-								<thead>
-									<th></th>
-									<th class="check-header hidden-xs"><label><input
-											id="checkAll" name="checkAll" type="checkbox"><span></span></label>
-									</th>									
-									<th>商品名称</th>
-									<th>商品扩充名称</th>
-									<th>商品编码</th>
-									<th>商品品牌</th>
-									<th>所属门店</th>
-									<th></th>
-									<th></th>
-									<th></th>																	
-								</thead>
-								<tbody>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<jsp:include page="add.jsp"/>
-	<jsp:include page="delete.jsp"/>
-	<jsp:include page="update.jsp"/>
-	<jsp:include page="stick.jsp"/>
-	<jsp:include page="detailedit.jsp"/>
 </body>
 </html>

@@ -6,6 +6,7 @@ $(document).ready(function(){
         "ajax": "listData?userId="+userId,
         "language":  "/shop/assets/management/datatablejs/Chinese.json",
         "columns": [
+                    { "data": "id","orderable":false,"visible":false},
                     { "data": "id","orderable":false},
                     { "data": "openid" },
                     { "data": "regtime" },
@@ -18,14 +19,14 @@ $(document).ready(function(){
                 ],
         "aoColumnDefs": [
            {
-             "targets": [0],
+             "targets": [1],
              "data": "id",
              "render": function(data, type, full,meta) {
                return '<label><input name="id" type="checkbox" value="'+data+'"><span></span></label>';
              }
            },
            {
-               "targets": [8],
+               "targets": [9],
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
@@ -40,6 +41,6 @@ $(document).ready(function(){
         "className" : "User",
         "chosen" : true,
         "ids" : "#openid,#money",
-        "targets":"1,3"
+        "targets":"2,4"
 	});
 });

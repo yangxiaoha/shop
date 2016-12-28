@@ -36,21 +36,22 @@
 							<table class="table table-bordered table-striped table-hover">
 								<tr>
 						            <td width="8%">skey:</td>
-						            <td width="30%"><input class="form-control" type="text" id="skey" name="skey" placeholder="skey模糊搜索"></td>
+						            <td width="30%"><input class="form-control" type="text" id="skey" name="skey" placeholder="搜索skey"></td>
 						            <td width="8%">回复内容:</td>
-									<td><input class="form-control" type="text" id="reply" name="reply" placeholder="回复内容模糊搜索"></td>																				
+									<td><input class="form-control" type="text" id="reply" name="reply" placeholder="搜索回复内容"></td>																				
 								</tr>
 						    </table>
 						 </div>						 
 						 <hr>
 						<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
 							<thead>
+								<th></th>
 								<th class="check-header hidden-xs" width="8%"><label><input
 										id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 								</th>
 								<th width="20%">skey</th>
 								<th>回复内容</th>	
-								<th></th>
+								<th style="color: #007aff;">操作</th>
 							</thead>
 							<tbody>
 							</tbody>
