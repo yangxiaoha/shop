@@ -105,8 +105,8 @@
 	</select>
 		
 	<insert id="insertGoods" parameterType="goods">
-		insert into t_goods(name,exp_name,quantity,content,code,brandId,store,typeId,ids,state) 
-		values(#{name},#{exp_name},#{quantity},#{content},#{code},#{brandId},#{store},#{typeId},#{ids},1)
+		insert into t_goods(name,exp_name,quantity,content,code,brandId,store,typeId,ids,state,num) 
+		values(#{name},#{exp_name},#{quantity},#{content},#{code},#{brandId},#{store},#{typeId},#{ids},1,0)
 	</insert>
 	<update id="deleteGoods" parameterType="goods">
 		update t_goods set state = 0 where id in (${ids})

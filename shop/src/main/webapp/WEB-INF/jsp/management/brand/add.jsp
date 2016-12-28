@@ -23,7 +23,7 @@
 							</div>
 							<div class="col-md-6">
 								<label for="name">供应商名称(*)</label>
-								<select class="reg-sel  form-control" id="asupplierId"  name="supplierId">
+								<select class="reg-sel-add  form-control" id="asupplierId"  name="supplierId">
 										<option value=""></option>
 										<c:forEach items="${supplierMsg}" var="supplierList">
 											<option value="${supplierList.id}">${supplierList.name}</option>
@@ -52,6 +52,9 @@
 </div>
 <script>
 	$(document).ready(function(){
+		$('.reg-sel-add').select2({
+			  placeholder: "请选择供应商"
+		});
 		$('.datepicker').datepicker();
 		$("#addsubmit").click(function(){
 			$("#add").submit();

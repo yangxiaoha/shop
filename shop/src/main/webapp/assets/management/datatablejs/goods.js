@@ -32,8 +32,8 @@ $(document).ready(function(){
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
-			                 '<a class="" href="../sku/index?goodsId='+data+'"><i class="icon-sitemap"></i></a>'+
-			                 '<a class="table-actions detail" data-rowid="'+meta.row+'" data-id="'+data+'" href="javascript:void(0)"><i class="icon-file-text-alt"></i></a>'+
+			                '<a class="" href="../sku/index?goodsId='+data+'"><i class="icon-sitemap"></i></a>'+
+			                '<a class="table-actions detail" data-rowid="'+meta.row+'" data-id="'+data+'" href="javascript:void(0)"><i class="icon-file-text-alt"></i></a>'+
                  			'<a class="table-actions update" data-rowid="'+meta.row+'" href="javascript:void(0)"><i class="icon-pencil"></i></a>'+
                  			'<a class="table-actions stick" data-id="'+data+'" href="javascript:void(0)"><i class="icon-arrow-up"></i></a>'+
                  			'<a class="table-actions del" data-id="'+data+'" href="javascript:void(0)"><i class="icon-trash"></i></a>'+

@@ -16,7 +16,7 @@
 	
 	<sql id="beCurrent">
 		select torder.cityname as cityname,torder.id as id,torder.ordertime as ordertime,
-		goods.name as name,detail.num as num
+		goods.name as name,detail.num as num,torder.state as state
 		from t_order as torder
 		left join t_order_detail as detail on torder.id = detail.orderid
 		left join t_goods_sku as sku on detail.skuid = sku.id
@@ -24,7 +24,7 @@
 	</sql>
 	
 	<sql id="queryCondition">		
-		where 1 = 1
+		where 1 = 1 and torder.state = 4
 		<if test="obj.name != null and obj.name != ''">
 			and goods.name like CONCAT('%',#{obj.name},'%')
 		</if>
@@ -41,7 +41,7 @@
 	</sql>	
 	
 	<sql id="cityCondition">		
-		where 1 = 1
+		where 1 = 1 and torder.state = 4
 		<if test="name != null and name != ''">
 			and goods.name like CONCAT('%',#{name},'%')
 		</if>
@@ -50,7 +50,7 @@
 		</if>
 	</sql>	
 	<sql id="nameCondition">		
-		where 1 = 1
+		where 1 = 1 and torder.state = 4
 		<if test="cityname != null and cityname != ''">
 			and torder.cityname like CONCAT('%',#{cityname},'%')
 		</if>		

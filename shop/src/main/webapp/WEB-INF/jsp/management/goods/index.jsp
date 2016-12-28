@@ -16,9 +16,9 @@
 <script
 	src="<%=basePath%>assets/management/datatablejs/goods.js"
 	type="text/javascript"></script>
-<script src="<%=basePath%>assets/management/javascripts/select2.js" type="text/javascript"></script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/ueditor.all.js"> </script>
+<script src="<%=basePath%>assets/management/javascripts/select2.js" type="text/javascript"></script>
 <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
 <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
 <script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
@@ -44,65 +44,8 @@
 			color: #007aff;
 		}
 </style>
-
-<script type="text/javascript">
-	var zTree;
-	
-	var demoIframe;	
-	
-	var setting = {
-			view: {
-				selectedMulti: false				
-			},
-			async: {
-				enable: true,
-				url:"getTreeData",
-				autoParam:["id"],
-				otherParam:{"otherParam":"zTreeAsyncTest"},
-				dataFilter: filter
-			},
-			callback:{
-				onClick: zTreeOnClick
-			}
-		};
-	
-	function zTreeOnClick(event, treeId, treeNode) {
-		tableI.table().columns(9).search(treeNode.id).draw();
-	};
-
-	function filter(treeId, parentNode, childNodes) {
-		if (!childNodes) return null;
-		for (var i=0, l=childNodes.length; i<l; i++) {
-			childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
-		}
-		return childNodes;
-	};
-	$(document).ready(function() {
-		var t = $("#tree");
-		t = $.fn.zTree.init(t, setting);
-		demoIframe = $("#testIframe");
-		demoIframe.bind("load", loadReady);
-		var zTree = $.fn.zTree.getZTreeObj("tree");
-		zTree.selectNode(zTree.getNodeByParam("id", 101));
-	
-	});
-	
-	function loadReady() {
-		var bodyH = demoIframe.contents().find("body").get(
-				0).scrollHeight, htmlH = demoIframe
-				.contents().find("html").get(0).scrollHeight, maxH = Math
-				.max(bodyH, htmlH), minH = Math.min(bodyH,
-				htmlH), h = demoIframe.height() >= maxH ? minH
-				: maxH;
-		if (h < 530)
-			h = 530;
-		demoIframe.height(h);
-	}
-	
-	
-</script>
-
 </head>
+<link href="<%=basePath%>assets/management/stylesheets/select2.css" media="all" rel="stylesheet" type="text/css" />
 <body>
 	<div class="container-fluid main-content">
 		<!-- DataTables Example -->
@@ -113,7 +56,10 @@
 						<table border=0 height=600px align=left>
 							<tr>
 								<td width=260px align=left valign=top
-									style="BORDER-RIGHT: #999999 1px dashed">
+									style="BORDER-RIGHT: #999999 1px dashed;position: relative;">
+									<div style="position: absolute;right:10px;top:8px">
+									 	<button class="btn btn-xs btn-info-outline" id = "blank">重置</button>
+									</div>
 									<ul id="tree" class="ztree cztree"
 										style="width: 260px; overflow: auto;"></ul>
 								</td>
@@ -175,5 +121,69 @@
 	<jsp:include page="update.jsp"/>
 	<jsp:include page="stick.jsp"/>
 	<jsp:include page="detailedit.jsp"/>
+<script type="text/javascript">
+	var zTree;
+	
+	var demoIframe;	
+	
+	var setting = {
+			view: {
+				selectedMulti: false				
+			},
+			async: {
+				enable: true,
+				url:"getTreeData",
+				autoParam:["id"],
+				otherParam:{"otherParam":"zTreeAsyncTest"},
+				dataFilter: filter
+			},
+			callback:{
+				onClick: zTreeOnClick
+			}
+		};
+	
+	$("#blank").click(function(){
+		alert("1111");
+		tableI.table().columns(10).search("").draw();
+		var treeObj = $.fn.zTree.getZTreeObj("tree");
+		treeObj.cancelSelectedNode();
+	});
+	
+	function zTreeOnClick(event, treeId, treeNode) {
+		alert("11111");
+		tableI.table().columns(10).search(treeNode.id).draw();
+	};
+
+	function filter(treeId, parentNode, childNodes) {
+		if (!childNodes) return null;
+		for (var i=0, l=childNodes.length; i<l; i++) {
+			childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+		}
+		return childNodes;
+	};
+	$(document).ready(function() {
+		var t = $("#tree");
+		t = $.fn.zTree.init(t, setting);
+		demoIframe = $("#testIframe");
+		demoIframe.bind("load", loadReady);
+		var zTree = $.fn.zTree.getZTreeObj("tree");
+		zTree.selectNode(zTree.getNodeByParam("id", 101));
+	
+	});
+	
+	function loadReady() {
+		var bodyH = demoIframe.contents().find("body").get(
+				0).scrollHeight, htmlH = demoIframe
+				.contents().find("html").get(0).scrollHeight, maxH = Math
+				.max(bodyH, htmlH), minH = Math.min(bodyH,
+				htmlH), h = demoIframe.height() >= maxH ? minH
+				: maxH;
+		if (h < 530)
+			h = 530;
+		demoIframe.height(h);
+	}
+	
+	
+</script>
 </body>
 </html>

@@ -9,8 +9,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">	
 	<title>品牌管理</title>
 	<script
 	src="<%=basePath%>assets/management/datatablejs/brand.js"
@@ -44,7 +43,7 @@
 									<td width="30%"><input class="form-control" type="text" id="content" name="content" placeholder="搜索品牌简介"></td>	
 									<td width="8%">供应商名称:</td>
 									<td>									
-									<select class="reg-sel" id="suppliername"  name="suppliername">
+									<select class="reg-sel-index " id="suppliername"  name="suppliername">
 										<option value=""></option>
 										<option value="">全部</option>
 										<c:forEach items="${supplierMsg}" var="supplierList">
@@ -81,8 +80,8 @@
 	<jsp:include page="update.jsp"/>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('.reg-sel').select2({
-				  placeholder: "请输入供应商"
+			$('.reg-sel-index').select2({
+				  placeholder: "搜索供应商"
 			});
 		});
 	</script>

@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <style>
 	.divb0{
 		margin-bottom:0px;
@@ -23,10 +28,10 @@
 							<div class="col-lg-3">
 								<table border=0 height=200px align=left>
 									<tr>
-										<td width=100px align=left valign=top
+										<td width=150px align=left valign=top
 											style="BORDER-RIGHT: #999999 1px dashed">
 											<ul id="atree" class="ztree"
-												style="width: 100px; overflow: auto;"></ul>
+												style="width: 150px; overflow: auto;"></ul>
 										</td>
 									</tr>
 								</table>
@@ -35,8 +40,8 @@
 								<div class="row">
 									<div class="row">
 									<div class="col-md-12">
-										<label for="name">商品品牌(*)</label> <select
-											class="reg-sel form-control" name="brandId">
+										<label for="name">商品品牌(*)</label> 
+										<select	class="reg-sel-add" id = "" name="brandId">
 											<option value=""></option>
 											<c:forEach items="${brandMsg}" var="brandList">
 												<option value="${brandList.id}">${brandList.name}</option>
@@ -118,6 +123,11 @@
 				onClick: zTreeOnClickAdd
 			}
 	};
+	$(document).ready(function(){
+		$('.reg-sel-add').select2({
+			  placeholder: "请选择商品品牌"
+		});
+	});
 	function zTreeOnClickAdd(event, treeId, treeNode) {
 		console.log(treeNode);
 		$("#typeId").val(treeNode.id);
