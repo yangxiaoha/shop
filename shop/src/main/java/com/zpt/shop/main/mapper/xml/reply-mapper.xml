@@ -65,7 +65,7 @@
 		update t_reply set skey = #{skey},reply = #{reply} where id = #{id}
 	</update>
 	
-	<select id="getReply" parameterType="reply" resultType="java.lang.String">
+	<select id="getReply" parameterType="java.lang.String" resultType="java.lang.String">
 		select reply from t_reply where skey = #{skey}
 	</select>
 
