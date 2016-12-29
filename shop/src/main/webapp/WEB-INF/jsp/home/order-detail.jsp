@@ -65,13 +65,11 @@
 		    	</c:forEach>
 		        <div class="order-total clearfloat">     
 		          <c:if test="${orderList.state == 1}">
-		          	<form id="paymentForm" action="payment" method="post">
-				      <input type="hidden" name="orderId" class="orderId" id="orderId" value="${orderList.id}" />
-				      <input type="hidden" name="orderNum" class="orderNum" id="orderNum" value="${orderList.ordernum}" />
-				    </form>
 		  		  	<button class="btn fr goPayment">去支付</button>
+		  		  	<input type="hidden" value="${orderList.id}" class="dOrderId">
+		  		  	<input type="hidden" value="${orderList.ordernum}" class="dOrderNum">
 		  		  </c:if> 
-		  		  <c:if test="${orderList.state == 4}">
+		  		  <c:if test="${orderList.state == 3}">
 		  		  	<a href="receipt/${orderList.id}" class="btn fr">确认收货</a>
 		  		  </c:if>	  
 		      	  <p class="fr">合计：<span class="font-price">￥${orderList.totalPrice}</span></p>
@@ -80,7 +78,12 @@
 		      </div>
 			</c:forEach>
 	      </div>
-		</c:if>	  
+		</c:if>	 
+		
+	    <form id="paymentForm" action="payment" method="post">
+	      <input type="hidden" name="orderId" class="orderId" id="orderId" />
+	      <input type="hidden" name="orderNum" class="orderNum" id="orderNum" />
+	    </form> 
 	
 	  	<ul class="tab-bar order-detail-tab-bar">
 	      <li>
@@ -114,10 +117,10 @@
     <script>
 	    $(document).ready(function(){
 			$(".goPayment").click(function(){
-/* 				var id = $(this).siblings("input:first-child").val();
-				var ordernum = $(this).siblings("input:last-child").val();
+				var id = $(this).siblings(".dOrderId").val();
+				var ordernum = $(this).siblings(".dOrderNum").val();
 				$("#orderId").val(id);	
-				$("#orderNum").val(ordernum); */
+				$("#orderNum").val(ordernum);
 				$("#paymentForm").submit();
 			});
 		});    	

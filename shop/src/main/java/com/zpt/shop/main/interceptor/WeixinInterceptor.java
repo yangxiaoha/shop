@@ -53,6 +53,8 @@ public class WeixinInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception {
 		System.out.println("w333"+request.getSession().getAttribute(Contants.SESSION_OPENID));
+		/*request.getSession().setAttribute(Contants.SESSION_OPENID,
+		 "ozmycs6JuZxrpxDuNMluTyvyUDCY");*/
 		if (request.getSession().getAttribute(Contants.SESSION_OPENID) == null
 				|| request.getSession().getAttribute(Contants.SESSION_OPENID) == "") {
 			if (request.getParameterMap().get("code") != null
@@ -98,6 +100,7 @@ public class WeixinInterceptor implements HandlerInterceptor {
 			    			System.out.println(superior.getOpenid());
 			    			String superiorPath = "https://api.weixin.qq.com/sns/userinfo?access_token=" + accessToken
 									+ "&openid=" + superior.getOpenid() + "&lang=zh_CN";
+			    			System.out.println("-----------------superiorPath" + superiorPath);
 			    			JSONObject superiorInfoObject = WeixinUtils.httpRequest(superiorPath, "GET", null);
 			    			if (null != superiorInfoObject) {
 								System.out.println("-----------------superiorName"+superiorInfoObject.getString("nickname"));

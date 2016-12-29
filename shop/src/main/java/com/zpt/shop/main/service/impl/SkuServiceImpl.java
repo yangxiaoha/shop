@@ -227,5 +227,19 @@ public class SkuServiceImpl implements SkuService{
 		}
 		return null;
 	}
+	
+	/**
+	 * 查询所有商品的库存信息
+	 * @return List<Sku>
+	 * */
+	@Override
+	public List<Sku> getAllGoodsStockInfo() {
+		// TODO Auto-generated method stub
+		List<Sku> list = skuMapper.getAllGoodsStockInfo();
+		if(list != null && list.size()>0){
+			return list;
+		}
+		return null;
+	}
 
 }

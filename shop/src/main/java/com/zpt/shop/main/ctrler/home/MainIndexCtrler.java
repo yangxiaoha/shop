@@ -1,9 +1,6 @@
 package com.zpt.shop.main.ctrler.home;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zpt.shop.main.entities.Banner;
 import com.zpt.shop.main.entities.Goods;
 import com.zpt.shop.main.entities.GoodsType;
-import com.zpt.shop.main.entities.OrderDetail;
 import com.zpt.shop.main.entities.ProVal;
 import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.entities.User;
+import com.zpt.shop.main.service.BannerService;
 import com.zpt.shop.main.service.CartService;
 import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.GoodsTypeService;
@@ -72,7 +70,7 @@ public class MainIndexCtrler {
 	private SystemService systemService;
 	
 	@Autowired
-	private OrderDetailService orderDetailService;
+	private BannerService bannerService;
 
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public ModelAndView index(HttpServletRequest request) {
@@ -85,12 +83,15 @@ public class MainIndexCtrler {
 		List<GoodsType> goodsTypeList = goodsTypeService.getGoodsType();
 		//商品数据
 		List<Goods> goodsList = goodsService.getGoods(pageStart, num);		
+		//banner
+		List<Banner> bannerList = bannerService.getAllBanner();
 		//购物车数量
 		Integer amount = cartService.selectAmount(userId);
 		//公告
-		String notice = systemService.getNotice();				
+		String notice = systemService.getNotice();	
 		mv.addObject("goodsTypeMsg", goodsTypeList);
 		mv.addObject("goodsMsg", goodsList);
+		mv.addObject("banner", bannerList);
 		mv.addObject("amount", amount);
 		mv.addObject("notice", notice);
 		return mv;
@@ -172,56 +173,15 @@ public class MainIndexCtrler {
 		Goods goodsList = goodsService.getGoodsById(goodsId);
 		//商品属性
 		List<ProVal> proList = proValService.getProByTypeId(goodsId);
-		//查询库存信息
+		//超过半小时还未支付的订单视为订单关闭
+		orderService.closeOrder();
+		//查询指定库存信息
 		List<Sku> goodsSkuList = skuService.getGoodsStockInfo(goodsId);
-		//订单信息(获取下单时间，下单小于半小时的商品保留，超过半小时的修改状态)
-		String skuIds = "";
-		for(int i=0; i<goodsSkuList.size(); i++) {
-			if(skuIds != null && !("".equals(skuIds))) {
-				skuIds = skuIds + "," + goodsSkuList.get(i).getId();
-			}else {
-				skuIds = goodsSkuList.get(i).getId().toString();
-			}
-		}
-		List<OrderDetail> orderDetailList = orderDetailService.getorderDetailBySkuIds(skuIds);
-		
-		if(orderDetailList != null && orderDetailList.size() > 0) {
-			for(int i=0; i<goodsSkuList.size(); i++) {
-				for(int j=0; j<orderDetailList.size(); j++) {
-					if(goodsSkuList.get(i).getId() == orderDetailList.get(j).getSkuId()) {
-		                SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");  
-		                Date nowTime=new Date();//获取当前时间
-		                String fromDate = simpleFormat.format(nowTime);  
-		                String toDate = simpleFormat.format(orderDetailList.get(j).getOrdertime());  
-		                long from = simpleFormat.parse(toDate).getTime();
-		                long to = simpleFormat.parse(fromDate).getTime();             
-		                int minutes = (int) ((to - from)/(1000 * 60));
-	                    if(minutes <= 30) {
-	                    	Integer val = goodsSkuList.get(i).getNum()-orderDetailList.get(j).getNum();
-	                    	goodsSkuList.get(i).setNum(val);
-	                    }else {	                    	
-	                    	Integer val = goodsSkuList.get(i).getNum()+orderDetailList.get(j).getNum();
-	                    	goodsSkuList.get(i).setNum(val);
-	                    	Integer state = 0;
-	                    	orderService.updateOrderStateByOrderId(orderDetailList.get(j).getOrderId(), state);
-	                    }
-					}
-				}
-			}
-			for(int i=0; i<goodsSkuList.size(); i++) {
-				//返回库存信息(去掉数量为0的)
-				List<Sku> goodsSkuListReturn = new ArrayList<Sku>();
-            	if(goodsSkuList.get(i).getNum() > 0) {
-            		goodsSkuListReturn.add(goodsSkuList.get(i));
-            	}
-            	map.put("goodsSkuMsg", goodsSkuListReturn);
-			}
-		}else {
-			map.put("goodsSkuMsg", goodsSkuList);
-		}
+
 		map.put("state", true);
 		map.put("goodsMsg", goodsList);
 		map.put("proMsg", proList);
+		map.put("goodsSkuMsg", goodsSkuList);
 		return map;
 	}
 

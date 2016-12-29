@@ -49,9 +49,9 @@
 	    <!-- Swiper -->
 	    <div class="swiper-container">
 	        <div class="swiper-wrapper">
-	            <div class="swiper-slide"><img src="<%=basePath%>assets/home/images/carousel-img1.jpg" alt="图一"></div>
-	            <div class="swiper-slide"><img src="<%=basePath%>assets/home/images/carousel-img1.jpg" alt="图二"></div>
-	            <div class="swiper-slide"><img src="<%=basePath%>assets/home/images/carousel-img1.jpg" alt="图三"></div>
+	        	<c:forEach items="${banner}" var="bannerList">
+	        	    <div class="swiper-slide"><img src="<%=basePath%>${bannerList.image}"></div>	
+	        	</c:forEach>        
 	        </div>
 	    </div>
 
@@ -101,7 +101,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="index">
+				<a href="<%=basePath%>home/mainindex/index">
 					<span class="tab-bar-bg home-page"></span>
 					<span>首页</span>
 				</a>
@@ -183,6 +183,7 @@
 				var keyword = $("#keyword").val();
 				var typeId = "";
 				showGoods(flag, keyword, typeId);
+				$("#keyword").val("");
 				$(".goods-search").hide();
 			});
 		}); 

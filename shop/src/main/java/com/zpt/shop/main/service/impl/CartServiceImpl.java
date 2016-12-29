@@ -88,10 +88,22 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public List<Cart> modifyGoodsIntoCart(String userId, String cartId, String skuId, Integer num, String price) {
 		// TODO Auto-generated method stub
-		BigDecimal totalPrice = new BigDecimal("0.0");
+		Cart cart = cartMapper.selectCart(userId, skuId);
+		BigDecimal totalPrice = new BigDecimal("0.00");
         BigDecimal money = new BigDecimal(price);
-		totalPrice = money.multiply(new BigDecimal(num));
-		cartMapper.modifyGoodsIntoCart(cartId, skuId, num, price, totalPrice);
+		totalPrice = money.multiply(new BigDecimal(num));//本次总金额
+		if(cart != null && !("".equals(cart))) {		
+			if(!(cart.getId().toString()).equals(cartId)) {
+				num = num + cart.getNum();
+				totalPrice = totalPrice.add(cart.getTotalprice());//totalPrice=本次总金额+之前的金额	
+				cartMapper.updateGoodsIntoCart(userId, skuId, num, price, totalPrice);
+				cartMapper.deleteCartInfo(cartId);
+			}else {
+				cartMapper.modifyGoodsIntoCart(cartId, skuId, num, price, totalPrice);
+			}
+		}else {
+			cartMapper.modifyGoodsIntoCart(cartId, skuId, num, price, totalPrice);
+		}	
 		List<Cart> list = cartMapper.getCartInfo(userId);
 		if(list != null && list.size() > 0) {
 			return list;	

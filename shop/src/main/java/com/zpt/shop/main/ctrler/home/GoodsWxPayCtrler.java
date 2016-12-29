@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zpt.shop.main.entities.Goods;
 import com.zpt.shop.main.entities.Order;
-import com.zpt.shop.main.entities.OrderDetail;
 import com.zpt.shop.main.entities.PayCallback;
 import com.zpt.shop.main.entities.Percentage;
 import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.GoodsService;
-import com.zpt.shop.main.service.OrderDetailService;
 import com.zpt.shop.main.service.OrderService;
 import com.zpt.shop.main.service.PercentageService;
 import com.zpt.shop.main.service.SkuService;
@@ -42,9 +40,6 @@ public class GoodsWxPayCtrler {
 	
 	@Autowired
 	private OrderService orderService;
-	
-	@Autowired
-	private OrderDetailService orderDetailService;
 	
 	@Autowired
 	private SkuService skuService;
@@ -76,27 +71,6 @@ public class GoodsWxPayCtrler {
      			for(int i=0; i<goodsidList.size(); i++) {
      				Goods goods = goodsService.getGoodsById(goodsidList.get(i).getGoodsId());
      				goodsService.updateNum(goodsidList.get(i).getGoodsId(), goods.getNum()+n);
-     			}
-     			
-     			//减少库存
-     			List<OrderDetail> orderDetailsList = orderDetailService.getOrderDetail(ordercode);//订单里商品信息
-     			String skuIds = "";
-     			for(int i=0; i<orderDetailsList.size(); i++) {
-     				if(skuIds != null && !("".equals(skuIds))) {
-     					skuIds = skuIds + "," + orderDetailsList.get(i).getSkuId();
-     				}else {
-     					skuIds = orderDetailsList.get(i).getSkuId().toString();
-     				}
-     			}
-     			List<Sku> goodsSkuList = skuService.getSkuInfoByIds(skuIds);//商品具体信息
-     			for(int i=0; i<orderDetailsList.size(); i++) {
-     				for(int j=0; j<goodsSkuList.size(); j++) {
-     					if(orderDetailsList.get(i).getSkuId() == orderDetailsList.get(j).getId()) {
-     						int num = goodsSkuList.get(j).getNum() - orderDetailsList.get(i).getNum();
-     						//修改库存数量
-     						skuService.updateSkuNum(goodsSkuList.get(j).getId(), num);
-     					}
-     				}
      			}
      			
      			//上级提现金额计算

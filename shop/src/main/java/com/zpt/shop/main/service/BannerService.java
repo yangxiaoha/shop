@@ -20,5 +20,4 @@ public interface BannerService {
 	public void updateBanner(Banner banner,HttpServletRequest request, HttpSession session);
 	
 	public String uploadPhoto(CommonsMultipartFile cmFile, String relaPath);
-
 }

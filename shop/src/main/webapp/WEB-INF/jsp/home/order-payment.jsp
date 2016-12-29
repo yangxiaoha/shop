@@ -27,7 +27,7 @@
       <c:if test="${!empty cartsMsg}">
       <div class="order-detail p10"> 
         <div class="order-detail-addr">
-          <h4 class="mb5"><span id="oldName"></span>,<span id="oldPhone"></span></h4>
+          <h4 class="mb5"><span id="oldName"></span>&nbsp&nbsp&nbsp<span id="oldPhone"></span></h4>
           <p class="fc-9fa0a0 fs-12" id="oldAddress"></p>
           <a href="javascript:void(0)" class="icon-item" id="getAddr" style="display: block; color: #231815;">
             <span class="iconfont">&#xe7f7;</span>
@@ -198,23 +198,28 @@
         }); 
         
         wx.ready(function(){
-        	if($("#state") == "0") {
+        	var s = parseInt($("#state").val(), 10);
+        	if(s == 0) {
                 getAddr(); 
         	}        
         });
         
         $(document).ready(function() {
             $(".payment").click(function() {
-                var queryArray = $("#buyGoodsForm").serializeArray();
-                var jsonString= '{';  
-                for (var i = 0; i < queryArray.length; i++) {  
-                    jsonString+= JSON.stringify(queryArray[i].name) + ':' + JSON.stringify(queryArray[i].value) + ',';  
-                }  
-                jsonString= jsonString.substring(0, (jsonString.length - 1));  
-                jsonString+= '}'; 
-                $("#postData").val(jsonString);
-                //onBridgeReady();
-                callpay();
+            	if($("#username").val() != null && $("#username").val() != "") {
+                    var queryArray = $("#buyGoodsForm").serializeArray();
+                    var jsonString= '{';  
+                    for (var i = 0; i < queryArray.length; i++) {  
+                        jsonString+= JSON.stringify(queryArray[i].name) + ':' + JSON.stringify(queryArray[i].value) + ',';  
+                    }  
+                    jsonString= jsonString.substring(0, (jsonString.length - 1));  
+                    jsonString+= '}'; 
+                    $("#postData").val(jsonString);
+                    callpay();
+                    //$("#buyGoodsSubForm").submit();
+            	}else {
+            		alert("请选择收货地址！");
+            	}           	
             });
             $("#getAddr").click(function() {
                 getAddr();

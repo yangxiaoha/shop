@@ -106,5 +106,9 @@
 		(select skuid from t_order_detail where orderid in
 		(select id from t_order where ordernum = #{orderNum}))
 	</select>
+	
+	<select id="getAllGoodsStockInfo" resultMap="resultMap">
+		select * from t_goods_sku
+	</select>
 
 </mapper>
