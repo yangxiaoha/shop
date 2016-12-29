@@ -17,8 +17,8 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
-									<label for="name">skey(*)</label><input class="form-control"
-										placeholder="请输入skey" id="askey" name="skey" type="text">
+									<label for="name">关键词(*)</label><input class="form-control"
+										placeholder="请输入关键词" id="askey" name="skey" type="text">
 								</div>
 							</div>
 							<div class="col-md-12">

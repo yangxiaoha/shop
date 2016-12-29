@@ -65,17 +65,17 @@
 		
 	<select id="listOrder" resultMap="resultMap" parameterType="query">
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
-		select torder.id as id,torder.userId as userId,torder.address as address,torder.ordertime as ordertime,
+		select torder.id as id,torder.userId as userId,torder.ordertime as ordertime,
 		torder.logisticsnum as logisticsnum,torder.logistics as logistics,torder.state as state,
 		torder.name as name,torder.phone as phone,goods.name as goodsName,torder.totalPrice as totalPrice,
-		torder.memo as memo,torder.ordernum as ordernum
+		torder.memo as memo,torder.ordernum as ordernum,
+		concat(torder.provinceName,torder.cityName,torder.countryName,torder.address) as address
 		from t_order as torder 
 		left join t_user as tuser on torder.userId = tuser.id 
 		left join t_order_detail as orderdetail on torder.id = orderdetail.orderId 
 		left join t_goods_sku as sku on sku.id = orderdetail.skuId 
 		left join t_goods as goods on sku.goodsid = goods.id				
 		<include refid="queryCondition"/>
-		order by id desc
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>
 	
@@ -96,7 +96,7 @@
 	</update>
 	
 	<update id="seeOrder" parameterType="order">
-		update t_order set memo = #{memo} where id = #{id}
+		update t_order set memo = #{memo},logistics = #{logistics},logisticsnum = #{logisticsnum} where id = #{id}
 	</update>
 
 	<!-- ******************************************************************************** -->

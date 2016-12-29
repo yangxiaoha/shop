@@ -13,7 +13,7 @@
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
 				<h4 class="modal-title">
-					修改商品Sku <span class="loading" style=""></span>
+					修改商品 <span class="loading" style=""></span>
 					<input type="hidden" id="basepath" value="<%=basePath %>">
 					
 				</h4>
@@ -27,7 +27,7 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="price">商品价格</label><input class="form-control"
+										<label for="price">商品价格(*)</label><input class="form-control"
 											placeholder="请输入商品价格" id="uprice" name="price" type="text">
 									</div>
 								</div>
@@ -72,7 +72,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group">
-										<p>请选择图片</p>
+										<p>请选择图片(大小不超过：300*150)</p>
 										<p class="error" style="display: none;"></p>
 										<div class="pic">
 											<div id="preview" class="preview">
@@ -196,7 +196,8 @@
 		        			$(".loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
 		        			setTimeout(function(){
 		        			   $(".loading").html("");
-		        			   $("#updatesubmit").removeAttr("disabled"); 
+		        			   $("#updatesubmit").removeAttr("disabled");
+		        			   $("#updateModal").modal('hide');
 		        		    },1000);
 		        					        			
 		        		    tableI.table().draw(false);

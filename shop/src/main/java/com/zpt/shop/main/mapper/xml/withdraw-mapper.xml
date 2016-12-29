@@ -9,6 +9,9 @@
 		<result property="userId" column="userId" />
 		<result property="cashNum" column="cashnum" />
 		<result property="cashTime" column="cashtime" />
+		<result property="starttime" column="starttime" />
+		<result property="endtime" column="endtime" />
+		<result property="cashTime" column="cashtime" />
 		<result property="cashMoney" column="money" />
 		<result property="state" column="state" />
 		<result property="username" column="username" />
@@ -27,6 +30,9 @@
 		<if test="obj.state != null and obj.state != ''">
 			and cash.state like CONCAT('%',#{obj.state},'%')
 		</if>
+		<if test="obj.starttime != null and obj.starttime != '' and obj.endtime != null and obj.endtime != ''">
+			and (cashTime &gt; #{obj.starttime} and cashTime &lt; #{obj.endtime})
+		</if>
 		<if test="search != null and search != ''">
 			and cash.username like CONCAT('%',#{search},'%') 
 		</if>
@@ -39,7 +45,6 @@
 		from t_withdraw_cash as cash 
 		left join t_user as user on cash.userId = user.id 
 		<include refid="queryCondition"/>
-		order by id desc
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>
 	

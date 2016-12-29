@@ -109,10 +109,10 @@ $(document).ready(function(){
         		$("#sname").html(obj.name);
         		$("#sphone").html(obj.phone);
         		$("#saddress").html(obj.address);
-        		$("#slogistics").html(obj.logistics);
-        		$("#slogisticsnum").html(obj.logisticsnum);
         		$("#smemo").html(obj.memo);
         		$("#umemo").val(obj.memo);
+        		$("#ulogistics").val(obj.logistics);
+        		$("#ulogisticsnum").val(obj.logisticsnum);
         		var d = new Date(obj.ordertime);  
      		    var date = d.toLocaleString(); 
         		$("#sordertime").html(date);
@@ -130,7 +130,7 @@ $(document).ready(function(){
         			dataType:"json",
         			async:true,
         			success:function(res){
-        				var checkboxhtml = "<table style=\"solid; border-width:1px; border-color:#000\" class=\"table table-bordered table-striped table-hover\" width=\"100%\">";
+        				var checkboxhtml = "<table style=\"solid; border-width:1px; border-color:#000;width: 85%;margin-left: 40px;\" class=\"table table-bordered table-striped table-hover\" width=\"100%\">";
         				checkboxhtml = checkboxhtml + "<thead style=\"solid; border-width:1px; border-color:#000\">";
         				checkboxhtml = checkboxhtml + "<tr>";
         				checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:blue\">商品名称</td>";

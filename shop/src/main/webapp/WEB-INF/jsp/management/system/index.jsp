@@ -10,7 +10,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>系统管理</title>
+	<title>公告管理</title>
 	<script
 	src="<%=basePath%>assets/management/datatablejs/system.js"
 	type="text/javascript"></script>
@@ -27,16 +27,16 @@
 			<div class="col-lg-12">
 				<div class="widget-container fluid-height clearfix">
 					<div class="heading">
-						<i class="icon-table"></i>系统管理
+						<i class="icon-table"></i>公告管理
 					</div>
 					<div class="widget-content padded clearfix">
 						<div class="col-lg-12">
 							<table class="table table-bordered table-striped table-hover">
 								<tr>
-						            <td width="8%">skey:</td>
-						            <td><input class="form-control" type="text" id="skey" name="skey" placeholder="搜索skey"></td>
-						            <td width="8%">sysvalue:</td>
-									<td><input class="form-control" type="text" id="sysvalue" name="sysvalue" placeholder="搜索sysvalue"></td>																				
+						            <td width="8%">菜单:</td>
+						            <td><input class="form-control" type="text" id="skey" name="skey" placeholder="搜索菜单"></td>
+						            <td width="8%">内容:</td>
+									<td><input class="form-control" type="text" id="sysvalue" name="sysvalue" placeholder="搜索内容值"></td>																				
 								</tr>
 						    </table>
 						 </div>						 
@@ -47,8 +47,8 @@
 								<th class="check-header hidden-xs"  width="8%"><label><input
 										id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 								</th>
-								<th  width="20%">skey</th>
-								<th>sysvalue</th>	
+								<th  width="20%">菜单</th>
+								<th>内容</th>	
 								<th style="color: #007aff;">操作</th>
 							</thead>
 							<tbody>
