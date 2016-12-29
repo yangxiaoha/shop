@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zpt.shop.main.entities.Percentage;
-import com.zpt.shop.main.mapper.BrandMapper;
 import com.zpt.shop.main.mapper.PercentageMapper;
 import com.zpt.shop.main.service.PercentageService;
 

@@ -27,7 +27,7 @@
       <c:if test="${!empty cartsMsg}">
       <div class="order-detail p10"> 
         <div class="order-detail-addr">
-          <h4 class="mb5"><span id="oldName"></span>&nbsp&nbsp&nbsp<span id="oldPhone"></span></h4>
+          <h4 class="mb5"><span id="oldName"></span>&nbsp;&nbsp;&nbsp;<span id="oldPhone"></span></h4>
           <p class="fc-9fa0a0 fs-12" id="oldAddress"></p>
           <a href="javascript:void(0)" class="icon-item" id="getAddr" style="display: block; color: #231815;">
             <span class="iconfont">&#xe7f7;</span>
@@ -111,13 +111,13 @@
               <div>
                 <label for="remarks" class="fc-9fa0a0">备注:</label>
                 <textarea id="remarks" name="memo">${orderList.memo}</textarea>
-                <input type="hidden" id="proviceFirstStageName" name="provinceName" value="" />
-                <input type="hidden" id="addressCitySecondStageName" name="cityName" value="" />
-                <input type="hidden" id="addressCountiesThirdStageName" name="countryName" value="" />
-                <input type="hidden" id="addressPostalCode" name="postalCode" value="" />
-                <input type="hidden" id="addressDetailInfo" name="address" value="" />       
-                <input type="hidden" id="telNumber" name="phone" value="" />
-                <input type="hidden" id="username" name="name" value="" />
+                <input type="hidden" id="proviceFirstStageName" name="provinceName" value="${orderList.provinceName}" />
+                <input type="hidden" id="addressCitySecondStageName" name="cityName" value="${orderList.cityName}" />
+                <input type="hidden" id="addressCountiesThirdStageName" name="countryName" value="${orderList.countryName}" />
+                <input type="hidden" id="addressPostalCode" name="postalCode" value="${orderList.postalCode}" />
+                <input type="hidden" id="addressDetailInfo" name="address" value="${orderList.address}" />       
+                <input type="hidden" id="telNumber" name="phone" value="${orderList.phone}" />
+                <input type="hidden" id="username" name="name" value="${orderList.name}" />
                 <input type="hidden" id="totalPrice" name="totalPrice" value="${orderList.totalPrice}" />
                 <input type="hidden" id="ordercode" name="ordernum" value="${ordercode}" />
               </div>
@@ -161,7 +161,7 @@
   			    },
     		    function(res){
     				WeixinJSBridge.log(res.err_msg);
-                    $("#buyGoodsSubForm").submit();
+                    //$("#buyGoodsSubForm").submit();
     		    }
     		);
     	}
@@ -215,8 +215,8 @@
                     jsonString= jsonString.substring(0, (jsonString.length - 1));  
                     jsonString+= '}'; 
                     $("#postData").val(jsonString);
+                    $("#buyGoodsSubForm").submit();
                     callpay();
-                    //$("#buyGoodsSubForm").submit();
             	}else {
             		alert("请选择收货地址！");
             	}           	

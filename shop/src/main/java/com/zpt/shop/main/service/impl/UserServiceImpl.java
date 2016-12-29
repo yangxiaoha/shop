@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
-import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.mapper.UserMapper;
 import com.zpt.shop.main.service.UserService;
@@ -91,12 +90,11 @@ public class UserServiceImpl implements UserService {
 	 * @param String fromUserName 用户openId
 	 * @param String createTime 关注时间
 	 * @param Integer pid 上级id
-	 * @param String money 可提现金额
 	 * */
 	@Override
-	public void updateUser(String fromUserName, String createTime, Integer pid, String money) {
+	public void updateUser(String fromUserName, String createTime, Integer pid) {
 		// TODO Auto-generated method stub
-		userMapper.updateUser(fromUserName, createTime, pid, money);
+		userMapper.updateUser(fromUserName, createTime, pid);
 	}
 
 	/**

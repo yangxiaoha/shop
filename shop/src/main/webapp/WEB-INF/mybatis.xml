@@ -25,6 +25,7 @@
  		<typeAlias type="com.zpt.shop.main.entities.Reply" alias="reply"/>
  		<typeAlias type="com.zpt.shop.main.entities.Statistics" alias="statistics"/>
  		<typeAlias type="com.zpt.shop.main.entities.Percentage" alias="percentage"/>
+ 		<typeAlias type="com.zpt.shop.main.entities.Distribution" alias="distribution"/>
  		<typeAlias type="com.zpt.shop.common.pojo.Query" alias="query"/>
  	</typeAliases>
 </configuration>

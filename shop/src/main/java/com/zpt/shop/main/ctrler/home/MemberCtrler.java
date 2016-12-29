@@ -15,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -65,14 +66,39 @@ public class MemberCtrler {
 	
 	//会员中心
 	@RequestMapping(value="/memberCenter", method=RequestMethod.GET)
-	public ModelAndView memberCenter(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public ModelAndView memberCenter(HttpServletRequest request, HttpServletResponse response) throws IOException, WxErrorException {
 		ModelAndView mv = new ModelAndView("home/member-center");
 		//获取用户信息
 		User user = (User) request.getSession().getAttribute("user");
+		String superiorName = "";
+
+		//是否有上级
+        Integer pid = 0;
+        if(!(pid.equals(user.getPid()))) {
+            User superior = userService.getUserId(user.getPid()); 
+            List<UserList> list = new ArrayList<UserList>(); 
+            UserList agent = new UserList();   
+            agent.setOpenid(superior.getOpenid());  
+            agent.setLang("zh-CN");                   
+            list.add(agent);
+                    
+            System.out.println(list);
+            JSONObject s = new JSONObject(); 
+            s.put("user_list", list);
+	        String accessToken = wxMpService.getAccessToken(false);
+	        JSONObject jsonObject = WeixinUtils.getBatchWeixinUserInfo(s.toString(), accessToken);
+
+            System.out.println("-----------------jsonObject" + jsonObject);
+            if(null != jsonObject) {
+              System.out.println("-----------------superiorName"+jsonObject.getString("nickname"));
+      		  superiorName = jsonObject.getString("nickname");
+            }
+        }else {
+        	superiorName = "一见喜";
+        }
 		
 		String nickname = (String) request.getSession().getAttribute("userName");
 		String headimgurl = (String) request.getSession().getAttribute("userHeadImg");
-		String superiorName = (String) request.getSession().getAttribute("superiorName");
 		mv.addObject("name", nickname);
 		mv.addObject("headImg", headimgurl);
 		mv.addObject("superiorName", superiorName);
@@ -208,15 +234,16 @@ public class MemberCtrler {
 		System.out.println(jsonMsg1);
 		System.out.println(jsonObject);
 		String url = jsonObject.getString("url");*/
-		String url = request.getRequestURL().toString()+"/getSuperiorInfo?openId="+openId;//二维码		
+		String url = request.getRequestURL().toString()+"/getSuperiorInfo";//二维码		
 		mv.addObject("myQr", url);
+		mv.addObject("openId", openId);
 		return mv;
 	}
 	
 	//绑定上级
 	@ResponseBody
-	@RequestMapping(value="/myQr/getSuperiorInfo", method=RequestMethod.GET)
-	public void getSuperiorInfo(HttpServletRequest request) throws WxErrorException {
+	@RequestMapping(value="/myQr/getSuperiorInfo/{openId}", method=RequestMethod.GET)
+	public void getSuperiorInfo(HttpServletRequest request, @PathVariable("openId")String openId) throws WxErrorException {
 		/*String accessToken = wxMpService.getAccessToken(false);
 		String jsonMsg1 = "{\"expire_seconds\": \"604800\", \"action_name\": \"QR_SCENE\", \"action_info\"：{\"scene\": {\"scene_id\": "+openId+"}}}";
 		String jsonMsg = "{\"expire_seconds\": \"604800\", \"action_name\": \"QR_SCENE\", \"action_info\"：{\"scene\": {\"scene_id\": ozmycs6JuZxrpxDuNMluTyvyUDCY}}}";
@@ -224,10 +251,16 @@ public class MemberCtrler {
 		System.out.println(jsonMsg1);
 		System.out.println(jsonObject);
 		String url = jsonObject.getString("url");*/
-		String openid = (String) request.getSession().getAttribute("openid");//扫码用户的openId
+
+		/*String openid = (String) request.getSession().getAttribute("openid");//扫码用户的openId
 		String[] superiorId = (String[]) request.getParameterMap().get("openId");//二维码持有者的openId
 		System.out.println(superiorId);
-		User superiorUser = userService.getUserByOpenId(String.valueOf(superiorId[0]));
+		User superiorUser = userService.getUserByOpenId(String.valueOf(superiorId[0]));*/
+		
+		String openid = (String) request.getSession().getAttribute("openid");
+		User superiorUser = userService.getUserByOpenId(openId);
+		System.out.println(openId);
+		
 		//判断此用户是否已经存在
 		User user = userService.getUserByOpenId(openid);
 		String subscribe = (String) request.getSession().getAttribute("subscribe");
@@ -272,6 +305,8 @@ public class MemberCtrler {
 			}
 			if(second != null && !("".equals(second))) {
 				ids = primary + "," + second;
+			}else {
+				ids = primary;
 			}
 			String[] strArray = null;   
 	        strArray = ids.split(","); //拆分字符为"," ,然后把结果交给数组strArray 

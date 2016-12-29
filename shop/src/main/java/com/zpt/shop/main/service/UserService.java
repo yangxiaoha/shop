@@ -48,7 +48,7 @@ public interface UserService {
 	 * @param Integer pid 上级id
 	 * @param String money 可提现金额
 	 * */
-	public void updateUser(String fromUserName, String createTime, Integer fpid, String money);
+	public void updateUser(String fromUserName, String createTime, Integer fpid);
 
 	/**
 	 * 获取分销信息

@@ -6,15 +6,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.UsesSunHttpServer;
+
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.zpt.shop.common.pojo.Contants;
-import com.zpt.shop.common.weixin.WeixinUserInfo;
 import com.zpt.shop.common.weixin.WxMpConfigStorage;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.UserService;
@@ -53,10 +51,11 @@ public class WeixinInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception {
 		System.out.println("w333"+request.getSession().getAttribute(Contants.SESSION_OPENID));
-		/*request.getSession().setAttribute(Contants.SESSION_OPENID,
-		 "ozmycs6JuZxrpxDuNMluTyvyUDCY");*/
+		request.getSession().setAttribute(Contants.SESSION_OPENID,
+		 "ozmycs6JuZxrpxDuNMluTyvyUDCY");
 		if (request.getSession().getAttribute(Contants.SESSION_OPENID) == null
 				|| request.getSession().getAttribute(Contants.SESSION_OPENID) == "") {
+			
 			if (request.getParameterMap().get("code") != null
 					&& !StringUtils.isEmpty(((String[]) request.getParameterMap().get("code"))[0])) {
 				
@@ -91,24 +90,6 @@ public class WeixinInterceptor implements HandlerInterceptor {
 					User user = userService.getUserByOpenId(openid);
 					if(user != null){
 						request.getSession().setAttribute("user", user);
-						
-			    		//是否有上级
-						Integer pid = 0;
-			    		if(!(pid.equals(user.getPid()))) {
-			    			System.out.println(user.getPid());
-			    			User superior = userService.getUserId(user.getPid());
-			    			System.out.println(superior.getOpenid());
-			    			String superiorPath = "https://api.weixin.qq.com/sns/userinfo?access_token=" + accessToken
-									+ "&openid=" + superior.getOpenid() + "&lang=zh_CN";
-			    			System.out.println("-----------------superiorPath" + superiorPath);
-			    			JSONObject superiorInfoObject = WeixinUtils.httpRequest(superiorPath, "GET", null);
-			    			if (null != superiorInfoObject) {
-								System.out.println("-----------------superiorName"+superiorInfoObject.getString("nickname"));
-								request.getSession().setAttribute("superiorName", superiorInfoObject.getString("nickname"));		
-							}
-			    		}else {
-			    			request.getSession().setAttribute("superiorName", "一见喜");
-			    		}
 					}					
 				}
 			} else {

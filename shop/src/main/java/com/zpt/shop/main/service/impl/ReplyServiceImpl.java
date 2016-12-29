@@ -44,21 +44,26 @@ public class ReplyServiceImpl implements ReplyService {
 	public void insertBrand(Reply reply) {
 		// TODO Auto-generated method stub
 		replyMapper.insertReply(reply);
-
 	}
 
 	@Override
 	public void deleteBrand(String ids) {
 		// TODO Auto-generated method stub
 		replyMapper.deleteReply(ids);
-
 	}
 
 	@Override
 	public void updateBrand(Reply reply) {
 		// TODO Auto-generated method stub
 		replyMapper.updateReply(reply);
-
 	}
+
+	@Override
+	public String getReply(String content) {
+		// TODO Auto-generated method stub
+		String reply = replyMapper.getReply(content);
+		return reply;
+	}
+
 
 }

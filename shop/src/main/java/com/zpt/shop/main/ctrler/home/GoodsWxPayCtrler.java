@@ -17,6 +17,7 @@ import com.zpt.shop.main.entities.PayCallback;
 import com.zpt.shop.main.entities.Percentage;
 import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.entities.User;
+import com.zpt.shop.main.service.DistributionService;
 import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.OrderService;
 import com.zpt.shop.main.service.PercentageService;
@@ -51,6 +52,9 @@ public class GoodsWxPayCtrler {
 	private UserService userService;
 	
 	@Autowired
+	private DistributionService distributionService;
+	
+	@Autowired
 	private PercentageService percentageService;
 
 	@ResponseBody
@@ -60,6 +64,7 @@ public class GoodsWxPayCtrler {
             Map<String, String> map = getCallbackParams(request);
             if (map.get("result_code").toString().equalsIgnoreCase("SUCCESS")) {
                 String ordercode = map.get("out_trade_no");
+                System.out.println(ordercode);
                 //这里写成功后的业务逻辑
                 //付款状态改为2(支付未发货)
                 Integer state = 2;
@@ -68,9 +73,11 @@ public class GoodsWxPayCtrler {
      			//增加购买人数
      			Long n = new Long(1l);
      			List<Sku> goodsidList = skuService.getOrderByOrderNum(ordercode);
-     			for(int i=0; i<goodsidList.size(); i++) {
-     				Goods goods = goodsService.getGoodsById(goodsidList.get(i).getGoodsId());
-     				goodsService.updateNum(goodsidList.get(i).getGoodsId(), goods.getNum()+n);
+     			if(goodsidList != null && goodsidList.size() > 0) {
+         			for(int i=0; i<goodsidList.size(); i++) {
+         				Goods goods = goodsService.getGoodsById(goodsidList.get(i).getGoodsId());
+         				goodsService.updateNum(goodsidList.get(i).getGoodsId(), goods.getNum()+n);
+         			}
      			}
      			
      			//上级提现金额计算
@@ -86,11 +93,15 @@ public class GoodsWxPayCtrler {
      				BigDecimal percentageMoney = orderMoney.multiply(percentage.getFirst().divide(new BigDecimal("100")));
      				BigDecimal money = superior.getMoney().add(percentageMoney);
      				userService.updateMoney(superior.getId(), money);
+     				//添加分销信息
+     				distributionService.addDistribution(superior.getId(), order.getId(), percentageMoney);
      				if(pid != superior.getPid()) {//上级的上级
      					User superiorInfo = userService.getUserByUserId(superior.getPid());//上级的上级的信息
          				BigDecimal percentageMoneyInfo = orderMoney.multiply(percentage.getSecond().divide(new BigDecimal("100")));
          				BigDecimal moneyInfo = superiorInfo.getMoney().add(percentageMoneyInfo);
          				userService.updateMoney(superiorInfo.getId(), moneyInfo);
+         				//添加分销信息
+         				distributionService.addDistribution(superiorInfo.getId(), order.getId(), percentageMoneyInfo);
      				}
      			}
              }

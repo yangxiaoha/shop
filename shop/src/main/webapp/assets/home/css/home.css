@@ -101,6 +101,9 @@ a, a:link, a:visited, a:hover, a:active {
 .ta-center {
 	text-align: center;
 }
+.ta-left {
+	text-align: left;
+}
 .bc-fff {
 	background-color: #fff !important;
 }
@@ -254,6 +257,14 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .goods-detail .goods-show img {
 	width: 100%;
+}
+.goods-detail .goods-show a {
+	display: block;
+    text-align: center;
+}
+.goods-detail .goods-show .goods-name {
+	display: inline-block;
+	text-align: left;
 }
 .tab-bar {
 	position: fixed;

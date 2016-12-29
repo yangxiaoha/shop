@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.Map;
 import java.util.SortedMap;
-import java.util.StringTokenizer;
 import java.util.TreeMap;
 
-import javax.accessibility.AccessibleRelation;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,9 +19,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zpt.shop.common.weixin.BaseResMsg;
+import com.zpt.shop.common.weixin.TextMessage;
 import com.zpt.shop.common.weixin.WxMpConfigStorage;
 import com.zpt.shop.main.entities.User;
+import com.zpt.shop.main.service.ReplyService;
 import com.zpt.shop.main.service.UserService;
 import com.zpt.shop.weixin.utils.Sha1Util;
 import com.zpt.shop.weixin.utils.WeixinUtils;
@@ -47,6 +47,9 @@ public class WeixinCtrler {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ReplyService replyService;
 	
     @ResponseBody
 	@RequestMapping("/index")  
@@ -128,75 +131,84 @@ public class WeixinCtrler {
     }
     
     private String acceptMessage(HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
-    	//解析微信发来的请求（XML）
-    	Map<String, String> reqMap = WeixinUtils.parseXml(request);
-     
-    	System.out.println("reqMap:" + reqMap.toString());
+            HttpServletResponse response) {
 
-	    String fromUserName = reqMap.get("FromUserName");
-	    String toUserName = reqMap.get("ToUserName");
-	    String createTime = reqMap.get("CreateTime");
-	    String msgType = reqMap.get("MsgType");
+    	//xml格式的消息数据
+        String respXml = null;
+    	
+	    String respContent = "";
+    	
+    	try {
+        	//解析微信发来的请求（XML）
+    		request.setCharacterEncoding("utf-8"); 
+    		response.setCharacterEncoding("utf-8"); 
+        	Map<String, String> reqMap = WeixinUtils.parseXml(request);
+         
+        	System.out.println("reqMap:" + reqMap.toString());
+    		
+    	    String fromUserName = reqMap.get("FromUserName");
+    	    String toUserName = reqMap.get("ToUserName");
+    	    String createTime = reqMap.get("CreateTime");
+    	    String msgType = reqMap.get("MsgType");
+    	    
+    	    //回复文本消息
+    	    TextMessage textMessage = new TextMessage();
+            textMessage.setToUserName(fromUserName);
+            textMessage.setFromUserName(toUserName);
+            textMessage.setCreateTime(new Date().getTime());
+            textMessage.setMsgType(WeixinUtils.EVENT_TYPE_TEXT);
 
-	    BaseResMsg msg = null;//要发送的消息
+            //事件推送
+            if (msgType.equals(WeixinUtils.REQ_MSG_TYPE_EVENT)) {
+                //事件类型
+                String eventType = reqMap.get("Event");
+                String eventKey = reqMap.get("EventKey");
+                String ticket = reqMap.get("Ticket");
+                String money = "0";
+                //关注
+                if (eventType.equals(WeixinUtils.EVENT_TYPE_SUBSCRIBE)) {
+                	User user = userService.getUserByOpenId(fromUserName);
+            		if(user != null) {//扫过码
+            			System.out.println("扫过码" + eventKey);
+                    	if(user.getFpid() != null && !("".equals(user.getFpid()))) {//有上级
+                    		System.out.println("有上级" + eventKey);
+                    		userService.updateUser(fromUserName, createTime, user.getFpid());
+                    	}else {//无上级
+                    		System.out.println("无上级" + eventKey);
+                    		userService.updateUser(fromUserName, createTime, 0);
+                    	}   
+            		}else {
+            			System.out.println("关注" + eventKey);
+            			userService.addUser(fromUserName, createTime, 0, money);
+            		}       	
+                }
+                //扫描带参数二维码
+                else if (eventType.equals(WeixinUtils.EVENT_TYPE_SCAN)) {
+                    // TODO 处理扫描带参数二维码事件
+                	System.out.println("扫描带参数二维码事件");
+                }
+                //自定义菜单
+                else if (eventType.equals(WeixinUtils.EVENT_TYPE_CLICK)) {
+                    // TODO 处理菜单点击事件
+                }
 
-      //事件推送
-      if (msgType.equals(WeixinUtils.REQ_MSG_TYPE_EVENT)) {
-            //事件类型
-            String eventType = reqMap.get("Event");
-            String eventKey = reqMap.get("EventKey");
-            String ticket = reqMap.get("Ticket");
-            String money = "0";
-            // 关注
-            if (eventType.equals(WeixinUtils.EVENT_TYPE_SUBSCRIBE)) {
-            	
-            	//添加用户
-            	/*if(ticket != null) {
-            		System.out.println("eventKey" + eventKey);
-            		String superiorOpenId = eventKey.substring(eventKey.indexOf("_") + 1);
-            		System.out.println("上级的openId" + superiorOpenId);
-            		User user = userService.getUserByOpenId(superiorOpenId);
-            		if(user != null && !("".equals(user))) {
-            			userService.addUser(fromUserName, createTime, user.getId(), money);
-            		}           		
-            	}else {
-            		userService.addUser(fromUserName, createTime, 0, money);
-            	} */   
-
-            	User user = userService.getUserByOpenId(fromUserName);
-        		if(user != null) {//扫过码
-        			System.out.println("扫过码" + eventKey);
-                	if(user.getFpid() != null && !("".equals(user.getFpid()))) {//有上级
-                		System.out.println("有上级" + eventKey);
-                		userService.updateUser(fromUserName, createTime, user.getFpid(), money);
-                	}else {//无上级
-                		System.out.println("无上级" + eventKey);
-                		userService.updateUser(fromUserName, createTime, 0, money);
-                	}   
-        		}else {
-        			System.out.println("关注" + eventKey);
-        			userService.addUser(fromUserName, createTime, 0, money);
-        		}       	
-            }
-            // 扫描带参数二维码
-            else if (eventType.equals(WeixinUtils.EVENT_TYPE_SCAN)) {
-                // TODO 处理扫描带参数二维码事件
-            	System.out.println("扫描带参数二维码事件");
-            }
-            // 自定义菜单
-            else if (eventType.equals(WeixinUtils.EVENT_TYPE_CLICK)) {
-                // TODO 处理菜单点击事件
-            }
-
-     } else {// 接受普通消息
-
-     }
-
-      if (msg == null) {
-             // 回复空串是微信的规定，代表不回复
-             return "";
-     }
-     return "";
+            } else {//接受普通消息    	 
+        	    //文本消息
+                if (msgType.equals(WeixinUtils.EVENT_TYPE_TEXT)) {
+                    String content = reqMap.get("Content");
+                    System.out.println(content);
+                    String reply = replyService.getReply(content);
+                    respContent = reply;
+                }
+            } 
+            //设置文本消息的内容
+            textMessage.setContent(respContent);
+            //将文本消息对象转换成xml
+            respXml = WeixinUtils.messageToXml(textMessage);
+        } catch (Exception e) {
+        	logger.error(e.getMessage());
+            e.printStackTrace();
+        }
+        return respXml;       
     }
 }

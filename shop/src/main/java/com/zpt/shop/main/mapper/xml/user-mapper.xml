@@ -74,7 +74,7 @@
 		update t_user set 
 		regtime = #{regtime},
 		pid = #{pid}
-		where openid = #{openid}
+		where openid = #{openId}
 	</update>
 	
 	<select id="getAgentInfoByIds" resultMap="resultMap">

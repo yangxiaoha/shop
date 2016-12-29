@@ -30,7 +30,6 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 
@@ -41,6 +40,7 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 import com.zpt.shop.common.weixin.Article;
 import com.zpt.shop.common.weixin.ArticleResMsg;
+import com.zpt.shop.common.weixin.TextMessage;
 import com.zpt.shop.common.weixin.WeixinUserInfo;
 import com.zpt.shop.main.entities.PayCallback;
 
@@ -53,6 +53,7 @@ public class WeixinUtils {
 	public static final String EVENT_TYPE_CLICK = "CLICK";//事件类型：CLICK(自定义菜单)
 	public static final String EVENT_TYPE_SUBSCRIBE = "subscribe";//事件类型：subscribe(订阅)
 	public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";//事件类型：unsubscribe(取消订阅)
+	public static final String EVENT_TYPE_TEXT = "text";//事件类型：text(文本消息)
 
 	@Autowired
 	private static WeixinUserInfo userInfo;
@@ -275,6 +276,16 @@ public class WeixinUtils {
 			};
 		}
 	});
+	
+	/**
+     * 文本消息对象转换成xml
+     * @param textMessage 文本消息对象
+     * @return xml
+     */
+    public static String messageToXml(TextMessage textMessage) {
+        xstream.alias("xml", textMessage.getClass());
+        return xstream.toXML(textMessage);
+    }
 
 	public static String articleMessageToXml(ArticleResMsg articleResMsg) {
 		xstream.alias("xml", articleResMsg.getClass());

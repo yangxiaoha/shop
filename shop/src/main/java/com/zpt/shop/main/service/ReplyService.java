@@ -14,6 +14,8 @@ public interface ReplyService {
 	
 	public void deleteBrand(String ids);
 	
-	public void updateBrand(Reply reply);	
+	public void updateBrand(Reply reply);
+	
+	public String getReply(String content);	
 
 }

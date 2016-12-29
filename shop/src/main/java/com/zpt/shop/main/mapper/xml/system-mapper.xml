@@ -12,7 +12,7 @@
 	
 	
 	<sql id="queryCondition">
-		where 1 = 1
+		where 1 = 1 and sys.skey = '公告'
 		<if test="obj.skey != null and obj.skey != ''">
 			and sys.skey like CONCAT('%',#{obj.skey},'%')
 		</if>
@@ -56,7 +56,7 @@
 	</select>
 	
 	<select id="getNotice" resultType="java.lang.String">
-		select sysvalue from t_system where skey = 'notice'
+		select sysvalue from t_system where skey = '公告'
 	</select>
 
 	<update id="updateSystem" parameterType="system">

@@ -63,15 +63,17 @@
 	        </li>
 	    </ul>
 	  	<input type="hidden" id="myQr" value="${myQr}">
+	  	<input type="hidden" id="openId" value="${openId}">
     </div>
     
 	<script src="<%=basePath%>assets/home/js/qrcode.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
+	<script type="text/javascript">    	
+		$(document).ready(function() {        
 			qr();		
 		});
+		
 		function qr(){
-	   		var url = $("#myQr").val();
+	   		var url = $("#myQr").val()+"/"+$("#openId").val();
 			//参数1表示图像大小，取值范围1-10；参数2表示质量，取值范围'L','M','Q','H'
 			var qr = qrcode(10, 'M');
 			qr.addData(url);

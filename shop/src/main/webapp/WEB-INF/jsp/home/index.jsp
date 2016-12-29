@@ -85,7 +85,7 @@
 				    <div class="goods-show">
 				    	<a href="goodsDetail/${goodsList.id}">
 				    		<img src="<%=basePath%>${goodsList.url}" />
-							<p class="p5">${goodsList.name}</p>
+							<p class="p5 goods-name">${goodsList.name}</p>
 							<p class="mb5 font-price">￥${goodsList.price}</p>
 				    	</a>
 					</div>
@@ -153,6 +153,8 @@
 			$(".menu-title").click(function(){
 				$(this).siblings().css("border-bottom", "0");
 				if(!($(this).hasClass('menu-title-notice')) && !($(this).hasClass('menu-title-search'))) {
+					$(".goods-type").hide();
+					$(".goods-search").hide();
 					$(this).css("border-bottom", "1px solid #c8161d");
 					var flag = $(this).children("input[type=hidden]").val();
 					var keyword = "";
@@ -161,22 +163,17 @@
 				}				    
 			});
 			$(".menu-title-search .screen").click(function() {
+				$(".goods-search").hide();
 				$(".goods-type").toggle();
 			});
 			$(".menu-title-search .search").click(function() {
+				$(".goods-type").hide();
 				$(".goods-search").toggle();
 			});
 		});    	
     </script>
     <script>
 	    $(document).ready(function(){
-/* 	    	//根据类型查找商品
-			$(".goods-type li").click(function() {
-				var flag = 0;
-				var keyword = "";
-				var typeId = $(this).children("input[type=hidden]").val();
-				showGoods(flag, keyword, typeId);
-			}); */
 			//商品搜索
 			$("#searchKeyword").click(function() {				
 				var flag = 0;

@@ -21,4 +21,6 @@ public interface ReplyMapper {
 	
 	public void updateReply(Reply reply);
 
+	public String getReply(@Param("skey")String content);
+
 }
