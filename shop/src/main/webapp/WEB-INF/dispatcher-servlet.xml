@@ -58,11 +58,11 @@
 			<bean class="com.zpt.shop.main.interceptor.WeixinInterceptor" />
 		</mvc:interceptor>
 		
-		<mvc:interceptor>
+		<!-- <mvc:interceptor>
 			<mvc:mapping path="/management/**" />
 			<mvc:exclude-mapping path="/management/login" />
 			<bean class="com.zpt.shop.main.interceptor.AccreditInterceptor" />
-		</mvc:interceptor>		
+		</mvc:interceptor>	 -->	
 	</mvc:interceptors>
 
 	<!-- 由spring访问静态资源 -->

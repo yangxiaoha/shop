@@ -56,7 +56,12 @@
 		var _init = function(){
 			if(_oSelf.config.className != ""){
 				table = 
-					$this.DataTable({
+					$this.on( 'draw.dt', function () {
+						if(_oSelf.config.chosen){
+							$("#checkAll").iCheck('uncheck');
+							_checkAll();	
+						}
+				    }).DataTable({
 					   "sPaginationType": "full_numbers",
 				       "processing": _oSelf.config.processing,
 				       "serverSide": _oSelf.config.serverSide,
@@ -165,6 +170,15 @@
 						});
 					}
 				});
+			});
+		}
+		
+		var _checkAll = function(){
+			$('#checkAll').on('ifChecked', function(event){
+				$('input').iCheck('check');
+			});
+			$('#checkAll').on('ifUnchecked', function(event){
+				$('input').iCheck('uncheck');
 			});
 		}
 		
