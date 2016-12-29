@@ -140,7 +140,6 @@ public class WeixinCtrler {
     	
     	try {
         	//解析微信发来的请求（XML）
-    		request.setCharacterEncoding("utf-8"); 
     		response.setCharacterEncoding("utf-8"); 
         	Map<String, String> reqMap = WeixinUtils.parseXml(request);
          
@@ -195,7 +194,7 @@ public class WeixinCtrler {
             } else {//接受普通消息    	 
         	    //文本消息
                 if (msgType.equals(WeixinUtils.EVENT_TYPE_TEXT)) {
-                    String content = reqMap.get("Content");
+                    String content = reqMap.get("Content").toString();
                     System.out.println(content);
                     String reply = replyService.getReply(content);
                     respContent = reply;
@@ -205,6 +204,7 @@ public class WeixinCtrler {
             textMessage.setContent(respContent);
             //将文本消息对象转换成xml
             respXml = WeixinUtils.messageToXml(textMessage);
+            System.out.println(respXml);
         } catch (Exception e) {
         	logger.error(e.getMessage());
             e.printStackTrace();

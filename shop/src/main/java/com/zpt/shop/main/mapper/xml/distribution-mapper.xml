@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.DistributionMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="distribution" id="resultMap">
+		<id property="id" column="id" />
+		<result property="userId" column="userid" />
+		<result property="orderId" column="orderid" />
+		<result property="money" column="money" />
+	</resultMap>
+	
+	<insert id="addDistribution">
+		insert into t_distribution (userId, orderId, money) 
+		values (#{userId}, #{orderId}, #{money})
+	</insert>
+	
+</mapper>
