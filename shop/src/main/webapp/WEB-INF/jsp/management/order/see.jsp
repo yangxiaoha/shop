@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="modal fade" id="seeModal">
-	<div class="modal-dialog">
+	<div class="modal-dialog" style="width:650px;">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button aria-hidden="true" class="close" data-dismiss="modal"
@@ -12,65 +12,83 @@
 				</h4>
 			</div>
 			<div class="modal-body">
-				<form action="see" id="see" method="post">
+				<form action="see" id="see" method="post" class="form-horizontal">
 					<fieldset>
 						<div class="row">
-						<input type="hidden" id="uid" name="id">
+						<input type="hidden" id="uid" name="id">															
+							<div class="col-md-12">
+								<div class="form-group">										
+									<span style="font-size: 1em; color: black"><ul><li>收货人信息</li></ul></span>
+								</div>
+							</div>
 							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<span style="font-size: 1em; color: black">收货人姓名：</span> <span
-											style="font-size: 1em; color: black" id="sname"></span>
-									</div>
+							<div class="col-md-6">
+								<div class="form-group"  style="margin-left:35px;">
+									<span style="font-size: 1em; color: black">收货人姓名：</span> <span
+										style="font-size: 1em; color: black" id="sname"></span>
 								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<span style="font-size: 1em; color: black">收货人电话：</span> <span
-											style="font-size: 1em; color: black" id="sphone"></span>
-									</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group" style="margin-left:-20px">
+									<span style="font-size: 1em; color: black">收货人电话：</span> <span
+										style="font-size: 1em; color: black" id="sphone"></span>
 								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<span style="font-size: 1em; color: black">收货人地址：</span> <span
-											style="font-size: 1em; color: black" id="saddress"></span>
-									</div>
+							</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group"  style="margin-left:25px;width: 90%;">
+									<span style="font-size: 1em; color: black">收货人地址：</span> <span
+										style="font-size: 1em; color: black" id="saddress"></span>
 								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<span style="font-size: 1em; color: black">物流商家：</span> <span
-											style="font-size: 1em; color: black" id="slogistics"></span>
-									</div>
+							</div>
+							<hr>														
+							<div class="col-md-12">
+								<div class="form-group">										
+									<span style="font-size: 1em; color: black"><ul><li>订单详情</li></ul></span>
 								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<span style="font-size: 1em; color: black">物流编号：</span> <span
-											style="font-size: 1em; color: black" id="slogisticsnum"></span>
-									</div>
+							</div>	
+							<div class="row">							
+							<div class="col-md-6">
+								<div class="form-group"  style="margin-left:35px;">
+									<span style="font-size: 1em; color: black">下单时间：</span> <span
+										style="font-size: 1em; color: black;margin-left:-10px" id="sordertime"></span>
 								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<span style="font-size: 1em; color: black">下单时间：</span> <span
-											style="font-size: 1em; color: black" id="sordertime"></span>
-									</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group" style="margin-left:-20px">
+									<span style="font-size: 1em; color: black">订单状态：</span> <span
+										style="font-size: 1em; color: black" id="sstate"></span>
 								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<span style="font-size: 1em; color: black">订单状态：</span> <span
-											style="font-size: 1em; color: black" id="sstate"></span>
+							</div>
+							</div>
+							<div class="row">
+								<div class="form-group">										
+									<div class="col-md-3">									
+									<label class="control-label col-md-12" style="color: black;margin-left:-5px">
+									<span style="color: red">*</span>物流商家：</label></div>
+									<div class="col-md-3"style="margin-left:-35px">
+									<input class="form-control" type="text" id="ulogistics" name="logistics" placeholder="请输入物流商家">										
+									</div>
+									<div class="col-md-3" style="margin-left:-40px">
+									<label class="control-label col-md-12" style="color: black">
+									<span style="color: red">*</span>物流编号：</label></div>
+									<div class="col-md-4"style="margin-left:-30px">
+									<input class="form-control" type="text" id="ulogisticsnum" name="logisticsnum" placeholder="请输入物流编号">										
 									</div>
 								</div>
 							</div>
+							<hr>														
 							<div class="row" id="checkbok"></div>
 							<div class="row">
-								<div class="form-group">
+								<div class="form-group" style="margin-left:40px;width: 90%">
 									<p style="font-size: 1em; color: black">备注：</p>
 									<span style="font-size: 1em; color: black" id="smemo"></span>
 								</div>
 							</div>				
 							<div class="row">
-								<span style="margin-left:15px;color: black">修改备注</span>
+								<span style="margin-left:40px;color: black">修改备注</span>
 								<div class="col-md-12">
-									<div class="form-group">
+									<div class="form-group" style="margin-left:30px;width: 90%">
 										<label for="name"></label><textarea class="form-control" rows="3"
 											placeholder="输入备注内容" id="umemo" name="memo"></textarea>
 									</div>

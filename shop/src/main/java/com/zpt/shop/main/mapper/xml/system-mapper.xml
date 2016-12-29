@@ -12,7 +12,7 @@
 	
 	
 	<sql id="queryCondition">
-		where 1 = 1
+		where 1 = 1 and sys.skey = '公告'
 		<if test="obj.skey != null and obj.skey != ''">
 			and sys.skey like CONCAT('%',#{obj.skey},'%')
 		</if>

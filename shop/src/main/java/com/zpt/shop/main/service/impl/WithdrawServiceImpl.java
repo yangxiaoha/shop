@@ -90,6 +90,11 @@ public class WithdrawServiceImpl implements WithdrawService {
 	@Override
 	public Page<Withdraw> page(Query<Withdraw> query) {
 		// TODO Auto-generated method stub
+		if(query.getOrderName().equals("user.money")){
+			query.setOrderName("userMoney");
+		}else if(query.getOrderName().equals("cashMoney")){
+			query.setOrderName("money");
+		}
 		Page<Withdraw> page = new Page<>();
 		List<Withdraw> list = withdrawMapper.listCash(query);
 		Integer count = withdrawMapper.countCash(query);

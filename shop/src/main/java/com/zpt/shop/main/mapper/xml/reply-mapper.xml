@@ -40,7 +40,6 @@
 		select reply.id as id,reply.skey as skey,reply.reply as reply
 		from t_reply as reply		
 		<include refid="queryCondition"/>
-		order by id desc
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>
 	

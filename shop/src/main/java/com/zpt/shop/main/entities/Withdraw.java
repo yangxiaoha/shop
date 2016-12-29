@@ -35,6 +35,34 @@ public class Withdraw {
 	private User user;	
 	
 	private String username;
+	
+	private Date starttime;
+	
+	private Date endtime;
+	
+	public String getStarttime() {
+		if(this.starttime != null){
+			return new SimpleDateFormat("yyyy-MM-dd").format(this.starttime);
+		}else{
+			return "";
+		}
+	}
+
+	public void setStarttime(Date starttime) {
+		this.starttime = starttime;
+	}
+
+	public String getEndtime() {
+		if(this.endtime != null){
+			return new SimpleDateFormat("yyyy-MM-dd").format(this.endtime);
+		}else{
+			return "";
+		}
+	}
+
+	public void setEndtime(Date endtime) {
+		this.endtime = endtime;
+	}
 
 	public Integer getId() {
 		return id;

@@ -35,8 +35,8 @@
 						<div class="col-lg-12">
 							<table class="table table-bordered table-striped table-hover">
 								<tr>
-						            <td width="8%">skey:</td>
-						            <td width="30%"><input class="form-control" type="text" id="skey" name="skey" placeholder="搜索skey"></td>
+						            <td width="8%">关键词:</td>
+						            <td width="30%"><input class="form-control" type="text" id="skey" name="skey" placeholder="搜索关键词"></td>
 						            <td width="8%">回复内容:</td>
 									<td><input class="form-control" type="text" id="reply" name="reply" placeholder="搜索回复内容"></td>																				
 								</tr>
@@ -49,7 +49,7 @@
 								<th class="check-header hidden-xs" width="8%"><label><input
 										id="checkAll" name="checkAll" type="checkbox"><span></span></label>
 								</th>
-								<th width="20%">skey</th>
+								<th width="20%">关键词</th>
 								<th>回复内容</th>	
 								<th style="color: #007aff;">操作</th>
 							</thead>

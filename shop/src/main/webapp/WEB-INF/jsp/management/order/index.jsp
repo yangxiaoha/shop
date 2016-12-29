@@ -42,7 +42,7 @@
 									<td>订单状态:</td>
 									<td>
 									<select class="reg-sel form-control" id="state" name="state">
-										<option value=""></option>
+										<option value="">全部</option>
 										<option name="state" value="2">未发货</option>
 										<option name="state" value="3">已发货</option>
 										<option name="state" value="4">已收货</option>
@@ -66,7 +66,7 @@
 								<th>物流编号</th>		
 								<th>订单编号</th>		
 								<th>订单状态</th>
-								<th></th>
+								<th style="color: #007aff;">详情</th>
 							</thead>
 						</table>
 					</div>

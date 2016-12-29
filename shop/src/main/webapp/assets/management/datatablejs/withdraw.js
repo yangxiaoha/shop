@@ -14,6 +14,8 @@ $(document).ready(function(){
                     { "data": "cashMoney" },
                     { "data": "state" },                  
                     { "data":"id","className": "actions","orderable":false },
+                    { "data": "starttime","orderable":false,"visible":false },
+                    { "data": "endtime","orderable":false,"visible":false },              
                 ],
         "aoColumnDefs": [
            {

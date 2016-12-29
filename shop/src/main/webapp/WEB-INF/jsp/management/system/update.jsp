@@ -17,7 +17,7 @@
 						<div class="row">
 							<input type="hidden" id="uid" name="id" >
 							<input type="hidden" id="uskey" name="skey" >
-							<span style="margin-left:15px;color: black">sysvalue</span>
+							<span style="margin-left:15px;color: black">内容</span>
 							<div class="col-md-12">
 								<div class="form-group">
 									<label for="name"></label><textarea class="form-control" rows="3"

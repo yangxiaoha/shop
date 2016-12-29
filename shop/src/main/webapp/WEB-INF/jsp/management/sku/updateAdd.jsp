@@ -19,7 +19,7 @@
 						<input type="hidden" name="goodsId" value="${goodsM.id }" type="text">									
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="num">商品数量</label><input class="form-control"
+									<label for="num">商品数量(*)</label><input class="form-control"
 										placeholder="请输入商品数量" id="anum" name="num" type="text">
 								</div>
 							</div>

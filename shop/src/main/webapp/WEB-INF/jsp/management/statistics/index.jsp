@@ -60,7 +60,7 @@
 						<button type="button" class="btn btn-md btn-info" id="btn-inquiry" style="float: right; margin: 0 0 0 15px;" >查询</button>
 					 	<div class="select-time">	              
 			                <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="endtime" data-link-format="yyyy-mm-dd">
-			                    <input class="form-control" id="select-endtime" size="16" type="text" value="" placeholder="请选择查询结束时间" readonly>				                    
+			                    <input class="form-control" id="select-endtime" size="16" type="text" value="" placeholder="请选择卖出结束时间" readonly>				                    
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 			                </div>
 							<input name="endtime" type="hidden" id="endtime" /><br/>
@@ -68,7 +68,7 @@
 			            <div style="float:right;height:34px;line-height:34px;margin:0 6px;">至</div>
 			            <div class="select-time">				              
 			                <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="starttime" data-link-format="yyyy-mm-dd">
-			                    <input class="form-control" id="select-starttime" size="16" type="text" value="" placeholder="请选择查询开始时间" readonly>
+			                    <input class="form-control" id="select-starttime" size="16" type="text" value="" placeholder="请选择卖出开始时间" readonly>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 			                </div>
 							<input name="starttime" type="hidden" id="starttime" /><br/>
@@ -293,7 +293,7 @@ function countName(){
 			          data: names,
 			          xkey: "device",
 			          ykeys: ["geekbench"],
-			          labels: ["Geekbench"],
+			          labels: ["销售数量"],
 			          barRatio: 0.4,
 			          xLabelAngle: 35,
 			          hideHover: "auto",
