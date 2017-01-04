@@ -27,8 +27,9 @@
       <c:if test="${!empty cartsMsg}">
       <div class="order-detail p10"> 
         <div class="order-detail-addr">
-          <h4 class="mb5"><span id="oldName"></span>&nbsp;&nbsp;&nbsp;<span id="oldPhone"></span></h4>
-          <p class="fc-9fa0a0 fs-12" id="oldAddress"></p>
+          <p class="check-addr">请选择收货地址</p>
+          <h4><span id="oldName"></span>&nbsp;&nbsp;&nbsp;<span id="oldPhone"></span></h4>
+          <p class="fc-9fa0a0 fs-12 mt5" id="oldAddress"></p>
           <a href="javascript:void(0)" class="icon-item" id="getAddr" style="display: block; color: #231815;">
             <span class="iconfont">&#xe7f7;</span>
           </a>
@@ -126,7 +127,7 @@
               <input type="hidden" id="postData" name="postData" />
               <input type="hidden" id="orderId" name="orderId" value="${orderId}" />
               <input type="hidden" id="state" name="state" value="${state}" />
-            </form>                         
+            </form>                     
           </div>
           <div class="tab-bar order-tab-bar">   
 	        <p class="fl">实付款</p>           
@@ -162,6 +163,7 @@
     		    function(res){
     				WeixinJSBridge.log(res.err_msg);
                     //$("#buyGoodsSubForm").submit();
+    				window.location.href="<%=basePath%>home/purchase/orderDetail"; 
     		    }
     		);
     	}
@@ -201,6 +203,9 @@
         	var s = parseInt($("#state").val(), 10);
         	if(s == 0) {
                 getAddr(); 
+                if($("#username").val() != null && $("#username").val() != "") {
+                	$(".check-addr").hide();
+                }
         	}        
         });
         
@@ -215,7 +220,36 @@
                     jsonString= jsonString.substring(0, (jsonString.length - 1));  
                     jsonString+= '}'; 
                     $("#postData").val(jsonString);
-                    $("#buyGoodsSubForm").submit();
+                    var s = parseInt($("#state").val(), 10);
+                	if(s == 0) {
+                        $.ajax({
+    				   	    url: "submitOrder",
+    				   		type: "Post",
+    				   	    data: {
+    				   	    	postData:$("#postData").val(),
+    				   	    	cartIds:$("#cartIds").val(),
+    				   	    	state:$("#state").val()
+    				   	    },
+    				   	    dataType: "json",
+    				   	    success: function(data) {
+    				   	    }
+    			        })
+                	} 
+                	if(s == 1) {
+                        $.ajax({
+    				   	    url: "submitOrder",
+    				   		type: "Post",
+    				   	    data: {
+    				   	    	postData:$("#postData").val(),
+    				   	    	orderId:$("#orderId").val(),
+    				   	    	state:$("#state").val()
+    				   	    },
+    				   	    dataType: "json",
+    				   	    success: function(data) {
+    				   	    }
+    			        })
+                	}                  
+			        //$("#buyGoodsSubForm").submit();
                     callpay();
             	}else {
             		alert("请选择收货地址！");

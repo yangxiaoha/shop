@@ -16,6 +16,8 @@ public interface ReplyService {
 	
 	public void updateBrand(Reply reply);
 	
-	public String getReply(String content);	
+	public String getReply(String skey);
+
+	public void addReply(String skey);
 
 }

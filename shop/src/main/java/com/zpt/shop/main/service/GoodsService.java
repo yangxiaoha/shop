@@ -32,7 +32,7 @@ public interface GoodsService {
 	 * 分页查找商品
 	 * @param String pageStart 开始的下标
 	 * */
-	public List<Goods> getGoods(Integer pageStart, Integer num);
+	public List<Goods> getGoods(Integer pageStart, Integer num, String flag, String keyword, String typeId);
 
 	/**
 	 * 通过查询条件查找商品
@@ -61,5 +61,13 @@ public interface GoodsService {
 	 * @param long num 购买人数
 	 * */
 	public void updateNum(Integer id, long num);
+
+	/**
+	 * 符合查询条件的商品总数
+	 * @param String flag （最新、人气、现货）
+	 * @param String keyword （关键字）
+	 * @param String typeId （类型id）
+	 * */
+	public Integer getGoodsTotal(String flag, String keyword, String typeId);
 	
 }

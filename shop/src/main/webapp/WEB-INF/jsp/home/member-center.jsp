@@ -25,7 +25,24 @@
 	      <c:if test="${!empty headImg}">
 	      	<img src="${headImg}">
 	      </c:if>	      
-	      <p style="color: #fff; font-size: 1.8rem; line-height: 120px;">${name}</p>
+	      <c:choose>
+		    <c:when test="${userMsg.money > 0}">
+		      <p style="color: #fff; font-size: 1.8rem; line-height: 120px;">	 
+	            <span class="member-icon">
+			      <img src="<%=basePath%>assets/home/images/member.png" /> 
+			    </span>
+                <span style="display: inline-block; text-indent: 50px;">${name}</span>
+	          </p>
+		    </c:when>
+		    <c:otherwise>
+		      <p style="color: #fff; font-size: 1.8rem; line-height: 120px;">	
+			    <span class="member-icon">
+			      <img src="<%=basePath%>assets/home/images/no-member.png" /> 
+			    </span>
+			    <span style="display: inline-block; text-indent: 50px;">${name}</span>     	     
+	          </p>
+		    </c:otherwise>
+		  </c:choose>
 	    </div>
 	
 	    <div class="present-info mb10">
@@ -46,7 +63,8 @@
 	      <ul>
 	        <li class="user-power-show" id="user-power-show">
 	          <div class="user-power-title clearfloat p10">
-	            <span class="fl show-img">代理人推广</span>
+	          	<span class="fl show-img"></span>
+	            <span class="fl show-title">代理人推广</span>
 	            <i class="fr agency-all-amount">${num}单(￥${price})</i>
 	          </div>         
 	          <ul class="user-power-detail" style="display: none;">
@@ -69,7 +87,8 @@
 	        <li class="user-power-show">
 	          <div class="user-power-title clearfloat p10">
 	            <a href="withdrawals" class="fc-595757">
-	              <span class="fl show-img">申请提现</span>
+	              <span class="fl show-img"></span>
+	              <span class="fl show-title">申请提现</span>
 	              <i class="fr glyphicon glyphicon-chevron-right" style="line-height: 23px;"></i>
 	            </a>           
 	          </div>         

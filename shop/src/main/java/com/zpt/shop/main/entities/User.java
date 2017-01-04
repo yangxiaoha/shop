@@ -25,7 +25,7 @@ public class User {
 	
 	//用户名
 	private String name;
-	
+
 	public Date starttime;
 	
 	public Date endtime;

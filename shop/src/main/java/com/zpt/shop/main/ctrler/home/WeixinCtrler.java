@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zpt.shop.common.weixin.TextMessage;
 import com.zpt.shop.common.weixin.WxMpConfigStorage;
+import com.zpt.shop.main.entities.Reply;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.ReplyService;
 import com.zpt.shop.main.service.UserService;
@@ -96,7 +97,7 @@ public class WeixinCtrler {
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
-    private String access(HttpServletRequest request ,
+/*    private String access(HttpServletRequest request ,
                  HttpServletResponse response) throws Exception {
           //验证URL真实性
           System.out.println("进入验证access");
@@ -128,7 +129,7 @@ public class WeixinCtrler {
               e1.printStackTrace();
 	      }          
           return null ;
-    }
+    }*/
     
     private String acceptMessage(HttpServletRequest request,
             HttpServletResponse response) {
@@ -139,8 +140,8 @@ public class WeixinCtrler {
 	    String respContent = "";
     	
     	try {
+    		response.setCharacterEncoding("UTF-8");
         	//解析微信发来的请求（XML）
-    		response.setCharacterEncoding("utf-8"); 
         	Map<String, String> reqMap = WeixinUtils.parseXml(request);
          
         	System.out.println("reqMap:" + reqMap.toString());
@@ -194,9 +195,9 @@ public class WeixinCtrler {
             } else {//接受普通消息    	 
         	    //文本消息
                 if (msgType.equals(WeixinUtils.EVENT_TYPE_TEXT)) {
-                    String content = reqMap.get("Content").toString();
-                    System.out.println(content);
-                    String reply = replyService.getReply(content);
+                    String skey = new String(reqMap.get("Content").getBytes(), "UTF-8");
+                    System.out.println(skey);
+                    String reply = replyService.getReply(skey);
                     respContent = reply;
                 }
             } 
@@ -204,7 +205,6 @@ public class WeixinCtrler {
             textMessage.setContent(respContent);
             //将文本消息对象转换成xml
             respXml = WeixinUtils.messageToXml(textMessage);
-            System.out.println(respXml);
         } catch (Exception e) {
         	logger.error(e.getMessage());
             e.printStackTrace();

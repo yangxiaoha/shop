@@ -242,7 +242,6 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .goods-detail {
 	padding: 10px;	
-	margin-bottom: 80px;
 	overflow: hidden;
 }
 .goods-detail .goods-show {
@@ -276,6 +275,7 @@ a, a:link, a:visited, a:hover, a:active {
 	text-align: center;
 	background-color: #fff;
 	border-top: 1px solid #968f8e; 
+	z-index: 999;
 }
 .index-tab-bar> li,
 .order-detail-tab-bar > li {
@@ -837,7 +837,7 @@ a, a:link, a:visited, a:hover, a:active {
 	background-color: #e71f19;
 }
 .user-power-show .user-power-detail > li {
-	padding: 5px 10px;
+	padding: 8px 10px;
 	border-bottom: 1px solid #C7C3C5;
 }
 .user-power-show .user-power-detail > li:last-child {
@@ -845,12 +845,16 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .user-power-show .show-img {
 	display: block;
-    height: 100%;
-    text-indent: 24px;
+	width: 26px;
+    height: 26px;
     background-image: url(../images/btn.png);
     background-size: 20px 60px;
     background-position: 0px 34px;
     background-repeat-x: no-repeat;
+}
+.user-power-show .show-title {
+	display: block;
+    height: 100%;
 }
 .withdrawals-info .withdrawals-price {
 	height: 34px;
@@ -896,5 +900,17 @@ a, a:link, a:visited, a:hover, a:active {
     left: 10px !important;
     width: 60px !important;
     height: 60px !important;
+}
+.user-info .member-icon {
+	display: inline-block;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    transform: translateY(-50%);
+}
+.user-info .member-icon > img {
+	width: 100%;
 }
 /************************member-center结束************************/
