@@ -34,6 +34,8 @@ import com.zpt.shop.main.service.WithdrawService;
 import com.zpt.shop.main.service.WxMpService;
 import com.zpt.shop.weixin.utils.WeixinUtils;
 
+import net.sf.json.JSONArray;
+
 /**
  * 功能说明:
  *
@@ -70,6 +72,7 @@ public class MemberCtrler {
 		ModelAndView mv = new ModelAndView("home/member-center");
 		//获取用户信息
 		User user = (User) request.getSession().getAttribute("user");
+		User userMsg = userService.getUserId(user.getId());
 		String superiorName = "";
 
 		//是否有上级
@@ -87,11 +90,13 @@ public class MemberCtrler {
             s.put("user_list", list);
 	        String accessToken = wxMpService.getAccessToken(false);
 	        JSONObject jsonObject = WeixinUtils.getBatchWeixinUserInfo(s.toString(), accessToken);
+	        System.out.println(jsonObject);
 
-            System.out.println("-----------------jsonObject" + jsonObject);
             if(null != jsonObject) {
-              System.out.println("-----------------superiorName"+jsonObject.getString("nickname"));
-      		  superiorName = jsonObject.getString("nickname");
+    	        String userInfo = jsonObject.getString("user_info_list");	       
+    	        JSONArray myJsonArray = JSONArray.fromObject(userInfo);
+    	        net.sf.json.JSONObject ob = (net.sf.json.JSONObject) myJsonArray.get(0);
+      		    superiorName = ob.getString("nickname");
             }
         }else {
         	superiorName = "一见喜";
@@ -184,7 +189,7 @@ public class MemberCtrler {
 			mv.addObject("noPayPrice", "0.00");//下单未支付金额
 			mv.addObject("price", "0.00");//总金额
 		}		
-		mv.addObject("userMsg", user);
+		mv.addObject("userMsg", userMsg);
 		mv.addObject("withdrawMsg", withdrawList);
 		return mv;
 	}

@@ -1,10 +1,12 @@
 package com.zpt.shop.main.ctrler.home;
 
+import java.io.BufferedOutputStream;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -59,10 +61,17 @@ public class GoodsWxPayCtrler {
 
 	@ResponseBody
 	@RequestMapping("/result")
-    public String index(HttpServletRequest request){
+    public String index(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String resXml = "";
+		
         try {
             Map<String, String> map = getCallbackParams(request);
             if (map.get("result_code").toString().equalsIgnoreCase("SUCCESS")) {
+            	
+            	resXml = "<xml>" + "<return_code><![CDATA[SUCCESS]]></return_code>"
+    					+ "<return_msg><![CDATA[OK]]></return_msg>" + "</xml> ";
+            	
                 String ordercode = map.get("out_trade_no");
                 System.out.println(ordercode);
                 //这里写成功后的业务逻辑
@@ -104,11 +113,20 @@ public class GoodsWxPayCtrler {
          				distributionService.addDistribution(superiorInfo.getId(), order.getId(), percentageMoneyInfo);
      				}
      			}
-             }
+             }else {
+     			resXml = "<xml>" + "<return_code><![CDATA[FAIL]]></return_code>"
+    					+ "<return_msg><![CDATA[报文为空]]></return_msg>" + "</xml> ";
+    		}
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getPayCallback(); 
+        /*return getPayCallback(); */
+        BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
+		out.write(resXml.getBytes());
+		out.flush();
+		out.close();
+		// 更新数据库的状态
+		return null;
     }
 	
 	/**

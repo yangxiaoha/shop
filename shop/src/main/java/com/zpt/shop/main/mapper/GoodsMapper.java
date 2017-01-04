@@ -43,4 +43,6 @@ public interface GoodsMapper {
 	
 	public void updateContent(@Param("id")Integer id, @Param("content")String content);
 
+	public Integer getGoodsTotal(@Param("flag")String flag, @Param("keyword")String keyword, @Param("typeId")String typeId);
+
 }

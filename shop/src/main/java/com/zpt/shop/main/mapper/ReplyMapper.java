@@ -21,6 +21,8 @@ public interface ReplyMapper {
 	
 	public void updateReply(Reply reply);
 
-	public String getReply(@Param("skey")String content);
+	public String getReply(@Param("skey")String skey);
+
+	public void addReply(@Param("reply")String reply);
 
 }

@@ -103,7 +103,6 @@ public class GoodsServiceImpl implements GoodsService {
 		}
 	}
 	
-
 	@Override
 	public Goods getGoodsId(Integer goodsId) {
 		// TODO Auto-generated method stub
@@ -111,10 +110,18 @@ public class GoodsServiceImpl implements GoodsService {
 		return goods;
 	}
 
-
+	/**
+	 * 加载
+	 * @param Integer pageStart 开始的下标
+	 * @param Integer num 加载条数
+	 * @param String flag （最新、人气、现货）
+	 * @param String keyword （关键字）
+	 * @param String typeId （类型id）
+	 * */
 	@Override
-	public List<Goods> getGoods(Integer pageStart, Integer num) {
-		List<Goods> list = goodsMapper.getGoods(pageStart, num);
+	public List<Goods> getGoods(Integer pageStart, Integer num, String flag, String keyword, String typeId) {
+		//共有多少条数据
+		List<Goods> list = goodsMapper.getGoods(pageStart, num);		
 		if(list != null && list.size() > 0){
 			return list;
 		}else{
@@ -171,6 +178,13 @@ public class GoodsServiceImpl implements GoodsService {
 	public void updateContent(Integer id, String content) {
 		// TODO Auto-generated method stub
 		goodsMapper.updateContent(id, content);
+	}
+
+	@Override
+	public Integer getGoodsTotal(String flag, String keyword, String typeId) {
+		// TODO Auto-generated method stub
+		Integer total = goodsMapper.getGoodsTotal(flag, keyword, typeId);
+		return total;
 	}
 
 }

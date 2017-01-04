@@ -79,21 +79,27 @@ public class MainIndexCtrler {
 		String userId = user.getId().toString();//先设置用户为1
 		Integer pageStart = 0;
 		Integer num = 3;
+		String flag = "0";
+		String keyword = "";
+		String typeId = "";
 		//商品类型数据
 		List<GoodsType> goodsTypeList = goodsTypeService.getGoodsType();
 		//商品数据
-		List<Goods> goodsList = goodsService.getGoods(pageStart, num);		
+		List<Goods> goodsList = goodsService.getGoods(pageStart, num, flag, keyword, typeId);		
 		//banner
 		List<Banner> bannerList = bannerService.getAllBanner();
 		//购物车数量
 		Integer amount = cartService.selectAmount(userId);
 		//公告
 		String notice = systemService.getNotice();	
+		//符合商品数量的个数
+		Integer total = goodsService.getGoodsTotal(flag, keyword, typeId);
 		mv.addObject("goodsTypeMsg", goodsTypeList);
 		mv.addObject("goodsMsg", goodsList);
 		mv.addObject("banner", bannerList);
 		mv.addObject("amount", amount);
 		mv.addObject("notice", notice);
+		mv.addObject("total", total);
 		return mv;
 	}
 	
@@ -102,7 +108,7 @@ public class MainIndexCtrler {
 	public Map<String,Object> loadIndex(Integer pageStart, Integer num, String flag, String keyword, String typeId) {
 		Map<String,Object> map = new HashMap<String, Object>();
 		//商品数据
-		List<Goods> goodsList = goodsService.getGoods(pageStart, num);
+		List<Goods> goodsList = goodsService.getGoodsByCondition(pageStart, num, flag, keyword, typeId);
 		map.put("goodsMsg", goodsList);
 		return map;
 	}
@@ -114,7 +120,10 @@ public class MainIndexCtrler {
 		//根据商品类型查询商品数据
 		Integer pageStart = 0;
 		List<Goods> goodsList = goodsService.getGoodsByCondition(pageStart, num, flag, keyword, typeId);
+		//符合商品数量的个数
+		Integer total = goodsService.getGoodsTotal(flag, keyword, typeId);
 		map.put("state", true);
+		map.put("total", total);
 		map.put("goodsMsg", goodsList);
 		return map;
 	}

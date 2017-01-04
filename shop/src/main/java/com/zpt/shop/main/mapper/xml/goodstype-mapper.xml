@@ -84,6 +84,7 @@
 		(select * from t_goods_type where pid = 0) as type 
 		left join t_goods_type 
 		on type.id = t_goods_type.pid
+		where t_goods_type.state = 1
 	</select>
 
 </mapper>

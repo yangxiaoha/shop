@@ -307,150 +307,102 @@
 			});
   		}
   		
-  		//选择属性
-	    function show(attr, attrIndex, goodsStock) {
-	    	$(".classify-detail").each(function(e){
-				if(attrIndex != e){					
-					if(!($(this).children().hasClass('goods-no-active'))) {
-						$(this).children().addClass('select-active');
-						$(this).children().removeClass('select-no-active');
-					}
+  		function select(attr, attrIndex, goodsStock) {
+  			var list = "";//符合已选属性的库存数组id
+			for(var i=0; i<goodsStock.length; i++) {
+				var value = goodsStock[i].value;
+				var valList = value.split(",");
+				if(attr == valList[attrIndex]) {						
+					if(list != ""){
+						list+=","+i;	
+		        	}else{
+		        		list = i.toString();
+		        	}
 				}
-			});
-	    	$(".classify-detail").each(function(e){	
-	    		var list="";//符合查询条件的数组id
-	    		var index = 0;//用于匹配的下标
-	    		var selectAttr = "";//用于匹配的值
-	    		if($(this).children().hasClass('active')) {
-	    			if(attrIndex != e) {
-	    				index = e;
-	    				selectAttr = $(this).children('.active').text();
-	    			}else {
-	    				index = attrIndex;
-	    				selectAttr = attr;
-	    			}
-	    			for(var i=0; i<goodsStock.length; i++) {
-	    				var value = goodsStock[i].value;
-	    				var valList = value.split(",");
-	    				if(selectAttr == valList[index]) {						
-	    					if(list != ""){
-	    						list+=","+i;	
-	    		        	}else{
-	    		        		list = i.toString();
-	    		        	}
-	    				}
-	    			}
-	    			var goodsList = list.split(",");
-	    			$(".classify-detail").each(function(e){
-	    			    $(this).children().each(function(){
-	    					if(index != e) {
-	    						if($(this).hasClass('select-active')) {
-	    							var total = 0;
-	    							for(var i=0; i<goodsList.length; i++) {
-	    								var j = goodsList[i];
-	    								var value = goodsStock[j].value;
-	    								var valList = value.split(",");
-	    								if($(this).text() == valList[e]) {
-	    									break;
-	    								}else {
-	    									total++;
-	    								}
-	    							}
-	    							if(total == goodsList.length) {
-	    								$(this).removeClass('select-active');
-	    								$(this).addClass('select-no-active');
-	    							}
-	    						}
-	    					}
-	    		        });			        
-	    			});	
-	    		}			        
-	    	});
-	    }
-  		
-  		//属性是否都选了
-  		function checkedAll(oldGoods, goodsStock) {
-			var flag = true;
-	    	var num = 0;							
-			var str = "";
-			var parameter = "";
-			var select = false;//属性是否已选
-	    	var sub = 0;//数组下标
-	    	var judge = "";
-	    	
-			$(".classify-detail").each(function(){
-				flag = true;
+			}
+			var goodsList = list.split(",");
+			$(".classify-detail").each(function(e){
 			    $(this).children().each(function(){
-					if($(this).hasClass('active')) {
-						num++;
-						flag = false;							
-						str+='"'+$(this).text()+'" ';	
-					}
-		        });
-		        if(flag) {
-		        	parameter+='"'+$(this).siblings("p").text()+'" ';
-		        }	
-		        if(num != $('.classify-detail').length) {
-		        	select = false;
-		        	$(".parameter-show").text("请选择:"+parameter);
-		        	var src = '<%=basePath%>'+oldGoods.url;
-		        	$("#goodsImg").attr("src", src);
-		        	if(oldGoods.price == oldGoods.highprice) {
-		        		$("#goodsPrice").text('￥'+oldGoods.price);
-		        	}else {
-		        		$("#goodsPrice").text('￥'+oldGoods.price+' ~ '+oldGoods.highprice);
-		        	}	
-		        	$("#goodsNum").text(oldGoods.quantity);
-				}else {
-					var val = "";
-					var indexval = "";
-					$(".parameter-show").text("已选:"+str);
-					//获取商品的skuId
-						$(".classify-detail").each(function(e){
-						//判断有几个active
-					    $(this).children().each(function(){
-					    	if($(this).hasClass('active')) {
-					    		if(val != ""){
-					    			val+=","+$(this).text();	
-					        	}else{
-					        		val = $(this).text();
-					        	}
-					    		if(indexval != ""){
-					    			indexval+=","+e.toString();	
-					        	}else{
-					        		indexval = e.toString();
-					        	}
-					    	}
-				        });	
-					});
-					var valList = val.split(",");
-				    var indexList = indexval.split(",");
-					for(var j=0; j<goodsStock.length; j++) {
-						var a = 0;
-						for(var i=0; i<valList.length; i++) {	
-							var e = indexList[i];
-							var value = goodsStock[j].value;
-							var valueList = value.split(",");
-							if(valList[i] == valueList[e]) {
-								a++;
+					if(attrIndex != e) {
+						if($(this).hasClass('select-active')) {
+							var total = 0;
+							for(var i=0; i<goodsList.length; i++) {
+								var j = goodsList[i];
+								var value = goodsStock[j].value;
+								var valList = value.split(",");
+								if($(this).text() == valList[e]) {
+									break;
+								}else {
+									total++;
+								}
+							}
+							if(total == goodsList.length) {
+								$(this).removeClass('select-active');
+								$(this).addClass('select-no-active');
 							}
 						}
-						if(a == valList.length) {
-							sub = j;
-							select = true;
-				        	var src = '<%=basePath%>'+goodsStock[j].url;
-				        	$("#goodsImg").attr("src", src);
-				        	$("#goodsPrice").text('￥'+goodsStock[j].price);
-				        	$("#goodsNum").text(goodsStock[j].num);
-			        		$(".parameter-prompt").text("请选择商品属性");       		
-				        	break;
-						}
-					}; 
-				}			        
-			});	
-			judge = select + "," + sub;
-			return judge;
+					}
+		        });			        
+			});
   		}
+  		
+	    //属性是否都选了
+	    function checkAll(oldGoods, goodsStock) {
+	    	var select = false;//属性是否已选
+	    	var sub = 0;//数组下标
+	    	var str = "";
+	    	var parameter = "";//未选属性	  
+	    	var judge = "";
+	    	var myAttr = new Array();
+	    	var liNum = $('.classify-detail').length;
+	    	var checkNum = $('.active').length;
+	    	if(liNum == checkNum) {//全选
+	    		//alert("全选");
+	    		select = true;
+	    		$(".active").each(function(e) {
+	    			str+='"'+$(this).text()+'" ';
+	    			myAttr[e] = $(this).text();
+	    		});
+    			$(".parameter-show").text("已选:"+str); 
+    			for(var i=0; i<goodsStock.length; i++) {
+    				var a = 0;
+					for(var j=0; j<myAttr.length; j++) {
+						var value = goodsStock[i].value;
+						var valueList = value.split(",");
+						if(myAttr[j] == valueList[j]) {
+							a++;
+						}else {
+							break;
+						}
+					}
+					if(a == myAttr.length) {
+			    		sub = i;
+			        	$("#eGoodsImg").attr("src", '<%=basePath%>'+goodsStock[sub].url);
+			        	$("#eGoodsPrice").text('￥'+goodsStock[sub].price);
+			        	$("#eGoodsNum").text(goodsStock[sub].num);
+		        		$(".parameter-prompt").text("请选择商品属性");       		
+			        	break;
+					}
+				}
+	    	}else {
+	    		select = false;
+	    		$(".classify-detail").each(function(){
+	    			if(!($(this).children().hasClass('active'))) {
+	    				parameter+='"'+$(this).siblings("p").text()+'" ';
+					}
+	    		});
+	    		$(".parameter-show").text("请选择:"+parameter);
+	        	$("#eGoodsImg").attr("src", '<%=basePath%>'+oldGoods.url);
+	        	if(oldGoods.price == oldGoods.highprice) {
+	        		$("#eGoodsPrice").text('￥'+oldGoods.price);
+	        	}else {
+	        		$("#eGoodsPrice").text('￥'+oldGoods.price+' ~ '+oldGoods.highprice);
+	        	}	
+	        	$("#eGoodsNum").text(oldGoods.quantity);
+	    	}
+	    	judge = select + "," + sub;
+			return judge;
+	    }
   		
 	    $(document).ready(function(){
 	    	var state = 0;
@@ -488,12 +440,12 @@
 			
 			//修改商品属性
 			$("#purchase").click(function() {
-				var judge = checkedAll(oldGoods, goodsStock);
+				var judge = checkAll(oldGoods, goodsStock);
 				var judgeList = judge.split(",");
 				var select = judgeList[0];
 				var sub = judgeList[1];
 				var purchaseNum = parseInt($("#purchaseNum").text(), 10);//购买数量
-				if(select) {
+				if(select == "true") {
 					if(purchaseNum > goodsStock[sub].num) {
 		        		$(".parameter-prompt").text("所选商品数不可超过库存数");
 		        		$(".parameter-prompt").fadeIn();
@@ -589,17 +541,20 @@
 	    		   	    				'<li class="select-no-active">'+value+'</li>'
            		    				);
 	    	   		  			});	
-    	   		  			});			   	    
+    	   		  			});	
 			   	    		
+			   	    		Init(goodsStock);
+
 			   	    	    //默认选中
 			   		    	$(".classify-detail").each(function(e){		   		    		
 			   		    		var val = spec.split(",");
 			   		    		$(this).children().each(function(){
 									if(val[e] == $(this).text()) {
 										$(this).removeClass("select-no-active");
-										$(this).addClass("select-active");
+										$(this).addClass("select-active");									
+										select($(this).text(), e, goodsStock);
 										$(this).addClass("active");
-									}	
+									}	 
 					        	});
 							});	
 			   	    		
@@ -609,65 +564,57 @@
 	    	});
 	    	
 	    	//商品属性选择
-	    	$(".goods-parameter-classify").on("click", "li", function() {
-				var attr = $(this).text();//点击选中的值			
-				var attrIndex = $(this).parents("div").index()-1;//判断是哪个属性
-				if($(this).hasClass('active')) {//移除
-					$(this).removeClass('active');	
-					if(!($(this).hasClass('select-no-active'))) {	
-						/* alert("返回点击"); */
-						show(attr, attrIndex, goodsStock);
-					}
-				}else {//添加					
-					if(!($(this).hasClass('select-no-active'))) {							
-						if($(this).siblings().hasClass('active')) {
-							/* alert("二次点击"); */				
-							show(attr, attrIndex, goodsStock);
-						}else {
-							/* alert("一次点击"); */
-							var list = "";//符合已选属性的库存数组id
-							//是否还有此商品
-							for(var i=0; i<goodsStock.length; i++) {
-								var value = goodsStock[i].value;
-								var valList = value.split(",");
-								if(attr == valList[attrIndex]) {						
-									if(list != ""){
-										list+=","+i;	
-						        	}else{
-						        		list = i.toString();
-						        	}
-								}
-							}
-							var goodsList = list.split(",");
-			 				$(".classify-detail").each(function(e){
-							    $(this).children().each(function(){
-									if(attrIndex != e) {
-										if($(this).hasClass('select-active')) {
-											var total = 0;
-											for(var i=0; i<goodsList.length; i++) {
-												var j = goodsList[i];
-												var value = goodsStock[j].value;
-												var valList = value.split(",");
-												if($(this).text() == valList[e]) {
-													break;
-												}else {
-													total++;
-												}
-											}
-											if(total == goodsList.length) {
-												$(this).removeClass('select-active');
-												$(this).addClass('select-no-active');
-											}
-										}
-									}
-						        });			        
-							});	
-						}
-						$(this).siblings().removeClass('active');
-						$(this).addClass('active');	
-					}					
-				}
-				checkedAll(oldGoods, goodsStock);
+	    	$(".goods-parameter-classify").on("click", ".select-active", function() {
+	    		if($(this).hasClass('active')) {//原本被选中
+	    			$(this).removeClass('active');
+	    			
+	    			//存储已选属性
+	    			var myAttr1 = new Array();
+	    			$(".classify-detail").each(function(e){
+	    				if($(this).children().hasClass("active")) {
+	    					myAttr1[e] = $(this).children(".active").text();
+	    				}else {
+	    					myAttr1[e] = "";
+	    				}
+	    			});	    			
+	    			$(".classify-detail li").removeClass('select-active');
+	    			$(".classify-detail li").addClass("select-no-active");	    			
+	    			Init(goodsStock);
+	    			
+	    			for(var i=0; i<myAttr1.length; i++) {
+	    				if(myAttr1[i] != null && myAttr1[i] != "") {
+	    					select(myAttr1[i], i, goodsStock);
+	    				}
+	    			}
+	    			
+	    		}else if($(this).siblings().hasClass('active')) {//它的同胞被选中
+	    			$(this).siblings().removeClass('active');
+	    			$(this).addClass('active');
+	    			//存储已选属性
+	    			var myAttr1 = new Array();
+	    			$(".classify-detail").each(function(e){
+	    				if($(this).children().hasClass("active")) {
+	    					myAttr1[e] = $(this).children(".active").text();
+	    				}else {
+	    					myAttr1[e] = "";
+	    				}
+	    			});
+	    			$(".classify-detail li").removeClass('select-active');
+	    			$(".classify-detail li").addClass("select-no-active");
+	    			Init(goodsStock);
+	    			for(var i=0; i<myAttr1.length; i++) {
+	    				if(myAttr1[i] != null && myAttr1[i] != "") {
+	    					select(myAttr1[i], i, goodsStock);
+	    				}
+	    			}
+	    		}else {
+	    			var attr = $(this).text();//点击选中的值			
+					var attrIndex = $(this).parents("div").index()-1;//判断是哪个属性
+					select(attr, attrIndex, goodsStock);
+					$(this).siblings().removeClass('active');
+		    		$(this).addClass('active');	
+	    		}
+	    		checkAll(oldGoods, goodsStock);
 			});	    	
 	    })
     </script>
