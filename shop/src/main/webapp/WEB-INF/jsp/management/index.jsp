@@ -494,7 +494,7 @@
                                 <a href="#">
                                     <span class="label label-primary pull-right">NEW</span>
                                     <h4>设计阶段</h4>
-                                    <!--<div class="small pull-right m-t-xs">9小时以后</div>-->
+                                    <div class="small pull-right m-t-xs">9小时以后</div>
                                     项目进度报告(Project Progress Report)
                                     <div class="small">已完成： 22%</div>
                                     <div class="small text-muted m-t-xs">项目截止： 4:00 - 2015.10.01</div>
@@ -542,8 +542,8 @@
 
             </div>
         </div>
-        <!--右侧边栏结束-->
-        <!--mini聊天窗口开始-->
+        	右侧边栏结束
+        mini聊天窗口开始
         <div class="small-chat-box fadeInRight animated">
 
             <div class="heading" draggable="true">
