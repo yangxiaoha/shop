@@ -51,7 +51,7 @@
 							<div class="col-md-6">
 								<div class="form-group"  style="margin-left:35px;">
 									<span style="font-size: 1em; color: black">下单时间：</span> <span
-										style="font-size: 1em; color: black;margin-left:-10px" id="sordertime"></span>
+										style="font-size: 1em; color: black;margin-left:0px" id="sordertime"></span>
 								</div>
 							</div>
 							<div class="col-md-6">

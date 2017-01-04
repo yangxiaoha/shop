@@ -6,13 +6,14 @@
 		<pattern>/login</pattern>
 		<pattern>/management/ueditor/*</pattern>
 		<pattern>/management/login</pattern>
+		<pattern>/management/index</pattern>
 	</excludes>
 	<decorator name="home" page="home.jsp">
 		<pattern>/home/*</pattern>
 	</decorator>
-	<!-- <decorator name="management" page="management.jsp">
+	<decorator name="management" page="management.jsp">
 		<pattern>/management/*</pattern>
-	</decorator> -->
+	</decorator>
 	<decorator name="mobile" page="mobile.jsp">
 		<pattern>/mobile/*</pattern>
 	</decorator>

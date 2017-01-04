@@ -48,7 +48,7 @@ public class LoginCtrler {
 			adminUserMsg.setUsername(name);
 			adminUserMsgService.insertAdminUserMsg(adminUserMsg);
 		
-			return Contants.REDIRECT + "/management/statistics/index";
+			return Contants.REDIRECT + "/management/index";
 			
 		}else{
 			map.put("msg", Contants.MSG_LOGIN_FAIL);

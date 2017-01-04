@@ -13,9 +13,9 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <title>智平台管理平台 - 登录</title>
-    <meta name="keywords" content="智平台管理平台">
-    <meta name="description" content="智平台管理平台">
+    <title>  一见喜商城 - 登录</title>
+    <meta name="keywords" content="一见喜管理平台">
+    <meta name="description" content="一见喜管理平台">
     <link href="<%=basePath %>/assets/management/css/bootstrap.min.css" rel="stylesheet">
     <link href="<%=basePath %>/assets/management/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
     <link href="<%=basePath %>/assets/management/css/animate.min.css" rel="stylesheet">
@@ -43,7 +43,7 @@
                             <span><img alt="image" class="img-circle" src="<%=basePath %>/assets/management/img/profile_small.jpg" /></span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                               <span class="block m-t-xs"><strong class="font-bold">智平台</strong></span>
+                               <span class="block m-t-xs"><strong class="font-bold">一见喜</strong></span>
                                 <span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
                                 </span>
                             </a>
@@ -55,18 +55,12 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="logo-element">智平台
+                        <div class="logo-element">一见喜
                         </div>
                     </li>
+                    
                     <li>
-                        <a href="statistics/index">
-                            <i class="fa fa-home"></i>
-                            <span class="nav-label">首页</span>
-                        </a>
-
-                    </li>
-                    <li>
-                        <a href="user/index">
+                        <a  class="J_menuItem" href="user/index">
                             <i class="fa fa-home"></i>
                             <span class="nav-label">会员信息</span>
                         </a>
@@ -112,6 +106,7 @@
         <!--左侧导航结束-->
         <!--右侧部分开始-->
         <div id="page-wrapper" class="gray-bg dashbard-1">
+        <!-- 
              <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i style="padding-top: 3px;padding-bottom: 3px;" class="fa fa-bars"></i> </a>
@@ -208,6 +203,7 @@
                     </ul>
                 </nav>
             </div> 
+         -->
             <div class="row content-tabs">
                 <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i>
                 </button>
@@ -238,7 +234,7 @@
                 <a href="login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
             </div>
             <div class="row J_mainContent" id="content-main">
-                <iframe class="J_iframe"  name="iframe0" width="100%" height="100%" src="news/index" frameborder="0" data-id="index_v1.html" seamless></iframe>
+                <iframe class="J_iframe"  name="iframe0" width="100%" height="100%" src="statistics/index" frameborder="0" data-id="index_v1.html" seamless></iframe>
             </div>
             <div class="footer">
                 <div class="pull-right">&copy; 2014-2017 
@@ -247,6 +243,7 @@
         </div>
         <!--右侧部分结束-->
         <!--右侧边栏开始-->
+        <!-- 
         <div id="right-sidebar">
             <div class="sidebar-container">
 
@@ -254,15 +251,13 @@
 
                     <li class="active">
                         <a data-toggle="tab" href="#tab-1">
-                            <i class="fa fa-gear"></i> 主题
+                            <i class="fa fa-gear"></i>主题
                         </a>
                     </li>
-                    <li class=""><a data-toggle="tab" href="#tab-2">
-                        通知
+                    <li class=""><a data-toggle="tab" href="#tab-2">通知
                     </a>
                     </li>
-                    <li><a data-toggle="tab" href="#tab-3">
-                        项目进度
+                    <li><a data-toggle="tab" href="#tab-3">项目进度
                     </a>
                     </li>
                 </ul>
@@ -289,7 +284,6 @@
                             </div>
                             <div class="setings-item">
                                 <span>固定顶部</span>
-
                                 <div class="switch">
                                     <div class="onoffswitch">
                                         <input type="checkbox" name="fixednavbar" class="onoffswitch-checkbox" id="fixednavbar">
@@ -300,11 +294,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="setings-item">
-                                <span>
-                        固定宽度
-                    </span>
-
+                            <div class="setings-item"><span>固定宽度</span>
                                 <div class="switch">
                                     <div class="onoffswitch">
                                         <input type="checkbox" name="boxedlayout" class="onoffswitch-checkbox" id="boxedlayout">
@@ -318,24 +308,15 @@
                             <div class="title">皮肤选择</div>
                             <div class="setings-item default-skin nb">
                                 <span class="skin-name ">
-                         <a href="#" class="s-skin-0">
-                             默认皮肤
-                         </a>
-                    </span>
+                         <a href="#" class="s-skin-0">默认皮肤 </a></span>
                             </div>
                             <div class="setings-item blue-skin nb">
                                 <span class="skin-name ">
-                        <a href="#" class="s-skin-1">
-                            蓝色主题
-                        </a>
-                    </span>
+                        <a href="#" class="s-skin-1">蓝色主题</a></span>
                             </div>
                             <div class="setings-item yellow-skin nb">
                                 <span class="skin-name ">
-                        <a href="#" class="s-skin-3">
-                            黄色/紫色主题
-                        </a>
-                    </span>
+                        <a href="#" class="s-skin-3">黄色/紫色主题</a></span>
                             </div>
                         </div>
                     </div>
@@ -647,6 +628,7 @@
             </div>
 
         </div>
+         -->
 <!--         <div id="small-chat">
             <span class="badge badge-warning pull-right">5</span>
             <a class="open-small-chat">

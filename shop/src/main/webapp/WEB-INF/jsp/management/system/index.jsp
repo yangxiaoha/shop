@@ -5,60 +5,42 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<!-- Mirrored from www.zi-han.net/theme/hplus/table_data_tables.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:01 GMT -->
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>公告管理</title>
-	<script
-	src="<%=basePath%>assets/management/datatablejs/system.js"
-	type="text/javascript"></script>
-	<style type="text/css">
-		#systems {
-			color: #007aff;
-		}
-	</style>
+	<script	src="<%=basePath%>assets/management/datatablejs/system.js" type="text/javascript"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公告管理</title>
 </head>
-<body>
-	<div class="container-fluid main-content">
-		<!-- DataTables Example -->
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="widget-container fluid-height clearfix">
-					<div class="heading">
-						<i class="icon-table"></i>公告管理
-					</div>
-					<div class="widget-content padded clearfix">
-						<div class="col-lg-12">
-							<table class="table table-bordered table-striped table-hover">
-								<tr>
-						            <td width="8%">菜单:</td>
-						            <td><input class="form-control" type="text" id="skey" name="skey" placeholder="搜索菜单"></td>
-						            <td width="8%">内容:</td>
-									<td><input class="form-control" type="text" id="sysvalue" name="sysvalue" placeholder="搜索内容值"></td>																				
-								</tr>
-						    </table>
-						 </div>						 
-						 <hr>
-						<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
+<body class="gray-bg">	
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12" >
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>公告管理<small>&nbsp;&nbsp;查找，修改</small></h5>
+                    </div>                    
+                    <div class="ibox-contentTable">
+                    	<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
 							<thead>
 								<th></th>
-								<th class="check-header hidden-xs"  width="8%"><label><input
-										id="checkAll" name="checkAll" type="checkbox"><span></span></label>
+								<th class="check-header hidden-xs"  width="10%">
+									<label style="margin-right:0px" class="checkbox-inline i-checks"><input id="checkAll" name="checkAll" type="checkbox"></label>
 								</th>
 								<th  width="20%">菜单</th>
 								<th>内容</th>	
-								<th style="color: #007aff;">操作</th>
+								<th>操作</th>
 							</thead>
 							<tbody>
 							</tbody>
 						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<jsp:include page="update.jsp"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<jsp:include page="update.jsp"/>    
 </body>
 </html>

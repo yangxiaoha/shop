@@ -24,7 +24,7 @@ $(document).ready(function(){
              "data": "id",
              "orderable":false,
              "render": function(data, type, full,meta) {
-               return '<label><input name="id" type="checkbox" value="'+data+'"><span></span></label>';
+               return '<label style="margin-right:0px" class="checkbox-inline i-checks"><input type="checkbox" value="'+data+'"></label>';
              }
            },  
            {
@@ -52,7 +52,6 @@ $(document).ready(function(){
             	   }else if(data == 4) {
             		   temp = "已收货";            		  
             	   } 
-            	   
             	   var returnhtml = '<div class="btn-group">'+
             	   '<button class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" ><i class="icon-reorder"></i>'+temp+'<span class="caret"></span></button>';
             	   if(data == 2){
@@ -79,25 +78,30 @@ $(document).ready(function(){
                 }
              }
         ],
-        "drawCallback":function(settings){        	        
+        "drawCallback":function(settings){  
+        	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
         	$(".update").click(function(){
         		var rowid = $(this).data("rowid");
         		var api = new $.fn.dataTable.Api( settings );
                 var obj = api.rows(rowid).data()[0];   
                 var ustate = $(this).data("action");
-                $.ajax({
-        			url:"updateStateS",
-        			type:"post",
-        			data:{id:obj.id,state:ustate},
-        			dataType:"json",
-        			async:true,
-        			success:function(res){        				
-        				 tableI.table().draw();
-        			},
-        			error:function(res){
-        				
-        			}
-                });
+                if(obj.logistics!=null&&obj.logistics!=""&&obj.logisticsnum!=null&&obj.logisticsnum!=""){
+                	$.ajax({
+                		url:"updateStateS",
+                		type:"post",
+                		data:{id:obj.id,state:ustate},
+                		dataType:"json",
+                		async:true,
+                		success:function(res){        				
+                			tableI.table().draw();
+                		},
+                		error:function(res){
+                			
+                		}
+                	});
+                }else{
+                	alert("请先输入物流商家跟编号！");
+                }
         		$("#updateModal").modal("show");
         	});
         	

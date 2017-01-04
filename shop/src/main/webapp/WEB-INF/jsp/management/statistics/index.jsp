@@ -10,17 +10,13 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>数据统计</title>
-	<link href="<%=basePath%>assets/management/stylesheets/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+	<title>数据统计</title>	
+	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/js/plugins/flot/jquery.flot.js"></script>	
+	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/js/plugins/flot/jquery.flot.pie.js"></script>	
+	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/js/plugins/flot/jquery.flot.resize.js"></script>	
+	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/js/plugins/flot/jquery.flot.tooltip.min.js"></script>	
 	<script src="<%=basePath%>assets/management/datatablejs/statistics.js" type="text/javascript"></script>
-	<script type="text/javascript" src="<%=basePath%>assets/management/javascripts/bootstrap-datetimepicker.js"></script>
-	<script type="text/javascript" src="<%=basePath%>assets/management/javascripts/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 	<style type="text/css">
-		.btn-info-a {
-		    color: #fff;
-		    background-color: #C0C0C0;
-		    border-color: #C0C0C0;
-		}
 		.error {
 		    margin: 10px 0px;
     		color: #EA4242;
@@ -30,127 +26,133 @@
 			width: 300px;
 			height: 34px;
 		}
-		#homepage {
-			color: #007aff;
-		}
 	</style>
 </head>
-<body>
-	<div class="container-fluid main-content">
-		<!-- DataTables Example -->
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="widget-container fluid-height clearfix">
-					<div class="heading">
-						<i class="icon-table"></i>统计管理
-					</div>
-					<div class="widget-content padded clearfix">
-					<div class="col-lg-12">
-					<table class="table table-bordered table-striped table-hover">
-						<tr>
-				            <td width="8%">城市:</td>
-				            <td><input class="form-control" type="text" id="cityname" name="cityname" placeholder="搜索城市"></td>
-				            <td width="8%">商品名称:</td>
-				            <td><input class="form-control" type="text" id="name" name="name" placeholder="搜索商品名称"></td>
-				        </tr>
-				    </table>
-				    </div>				 
-				 	<div class="col-lg-12"> 				 
-						<button type="button" class="btn btn-md btn-info-a" id="btn-inquiry-a" style="float: right; margin: 0 0 0 15px;" >清除</button>
-						<button type="button" class="btn btn-md btn-info" id="btn-inquiry" style="float: right; margin: 0 0 0 15px;" >查询</button>
-					 	<div class="select-time">	              
-			                <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="endtime" data-link-format="yyyy-mm-dd">
-			                    <input class="form-control" id="select-endtime" size="16" type="text" value="" placeholder="请选择卖出结束时间" readonly>				                    
-								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+<body class="gray-bg">	
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12" >
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>统计管理<small>查找，新增，修改</small></h5>
+                        <div class="ibox-tools">
+                            <a data-toggle="modal" href="#addModal" id="add-row">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            
+                            <a id="delete-row">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                      <div class="row">
+                            <form role="form">
+	                           <div class="col-sm-6">
+                                   <div class="form-group">
+                                       <label>城市:</label>
+                                       <input type="text" placeholder="搜索城市" id="cityname" class="form-control">
+                                   </div>
+	                           </div>
+	                           <div class="col-sm-6">
+                           			<div class="form-group">
+                                       <label>商品名称:</label>
+                                       <input type="text" placeholder="搜索商品名称" id="name" class="form-control">
+                                   </div>
+	                           </div>
+                            </form>
+                        </div>
+                        <div class="row">
+                        <div class="col-lg-12">				 
+							<button type="button" class="btn btn-info" id="btn-inquiry" style="float: right; margin: 0 0 0 15px;" >查询</button>
+						 	<div class="select-time">
+						 		<div>
+                                    <input readonly class="form-control layer-date endtime" id="endtime" placeholder="请选择卖出结束时间" >
+                                    <label class="laydate-icon inline demoicon" for="endtime"></label>
+                                </div>
+				            </div>
+			            	<div style="float:right;height:34px;line-height:34px;margin:0 6px;">至</div>
+				            <div class="select-time">				              
+				                <div>
+                                    <input readonly class="form-control layer-date" id="starttime" placeholder="请选择卖出开始时间" >
+                                    <label class="laydate-icon inline demoicon" for="starttime"></label>
+                                </div>
+				            </div>			            
+						</div>
+						</div>
+                    </div>
+                    <div class="ibox-contentTable">
+                    	<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
+							<thead>
+								<th></th>
+								<th class="check-header hidden-xs">
+									<label style="margin-right:0px" class="checkbox-inline i-checks"><input id="checkAll" name="checkAll" type="checkbox"></label>
+								</th>
+								<th>城市</th>
+								<th>商品名称</th>
+								<th>卖出时间</th>
+								<th>卖出数量</th>						
+								<th></th>						
+								<th></th>	
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+                    </div>
+                </div>
+                <div class="row">
+					<div class="col-sm-12" style = "top:15px">
+						<div class="col-sm-5">
+			                <div class="ibox float-e-margins">
+			                    <div class="ibox-title">
+			                        <h5>按城市</h5>
+			                    </div>
+			                    <div class="ibox-content">
+			                        <div class="flot-chart">
+			                            <div class="flot-chart-content" id="flot-pie-chart"></div>
+			                        </div>
+			                    </div>
 			                </div>
-							<input name="endtime" type="hidden" id="endtime" /><br/>
 			            </div>
-			            <div style="float:right;height:34px;line-height:34px;margin:0 6px;">至</div>
-			            <div class="select-time">				              
-			                <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="starttime" data-link-format="yyyy-mm-dd">
-			                    <input class="form-control" id="select-starttime" size="16" type="text" value="" placeholder="请选择卖出开始时间" readonly>
-								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+			            <div class="col-sm-7">
+			                <div class="ibox float-e-margins">
+			                    <div class="ibox-title">
+			                        <h5>按商品</h5>
+			                        <div class="ibox-tools">
+			                        </div>
+			                    </div>
+			                    <div class="ibox-content">
+			                        <div class="flot-chart">
+			                            <div class="flot-chart-content" id="flot-bar-chart"></div>
+			                        </div>
+			                    </div>
 			                </div>
-							<input name="starttime" type="hidden" id="starttime" /><br/>
-			            </div>			            
-					 </div>
-					 
-					 <div style="height:1px;clear:both;"></div>
-					 <hr>
-					<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
-						<thead>
-							<th></th>
-							<th class="check-header hidden-xs"><label><input
-									id="checkAll" name="checkAll" type="checkbox"><span></span></label>
-							</th>							
-							<th>城市</th>
-							<th>商品名称</th>
-							<th>卖出时间</th>
-							<th>卖出数量</th>						
-							<th></th>						
-							<th></th>						
-						</thead>
-						<tbody>
-						</tbody>
-					</table>							
-				</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12" style = "top:15px">
-					<div class="col-lg-4">
-						<div class="widget-container">
-							<div class="heading">
-								<i class="icon-bar-chart"></i>按城市
-							</div>
-							<div class="widget-content padded">
-								<div class="pie-chart">
-									<div id="pie-chart"></div>
-									<ul class="chart-key" id = "checkbok"></ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="widget-container">
-							<div class="heading">
-								<i class="icon-bar-chart"></i>按时间
-							</div>
-							<div class="widget-content padded">
-								<div id="linechart-1">Loading...</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="widget-container fluid-height">
-							<div class="heading">
-								<i class="icon-bar-chart"></i>按商品
-							</div>
-							<div class="widget-content padded text-center">
-								<div class="graph-container">
-									<div class="caption"></div>
-									<div class="graph" id="hero-bar"></div>
-									<!-- Bar Charts:Morris -->
-								</div>
-							</div>
-						</div>
+			            </div>					
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>    
 <script type="text/javascript">
-$('.form_date').datetimepicker({
-	format: 'yyyy-mm-dd',
-    language:  'zh-CN',
-    weekStart: 1,
-    todayBtn:  1,
-	autoclose: 1,
-	todayHighlight: 1,
-	startView: 2,
-	minView: 2,
-	forceParse: 0
-});
+	var start={elem:"#starttime",
+			format:"YYYY-MM-DD",
+			event: 'click',
+			istime:true,istoday:false,
+			choose:function(datas){
+				select_time();
+		}
+	};
+	var end={elem:"#endtime",
+			format:"YYYY-MM-DD",
+			event: 'click',
+			istime:true,istoday:false,
+			choose:function(datas){
+				select_time();
+			}
+	};
+	laydate(start);
+	laydate(end);
+
 
 //时间比较大小
 function diffDate(currentTime) {
@@ -161,7 +163,7 @@ function diffDate(currentTime) {
 	} 
 	return 0;
 }
-$("#select-endtime").change(function(){
+function select_time(){
 	var starttime = new Date($("#starttime").val()).getTime();
 	var endtime = new Date($("#endtime").val()).getTime();
 	if(starttime != null && starttime != "" && endtime != null && endtime != "") {
@@ -172,23 +174,9 @@ $("#select-endtime").change(function(){
 			$("#btn-inquiry").removeAttr("disabled");
 		}
 	}
-});
+}
 
-$("#btn-inquiry-a").click( function() {	
-	$("#select-starttime").val("");
-	$("#select-endtime").val("");
-	$("#starttime").val("");
-	$("#endtime").val("");
-	tableI.table().columns(6).search($("#starttime").val());
-	tableI.table().columns(7).search($("#endtime").val());
-	tableI.table().columns(2).search($("#cityname").val());
-	tableI.table().columns(3).search($("#name").val());
-	tableI.table().draw();
-	countCity();
-	countName();
-	
-});
-$("#btn-inquiry").click( function() {	
+$("#btn-inquiry").click( function() {
 	tableI.table().columns(6).search($("#starttime").val());
 	tableI.table().columns(7).search($("#endtime").val());
 	tableI.table().columns(2).search($("#cityname").val());
@@ -198,117 +186,98 @@ $("#btn-inquiry").click( function() {
 	countName();
 });
 
- var countCity=function(){
+var countCity=function(){
 	$.ajax({
 		url:"getNumbyCity",
 		type:"post",
 		data:{cityname:$("#cityname").val(),name:$("#name").val(),starttime:$("#starttime").val(),endtime:$("#endtime").val()},
 		dataType:"json",
 		async:true,
-		success:function(res){		
-			var num = new Array();
+		success:function(res){
 			var colors = new Array();
+			var e = new Array();
 			var checkboxhtml = "";
 			for(var i = 0;i<res.length;i++){
-				num[i] = res[i].num;
 				colors[i] = '#'+('00000'+(Math.random()*0x1000000<<0).toString(16)).substr(-6); 
-				checkboxhtml = checkboxhtml + "<li><span style=\"background:"+colors[i]+"\"></span>"+res[i].cityname+"</li>";
-			};
-			$("#checkbok").html(checkboxhtml);
-			$("#pie-chart").sparkline(num, {
-				type : "pie",
-				height : "220",
-				width : "220",
-				offset : "+90",
-				sliceColors : colors
-			});	
+				var obj = new Object();
+				obj.label = res[i].cityname;
+				obj.data = parseInt(res[i].num);
+				obj.color = colors[i];
+				e[i] = obj;
+			}
+			$.plot($("#flot-pie-chart"),
+					e,{series:{pie:{show:!0}},
+					grid:{hoverable:!0},
+						tooltip:!0,
+						tooltipOpts:{content:"%p.0%, %s",shifts:{x:20,y:0},defaultTheme:!1}
+					}
+			);	
 		},
-		error:function(res){
-			$("#checkbok").html("");
-			$("#pie-chart").html("数据为空");			
+		error:function(res){			
+			$("#flot-pie-chart").html("<h2>数据为空...</h2>");			
 		}
 	});
 }
 countCity();
-$("#linechart-1").sparkline([160, 240, 120, 200, 180, 350, 230, 200, 280, 380, 400, 360, 300, 220, 200, 150, 40, 70, 180, 110, 200, 160, 200, 220], {
-      type: "line",
-      width: "100%",
-      height: "226",
-      lineColor: "#a5e1ff",
-      fillColor: "rgba(241, 251, 255, 0.9)",
-      lineWidth: 2,
-      spotColor: "#a5e1ff",
-      minSpotColor: "#bee3f6",
-      maxSpotColor: "#a5e1ff",
-      highlightSpotColor: "#80cff4",
-      highlightLineColor: "#cccccc",
-      spotRadius: 6,
-      chartRangeMin: 0
-});
-$("#linechart-1").sparkline([100, 280, 150, 180, 220, 180, 130, 180, 180, 280, 260, 260, 200, 120, 200, 150, 100, 100, 180, 180, 200, 160, 180, 120], {
-     type: "line",
-     width: "100%",
-     height: "226",
-     lineColor: "#cfee74",
-     fillColor: "rgba(244, 252, 225, 0.5)",
-     lineWidth: 2,
-     spotColor: "#b9e72a",
-     minSpotColor: "#bfe646",
-     maxSpotColor: "#b9e72a",
-     highlightSpotColor: "#b9e72a",
-     highlightLineColor: "#cccccc",
-     spotRadius: 6,
-     chartRangeMin: 0,
-     composite: true
-});
-function countName(){	
-	$(window).resize(function(e) {
-	    var morrisResize;
-	    clearTimeout(morrisResize);
-	    return morrisResize = setTimeout(function() {
-	      return buildMorris(true);
-	    }, 500);
-	  });
-	  $(function() {
-	    return buildMorris();
-	  });
-	  buildMorris = function($re) {
-		  $.ajax({
-			url:"getNumbyName",
-			type:"post",
-			data:{name:$("#name").val(),cityname:$("#cityname").val(),starttime:$("#starttime").val(),endtime:$("#endtime").val()},
-			dataType:"json",
-			async:true,
-			success:function(res){
-				var names = new Array();
-				for(var i = 0;i<res.length;i++){
-	            	names[i] = {device:res[i].name,
-	            			 	geekbench:res[i].num};
-	            };
-				var tax_data;
-			    if ($('#hero-bar').length) {
-			    	$("#hero-bar").html("");
-			        return Morris.Bar({
-			          element: "hero-bar",
-			          data: names,
-			          xkey: "device",
-			          ykeys: ["geekbench"],
-			          labels: ["销售数量"],
-			          barRatio: 0.4,
-			          xLabelAngle: 35,
-			          hideHover: "auto",
-			          barColors: ["#5bc0de"]
-			        });
-			     }
-			},
-			error:function(res){
-				$("#hero-bar").html("数据为空");				
+function countName(){
+	$.ajax({
+		url:"getNumbyCity",
+		type:"post",
+		data:{cityname:$("#cityname").val(),name:$("#name").val(),starttime:$("#starttime").val(),endtime:$("#endtime").val()},
+		dataType:"json",
+		async:true,
+		success:function(res){
+			var e = new Array();
+			var x = new Array();
+			for(var i = 0;i<res.length;i++){								
+				e[i] = [i,parseInt(res[i].num)];
+				x[i] = [i,res[i].name];
 			}
-		}); 
-	};
+			var o={
+				series:{
+					bars:{
+						show:!0,
+						barWidth:.6,
+						fill:!0,
+						fillColor:{
+							colors:[{opacity:.8},{opacity:.8}]
+						},
+					},
+				},
+				xaxis:{
+					position:"bottom",
+					ticks: x,  
+                    tickSize: 1,  
+                    axisLabelUseCanvas: true,  
+                    axisLabelFontSizePixels: 12,  
+                    axisLabelFontFamily: 'Verdana, Arial',  
+                    axisLabelPadding: 10  
+				},
+				colors:["#1ab394"],
+				grid:{
+					color:"#999999",
+					hoverable:!0,
+					clickable:!0,
+					tickColor:"#D4D4D4",
+					borderWidth:0
+				},
+				legend:{show:!1},
+				tooltip:!0,
+				tooltipOpts:{content:function(label, xval, yval) {
+			          var content = res[parseInt(xval)]["name"]+":" + yval;
+			          return content;
+			        }},
+			}		
+			var list = {label:"2",data:e};
+			$.plot($("#flot-bar-chart"),
+							[list],o)
+		},
+		error:function(res){			
+			$("#flot-bar-chart").html("<h2>数据为空...</h2>");			
+		}
+	});
 }
 countName();
-
 </script>
 </body>
 </html>

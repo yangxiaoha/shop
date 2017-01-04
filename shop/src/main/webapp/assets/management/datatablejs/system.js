@@ -17,7 +17,7 @@ $(document).ready(function(){
              "targets": [1],
              "data": "id",
              "render": function(data, type, full,meta) {
-               return '<label><input name="id" type="checkbox" value="'+data+'"><span></span></label>';
+            	 return '<label style="margin-right:0px" class="checkbox-inline i-checks"><input type="checkbox" value="'+data+'"></label>';
              }
            },
            {
@@ -25,13 +25,13 @@ $(document).ready(function(){
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
-                 			'<a class="table-actions update" data-rowid="'+meta.row+'" href="javascript:void(0)"><i class="icon-pencil"></i></a>'+
+                 			'<a class="table-actions update" data-rowid="'+meta.row+'" href="javascript:void(0)"><i class="fa fa-pencil"></i></a>'+
                  		'</div>';
                }
             }
         ],
         "drawCallback":function(settings){
-        	
+        	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})
         	$(".update").click(function(){
         		var rowid = $(this).data("rowid");
         		var api = new $.fn.dataTable.Api( settings );

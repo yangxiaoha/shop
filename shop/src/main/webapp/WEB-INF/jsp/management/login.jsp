@@ -10,77 +10,51 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="<%=basePath %>assets/management/stylesheets/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
-	<link href="<%=basePath %>assets/management/stylesheets/font-awesome.css" media="all" rel="stylesheet" type="text/css" />
-	<link href="<%=basePath %>assets/management/stylesheets/se7en-font.css" media="all" rel="stylesheet" type="text/css" />
-	<link href="<%=basePath %>assets/management/stylesheets/style.css" media="all" rel="stylesheet" type="text/css" />
-	<script src="<%=basePath %>assets/management/javascripts/jquery.min.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/jquery-ui.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/bootstrap.min.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/raphael.min.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/jquery.mousewheel.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/jquery.vmap.min.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/jquery.vmap.sampledata.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/jquery.vmap.world.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/jquery.bootstrap.wizard.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/fullcalendar.min.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/gcal.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/jquery.dataTables.min.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/datatable-editable.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/jquery.easy-pie-chart.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/excanvas.min.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/jquery.isotope.min.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/masonry.min.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/modernizr.custom.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/jquery.fancybox.pack.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/select2.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/styleswitcher.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/wysiwyg.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/jquery.inputmask.min.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/jquery.validate.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/bootstrap-fileupload.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/bootstrap-datepicker.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/bootstrap-timepicker.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/bootstrap-colorpicker.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/bootstrap-switch.min.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/daterange-picker.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/date.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/morris.min.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/skycons.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/jquery.sparkline.min.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/fitvids.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/main.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/respond.js" type="text/javascript"></script>
-	<script src="<%=basePath %>assets/management/javascripts/md5.js" type="text/javascript"></script>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<link href="<%=basePath %>/assets/management/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="<%=basePath %>/assets/management/css/animate.min.css" rel="stylesheet">
+<link href="<%=basePath %>/assets/management/css/bootstrap.min.css" rel="stylesheet">
+<link href="<%=basePath %>/assets/management/css/style.min.css" rel="stylesheet">
+<link href="<%=basePath %>/assets/management/css/login.min.css" rel="stylesheet">
+<script src="<%=basePath %>/assets/management/js/jquery.min.js"></script>
 <title>一见喜商城</title>
+
 </head>
-<body class = "login1">
-	<div class="login-wrapper">
-		<div class="login-container">
+<body class = "signin">
+	<div class="signinpanel">
+		<div class="row">
+			<div class="col-sm-7">
+				<div class="signin-info">
+					<div>
+						<h4>一见喜商城平台</h4>
+					</div>
+					<div class="m-b"></div>
+				</div>
+			</div>
 		<!-- 
 			<img width="154" height="40"
 				src="<%=basePath%>assets/management/images/logo.png" />
-		 -->
-		 	<p>一见喜商城平台</p>
-			<c:if test="${!empty msg}">
-				<div class="alert alert-danger">${msg}</div>
-			</c:if>
-			<div class="alert alert-danger" style="display: none;"></div>
-			<form id="login_form" action="login" method="post">
-				<div class="form-group">
-					<input class="form-control" id="username" placeholder="用户名"
-						name="username" type="text">
-				</div>
-				<div class="form-group">
-					<input class="form-control" id="noencryptpassword" placeholder="密码"
-						name="noencryptpassword" type="password"> <input
-						class="form-control" id="password" name="password" type="hidden">
-				</div>
-				<input class="btn btn-lg btn-info"
-					style="width: 100%; margin-top: 10px" type="button" value="登录"
-					onclick="submitForm()">
-			</form>
+		 -->		 	
+			<div class="col-sm-5">
+				<form id="login_form" action="login" method="post">
+					<h4 class="no-margins">登录：</h4>
+					<div class="form-group">
+						<input class="form-control uname" id="username" placeholder="用户名"
+							name="username" type="text">
+					</div>
+					<div class="form-group">
+						<input class="form-control pword m-b" id="noencryptpassword" placeholder="密码"
+							name="noencryptpassword" type="password"> <input
+							class="form-control" id="password" name="password" type="">
+					</div>
+					<input class="btn btn-success btn-block"
+						type="submit" value="登录"
+						onclick="submitForm()">
+				</form>
+				<c:if test="${!empty msg}">
+					<div class="alert alert-danger">${msg}</div>
+				</c:if>
+			</div>
 		</div>
 	</div>
 	<!-- End Login Screen -->

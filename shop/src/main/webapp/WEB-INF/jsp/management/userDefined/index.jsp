@@ -11,11 +11,6 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>自定义菜单</title>
-	<style type="text/css">
-		#systems {
-			color: #007aff;
-		}
-	</style>
 </head>
 <body>
 	<div class="container-fluid main-content">

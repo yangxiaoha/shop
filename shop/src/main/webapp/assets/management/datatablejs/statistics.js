@@ -20,10 +20,13 @@ $(document).ready(function(){
              "targets": [1],
              "data": "id",
              "render": function(data, type, full,meta) {
-               return '<label><input name="id" type="checkbox" value="'+data+'"><span></span></label>';
+            	 return '<label style="margin-right:0px" class="checkbox-inline i-checks"><input type="checkbox" value="'+data+'"></label>';
              }
            },          
-        ],        
+        ],  
+        "drawCallback":function(settings){  
+        	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
+        },
         "className" : "Statistics",
         "chosen" : true,
         "ids" : "#cityname,#name,#endtime,#starttime",

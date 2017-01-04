@@ -24,8 +24,7 @@
 							</div>
 							<div class="col-md-6">
 								<label for="supplierId">供应商名称(*)</label> 
-								<select class="reg-sel  form-control" id="esupplierId"  name="supplierId">
-																	
+								<select class="reg-sel form-control" id="esupplierId"  name="supplierId">																	
 									<c:forEach items="${supplierMsg}" var="supplierList">
 										<option value="${supplierList.id}">${supplierList.name}</option>
 									</c:forEach>
