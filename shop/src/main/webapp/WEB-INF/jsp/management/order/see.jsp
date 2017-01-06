@@ -23,7 +23,7 @@
 							</div>
 							<div class="row">
 							<div class="col-md-6">
-								<div class="form-group"  style="margin-left:35px;">
+								<div class="form-group"  style="margin-left:40px;">
 									<span style="font-size: 1em; color: black">收货人姓名：</span> <span
 										style="font-size: 1em; color: black" id="sname"></span>
 								</div>

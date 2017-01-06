@@ -51,7 +51,7 @@
                                 <li><a class="J_menuItem" href="form_avatar.html">修改密码</a>
                                 </li>
                                 <li class="divider"></li>
-                                <li><a href="login.html">安全退出</a>
+                                <li><a href="login">安全退出</a>
                                 </li>
                             </ul>
                         </div>
@@ -97,6 +97,8 @@
                             <li><a class="J_menuItem" href="reply/index">自定义回复</a>
                             </li>
                             <li><a class="J_menuItem" href="banner/index">首页滚动图</a>
+                            </li>
+                            <li><a class="J_menuItem" href="percentage/index">分销管理</a>
                             </li>
                         </ul>
                     </li>
@@ -231,7 +233,7 @@
                         </li>
                     </ul>
                 </div>
-                <a href="login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+                <a href="login" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
             </div>
             <div class="row J_mainContent" id="content-main">
                 <iframe class="J_iframe"  name="iframe0" width="100%" height="100%" src="statistics/index" frameborder="0" data-id="index_v1.html" seamless></iframe>
@@ -240,6 +242,8 @@
                 <div class="pull-right">&copy; 2014-2017 
                 </div>
             </div>
+            <!-- 
+             -->
         </div>
         <!--右侧部分结束-->
         <!--右侧边栏开始-->

@@ -73,5 +73,7 @@ public interface UserMapper {
 	 * @param BigDecimal money 可提现金额
 	 * */
 	public void updateMoney(@Param("id")Integer id, @Param("money")BigDecimal money);
+	
+	public void updateStateMoney(@Param("id")Integer id, @Param("money")BigDecimal money);
 
 }

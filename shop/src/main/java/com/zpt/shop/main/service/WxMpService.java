@@ -1,5 +1,6 @@
 package com.zpt.shop.main.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import com.zpt.shop.common.weixin.WxErrorException;
@@ -62,4 +63,6 @@ public interface WxMpService {
     public String getJsapiTicket(boolean forceRefresh) throws WxErrorException;
 
     public Map<String, String> sign(String url) throws WxErrorException;
+    
+    public String getSign(Map<String, String> params, String paternerKey) throws UnsupportedEncodingException;
 }

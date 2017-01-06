@@ -11,11 +11,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.net.URL;
+import java.security.KeyStore;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;   
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -24,11 +27,25 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLContexts;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
@@ -40,8 +57,10 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 import com.zpt.shop.common.weixin.Article;
 import com.zpt.shop.common.weixin.ArticleResMsg;
+import com.zpt.shop.common.weixin.EnterpriseToUserMsg;
 import com.zpt.shop.common.weixin.TextMessage;
 import com.zpt.shop.common.weixin.WeixinUserInfo;
+import com.zpt.shop.common.weixin.WxMpConfigStorage;
 import com.zpt.shop.main.entities.PayCallback;
 
 import net.sf.json.xml.XMLSerializer;
@@ -54,9 +73,79 @@ public class WeixinUtils {
 	public static final String EVENT_TYPE_SUBSCRIBE = "subscribe";//事件类型：subscribe(订阅)
 	public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";//事件类型：unsubscribe(取消订阅)
 	public static final String EVENT_TYPE_TEXT = "text";//事件类型：text(文本消息)
-
+	
+	private static final String DEFAULT_CHARSET = "UTF-8";
+	
+	private static final int CONNECT_TIME_OUT = 5000; //链接超时时间3秒
+	
+	private static final RequestConfig REQUEST_CONFIG = RequestConfig.custom().setConnectTimeout(CONNECT_TIME_OUT).build();
+	
+	
 	@Autowired
 	private static WeixinUserInfo userInfo;
+	
+	private static SSLContext wx_ssl_context = null; //微信支付ssl证书
+	
+	static{
+		Resource resource = new ClassPathResource("wx_apiclient_cert.p12");
+		try {
+			KeyStore keystore = KeyStore.getInstance("PKCS12");
+			char[] keyPassword = "1237966102".toCharArray();
+			keystore.load(resource.getInputStream(), keyPassword);
+			wx_ssl_context = SSLContexts.custom().loadKeyMaterial(keystore, keyPassword).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * @description 功能描述: post https请求，服务器双向证书验证
+	 * @param url 请求地址
+	 * @param s 参数xml
+	 * @return 请求失败返回null
+	 */
+	public static String posts(String url, String s) {
+		CloseableHttpClient httpClient = null;
+		HttpPost httpPost = new HttpPost(url);
+		String body = null;
+		CloseableHttpResponse response = null;
+		try {
+			httpClient = HttpClients.custom()
+					.setDefaultRequestConfig(REQUEST_CONFIG)
+					.setSSLSocketFactory(getSSLConnectionSocket())
+					.build();
+			httpPost.setEntity(new StringEntity(s, DEFAULT_CHARSET)); 
+			response = httpClient.execute(httpPost);
+			body = EntityUtils.toString(response.getEntity(), DEFAULT_CHARSET);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (response != null) {
+				try {
+					response.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (httpClient != null) {
+				try {
+					httpClient.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return body;
+	}
+	
+	 
+	//获取ssl connection链接
+	private static SSLConnectionSocketFactory getSSLConnectionSocket() {
+		return new SSLConnectionSocketFactory(wx_ssl_context, new String[] {"TLSv1", "TLSv1.1", "TLSv1.2"}, null,
+				SSLConnectionSocketFactory.getDefaultHostnameVerifier());
+	}
 
 	public static JSONObject httpRequest(String requestUrl, String requestMethod, String outputStr) {
 		JSONObject jsonObject = null;
@@ -286,6 +375,11 @@ public class WeixinUtils {
         xstream.alias("xml", textMessage.getClass());
         return xstream.toXML(textMessage);
     }
+    
+    public static String enterpriseToXml(EnterpriseToUserMsg enterpriseToUserMsg){
+    	xstream.alias("xml", enterpriseToUserMsg.getClass());
+        return xstream.toXML(enterpriseToUserMsg);
+    }
 
 	public static String articleMessageToXml(ArticleResMsg articleResMsg) {
 		xstream.alias("xml", articleResMsg.getClass());
@@ -360,6 +454,11 @@ public class WeixinUtils {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public static String posts(){
+		
+		return null;
 	}
 
 	/**

@@ -5,9 +5,9 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<script src="<%=basePath%>assets/management/javascripts/uploadphoto.js"
+<script src="<%=basePath%>assets/management/js/uploadphoto.js"
 	type="text/javascript"></script>
-<script src="<%=basePath%>assets/management/javascripts/ajaxfileupload1.js"
+<script src="<%=basePath%>assets/management/js/ajaxfileupload1.js"
 	type="text/javascript"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="modal fade" id="addModal">
@@ -17,7 +17,7 @@
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
 				<h4 class="modal-title">
-					添加图片 <span class="loading" style=""></span>
+					添加图片 <span class="loading"></span>
 				</h4>
 			</div>
 			<div class="modal-body">
@@ -55,12 +55,12 @@
 	$(document).ready(function(){
 		$('.datepicker').datepicker();
 		$("#addsubmit").click(function(){
-			$(this).attr("disabled","disabled"); 
-			   $(".loading").html("<i class=\"icon-spinner icon-spin\"></i>");
-			   var fileimage = $("#addphoto").val();
-			   if(fileimage.length == 0){
-	    		$(".loading").html("<span class=\"label label-danger\">请上传图片</span>");
-	    		};
+//			$(this).attr("disabled","disabled"); 
+			   	$(".loading").html("<i class=\"icon-spinner icon-spin\"></i>");
+			   	var fileimage = $("#addphoto").val();
+				if(fileimage.length == 0){
+		    		$(".loading").html("<span class=\"label label-danger\">请上传图片</span>");
+		    	};
 				if (fileimage.length != 0) {
 					$.ajaxFileUpload({
 						data :{
@@ -79,8 +79,7 @@
 		        			   $("#addsubmit").removeAttr("disabled"); 
 		        		    },1000);
 		        			window.location.reload(); 
-		        	    },
-	        	    	
+		        	    },	        	    	
 		        	    error:function(e){
 		        		    $(".loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
 		         		    setTimeout(function(){

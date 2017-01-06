@@ -48,7 +48,7 @@
 	                           				<label class="control-label">订单状态</label>	
 	                                       	<select class="reg-sel-index form-control" id="state"  name="state">
 												<option value=""></option>
-												<option value="">全部</option>
+												<option value="0">全部</option>
 												<option name="state" value="2">未发货</option>
 												<option name="state" value="3">已发货</option>
 												<option name="state" value="4">已收货</option>

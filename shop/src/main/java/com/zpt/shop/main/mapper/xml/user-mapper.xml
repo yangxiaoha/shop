@@ -14,6 +14,7 @@
 		<result property="endmoney" column="endmoney" />
 		<result property="starttime" column="starttime" />
 		<result property="endtime" column="endtime" />
+		<result property="isnot" column="isnot" />
 	</resultMap>
 	
 	<sql id="queryCondition">
@@ -33,8 +34,16 @@
 		<if test="obj.id != null and obj.id != ''">
 			and pid = #{obj.id}
 		</if>
+		<if test="obj.isnot == '1'.toString()">
+			and id in (select a.id as id from t_user as a
+			left join t_user as b on a.id = b.pid where b.pid is null)
+		</if>
+		<if test="obj.isnot == '2'.toString()">
+			and id in (select a.id as id from t_user as a
+			left join t_user as b on a.id = b.pid where b.pid is not null)
+		</if>
 		<if test="search != null and search != ''">
-			and openid like CONCAT('%',#{obj.search},'%')
+			and openid like CONCAT('%',#{search},'%')
 		</if>
 	</sql>
 	
@@ -53,7 +62,7 @@
 	<select id="gerUserId" resultMap="resultMap">
 		select * from t_user where id=#{id}
 	</select>
-	
+		
 	<select id="getAgentInfoByMyId" resultMap="resultMap">
 		select a.id as id, b.id as pid from 
 		(select * from t_user where pid = #{userId}) as a
@@ -96,6 +105,10 @@
 	
 	<update id="updateMoney">
 		update t_user set money = #{money} where id = #{id}
+	</update>
+	
+	<update id="updateStateMoney">
+		update t_user set money = #{money} where id = #{userId}
 	</update>
 	
 </mapper>

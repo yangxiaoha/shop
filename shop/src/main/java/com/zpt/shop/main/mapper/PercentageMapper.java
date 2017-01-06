@@ -1,5 +1,8 @@
 package com.zpt.shop.main.mapper;
 
+import java.util.List;
+
+import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Percentage;
 
 /**
@@ -12,6 +15,12 @@ import com.zpt.shop.main.entities.Percentage;
  * Copyright (C)2014－2016 智平台.All rights reserved. 
  */
 public interface PercentageMapper {
+	
+	public List<Percentage> listPercentage(Query<Percentage> query);
+	
+	public Integer countPercentage(Query<Percentage> query);
+	
+	public void updatePercentage(Percentage percentage);
 
 	public Percentage getPercentage();
 

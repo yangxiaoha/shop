@@ -31,5 +31,4 @@ public interface WithdrawService {
 	public boolean validate(Withdraw withdraw);
 	
 	public void updateState(Withdraw withdraw);
-
 }

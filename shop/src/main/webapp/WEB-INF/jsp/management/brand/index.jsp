@@ -34,31 +34,31 @@
                     </div>
                     <div class="ibox-content">
                       <div class="row">
-                            <form role="form">
-		                           <div class="col-sm-4">
-	                                   <div class="form-group">
-	                                       <label>品牌名称:</label>
-	                                       <input type="text" placeholder="搜索品牌名称" id="name" class="form-control">
-	                                   </div>
-		                           </div>
-		                           <div class="col-sm-4">
-	                           			<div class="form-group">
-	                                       <label>品牌简介:</label>
-	                                       <input type="text" placeholder="搜索品牌简介" id="content" class="form-control">
-	                                   </div>
-		                           </div>
-		                           <div class="col-sm-4">
-	                           			<div class="form-group">
-	                           				<label class="control-label">供应商名称：</label>	                           				
-	                                       	<select class="reg-sel-index form-control" id="suppliername"  name="suppliername">
-												<option value=""></option>
-												<option value="">全部</option>
-												<c:forEach items="${supplierMsg}" var="supplierList">
-													<option value="${supplierList.name}">${supplierList.name}</option>
-												</c:forEach>
-											</select>											
-	                                   </div>
-		                           </div>
+                           <form role="form">
+	                           <div class="col-sm-4">
+                                   <div class="form-group">
+                                       <label>品牌名称:</label>
+                                       <input type="text" placeholder="搜索品牌名称" id="name" class="form-control">
+                                   </div>
+	                           </div>
+	                           <div class="col-sm-4">
+                           			<div class="form-group">
+                                       <label>品牌简介:</label>
+                                       <input type="text" placeholder="搜索品牌简介" id="content" class="form-control">
+                                   </div>
+	                           </div>
+	                           <div class="col-sm-4">
+                           			<div class="form-group">
+                           				<label class="control-label">供应商名称：</label>	                           				
+                                       	<select class="reg-sel-index form-control" id="suppliername"  name="suppliername">
+											<option value=""></option>
+											<option value="">全部</option>
+											<c:forEach items="${supplierMsg}" var="supplierList">
+												<option value="${supplierList.name}">${supplierList.name}</option>
+											</c:forEach>
+										</select>											
+                                   </div>
+	                           </div>
                             </form>
                         </div>
                     </div>

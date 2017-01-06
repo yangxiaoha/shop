@@ -1,8 +1,11 @@
 package com.zpt.shop.main.mapper;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+
+import com.zpt.shop.main.entities.Distribution;
 
 /**
  * 功能说明:
@@ -17,4 +20,5 @@ public interface DistributionMapper {
 
 	public void addDistribution(@Param("userId")Integer userId, @Param("orderId")Integer orderId, @Param("money")BigDecimal money);
 
+	public List<Distribution> seeWithdraw(@Param("userId")Integer userId);
 }

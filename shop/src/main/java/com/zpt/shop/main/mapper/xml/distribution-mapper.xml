@@ -9,11 +9,25 @@
 		<result property="userId" column="userid" />
 		<result property="orderId" column="orderid" />
 		<result property="money" column="money" />
+		<result property="openid" column="openid" />
+		<result property="name" column="name" />
+		<result property="ordernum" column="ordernum" />
+		<result property="totalprice" column="totalprice" />
 	</resultMap>
 	
 	<insert id="addDistribution">
 		insert into t_distribution (userId, orderId, money) 
 		values (#{userId}, #{orderId}, #{money})
 	</insert>
+	
+	<select id="seeWithdraw" resultMap="resultMap">
+	    select db.id as id,db.money as money,torder.ordernum as ordernum,
+	    torder.totalprice as totalprice,tuser.openid as openid,torder.name as name
+		from t_distribution as db
+		left join t_user as tuser on tuser.id = db.userid
+		left join t_withdraw_cash as cash on db.userid = cash.userid 
+		left join t_order as torder on torder.id = db.orderid
+		where db.userId = #{userId}
+	</select>
 	
 </mapper>

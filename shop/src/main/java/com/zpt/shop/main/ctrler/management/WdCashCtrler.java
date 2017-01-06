@@ -1,5 +1,7 @@
 package com.zpt.shop.main.ctrler.management;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +12,9 @@ import com.zpt.shop.common.pojo.Contants;
 import com.zpt.shop.common.pojo.Msg;
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
+import com.zpt.shop.main.entities.Distribution;
 import com.zpt.shop.main.entities.Withdraw;
+import com.zpt.shop.main.service.DistributionService;
 import com.zpt.shop.main.service.WithdrawService;
 
 @Controller
@@ -19,6 +23,9 @@ public class WdCashCtrler {
 	
 	@Autowired
 	private WithdrawService withdrawService;
+	
+	@Autowired
+	private DistributionService distributionService;
 	
 	@RequestMapping(value = "index",method = RequestMethod.GET)
 	public String index(){
@@ -61,5 +68,17 @@ public class WdCashCtrler {
 			msg.setMsg(Contants.UPDATE_LOST);			
 			return msg;
 		}
+	}
+	@ResponseBody
+	@RequestMapping(value = "/seeWithdraw",method = RequestMethod.POST)
+	public List<Distribution> see(Integer userId){
+		List<Distribution> list = null;
+		try {
+			list = distributionService.seeWithdraw(userId);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

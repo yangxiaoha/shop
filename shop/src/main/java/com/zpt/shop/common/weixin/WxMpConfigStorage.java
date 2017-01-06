@@ -14,6 +14,15 @@ public class WxMpConfigStorage{
 	protected volatile String accessToken;
 	protected volatile String aesKey;
 	protected volatile long expiresTime;
+	private volatile String ip;
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
 
 	protected volatile String jsapiTicket;
 	protected volatile long jsapiTicketExpiresTime;

@@ -7,7 +7,6 @@
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
 				<h4 class="modal-title">删除图片
-				<span id="loading" style=""></span>
 				</h4>
 			</div>
 			<div class="modal-body">
