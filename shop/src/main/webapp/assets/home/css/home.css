@@ -376,9 +376,6 @@ a, a:link, a:visited, a:hover, a:active {
 	text-align: center;
 	border-bottom: 1px solid #968f8e;
 }
-.type-detail .goods-detail {
-	width: 76%;
-}
 /************************type-detail结束************************/
 
 /************************car开始************************/
@@ -907,7 +904,7 @@ a, a:link, a:visited, a:hover, a:active {
     height: 50px;
     position: absolute;
     top: 50%;
-    left: 35%;
+    left: 40%;
     transform: translateY(-50%);
 }
 .user-info .member-icon > img {

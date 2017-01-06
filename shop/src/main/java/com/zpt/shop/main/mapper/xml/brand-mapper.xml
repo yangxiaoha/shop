@@ -83,5 +83,9 @@
 	<update id="updateBrand" parameterType="brand">
 		update t_goods_brand set name = #{name},content = #{content},supplierId = #{supplierId} where id = #{id}
 	</update>
+	
+	<select id="getBrandById" resultMap="resultMap">
+	    select * from t_goods_brand where id = #{id}
+	</select>
 
 </mapper>

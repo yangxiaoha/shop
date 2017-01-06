@@ -21,6 +21,7 @@ public interface BrandService {
 	public List<Brand> getAllBrand();
 	
 	public List<Brand> getBrandBySupplierId(String supplierId);
-	
 
+	public Brand getBrandById(Integer id);
+	
 }

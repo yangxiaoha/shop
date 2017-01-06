@@ -24,6 +24,8 @@ public interface BrandMapper {
 	
 	public List<Brand> getAllBrand();
 	
-	public List<Brand> getBrandBySupplier(@Param("supplierId")String supplierId);	
+	public List<Brand> getBrandBySupplierId(@Param("supplierId")String supplierId);
+
+	public Brand getBrandById(@Param("id")Integer id);
 
 }

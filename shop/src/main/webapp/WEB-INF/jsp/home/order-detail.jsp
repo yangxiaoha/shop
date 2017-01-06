@@ -59,7 +59,7 @@
 		              <li class="fc-9fa0a0 fs-1rem">商品属性：${orderDetailList.val}</li>
 		            </ul>
 		            <div class="shopping-car-edit">
-		              <p class="pv5 font-price">￥${orderDetailList.price}x${orderDetailList.num}</p>
+		              <p class="pv5 font-price">￥<span class="unit-price">${orderDetailList.price}</span>x<span class="pur-num">${orderDetailList.num}</span></p>
 		            </div>
 		          </div> 
 		    	</c:forEach>
@@ -73,7 +73,7 @@
 		  		  	<a href="receipt/${orderList.id}" class="btn fr">确认收货</a>
 		  		  </c:if>	  
 		      	  <p class="fr">合计：<span class="font-price">￥${orderList.totalPrice}</span></p>
-		      	  <p class="fr mr10">共1件商品</p>
+		      	  <p class="fr mr10">共<span class="pur-total"></span>件商品</p>
 		      	</div>
 		      </div>
 			</c:forEach>
@@ -122,6 +122,15 @@
 				$("#orderId").val(id);	
 				$("#orderNum").val(ordernum);
 				$("#paymentForm").submit();
+			});
+			$(".order-state-detail").each(function(){
+				var num = 0;
+				var val = 0;
+			    for(var i=0; i<$(this).find(".pur-num").length; i++) {
+			    	val = parseInt($(this).find(".pur-num").eq(i).text(), 10);
+			    	num += val;
+			    }
+			    $(this).find(".pur-total").text(num);
 			});
 		});    	
     </script>

@@ -15,6 +15,7 @@
     <title>${webapp}</title>
     <meta name="keywords" content="${webapp}">
     <meta name="description" content="${webapp}">
+   
     <link rel="shortcut icon" href="favicon.ico"> 
     <link href="<%=basePath %>/assets/management/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
     <link href="<%=basePath %>/assets/management/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
@@ -44,30 +45,29 @@
                     <div class="ibox-title">
                         <h5>商品管理<small>查找，新增，修改</small></h5>
                         <div class="ibox-tools">
-                            <a data-toggle="modal" href="#addModal" id="add-row">
+                            <a href="../addGoods/index" id="add-row">
                                 <i class="fa fa-plus"></i>
-                            </a>
-                            
+                            </a>                           
                             <a id="delete-row">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </div>
                     </div>
                     <div class="ibox-content">
-                      <div class="row">
+                        <div class="row">
                             <form role="form">
-		                           <div class="col-sm-6">
-	                                   <div class="form-group">
-	                                       <label>商品名称:</label>
-	                                       <input type="text" placeholder="请输入商品名称" id="name" class="form-control">
-	                                   </div>
-		                           </div>
-		                           <div class="col-sm-6">
-	                           			<div class="form-group">
-	                                       <label>商品编码:</label>
-	                                       <input type="text" placeholder="请输商品编码" id="code" class="form-control">
-	                                   </div>
-		                           </div>
+	                           <div class="col-sm-6">
+                                   <div class="form-group">
+                                       <label>商品名称:</label>
+                                       <input type="text" placeholder="请输入商品名称" id="name" class="form-control">
+                                   </div>
+	                           </div>
+	                           <div class="col-sm-6">
+                           			<div class="form-group">
+                                       <label>商品编码:</label>
+                                       <input type="text" placeholder="请输商品编码" id="code" class="form-control">
+                                   </div>
+	                           </div>
                             </form>
                         </div>
                     </div>
@@ -76,7 +76,9 @@
 							<thead>
 								<th></th>
 								<th class="check-header hidden-xs">
-									<label style="margin-right:0px" class="checkbox-inline i-checks"><input id="checkAll" name="checkAll" type="checkbox"></label>
+									<label style="margin-right:0px" class="checkbox-inline i-checks">
+										<input id="checkAll" name="checkAll" type="checkbox">
+									</label>
 								</th>
 								<th>商品名称</th>
 								<th>商品扩充名称</th>
@@ -91,7 +93,6 @@
 							<tbody>
 							</tbody>
 						</table>
-
                     </div>
                 </div>
             </div>
@@ -106,6 +107,7 @@
     <script src="<%=basePath %>/assets/management/datatablejs/base.js"></script>   
     <script src="<%=basePath %>/assets/management/datatablejs/ajaxSubmit.js"></script>
     <script src="<%=basePath %>/assets/management/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="<%=basePath %>assets/management/datatablejs/goods.js" type="text/javascript"></script>
     <script src="<%=basePath %>/assets/management/js/plugins/sweetalert/sweetalert.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/plugin/ueditor/ueditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/plugin/ueditor/ueditor.all.js"> </script>
@@ -116,10 +118,11 @@
     <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
     <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
     <script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
-    <script src="<%=basePath%>assets/management/datatablejs/goods.js" type="text/javascript"></script>
+    
 	<script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/ueditor.config.js"></script>
 	<script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/ueditor.all.js"> </script>
 	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/plugin/select2/js/select2.js"></script>
+	
 	<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
 	<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
 	<script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
@@ -135,20 +138,20 @@
 		var demoIframe;	
 		
 		var setting = {
-				view: {
-					selectedMulti: false				
-				},
-				async: {
-					enable: true,
-					url:"getTreeData",
-					autoParam:["id"],
-					otherParam:{"otherParam":"zTreeAsyncTest"},
-					dataFilter: filter
-				},
-				callback:{
-					onClick: zTreeOnClick
-				}
-			};
+			view: {
+				selectedMulti: false				
+			},
+			async: {
+				enable: true,
+				url:"getTreeData",
+				autoParam:["id"],
+				otherParam:{"otherParam":"zTreeAsyncTest"},
+				dataFilter: filter
+			},
+			callback:{
+				onClick: zTreeOnClick
+			}
+		};
 		
 		$("#blank").click(function(){
 			alert("1111");
@@ -194,5 +197,4 @@
     </script>
 
 </body>
->>>>>>> branch 'master' of https://git.oschina.net/liutengda/shop.git
 </html>

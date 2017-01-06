@@ -16,7 +16,6 @@
 					<input type="hidden" name="ids" id="ids">
 				</form>
 			</div>
-			<hr>
 			<div class="modal-footer">
 				<button class="btn btn-primary" id="deletesubmit" type="button">确定</button>
 				<button class="btn btn-default-outline" data-dismiss="modal"

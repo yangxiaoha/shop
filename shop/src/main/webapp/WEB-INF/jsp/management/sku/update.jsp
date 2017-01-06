@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="modal fade" id="updateModal">
 	<div class="modal-dialog" style="width:700px;">
 		<div class="modal-content">
@@ -14,88 +14,84 @@
 					type="button">&times;</button>
 				<h4 class="modal-title">
 					修改商品 <span class="loading" style=""></span>
-					<input type="hidden" id="basepath" value="<%=basePath %>">
-					
+					<input type="hidden" id="basepath" value="<%=basePath %>">					
 				</h4>
 			</div>
 			<div class="modal-body">
 				<form action="update" id="update" method="post">
 					<fieldset>
 						<div class="row">
-						<div class="col-md-7">
-							<input type="hidden" id="uid" name="id">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="price">商品价格(*)</label><input class="form-control"
+							<div class="col-md-7">
+								<input type="hidden" id="uid" name="id">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="price">商品价格(*)</label><input class="form-control"
 											placeholder="请输入商品价格" id="uprice" name="price" type="text">
+										</div>
 									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="code">特征量编码</label><input class="form-control"
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="code">特征量编码</label><input class="form-control"
 											placeholder="请输入特征量编码" id="ucode" name="code" type="text">
+										</div>
 									</div>
 								</div>
-							</div>
-							<c:forEach items="${goodsM.pros}" var="p" varStatus="status">
-								<c:if test="${status.index%2 == 0}">
-									<div class="row">
-								</c:if>
+								<c:forEach items="${goodsM.pros}" var="p" varStatus="status">
+									<c:if test="${status.index%2 == 0}">
+										<div class="row">
+									</c:if>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="proId">${p.name }(*)</label>
+											<input class="form-control uvalue" placeholder="请输入${p.name }" title="${p.name }不能为空"
+											id="a${status.index}" required="required" name="value" type="text"> 
+											<input type="hidden" id="b${status.index}" name="" type="text">
+											<input class="uproId" type="hidden" id="" name="proId" value="${p.id }" type="text">
+											<input type="hidden" id="uids" name="ids" type="text">
+										</div>
+									</div>
+								 	<c:set var="last" value="${status.last }"></c:set>
+								 	<c:set var="odd" value="${status.index%2 == 1}"></c:set>										 
+									<c:if test="${(odd)||(last)}">
+										</div>
+									</c:if>
+								</c:forEach>
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="proId">${p.name }(*)</label><input
-											class="form-control uvalue" placeholder="请输入${p.name }" title="${p.name }不能为空"
-											id="a${status.index}" required="required" name="value"
-											type="text"> <input type="hidden" 
-											id="b${status.index}" name="" type="text">
-											<input class = "uproId" type = "hidden"	id="" name="proId" value = "${p.id }" 
-											type="text">
-											<input type = "hidden"	id="uids" name="ids" 
-											type="text">
-									</div>
-								</div>
-								 <c:set var="last" value="${status.last }"></c:set>
-								 <c:set var="odd" value="${status.index%2 == 1}"></c:set>										 
-								<c:if test="${(odd)||(last)}">
-									</div>
-								</c:if>
-							</c:forEach>
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type="hidden" id="ugoodsId" name="goodsId" value="${goodsM.id }"
+										<input type="hidden" id="ugoodsId" name="goodsId" value="${goodsM.id }"
 										type="text">
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-md-5">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<p>请选择图片(大小不超过：300*150)</p>
-										<p class="error" style="display: none;"></p>
-										<div class="pic">
-											<div id="preview" class="preview">
-											<input type="hidden" name="url" id="uurl">
-												<img id="uimghead" class="imghead" width="240" height="240">
+							<div class="col-md-5">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<p>请选择图片(大小不超过：300*150)</p>
+											<p class="error" style="display: none;"></p>
+											<div class="pic">
+												<div id="preview" class="preview">
+												<input type="hidden" name="url" id="uurl">
+													<img id="uimghead" class="imghead" width="240" height="240">
+												</div>
+												<input type="file" name="photourl" class="image_file"
+													id="updatephoto" onchange="previewImage(this,'uimghead')">
 											</div>
-											<input type="file" name="photourl" class="image_file"
-												id="updatephoto" onchange="previewImage(this,'uimghead')">
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</fieldset>
-			</form>		
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-primary" id="updatesubmit" type="button">保存</button>
-			<button class="btn btn-default-outline" data-dismiss="modal"
+					</fieldset>
+				</form>		
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" id="updatesubmit" type="button">保存</button>
+				<button class="btn btn-default-outline" data-dismiss="modal"
 				type="button">取消</button>
+			</div>
 		</div>
-	</div>
 	</div>
 </div>
 <script>

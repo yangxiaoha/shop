@@ -14,22 +14,21 @@ $(document).ready(function(){
                     { "data": "code" }, 
                     { "data": "value","orderable":false,"visible":false  }, 
                     { "data": "goodsId","orderable":false,"visible":false }, 
-                    { "data":"id","className": "actions","orderable":false },
-                    { "data":"id","className": "actions","orderable":false },
+                    { "data": "id","className": "actions","orderable":false },
+                    { "data": "id","className": "actions","orderable":false },
                 ],
         "aoColumnDefs": [
            {
-             "targets": [1],
-             "data": "id",
-             "orderable":false,
-             "render": function(data, type, full,meta) {
-               return '<label><input name="id" type="checkbox" value="'+data+'"><span></span></label>';
-             }
+        	   "targets": [1],
+               "data": "id",
+               "render": function(data, type, full,meta) {
+              	 return '<label style="margin-right:0px" class="checkbox-inline i-checks"><input type="checkbox" value="'+data+'"></label>';
+               }
            },          
            {
                "targets": [8],
                "data": "id",
-               "render": function(data, type, full,meta) {
+               "render": function(data, type, full, meta) {
                  return '<div class="action-buttons">'+
                  			'<a class="table-actions update" data-rowid="'+meta.row+'" href="javascript:void(0)"><i class="icon-pencil"></i></a>'+
                  			'<a class="table-actions updateAdd" data-rowid="'+meta.row+'" href="javascript:void(0)"><i class="icon-plus-sign-alt"></i></a>'+
@@ -39,14 +38,15 @@ $(document).ready(function(){
             {
                 "targets": [9],
                 "data": "id",
-                "render": function(data, type, full,meta) {
+                "render": function(data, type, full, meta) {
                   return '<div class="action-buttons">'+
-                  '<button class="btn btn-xs btn-primary see" data-rowid="'+meta.row+'" href="javascript:void(0)">商品详情</button>'+
-                  		'</div>';
+                  		 '<button class="btn btn-xs btn-primary see mb0" data-rowid="'+meta.row+'" href="javascript:void(0)">商品详情</button>'+
+                  		 '</div>';
                 }
              }
         ],
         "drawCallback":function(settings){
+        	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})
         	$(".updateAdd").click(function(){        		
         		var rowid = $(this).data("rowid");
         		var api = new $.fn.dataTable.Api( settings );

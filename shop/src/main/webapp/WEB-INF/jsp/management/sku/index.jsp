@@ -10,15 +10,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>品牌管理</title>
+<title>${webapp}</title>
+<link rel="shortcut icon" href="favicon.ico"> 
+<link href="<%=basePath%>assets/management/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="<%=basePath%>assets/management/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="<%=basePath%>assets/management/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="<%=basePath%>assets/management/css/animate.min.css" rel="stylesheet">
+<link href="<%=basePath%>assets/management/css/style.min862f.css?v=4.1.0" rel="stylesheet">
 <script type="text/javascript">
  	var goodsId = ${goodsM.id};
 </script>
-<script
-	src="<%=basePath%>assets/management/datatablejs/sku.js"
-	type="text/javascript"></script>
-</head>
-<body>
+<script src="<%=basePath%>assets/management/js/plugins/iCheck/icheck.min.js"></script>
+<script src="<%=basePath%>assets/management/datatablejs/sku.js" type="text/javascript"></script>
 <style type="text/css">
 	#add .pic {
 	    width: 240px;
@@ -48,57 +51,59 @@
 	#control {
 		color: #007aff;
 	}
+	.mb0 {
+		margin-bottom: 0 !important;
+	}
+	.mb10 {
+		margin-bottom: 10px !important;
+	}
 </style>
-	<div class="container-fluid main-content">
-		<!-- DataTables Example -->
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="widget-container fluid-height clearfix">
-					<div class="col-lg-3">
-						<div class="row">
-							<div class="col-lg-7">
-								<p>商品名称：${goodsM.name }</p>
-								<p>扩充名称：${goodsM.exp_name }</p>
-								<p>商品总量：${goodsM.quantity }</p>
-								<p>商品编码：${goodsM.code }</p>
-								<p>商品品牌：${goodsM.brandName }</p>
-								<p>所属门店：${goodsM.store }</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-9">
-						<div class="heading">
-							<i class="icon-table"></i>商品管理 <a
-								class="btn btn-sm btn-primary-outline pull-right"
-								data-toggle="modal" href="#addModal" id="add-row"><i
-								class="icon-plus"></i>添加</a>
-						</div>
-						<div class="widget-content padded clearfix">
-							<table class="table table-bordered table-striped table-hover"
-								id="datatable" width="100%">
-								<thead>
-									<th></th>
-									<th class="check-header hidden-xs"><label><input
-											id="checkAll" name="checkAll" type="checkbox"><span></span></label>
-									</th>
-									<th>商品名称</th>
-									<th>商品数量</th>
-									<th>商品价格</th>
-									<th>特征量编码</th>
-									<th></th>
-									<th></th>
-									<th style="color: #007aff;">操作</th>
-									<th></th>
-								</thead>
-								<tbody>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row" style="margin: 0;">
+        	<div class="col-sm-3 ibox-title">
+        		<p>商品名称：${goodsM.name }</p>
+				<p>扩充名称：${goodsM.exp_name }</p>
+				<p>商品总量：${goodsM.quantity }</p>
+				<p>商品编码：${goodsM.code }</p>
+				<p>商品品牌：${goodsM.brandName }</p>
+				<p>所属门店：${goodsM.store }</p>
+        	</div>
+            <div class="col-sm-9" style="">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>商品管理<small>查找，新增，修改</small></h5>
+                        <div class="ibox-tools">
+                            <a data-toggle="modal" href="#addModal" id="add-row">
+                                <i class="fa fa-plus"></i>
+                            </a>                           
+                        </div>
+                    </div>
+                    <div class="ibox-contentTable">
+                    	<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
+							<thead>
+								<th></th>
+								<th class="check-header hidden-xs">
+									<label style="margin-right:0px" class="checkbox-inline i-checks"><input id="checkAll" name="checkAll" type="checkbox"></label>
+								</th>
+								<th>商品名称</th>
+								<th>商品数量</th>
+								<th>商品价格</th>
+								<th>特征量编码</th>
+								<th></th>
+								<th></th>
+								<th style="color: #007aff;">操作</th>
+								<th></th>	
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 	<jsp:include page="update.jsp" />
 	<jsp:include page="add.jsp" />
 	<jsp:include page="updateAdd.jsp" />

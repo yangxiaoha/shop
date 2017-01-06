@@ -108,8 +108,13 @@ public class MainIndexCtrler {
 	public Map<String,Object> loadIndex(Integer pageStart, Integer num, String flag, String keyword, String typeId) {
 		Map<String,Object> map = new HashMap<String, Object>();
 		//商品数据
-		List<Goods> goodsList = goodsService.getGoodsByCondition(pageStart, num, flag, keyword, typeId);
-		map.put("goodsMsg", goodsList);
+		if(("0").equals(flag) && keyword == null && typeId == null) {
+			List<Goods> goodsList = goodsService.getGoods(pageStart, num, flag, keyword, typeId);
+			map.put("goodsMsg", goodsList);
+		}else {
+			List<Goods> goodsList = goodsService.getGoodsByCondition(pageStart, num, flag, keyword, typeId);
+			map.put("goodsMsg", goodsList);
+		}			
 		return map;
 	}
 	
@@ -134,12 +139,17 @@ public class MainIndexCtrler {
 		ModelAndView mv = new ModelAndView("home/type-detail");	
 		Integer pageStart = 0;
 		Integer num = 3;
+		String flag = "";
+		String keyword = "";
 		List<Goods> goodsList = goodsService.getGoodsByTypeId(pageStart, num, Integer.toString(typeId));
 		//商品类型数据
 		List<GoodsType> typeList = goodsTypeService.getType();
+		//符合商品数量的个数
+		Integer total = goodsService.getGoodsTotal(flag, keyword, typeId.toString());
 		mv.addObject("typeId", typeId);
 		mv.addObject("goodsMsg", goodsList);
 		mv.addObject("typeMsg", typeList);
+		mv.addObject("total", total);
 		return mv;
 	}
 	
@@ -150,7 +160,10 @@ public class MainIndexCtrler {
 		Map<String,Object> map = new HashMap<String, Object>();	
 		Integer pageStart = 0;
 		List<Goods> goodsList = goodsService.getGoodsByCondition(pageStart, num, flag, keyword, typeId);
+		//符合商品数量的个数
+		Integer total = goodsService.getGoodsTotal(flag, keyword, typeId.toString());
 		map.put("goodsMsg", goodsList);
+		map.put("total", total);
 		return map;
 	}
 	

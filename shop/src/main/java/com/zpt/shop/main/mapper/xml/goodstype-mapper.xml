@@ -80,11 +80,10 @@
 	
 	<select id="getType" resultMap="resultMap">
 	    select type.*, t_goods_type.id as type_id, t_goods_type.name as type_name, 
-	    t_goods_type.pid as type_pid, t_goods_type.isparent as type_isparent from  
-		(select * from t_goods_type where pid = 0) as type 
-		left join t_goods_type 
+		t_goods_type.pid as type_pid, t_goods_type.isparent as type_isparent from  
+		(select * from t_goods_type where pid = 0 and state = 1) as type 
+		left join (select * from t_goods_type where state = 1) as t_goods_type 
 		on type.id = t_goods_type.pid
-		where t_goods_type.state = 1
 	</select>
 
 </mapper>

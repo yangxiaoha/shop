@@ -16,7 +16,6 @@
 					<input type="hidden" name="id" id="tid">
 				</form>
 			</div>
-			<hr>
 			<div class="modal-footer">
 				<button class="btn btn-primary" id="sticksubmit" type="button">确定</button>
 				<button class="btn btn-default-outline" data-dismiss="modal"

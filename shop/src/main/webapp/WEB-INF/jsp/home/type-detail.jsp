@@ -15,7 +15,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>一见喜</title>
-<link rel="stylesheet" href="<%=basePath%>assets/home/dropload-gh-pages/dist/dropload.css">
+<link rel="stylesheet" href="<%=basePath%>assets/home/css/pullToRefresh.css">
 <style>
 	.active {
 		color: red;
@@ -29,6 +29,7 @@
 	    </div>
 	    
 		<input id="typeId" value="${typeId}" />
+		<input id="total" type="hidden" value="${total}" />
 	    <div class="type-detail">
 	      <div class="type-show fl">
 	      	<c:forEach items="${typeMsg}" var="typeList">
@@ -50,28 +51,25 @@
 	          </div>
 			</c:forEach>
 	      </div>
-	      <div id="loadGoods">
-	        <div class="goods-detail fr">
-	          <c:forEach items="${goodsMsg}" var="goodsList">
-			    <div class="goods-show">
-			      <a href="../goodsDetail/${goodsList.id}">
-			        <img src="<%=basePath%>${goodsList.url}" />
-				    <p class="p5">${goodsList.name}</p>
-				    <c:if test="${!empty goodsList.price}">
-				      <p class="mb5 font-price">￥${goodsList.price}</p>
-					</c:if>
-				    <c:if test="${empty goodsList.price}">
-					  <p class="mb5 font-price">￥0.00</p>
-					</c:if>
-			      </a>
-			    </div>
-	          </c:forEach>
-	        </div>
+	      <div style="position: relative; width: 76%; height: 100%; float: right;">
+	      	<div id="wrapper">
+		      <ul class="goods-detail">
+			    <c:forEach items="${goodsMsg}" var="goodsList">
+			      <li class="goods-show">
+			    	<a href="goodsDetail/${goodsList.id}">
+			    	  <img src="<%=basePath%>${goodsList.url}" />
+					  <p class="p5 goods-name">${goodsList.name}</p>
+					  <p class="mb5 font-price">￥${goodsList.price}</p>
+			    	</a>
+				  </li>
+				</c:forEach>
+			  </ul>
+		    </div>
 	      </div>
 	    </div>
     </div>
-    
-    <script src="<%=basePath%>assets/home/dropload-gh-pages/dist/dropload.min.js"></script>
+    <script src="<%=basePath%>assets/home/js/iscroll.js"></script>
+    <script src="<%=basePath%>assets/home/js/pullToRefresh.js"></script>
 	<script type="text/javascript">
     	$(document).ready(function(){
     		var typeId = $("#typeId").val();
@@ -85,7 +83,7 @@
 	    		}
 			});
 			$(".type-detail-show ul li").click(function() {
-				var typeId = $(this).find(".getTypeId").val();
+				typeId = $(this).find(".getTypeId").val();
 				if($(this).hasClass("active")) {
 					$(this).removeClass("active");
 				}else {
@@ -95,7 +93,7 @@
 				}				
 			});
 			$(".type-detail-show p").click(function() {
-				var typeId = $(this).siblings(".getTypeId").val();
+				typeId = $(this).siblings(".getTypeId").val();
 				if($(this).hasClass("active")) {
 					$(this).removeClass("active");
 					$(this).siblings("ul").hide();
@@ -121,6 +119,7 @@
 			   	    dataType: "json",
 			   	    success: function(data) {
 		   	    		$(".goods-detail").html("");
+		   	    		$("#total").val(data.total);
 		   	    		$.each(data.goodsMsg, function(i, goodsList) {   
 		   	    			$(".goods-detail").append( 
 		   	    				'<div class="goods-show">'+
@@ -135,64 +134,93 @@
 		   			}
 		        })
 			}
+
+	    	var num = 3;
+	        var pageStart = 3;
+	    	refresher.init({
+	    		id:"wrapper",
+	    		pullDownAction:Refresh,
+	    		pullUpAction:Load
+	    	});
+	    	
+	    	function Refresh() {
+	    		pageStart = 0;
+	    		setTimeout(function () {
+	    			$.ajax({
+	    	            type: 'POST',
+	    	            url: '<%=basePath%>home/mainindex/loadIndex',
+	    	            data: {    	                
+	    	            	pageStart:0,
+	    	            	num:3,
+	    	            	flag:"",
+	    		   	    	keyword:"",
+	    		   	    	typeId:typeId
+	    		   	    },
+	    	            dataType: 'json',
+	    	            success: function(data){
+	    	                var result = '';
+	    	                pageStart = pageStart + num;
+	    	                $('.goods-detail').html("");
+	    	                if(data.goodsMsg != null) { 
+	    	                    for(var i = 0; i < data.goodsMsg.length; i++){
+	    	                        result += '<li class="goods-show">'+
+	    			          	  	    	'<a href="goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
+	    					            	'<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
+	    									'<p class="p5">'+data.goodsMsg[i].name+'</p>'+
+	    									'<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
+	    									'</a>'+
+	    									'</li>';
+	    	                    }
+	    	                    $('.goods-detail').append(result);
+	    	                }
+	    	            }
+	    	        });	
+	    			refresher.loadflag = true;
+	    			myScroll.refresh();			
+	    		}, 1000);
+	    	}
+
+	    	function Load() {
+	    		setTimeout(function () {
+	    	        $.ajax({
+	    	            type: 'POST',
+	    	            url: '<%=basePath%>home/mainindex/loadIndex',
+	    	            data: {    	                
+	    	            	pageStart:pageStart,
+	    	            	num:num,
+	    	            	flag:"",
+	    		   	    	keyword:"",
+	    		   	    	typeId:typeId
+	    		   	    },
+	    	            dataType: 'json',
+	    	            success: function(data){
+	    	                var result = '';
+	    	                pageStart = pageStart + num;
+	    	                
+	    	                if(data.goodsMsg != null) {  
+	    	                    for(var i = 0; i < data.goodsMsg.length; i++){
+	    	                        result += '<li class="goods-show">'+
+	    			          	  	    	'<a href="goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
+	    					            	'<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
+	    									'<p class="p5">'+data.goodsMsg[i].name+'</p>'+
+	    									'<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
+	    									'</a>'+
+	    									'</li>';
+	    	                    }
+	    	                    $('.goods-detail').append(result);
+	    	                }
+	    	            }
+	    	        });
+	    	        alert(pageStart);
+	    	        if(pageStart < $("#total").val()) {
+	                    refresher.loadflag = true;
+	    	        }else {
+	    	        	refresher.loadflag = false;
+	    	        }
+	    			myScroll.refresh();
+	    		}, 1000);
+	    	}
 		});
 	</script>
-	<!-- 加载更多 -->
-    <script>
-	    $(document).ready(function(){
-	    	var num = 3;
-    	    var pageStart = 3;
-    	    // dropload
-    	    $('#loadGoods').dropload({
-    	    	scrollArea : window,
-    	        loadDownFn : function(me){
-    	            $.ajax({
-    	                type: 'POST',
-    	                url: '../loadIndex',
-    	                data: {    	                
-    	                	pageStart:pageStart,
-    	                	num:num,
-    	                	flag:0,
-    			   	    	keyword:"",
-    			   	    	typeId:""
-    			   	    },
-    	                dataType: 'json',
-    	                success: function(data){
-    	                    var result = '';
-    	                    pageStart = pageStart + num;
-    	                    
-    	                    for(var i = 0; i < data.goodsMsg.length; i++){
-    	                        result += '<div class="goods-show">'+
-   			          	  	    		'<a href="../goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
-   					            		'<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
-										'<p class="p5">'+data.goodsMsg[i].name+'</p>'+
-										'<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
-										'</a>'+
-										'</div>';
-    	                        if((i + 1) >= data.goodsMsg.length){
-    	                            // 锁定
-    	                            me.lock();
-    	                            // 无数据
-    	                            me.noData();
-    	                            break;
-    	                        }
-    	                    }
-    	                    // 为了测试，延迟1秒加载
-    	                    setTimeout(function(){
-    	                        $('.goods-detail').append(result);
-    	                        // 每次数据加载完，必须重置
-    	                        me.resetload();
-    	                    },1000);
-    	                },
-    	                error: function(xhr, type){
-    	                    alert('Ajax error!');
-    	                    // 即使加载出错，也得重置
-    	                    me.resetload();
-    	                }
-    	            });
-    	        }
-    	    });
-	    });
-    </script>
 </body>
 </html>

@@ -34,8 +34,7 @@ public class BrandServiceImpl implements BrandService {
 	@Override
 	public void updateBrand(Brand brand) {
 		// TODO Auto-generated method stub
-		brandMapper.updateBrand(brand);
-		
+		brandMapper.updateBrand(brand);	
 	}
 
 	@Override
@@ -65,7 +64,7 @@ public class BrandServiceImpl implements BrandService {
 	@Override
 	public List<Brand> getBrandBySupplierId(String supplierId) {
 		// TODO Auto-generated method stub
-		List<Brand> list = brandMapper.getBrandBySupplier(supplierId);
+		List<Brand> list = brandMapper.getBrandBySupplierId(supplierId);
 		if(list != null && list.size() > 0){
 			return list;
 		}
@@ -77,6 +76,16 @@ public class BrandServiceImpl implements BrandService {
 		// TODO Auto-generated method stub
 		List<Brand> list = brandMapper.getAllBrand();
 		if(list != null && list.size() > 0){
+			return list;
+		}
+		return null;
+	}
+
+	@Override
+	public Brand getBrandById(Integer id) {
+		// TODO Auto-generated method stub
+		Brand list = brandMapper.getBrandById(id);
+		if(list != null && !("".equals(list))){
 			return list;
 		}
 		return null;

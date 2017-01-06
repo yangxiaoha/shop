@@ -88,13 +88,6 @@
 
 		<div id="wrapper">
 		  <ul class="goods-detail">
-		      <li class="goods-show">
-		    	<a href="goodsDetail/f">
-		    	  <img src="<%=basePath%>assets/home/images/banner.png" />
-				  <p class="p5 goods-name">dfdsf</p>
-				  <p class="mb5 font-price">￥fdsf</p>
-		    	</a>
-			  </li>
 		    <c:forEach items="${goodsMsg}" var="goodsList">
 		      <li class="goods-show">
 		    	<a href="goodsDetail/${goodsList.id}">

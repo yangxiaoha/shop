@@ -621,6 +621,7 @@
     
     <script type="text/javascript">
     	$(document).ready(function() {
+    		
     		var state = ${state};
     	    //结算
     	    $("#submitOrder").click(function() {
@@ -633,7 +634,7 @@
     	    			var goodsName = $(this).find(".goodsNameInput").val();
     	    			var skuNum = $(this).find(".goodsSkuNum").val();
     	    		    if(parseInt(goodsNum, 10) > parseInt(skuNum, 10)) {
-    	    		    	str = str + goodsName + "\n";
+    	    		    	str = str + goodsName + " ";
     	    		    }
     	    		});
     	    		if(str.length > 0){

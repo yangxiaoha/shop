@@ -32,7 +32,7 @@ $(document).ready(function(){
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
-			                '<a class="" href="../sku/index?goodsId='+data+'"><i class="fa fa-sitemap"></i></a>'+
+			                '<a class="table-actions" href="../sku/index?goodsId='+data+'"><i class="fa fa-sitemap"></i></a>'+
 			                '<a class="table-actions detail" data-rowid="'+meta.row+'" data-id="'+data+'" href="javascript:void(0)"><i class="fa fa-file-word-o"></i></a>'+
                  			'<a class="table-actions update" data-rowid="'+meta.row+'" href="javascript:void(0)"><i class="fa fa-pencil"></i></a>'+
                  			'<a class="table-actions stick" data-id="'+data+'" href="javascript:void(0)"><i class="fa fa-arrow-up"></i></a>'+
@@ -42,7 +42,7 @@ $(document).ready(function(){
             }
         ],
         "drawCallback":function(settings){
-        	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})
+        	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
         	$(".del").click(function(){
         		$("#ids").val($(this).data("id"));
         		$("#delModal").modal('show');
@@ -87,14 +87,14 @@ $(document).ready(function(){
         				var idstemp = ","+obj.ids+",";
         				for (var i=0;i<res.length;i++){
         					var restemp = idstemp.indexOf(","+res[i].id+",");
-//        					alert(idstemp);
         					if(restemp != -1){        						
-        						checkboxhtml = checkboxhtml + "<label class=\"checkbox\"><input name=\"idstemp\" value="+res[i].id+" type=\"checkbox\" checked=\"checked\"><span>"+res[i].name+"</span></label>"
+        						checkboxhtml = checkboxhtml + '<div class="checkbox i-checks"><label><input name="idstemp" type="checkbox" value="'+res[i].id+'" checked=""> <i></i>'+res[i].name+'</label></div>'
         					}else{        							
-        						checkboxhtml = checkboxhtml + "<label class=\"checkbox\"><input name=\"idstemp\" value="+res[i].id+" type=\"checkbox\"><span>"+res[i].name+"</span></label>"
+        						checkboxhtml = checkboxhtml + '<div class="checkbox i-checks"><label><input name="idstemp" type="checkbox" value="'+res[i].id+'"> <i></i>'+res[i].name+'</label></div>'	
         					}        				
         				}
         				$("#ucheckbok").html(checkboxhtml);
+        				$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
         			},
         			error:function(res){
         				

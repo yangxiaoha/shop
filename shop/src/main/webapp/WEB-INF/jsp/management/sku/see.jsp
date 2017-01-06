@@ -8,73 +8,73 @@
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
 				<h4 class="modal-title">商品详情
-				<span class="loading" style=""></span>
+					<span class="loading" style=""></span>
 				</h4>
 			</div>
 			<div class="modal-body">
 				<form action="see" id="see" method="post">
 					<fieldset>
 						<div class="row">
-						<div class="col-md-8">
-							<div class="row">
-								<div class="col-lg-6">
-									<p>商品名称：${goodsM.name }</p>
-									<p>商品编码：${goodsM.code }</p>									
-								</div>
-								<div class="col-lg-6">
-									<p>商品品牌：${goodsM.brandName }</p>									
-								</div>										
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<span>商品数量：</span>
-									<span id="snum"></span>
-								</div>			
-								<div class="col-md-6">
-									<span>商品价格：</span>
-									<span id="sprice"></span>									
-								</div>
-							</div>
-							<div class="row">							
-								<div class="col-md-12">
-									<span>特征量编码：</span>
-									<span id="scode"></span>									
-								</div>
-							</div>									
-							<c:forEach items="${goodsM.pros}" var="p" varStatus="status">
-							<c:if test="${status.index%3 == 0}">
+							<div class="col-md-8">
 								<div class="row">
-							</c:if>
-							<div class="col-md-4">
-								<div class="form-group">
-									<span>${p.name }:</span><input
-										class="form-control" placeholder="请输入${p.name }"
-										id="s${status.index}" required="required" name=""
-										type="text" readonly = "readonly"> 
+									<div class="col-lg-6">
+										<p>商品名称：${goodsM.name }</p>
+										<p>商品编码：${goodsM.code }</p>									
+									</div>
+									<div class="col-lg-6">
+										<p>商品品牌：${goodsM.brandName }</p>									
+									</div>										
 								</div>
-							</div>
-							<c:set var="last" value="${status.last }"></c:set>
-							<c:set var="odd" value="${status.index%3 == 2}"></c:set>										 
-							<c:if test="${(odd)||(last)}">
+								<div class="row">
+									<div class="col-md-6 mb10">
+										<span>商品数量：</span>
+										<span id="snum"></span>
+									</div>			
+									<div class="col-md-6 mb10">
+										<span>商品价格：</span>
+										<span id="sprice"></span>									
+									</div>
 								</div>
-							</c:if>
-							</c:forEach>
+								<div class="row">							
+									<div class="col-md-12 mb10">
+										<span>特征量编码：</span>
+										<span id="scode"></span>									
+									</div>
+								</div>									
+								<c:forEach items="${goodsM.pros}" var="p" varStatus="status">
+									<c:if test="${status.index%3 == 0}">
+										<div class="row">
+									</c:if>
+									<div class="col-md-4">
+										<div class="form-group">
+											<span>${p.name }:</span>
+											<input class="form-control" placeholder="请输入${p.name }"
+											id="s${status.index}" required="required" name=""
+											type="text" readonly = "readonly"> 
+										</div>
+									</div>
+									<c:set var="last" value="${status.last }"></c:set>
+									<c:set var="odd" value="${status.index%3 == 2}"></c:set>										 
+									<c:if test="${(odd)||(last)}">
+										</div>
+									</c:if>
+								</c:forEach>
 							</div>
 							<div class="col-md-4">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<p>商品图片</p>
-										<p class="error" style="display: none;"></p>
-										<div class="pic">
-											<div id="preview" class="preview">
-												<img id="simghead" class="imghead" width="240" height="240">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<p>商品图片</p>
+											<p class="error" style="display: none;"></p>
+											<div class="pic">
+												<div id="preview" class="preview">
+													<img id="simghead" class="imghead" width="240" height="240">
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>							
+							</div>							
 						</div>
 					</fieldset>
 				</form>
