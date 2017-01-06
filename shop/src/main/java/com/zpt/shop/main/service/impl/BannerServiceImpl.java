@@ -84,10 +84,10 @@ public class BannerServiceImpl implements BannerService {
 		if(file != null){
 			backPath = this.uploadPhoto(file, path);
 		}
-		if (backPath != "0"){			
+		if (backPath != ""&& backPath!= null){			
 			banner.setImage(backPath);
-			bannerMapper.updateBanner(banner);
 		}
+		bannerMapper.updateBanner(banner);
 	}
 
 	@Override

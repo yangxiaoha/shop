@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,15 +14,38 @@ import org.springframework.stereotype.Service;
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.common.pojo.RandomArray;
+import com.zpt.shop.common.weixin.EnterpriseToUserMsg;
+import com.zpt.shop.common.weixin.WxMpConfigStorage;
+import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.entities.Withdraw;
+import com.zpt.shop.main.mapper.DistributionMapper;
+import com.zpt.shop.main.mapper.UserMapper;
 import com.zpt.shop.main.mapper.WithdrawMapper;
 import com.zpt.shop.main.service.WithdrawService;
+import com.zpt.shop.main.service.WxMpService;
+import com.zpt.shop.weixin.utils.CollectionUtil;
+import com.zpt.shop.weixin.utils.WeixinUtils;
+import com.zpt.shop.weixin.utils.XmlUtil;
 
 @Service
 public class WithdrawServiceImpl implements WithdrawService {
 
 	@Autowired
 	private WithdrawMapper withdrawMapper;
+	
+	@Autowired
+	private DistributionMapper distributionMapper;
+	
+	@Autowired
+	private WxMpConfigStorage wxMpConfigStorage;
+	
+	@Autowired
+	private WxMpService wxMpService;
+	
+	@Autowired
+	private UserMapper userMapper;
+
+
 
 	/**
 	 * 获取会员信息
@@ -117,8 +142,45 @@ public class WithdrawServiceImpl implements WithdrawService {
 
 	@Override
 	public void updateState(Withdraw withdraw) {
-		// TODO Auto-generated method stub
-		withdrawMapper.updateState(withdraw);
-	}
+		// TODO Auto-generated method stub		
+		Map<String, String> restmap = null;
+		try {
+			String partner_trade_no = "pay"+System.currentTimeMillis();
+			Map<String, String> parm = new HashMap<String, String>();
+			parm.put("mch_appid", wxMpConfigStorage.getAppId()); //公众账号appid
+			parm.put("mchid", wxMpConfigStorage.getPartnerId()); //商户号
+			parm.put("nonce_str", System.currentTimeMillis()+""); //随机字符串
+			parm.put("partner_trade_no", partner_trade_no); //商户订单号
+			parm.put("openid", withdraw.getUser().getOpenid()); //用户openid	
+			parm.put("check_name", "NO_CHECK"); //校验用户姓名选项 OPTION_CHECK
+			//parm.put("re_user_name", "安迪"); //check_name设置为FORCE_CHECK或OPTION_CHECK，则必填
+			parm.put("amount", withdraw.getCashMoney()); //转账金额
+			parm.put("desc", "测试转账到个人"); //企业付款描述信息
+			parm.put("spbill_create_ip", wxMpConfigStorage.getIp()); //Ip地址
+			parm.put("sign", wxMpService.getSign(parm, wxMpConfigStorage.getAppId()));
+			String restxml = WeixinUtils.posts("https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers", XmlUtil.xmlFormat(parm, false));
+			restmap = XmlUtil.xmlParse(restxml);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (CollectionUtil.isNotEmpty(restmap) && "SUCCESS".equals(restmap.get("result_code"))) {
+			//LOG.info("转账成功：" + restmap.get("err_code") + ":" + restmap.get("err_code_des"));
+			Map<String, String> transferMap = new HashMap<>();
+			transferMap.put("partner_trade_no", restmap.get("partner_trade_no"));//商户转账订单号
+			transferMap.put("payment_no", restmap.get("payment_no")); //微信订单号
+			transferMap.put("payment_time", restmap.get("payment_time")); //微信支付成功时间			
+			BigDecimal cashMoney = new BigDecimal(withdraw.getCashMoney());
+			BigDecimal money = withdraw.getUser().getMoney().subtract(cashMoney);
+			userMapper.updateStateMoney(withdraw.getUserId(), money);
+			withdrawMapper.updateState(withdraw);
+		}else {
+			if (CollectionUtil.isNotEmpty(restmap)) {
+				//LOG.info("转账失败：" + restmap.get("err_code") + ":" + restmap.get("err_code_des"));
+			}
 
+		}
+		if(withdraw.getState() == 2){			
+			withdrawMapper.updateState(withdraw);
+		}
+	}
 }

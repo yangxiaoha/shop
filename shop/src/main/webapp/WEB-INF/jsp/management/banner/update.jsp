@@ -15,7 +15,7 @@
 				<button aria-hidden="true" class="close" data-dismiss="modal"
 					type="button">&times;</button>
 				<h4 class="modal-title">修改图片
-				<span class="loading" style=""></span>
+				<span id="loading"></span>
 				</h4>
 			</div>
 			<div class="modal-body">
@@ -57,45 +57,42 @@
 			$("#uurl").val($(this).data("url"));
 			var imghead = $("#basepath").val()+$("#uimage").val();
     		$("#uimghead").attr("src",imghead);
-    		$("#uimghead").css({"margin-top":"16px","width":"238px","height":"179px"});            
+    		$("#uimghead").css({"margin-top":"16px","width":"238px","height":"179px"});
     		$("#updateModal").modal("show");
     	});
 		$("#updatesubmit").click(function(){
-			$(this).attr("disabled","disabled");
-     	   	$(".loading").html("<i class=\"icon-spinner icon-spin\"></i>");
-     	   	var fileimage = $("#updatephoto").val();
-     	   	if(fileimage.length == 0){
-     	   		$(".loading").html("<span class=\"label label-danger\">请上传图片</span>");
-     	   	};
-     	   	if(fileimage.length != 0){
-     	   		$.ajaxFileUpload({
-     	   			data:{
-     	   				id:$("#uid").val(),
-     	   				url:$("#uurl").val(),
-     	   			},
-     	   			url:'update',
-     	   			type:'post',
-     	   			secureuri:false,
-     	   			fileElementId: 'updatephoto',
-     	   			dataType: 'json',
-	     	   		success:function(data){
-	        			$(".loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
-	        			setTimeout(function(){
-	        			   $(".loading").html("");
-	        			   $("#updatesubmit").removeAttr("disabled"); 
+//			$(this).attr("disabled","disabled");
+     	   	$("#loading").html("<i class=\"icon-spinner icon-spin\"></i>");
+     	   	var fileimage = $("#updatephoto").val();     	   		
+   	   		$.ajaxFileUpload({
+   	   			data:{     	   				
+   	   				id:$("#uid").val(),
+   	   				url:$("#uurl").val(),
+   	   				image:$("#uimage").val(),
+   	   			},
+   	   			url:'update',
+   	   			type:'post',
+   	   			secureuri:false,
+   	   			fileElementId: 'updatephoto',
+   	   			dataType: 'json',
+    	   		success:function(data){
+       			$("#loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
+       			setTimeout(function(){
+       			   $("#loading").html("");
+       			   $("#updatesubmit").removeAttr("disabled"); 
+       		    },1000);
+       			window.location.reload(); 
+       	    	},
+   	    	
+	       	    error:function(e){
+	       		    $("#loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
+	        		    setTimeout(function(){
+	        			    $("#loading").html("");
+	        			    $("#updatesubmit").removeAttr("disabled"); 
 	        		    },1000);
-	        			window.location.reload(); 
-	        	    },
-	    	    	
-	        	    error:function(e){
-	        		    $(".loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
-	         		    setTimeout(function(){
-	         			    $(".loading").html("");
-	         			    $("#updatesubmit").removeAttr("disabled"); 
-	         		    },1000);
-	        	    }
-     	   		});
-     	   	}
+	       	    },
+    	   	});
+    	   	
 		});		
 	});
 </script>

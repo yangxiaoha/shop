@@ -30,6 +30,16 @@ public class User {
 	
 	public Date endtime;
 	
+	public String isnot;
+	
+	public String getIsnot() {
+		return isnot;
+	}
+
+	public void setIsnot(String isnot) {
+		this.isnot = isnot;
+	}
+
 	public String getStarttime() {
 		if(this.starttime != null){
 			return new SimpleDateFormat("yyyy-MM-dd").format(this.starttime);

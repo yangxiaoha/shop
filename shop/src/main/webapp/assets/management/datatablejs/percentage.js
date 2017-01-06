@@ -3,20 +3,14 @@ $(document).ready(function(){
 	tableI=$("#datatable").DatatableExt({
 		"processing": true,
         "serverSide": true,
-        "ajax": "listData?userId="+userId,
+        "ajax": "listData",
         "language":  "/shop/assets/management/datatablejs/Chinese.json",
         "columns": [
                     { "data": "id","orderable":false,"visible":false},
                     { "data": "id","orderable":false},
-                    { "data": "openid" },
-                    { "data": "regtime" },
-                    { "data": "money" },
-                    { "data": "startmoney","orderable":false,"visible":false },
-                    { "data": "endmoney","orderable":false,"visible":false },
-                    { "data": "starttime","orderable":false,"visible":false },
-                    { "data": "endtime","orderable":false,"visible":false },
-                    { "data":"id","className": "actions","orderable":false },
-                    { "data": "isnot","orderable":false,"visible":false }
+                    { "data": "first" },
+                    { "data": "second" },
+                    { "data":"id","className": "actions","orderable":false }
                 ],
         "aoColumnDefs": [
            {
@@ -27,21 +21,30 @@ $(document).ready(function(){
              }
            },
            {
-               "targets": [9],
+               "targets": [4],
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
-                 		'<a class="" href="index?userId='+data+'"><i class="fa fa-sitemap"></i></a>'+
+                 			'<a class="table-actions update" data-rowid="'+meta.row+'" href="javascript:void(0)"><i class="fa fa-pencil"></i></a>'+
                  		'</div>';
                }
             }
         ],
         "drawCallback":function(settings){
         	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})
+        	$(".update").click(function(){
+        		var rowid = $(this).data("rowid");
+        		var api = new $.fn.dataTable.Api( settings );
+                var obj = api.rows(rowid).data()[0];
+        		$("#uid").val(obj.id);
+        		$("#ufirst").val(obj.first);
+        		$("#usecond").val(obj.second);
+        		$("#updateModal").modal("show");
+        	});
         },
-        "className" : "User",
+        "className" : "Percentage",
         "chosen" : true,
-        "ids" : "#openid,#money",
-        "targets":"2,4"
+        "ids" : "#first,#second",
+        "targets":"2,3"
 	});
 });

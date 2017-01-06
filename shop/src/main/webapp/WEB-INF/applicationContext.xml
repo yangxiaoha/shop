@@ -50,6 +50,7 @@
         <property name="partnerId" value="${weixin.partnerId}"/>
         <property name="partnerKey" value="${weixin.partnerKey}"/>
         <property name="expiresTime" value="${weixin.expiresTime}"/>
+        <property name="ip" value="${weixin.ip}"/>
 	</bean>
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />

@@ -17,8 +17,8 @@
 <link href="<%=basePath %>/assets/management/css/style.min.css" rel="stylesheet">
 <link href="<%=basePath %>/assets/management/css/login.min.css" rel="stylesheet">
 <script src="<%=basePath %>/assets/management/js/jquery.min.js"></script>
+<script src="<%=basePath %>/assets/management/js/md5.js"></script>
 <title>一见喜商城</title>
-
 </head>
 <body class = "signin">
 	<div class="signinpanel">
@@ -45,7 +45,7 @@
 					<div class="form-group">
 						<input class="form-control pword m-b" id="noencryptpassword" placeholder="密码"
 							name="noencryptpassword" type="password"> <input
-							class="form-control" id="password" name="password" type="">
+							class="form-control" id="password" name="password" type="hidden">
 					</div>
 					<button class="btn btn-success btn-block" onclick="submitForm()">登陆</button>					
 				</form>
