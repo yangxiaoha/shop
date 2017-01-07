@@ -47,10 +47,16 @@
     .swiper-slide > img {
         width: 100%;
     }
+    .goods-body {
+    	position: absolute;
+    	width: 100%;
+    	height: 100%;
+    	z-index: 1;
+    }
    </style>
 </head>
 <body>
-	<div id="wrap">
+	<div id="wrap" style="height: 100%">
 	    <!-- Swiper -->
 	    <div class="swiper-container">
 	        <div class="swiper-wrapper">
@@ -60,44 +66,46 @@
 	        </div>
 	    </div>
 
-		<div class="index-menu" style="position: relative;">
-		  	<ul class="menu">
-				<li class="menu-title menu-title-notice" data-toggle="modal" data-target="#myModal">公告</li>
-				<li class="menu-title">最新<input type="hidden" value="1"></li>
-				<li class="menu-title">人气<input type="hidden" value="2"></li>
-				<li class="menu-title">现货<input type="hidden" value="3"></li>
-				<li class="menu-title menu-title-search">
-					<p class="fl screen clearfloat"><span class="glyphicon glyphicon-filter"></span>筛选</p>
-					<p class="fr search clearfloat">
-						<span class="glyphicon glyphicon-search" style="line-height: 40px;"></span>
-					</p>
-				</li>
-		    </ul>	
-		    <input id="flag" type="hidden" value="0" />
-		    <input id="total" type="hidden" value="${total}" />
-		    <ul class="goods-type" style="display: none;">
-		    	<c:forEach items="${goodsTypeMsg}" var="goodsTypeList">
-					<li><a href="goodsType/${goodsTypeList.id}">${goodsTypeList.name}</a></li>
+		<div class="goods-body">
+			<div class="index-menu">
+			  	<ul class="menu">
+					<li class="menu-title menu-title-notice" data-toggle="modal" data-target="#myModal">公告</li>
+					<li class="menu-title">最新<input type="hidden" value="1"></li>
+					<li class="menu-title">人气<input type="hidden" value="2"></li>
+					<li class="menu-title">现货<input type="hidden" value="3"></li>
+					<li class="menu-title menu-title-search">
+						<p class="fl screen clearfloat"><span class="glyphicon glyphicon-filter"></span>筛选</p>
+						<p class="fr search clearfloat">
+							<span class="glyphicon glyphicon-search" style="line-height: 40px;"></span>
+						</p>
+					</li>
+			    </ul>	
+			    <input id="flag" type="hidden" value="0" />
+			    <input id="total" type="hidden" value="${total}" />
+			    <ul class="goods-type" style="display: none;">
+			    	<c:forEach items="${goodsTypeMsg}" var="goodsTypeList">
+						<li><a href="goodsType/${goodsTypeList.id}">${goodsTypeList.name}</a></li>
+					</c:forEach>
+			    </ul>
+			    <div class="goods-search" style="display: none;">
+			    	<input id="keyword" placeholder="请输入关键词" value="">
+			    	<button type="button" id="searchKeyword">搜索</button>
+			    </div>
+			</div>
+	
+			<div id="wrapper">
+			  <ul class="goods-detail">
+			    <c:forEach items="${goodsMsg}" var="goodsList">
+			      <li class="goods-show">
+			    	<a href="goodsDetail/${goodsList.id}">
+			    	  <img src="<%=basePath%>${goodsList.url}" />
+					  <p class="p5 goods-name">${goodsList.name}</p>
+					  <p class="mb5 font-price">￥${goodsList.price}</p>
+			    	</a>
+				  </li>
 				</c:forEach>
-		    </ul>
-		    <div class="goods-search" style="display: none;">
-		    	<input id="keyword" placeholder="请输入关键词" value="">
-		    	<button type="button" id="searchKeyword">搜索</button>
-		    </div>
-		</div>
-
-		<div id="wrapper">
-		  <ul class="goods-detail">
-		    <c:forEach items="${goodsMsg}" var="goodsList">
-		      <li class="goods-show">
-		    	<a href="goodsDetail/${goodsList.id}">
-		    	  <img src="<%=basePath%>${goodsList.url}" />
-				  <p class="p5 goods-name">${goodsList.name}</p>
-				  <p class="mb5 font-price">￥${goodsList.price}</p>
-		    	</a>
-			  </li>
-			</c:forEach>
-		  </ul>
+			  </ul>
+			</div>
 		</div>
 
 		<ul class="tab-bar index-tab-bar">
@@ -154,6 +162,8 @@
     <script>
     	var mySwiper = new Swiper('.swiper-container', {
 			autoplay: 3000,//可选选项，自动滑动
+			loop: true,
+			autoplayDisableOnInteraction : false
 		})
     </script>
     <script>
@@ -163,7 +173,7 @@
 		   		type: "Post",
 		   	    data: {
 		   	    	pageStart:0,
-		   	    	num:3,
+		   	    	num:10,
 		   	    	flag:flag,
 		   	    	keyword:keyword,
 		   	    	typeId:typeId
@@ -191,8 +201,20 @@
     </script>
     <!-- 加载更多 -->
     <script>
-	var num = 3;
-    var pageStart = 3;
+    
+/*     $(document).scroll(function(){
+    	if($(document).scrollTop() > 0) {
+    		$(".swiper-container").hide();	
+    		$(".index-menu").css("position", "fixed");
+    		$(".index-menu").css("top", "0");
+    		$(".index-menu").css("left", "0");
+    	}else {
+    		$(".swiper-container").show();
+    	}
+    })  */
+    
+	var num = 10;
+    var pageStart = 10;
     
     //最新、人气、现货
 	$(".menu-title").click(function(){
@@ -204,7 +226,7 @@
 			flag = $(this).children("input[type=hidden]").val();
 			var keyword = "";
 			var typeId = "";
-			pageStart = 3;
+			pageStart = 10;
 			showGoods(flag, keyword, typeId);
 		}				    
 	});
@@ -222,95 +244,58 @@
 		var flag = 0;
 		var keyword = $("#keyword").val();
 		var typeId = "";
-		pageStart = 3;
+		pageStart = 10;
 		showGoods(flag, keyword, typeId);
 		$("#flag").val(0);
 		$(".goods-search").hide();
 	});
     
-	refresher.init({
-		id:"wrapper",
-		pullDownAction:Refresh,
-		pullUpAction:Load
-	});
-	
-	function Refresh() {
-		pageStart = 0;
-		setTimeout(function () {
-			$.ajax({
-	            type: 'POST',
-	            url: 'loadIndex',
-	            data: {    	                
-	            	pageStart:0,
-	            	num:3,
-	            	flag:$("#flag").val(),
-		   	    	keyword:$("#keyword").val(),
-		   	    	typeId:""
-		   	    },
-	            dataType: 'json',
-	            success: function(data){
-	                var result = '';
-	                pageStart = pageStart + num;
-	                $('.goods-detail').html("");
-	                if(data.goodsMsg != null) { 
-	                    for(var i = 0; i < data.goodsMsg.length; i++){
-	                        result += '<li class="goods-show">'+
-			          	  	    	'<a href="goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
-					            	'<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
-									'<p class="p5">'+data.goodsMsg[i].name+'</p>'+
-									'<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
-									'</a>'+
-									'</li>';
-	                    }
-	                    $('.goods-detail').append(result);
-	                }
-	            }
-	        });	
-			refresher.loadflag = true;
-			myScroll.refresh();			
-		}, 1000);
-	}
+	$(window).scroll(function () {
+	    var scrollTop = $(this).scrollTop();
+	    var scrollHeight = $(document).height();
+	    var windowHeight = $(this).height();
+	    if (scrollTop + windowHeight == scrollHeight) {
 
-	function Load() {
-		setTimeout(function () {
-	        $.ajax({
-	            type: 'POST',
-	            url: 'loadIndex',
-	            data: {    	                
-	            	pageStart:pageStart,
-	            	num:num,
-	            	flag:$("#flag").val(),
-		   	    	keyword:$("#keyword").val(),
-		   	    	typeId:""
-		   	    },
-	            dataType: 'json',
-	            success: function(data){
-	                var result = '';
-	                pageStart = pageStart + num;
-	                
-	                if(data.goodsMsg != null) {  
-	                    for(var i = 0; i < data.goodsMsg.length; i++){
-	                        result += '<li class="goods-show">'+
-			          	  	    	'<a href="goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
-					            	'<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
-									'<p class="p5">'+data.goodsMsg[i].name+'</p>'+
-									'<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
-									'</a>'+
-									'</li>';
+		  	//此处是滚动条到底部时候触发的事件，在这里写要加载的数据，或者是拉动滚动条的操作
+	
+			//var page = Number($("#redgiftNextPage").attr('currentpage')) + 1;
+			//redgiftList(page);
+			//$("#redgiftNextPage").attr('currentpage', page + 1);
+			if(pageStart < $("#total").val()) {
+				$.ajax({
+	                type: 'POST',
+	                url: 'loadIndex',
+	                data: {                     
+	                    pageStart:pageStart,
+	                    num:num,
+	                    flag:$("#flag").val(),
+	                    keyword:$("#keyword").val(),
+	                    typeId:""
+	                },
+	                dataType: 'json',
+	                success: function(data){
+	                    var result = '';
+	                    pageStart = pageStart + num;
+	                    
+	                    if(data.goodsMsg != null) {  
+	                        for(var i = 0; i < data.goodsMsg.length; i++){
+	                            result += '<li class="goods-show">'+
+	                                    '<a href="goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
+	                                    '<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
+	                                    '<p class="p5">'+data.goodsMsg[i].name+'</p>'+
+	                                    '<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
+	                                    '</a>'+
+	                                    '</li>';
+	                        }
+	                        $('.goods-detail').append(result);
 	                    }
-	                    $('.goods-detail').append(result);
 	                }
-	            }
-	        });
-	        alert(pageStart);
-	        if(pageStart < $("#total").val()) {
-                refresher.loadflag = true;
-	        }else {
-	        	refresher.loadflag = false;
-	        }
-			myScroll.refresh();
-		}, 1000);
-	}
+	            });
+            }else {
+                alert("已无更多数据");
+            } 
+	    }
+	});
 </script>
 </body>
 </html>

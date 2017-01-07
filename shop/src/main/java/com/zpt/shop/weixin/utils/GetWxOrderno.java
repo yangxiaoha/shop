@@ -10,8 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.params.ClientPNames;
+import org.apache.http.HttpResponse;
+
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
@@ -28,7 +29,7 @@ public class GetWxOrderno {
 
     static
     {
-	  httpclient = new DefaultHttpClient();
+	    httpclient = new DefaultHttpClient();
     	httpclient = (DefaultHttpClient)HttpClientConnectionManager.getSSLInstance(httpclient);
     }
 

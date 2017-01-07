@@ -78,7 +78,7 @@ public class MainIndexCtrler {
 		User user = (User) request.getSession().getAttribute("user");
 		String userId = user.getId().toString();//先设置用户为1
 		Integer pageStart = 0;
-		Integer num = 3;
+		Integer num = 10;
 		String flag = "0";
 		String keyword = "";
 		String typeId = "";
@@ -138,7 +138,7 @@ public class MainIndexCtrler {
 	public ModelAndView goodsType(@PathVariable("typeId") Integer typeId) {
 		ModelAndView mv = new ModelAndView("home/type-detail");	
 		Integer pageStart = 0;
-		Integer num = 3;
+		Integer num = 10;
 		String flag = "";
 		String keyword = "";
 		List<Goods> goodsList = goodsService.getGoodsByTypeId(pageStart, num, Integer.toString(typeId));

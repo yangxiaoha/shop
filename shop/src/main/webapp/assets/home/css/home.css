@@ -116,7 +116,9 @@ a, a:link, a:visited, a:hover, a:active {
     left: 50%;
     width: 80%;
     margin: 0 auto;
-    transform: translateX(-50%) translateY(-50%) !important;   
+    transform: translateX(-50%) translateY(-50%) !important;  
+    -webkit-transform: translateX(-50%) translateY(-50%) !important;
+    -moz-transform: translateX(-50%) translateY(-50%) !important; 
 }
 /*清除浮动代码*/ 
 .clearfloat:after {
@@ -168,6 +170,10 @@ a, a:link, a:visited, a:hover, a:active {
 
 /************************index开始************************/
 #wrap {
+	width: 100%;
+}
+.index-menu {
+	position: relative;
 	width: 100%;
 }
 .index-menu .menu {
@@ -240,9 +246,13 @@ a, a:link, a:visited, a:hover, a:active {
 	border: 1px solid #DFDCDA;
 	border-radius: 5px;
 }
-.goods-detail {
-	padding: 10px;	
-	overflow: hidden;
+.goods-detail {	    
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    overflow: hidden;
+    z-index: 1;
 }
 .goods-detail .goods-show {
 	float: left;
@@ -250,6 +260,7 @@ a, a:link, a:visited, a:hover, a:active {
 	margin-bottom: 9px;
 	text-align: center;
 	border: 1px solid #968f8e;
+	background-color: #fff;
 }
 .goods-detail .goods-show:nth-child(odd) {
 	margin-right: 2%;
@@ -384,6 +395,8 @@ a, a:link, a:visited, a:hover, a:active {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
 }
 .no-shopping-car-show div {
 	width: 130px;
@@ -546,7 +559,9 @@ a, a:link, a:visited, a:hover, a:active {
 	top: 50%;
 	left: 0;
 	width: 20%;
-	transform:translateY(-50%);
+	transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
 }
 .order-remarks #remarks {
 	position: absolute;
@@ -659,6 +674,8 @@ a, a:link, a:visited, a:hover, a:active {
     border-radius: 45px;
     border: 1px solid #9fa0a0;
     transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
 }
 .addr-detail .icon-item > span {
 	display: block;
@@ -668,7 +685,9 @@ a, a:link, a:visited, a:hover, a:active {
     line-height: 20px;
     border-radius: 45px;
     background-color: #c8161d; 
-    transform: translateY(50%);   
+    transform: translateY(50%);  
+    -webkit-transform: translateY(50%); 
+    -moz-transform: translateY(50%); 
 }
 /************************addr结束************************/
 
@@ -739,7 +758,7 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .goods-purchase-num span {
 	display: inline-block;
-    width: 30px;
+    width: 40px;
     height: 30px; 
     text-align: center;
     background-color: #f6f5f5;
@@ -767,6 +786,8 @@ a, a:link, a:visited, a:hover, a:active {
     top: -30px;
     left: 50%;
     transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
     display: none;
     padding: 5px;
     opacity: 0.9;
@@ -844,10 +865,14 @@ a, a:link, a:visited, a:hover, a:active {
 	display: block;
 	width: 26px;
     height: 26px;
-    background-image: url(../images/btn.png);
+    margin-right: 5px;
+    /* background-image: url(../images/btn.png);
     background-size: 20px 60px;
     background-position: 0px 34px;
-    background-repeat-x: no-repeat;
+    background-repeat-x: no-repeat; */
+}
+.user-power-show .show-img > img {
+	width: 100%;
 }
 .user-power-show .show-title {
 	display: block;
@@ -906,6 +931,8 @@ a, a:link, a:visited, a:hover, a:active {
     top: 50%;
     left: 40%;
     transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
 }
 .user-info .member-icon > img {
 	width: 100%;

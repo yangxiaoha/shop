@@ -20,7 +20,6 @@
     <link href="<%=basePath %>/assets/management/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
     <link href="<%=basePath %>/assets/management/css/animate.min.css" rel="stylesheet">
     <link href="<%=basePath %>/assets/management/css/style.min.css" rel="stylesheet">
-    <link href="<%=basePath %>/assets/management/css/login.min.css" rel="stylesheet">
     
     
     <!--[if lt IE 9]>
