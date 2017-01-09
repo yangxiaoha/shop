@@ -143,7 +143,7 @@ public class WithdrawServiceImpl implements WithdrawService {
 	@Override
 	public void updateState(Withdraw withdraw) {
 		// TODO Auto-generated method stub		
-		Map<String, String> restmap = null;
+		/*	Map<String, String> restmap = null;
 		try {
 			String partner_trade_no = "pay"+System.currentTimeMillis();
 			Map<String, String> parm = new HashMap<String, String>();
@@ -181,6 +181,6 @@ public class WithdrawServiceImpl implements WithdrawService {
 		}
 		if(withdraw.getState() == 2){			
 			withdrawMapper.updateState(withdraw);
-		}
+		}*/
 	}
 }
