@@ -180,6 +180,7 @@
 			            dataType: 'json', //返回值类型，一般设置为json、application/json  
 			            //elementIds: elementIds, //传递参数到服务器
 						success:function(data){
+						$("#add")[0].reset();
 		        			$(".loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
 		        			setTimeout(function(){
 		        			   $(".loading").html("");

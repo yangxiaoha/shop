@@ -82,6 +82,7 @@
 			   	$("#loading").html("<i class=\"icon-spinner icon-spin\"></i>");
 	           	$(form).ajaxSubmit({
 	        	   	success:function(data){
+	        	   	
 	        		   	if(data.state == 1){
 	        			   	$("#loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
 	        		   	}else{
@@ -94,6 +95,7 @@
 	        		   	reset(form);
 	        		   	tableI.table().draw();
 	        		   	store.reAsyncChildNodes(null, "refresh");
+	        		  
 	        	   	},
 	        	    error:function(){
 	        		   	$("#loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");

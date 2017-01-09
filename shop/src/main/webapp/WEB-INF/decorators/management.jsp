@@ -55,7 +55,12 @@
 	<script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/ueditor.config.js"></script>
 	<script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/ueditor.all.js"> </script>
 	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/plugin/select2/js/select2.js"></script>
+
 	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/plugin/select2/js/i18n/zh-CN.js"></script>
+
+	  <script src="<%=basePath %>/assets/management/js/jquery.PrintArea.js"></script> 
+	<script src="<%=basePath %>/assets/management/js/jQuery.print.js"></script> 
+
 	<decorator:head />
 </head>
 <body class = "gray-bg">
