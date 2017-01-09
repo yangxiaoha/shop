@@ -100,6 +100,8 @@ public class OrderCtrler {
 				message.setTouser(openid);
 				message.setTopcolor("#FF0000");
 				message.setTemplate_id(Contants.WX_ORDER_SEND);
+				//跳转到订单详情
+				message.setUrl("");
 	
 				message.getData().put("first", new WxMpTemplateData("您好，收到新的物流消息"));
 				message.getData().put("OrderSn",
@@ -107,7 +109,7 @@ public class OrderCtrler {
 			
 				message.getData().put("OrderStatus", new WxMpTemplateData("已发货"));
 		
-				message.getData().put("remark", new WxMpTemplateData("\n请耐心等候"));
+				message.getData().put("remark", new WxMpTemplateData("\n做一床有阳光味道的新疆棉被，一见欢喜 \n点击查看详情"));
 				String re = wxService.templateSend(message);
 				System.err.println("result---" + re);
 			}
