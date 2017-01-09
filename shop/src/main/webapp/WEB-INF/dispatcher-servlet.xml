@@ -62,7 +62,11 @@
 			<mvc:mapping path="/management/**" />
 			<mvc:exclude-mapping path="/management/login" />
 			<bean class="com.zpt.shop.main.interceptor.AccreditInterceptor" />
+<<<<<<< HEAD
 		</mvc:interceptor>
+=======
+		</mvc:interceptor>		
+>>>>>>> branch 'master' of https://git.oschina.net/liutengda/shop.git
 	</mvc:interceptors>
 
 	<!-- 由spring访问静态资源 -->
