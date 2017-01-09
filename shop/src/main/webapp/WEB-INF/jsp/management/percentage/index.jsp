@@ -13,6 +13,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>分销管理</title>
+    <style type="text/css">
+	   .dataTables_filter label{
+	   	display: none !important;
+	   }
+    </style>
 </head>
 <body class="gray-bg">	
     <div class="wrapper wrapper-content animated fadeInRight">

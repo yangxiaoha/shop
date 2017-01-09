@@ -8,7 +8,7 @@ $(document).ready(function(){
         "columns": [
                     { "data": "id","orderable":false,"visible":false},
                     { "data": "id","orderable":false},
-                    { "data": "openid" },
+                    { "data": "name" },
                     { "data": "regtime" },
                     { "data": "money" },
                     { "data": "startmoney","orderable":false,"visible":false },
@@ -31,7 +31,7 @@ $(document).ready(function(){
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
-                 		'<a class="" href="index?userId='+data+'"><i class="fa fa-sitemap"></i></a>'+
+                 		'<a class="" href="index?userId='+data+'" title="下级会员"><i class="fa fa-sitemap"></i></a>'+
                  		'</div>';
                }
             }
@@ -41,7 +41,7 @@ $(document).ready(function(){
         },
         "className" : "User",
         "chosen" : true,
-        "ids" : "#openid,#money",
+        "ids" : "#name,#money",
         "targets":"2,4"
 	});
 });

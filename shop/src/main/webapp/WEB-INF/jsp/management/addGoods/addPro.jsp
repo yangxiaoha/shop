@@ -40,7 +40,7 @@
 												<label for="name">商品属性(*)</label>
 												<input class="form-control"
 													placeholder="请输入商品属性名称" id="aproname" name="name" type="text">
-												<input
+												<input style = "opacity: 0; width: 0px"
 													placeholder="" id="atypeId" name="typeId" type="text">												
 											</div>
 										</div>
@@ -73,7 +73,7 @@
 	var zTreeAdd;
 	var domeIframeAdd;
 	var pro;
-	
+	var addProValidate;
 	var settingPro = {
 		view: {
 			selectedMulti: false
@@ -115,14 +115,16 @@
 			h = 530;
 		domeIframeAdd.height(h);
 	}
-
-	$(document).ready(function(){
-		$("#add-pro").click(function(){
+	
+	$('#addProModal').on('shown.bs.modal',
+	    function() {
 			addProValidate.resetForm();
 			$("#aproname").val("");
 			$("#atypeId").val("");
 			$("#atypeName").val("");
-		});
+    })
+
+	$(document).ready(function(){		
 		pro = $("#aprotree");
 		pro = $.fn.zTree.init(pro, settingPro);
 		domeIframeAdd = $("#testIframe");
@@ -134,7 +136,7 @@
 			$("#addPro").submit();
 		});
 		
-	    var addProValidate = $("#addPro").validate({
+	    addProValidate = $("#addPro").validate({
 	        rules: {
 	            name: {
 	        	    required:true,
@@ -171,11 +173,11 @@
 	       	},
 	        messages: {
 	          	name: {
-		        	required:"请输入商品名称",
+		        	required:"请输入商品属性",
 		        	remote:"该属性已存在"
 		        },
 		      	typeId: {
-		        	required:"请输入商品名称",
+		        	required:"请输入商品类型",
 		        	remote:"该属性已存在"
 		      	}	        
 	        },
@@ -194,7 +196,28 @@
 	        			   $("#addsubmit").removeAttr("disabled"); 
 	        		   },1000);
 	        		   reset(form);
-	        		   tableI.table().draw();
+	        		   
+	        		   $.ajax({
+	       		   	    url: "getGoodsPro",
+	       		   		type: "Post",
+	       		   	    data: {
+	       		   	    	typeId:type.getSelectedNodes()[0].id
+	       		   	    },
+	       		   	    dataType: "json",
+	       		   	    success: function(data) {
+	       	   	    		$(".proCheck .col-sm-10").html("");
+	       	   	    		$.each(data.proMsg, function(i, proList) {   
+	       	   	    			$(".proCheck").show();
+	       	   	    			$(".proCheck .col-sm-10").append( 
+	          	    					'<label class="checkbox-inline i-checks">'+
+	          	    					'<input type="checkbox" value="'+proList.name+'" style="position: absolute; opacity: 0;">'+proList.name+   	   	    				
+	          	    					'<input type="hidden" value="'+proList.id+'" />'+
+	          	    					'</label>'
+	       	    				);
+	          		  			});
+	       	   	    		$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
+	       		   	    }
+	       	        })
 	        	   },
 	        	   error:function(){
 	        		   $("#loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");

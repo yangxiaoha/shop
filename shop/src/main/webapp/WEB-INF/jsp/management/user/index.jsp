@@ -50,7 +50,7 @@
 								<hr>
 								<h5>上级会员信息：</h5>
 								<p></p>
-								<p>用户id&nbsp：${user.openid}</p>
+								<p>用户名&nbsp：${user.name}</p>
 								<p>注册时间：${user.regtime}</p>
 								<p>财&nbsp;&nbsp富：${user.money}</p>
 							</div>
@@ -63,8 +63,8 @@
 							<form role="form">
 								<div class="col-sm-3">
 									<div class="form-group">
-										<label>用户id:</label> <input type="text" placeholder="搜索用户id"
-											id="openid" class="form-control">
+										<label>用户名:</label> <input type="text" placeholder="搜索用户名"
+											id="name" class="form-control">
 									</div>
 								</div>
 								<div class="col-sm-3">
@@ -124,7 +124,7 @@
 								<th class="check-header hidden-xs" width="7%"><label
 									style="margin-right: 0px" class="checkbox-inline i-checks"><input
 										id="checkAll" name="checkAll" type="checkbox"></label></th>
-								<th width="20%">用户id</th>
+								<th width="20%">用户名</th>
 								<th>注册时间</th>
 								<th>财富</th>
 								<th></th>

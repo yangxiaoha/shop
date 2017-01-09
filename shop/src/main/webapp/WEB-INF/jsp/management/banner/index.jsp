@@ -68,7 +68,7 @@
                     <div class="ibox-title">
                         <h5>首页滚动图管理</h5>
                         <div class="ibox-tools">
-                            <a data-toggle="modal" href="#addModal" id="add-row">
+                            <a data-toggle="modal" href="#addModal" id="add-row" title="添加">
                                 <i class="fa fa-plus"></i>
                             </a>
                         </div>
@@ -81,9 +81,9 @@
 			                        <div>
 			                            <img alt="image" width="100%" src="<%=basePath%>${bannerList.image}">
 			                            <a>
-			                            <i class="fa fa-trash del" data-id = "${bannerList.id}"></i>
+			                            <i class="fa fa-trash del" data-id = "${bannerList.id}" title="删除"></i>
 										<i class="fa fa-pencil update" data-id= "${bannerList.id}" 
-										data-url="${bannerList.url}" data-image="${bannerList.image}"></i></a>
+										data-url="${bannerList.url}" data-image="${bannerList.image}" title="修改"></i></a>
 			                        </div>
 			                    </li>
 		                    </c:forEach>                   

@@ -27,9 +27,9 @@
 								<select class="reg-sel-add" style="width: 100%" id="asupplierId" name="supplierId">
 									<option value=""></option>
 									<option value=""></option>
-									<c:forEach items="${supplierMsg}" var="supplierList">
+									<%-- <c:forEach items="${supplierMsg}" var="supplierList">
 										<option value="${supplierList.id}">${supplierList.name}</option>
-									</c:forEach>
+									</c:forEach> --%>
 								</select>
 							</div>								 
 						</div>
@@ -62,9 +62,22 @@
 		var bTree = $.fn.zTree.getZTreeObj("brandTree");
 		bTree.selectNode(bTree.getNodeByParam("id", 101));
 		
-		$('.reg-sel-add').select2({
-			placeholder: "请选择供应商"
+		$('#addBrandModal').on('shown.bs.modal', function () {
+			$('.reg-sel-add').select2({
+				placeholder: "请选择供应商",
+				language:"zh-CN",
+				ajax: {
+				    url: 'getSupplierAll',
+				    processResults: function (data) {
+				      return {
+				        results: data
+				      };
+				    }
+				  }
+			});
 		});
+		
+		
 		$("#brandSubmit").click(function(){
 			$("#addBrand").submit();
 		});

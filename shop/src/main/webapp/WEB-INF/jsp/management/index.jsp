@@ -702,7 +702,7 @@
 						newPassword : hash2
 					},
 					dataType : 'json',
-					success : function(data) {
+					success : function(data) {						
 						if (data == 1) {
 							$('#myModal').modal('hide');
 							$("#username").val('');
@@ -710,11 +710,13 @@
 							$("#newPassword").val('');
 							$(".alert-danger").css("display", "none");
 						} else {
+							alert("111111111");
+							alert(data);
 							$("#username").val('');
 							$("#password").val('');
 							$("#newPassword").val('');
 							$(".alert-danger").css("display", "block");
-							$(".alert-danger").html("用户名或密码错误");
+							$(".alert-danger").html("用户名或者密码错误");
 						}
 					}
 				});

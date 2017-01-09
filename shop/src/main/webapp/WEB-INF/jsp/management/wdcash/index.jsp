@@ -36,7 +36,7 @@ type="text/javascript"></script>
 							<div class="col-sm-5">
 	                           <div class="col-sm-6">
                                    <div class="form-group">
-                                       <label>用户id:</label>
+                                       <label>用户名:</label>
                                        <input type="text" placeholder="搜索用户名" id="username" class="form-control">
                                    </div>
 	                           </div>	                           

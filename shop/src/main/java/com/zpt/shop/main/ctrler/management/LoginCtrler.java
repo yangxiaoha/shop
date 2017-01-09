@@ -35,7 +35,7 @@ public class LoginCtrler {
 	
 	@RequestMapping(value = "/login",method=RequestMethod.POST)
 	public String login(String username,String password,HttpSession session,Map<String,String> map){
-		AdminUser adminUser = adminUserService.login(username, password);
+		AdminUser adminUser = adminUserService.login(username, password);		
 		if(adminUser != null){
 			session.setAttribute("adminUser", adminUser);
 			AdminUser adminUserSession = (AdminUser)session.getAttribute("adminUser");

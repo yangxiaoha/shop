@@ -23,7 +23,7 @@
                     <div class="ibox-title">
                         <h5>自定义回复管理</h5>
                         <div class="ibox-tools">
-                            <a data-toggle="modal" href="#addModal" id="add-row">
+                            <a data-toggle="modal" href="#addModal" id="add-row" title="添加">
                                 <i class="fa fa-plus"></i>
                             </a>
                             

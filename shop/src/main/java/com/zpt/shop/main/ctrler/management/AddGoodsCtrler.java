@@ -60,6 +60,20 @@ public class AddGoodsCtrler {
 	}
 	
 	@ResponseBody
+	@RequestMapping("/getSupplierAll")
+	public List<Map<String,String>> getBrandAll(){
+		List<Supplier> supplierList = supplierService.getAllSupplier();		
+		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+		for(int i = 0; i < supplierList.size(); i++){
+			Map<String,String> brand = new HashMap<String,String>();
+			brand.put("id",supplierList.get(i).getId()+"");
+			brand.put("text",supplierList.get(i).getName());
+			list.add(brand);
+		}
+		return list;
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "listData",method = RequestMethod.POST)
 	public Page<Goods> listData(Query<Goods> query){
 		Page<Goods> page = goodsService.page(query);

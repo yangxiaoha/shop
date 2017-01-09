@@ -58,6 +58,7 @@
 	                <input type="text" placeholder="请输入所属门店" id="istore" name="store" class="form-control goods-input">
 				</div>
 			</div>
+			<hr>
 	        <div class="row">
 	        	<div class="col-sm-6 mb10">
 					<label>供应商管理:</label>
@@ -223,6 +224,7 @@
     	        rules: {
     	        	name:{
     	        		required:true,
+    	        		maxlength:20,
     	        	},
     	        	brandName:{
     	        		required:true,
@@ -237,15 +239,16 @@
     	        messages: {
     	        	name: {
     		        	required:"请输入商品名称",
+    		        	maxlength:"最多20个字"
     		        },
     		        brandName:{
-    	        		required:"请输入商品品牌",
+    	        		required:"请选择商品品牌",
     	        	},
     	        	typeName: {
-    	        	 	required:"请输入商品类型",
+    	        	 	required:"请选择商品类型",
     	          	},
     	          	proName: {
-       	        	 	required:"请输入商品属性",
+       	        	 	required:"请选择商品属性",
        	          	}
     	        },
     	        submitHandler: function(form) {
@@ -263,7 +266,6 @@
     	        			   $("#addsubmit").removeAttr("disabled"); 
     	        		   },1000);
     	        		   reset(form);
-    	        		   $("#checkbok").html("");
     	        	   },
     	        	   error:function(){
     	        		   $("#loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");

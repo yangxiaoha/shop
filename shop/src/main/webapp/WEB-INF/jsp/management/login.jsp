@@ -47,7 +47,7 @@
 							name="noencryptpassword" type="password"> <input
 							class="form-control" id="password" name="password" type="hidden">
 					</div>
-					<button class="btn btn-success btn-block" onclick="submitForm()">登陆</button>					
+					<input type="button" class="btn btn-success btn-block" onclick="submitForm()" value="登陆">				
 				</form>
 				<c:if test="${!empty msg}">
 					<div class="alert alert-danger">${msg}</div>
@@ -71,10 +71,10 @@
    	      var password = document.getElementById("password");
    	   	  var noencryptpassword = document.getElementById("noencryptpassword");
    	      var pas_val = noencryptpassword.value;
-   	      
-   		  if(username.value == "") {
+   		  if(username.value == ""||username.value == null) {
 	   		  $(".alert-danger").css("display","block");	   		
 	   		  $(".alert-danger").html("用户名不能为空");  
+	   		  return;
    		  }else {  	   	      
    	   		  var hash = hex_md5(pas_val);//hash为加密后的值
    	   		  password.value = hash;
