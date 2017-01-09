@@ -12,8 +12,7 @@
     <script src="<%=basePath %>assets/management/datatablejs/goods.js" type="text/javascript"></script>
 </head>
 
-<body class="gray-bg">
-	
+<body class="gray-bg">	
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
         	<div class="col-sm-3" style="padding-right:0px">

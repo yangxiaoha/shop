@@ -3,6 +3,7 @@ $(document).ready(function(){
 	tableI=$("#datatable").DatatableExt({
 		"processing": true,
         "serverSide": true,
+        "bFilter":false,
         "ajax": "listData",
         "language":  "/shop/assets/management/datatablejs/Chinese.json",
         "columns": [
