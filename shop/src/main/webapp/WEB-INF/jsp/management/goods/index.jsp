@@ -29,6 +29,11 @@
     <link href="<%=basePath %>/assets/management/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
     <link href="<%=basePath %>/assets/management/plugin/ztree/css/metroStyle/metroStyle.css" rel="stylesheet">
     <link href="<%=basePath %>/assets/management/plugin/select2/css/select2.css" rel="stylesheet">
+    <style type="text/css">
+   .dataTables_filter label{
+   display: none !important;
+   }
+    </style>
 </head>
 
 <body class="gray-bg">
