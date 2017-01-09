@@ -28,9 +28,15 @@ import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLContexts;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.dom4j.Document;
@@ -72,7 +78,7 @@ public class WeixinUtils {
 	
 	private static final int CONNECT_TIME_OUT = 5000; //链接超时时间3秒
 	
-	//private static final RequestConfig REQUEST_CONFIG = RequestConfig.custom().setConnectTimeout(CONNECT_TIME_OUT).build();
+	private static final RequestConfig REQUEST_CONFIG = RequestConfig.custom().setConnectTimeout(CONNECT_TIME_OUT).build();
 	
 	
 	@Autowired
@@ -80,7 +86,7 @@ public class WeixinUtils {
 	
 	private static SSLContext wx_ssl_context = null; //微信支付ssl证书
 	
-	/*static{
+	static{
 		Resource resource = new ClassPathResource("wx_apiclient_cert.p12");
 		try {
 			KeyStore keystore = KeyStore.getInstance("PKCS12");
@@ -90,7 +96,7 @@ public class WeixinUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}*/
+	}
 	
 	
 	/**
@@ -99,7 +105,7 @@ public class WeixinUtils {
 	 * @param s 参数xml
 	 * @return 请求失败返回null
 	 */
-	/*public static String posts(String url, String s) {
+	public static String posts(String url, String s) {
 		CloseableHttpClient httpClient = null;
 		HttpPost httpPost = new HttpPost(url);
 		String body = null;
@@ -132,14 +138,14 @@ public class WeixinUtils {
 			}
 		}
 		return body;
-	}*/
+	}
 	
 	 
 	//获取ssl connection链接
-	/*private static SSLConnectionSocketFactory getSSLConnectionSocket() {
+	private static SSLConnectionSocketFactory getSSLConnectionSocket() {
 		return new SSLConnectionSocketFactory(wx_ssl_context, new String[] {"TLSv1", "TLSv1.1", "TLSv1.2"}, null,
 				SSLConnectionSocketFactory.getDefaultHostnameVerifier());
-	}*/
+	}
 
 	public static JSONObject httpRequest(String requestUrl, String requestMethod, String outputStr) {
 		JSONObject jsonObject = null;

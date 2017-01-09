@@ -19,13 +19,13 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="name">一级分销比(*)</label><input class="form-control"
-										placeholder="请输入品牌名称" id="ufirst" name="first" type="text">
+										placeholder="请输入一级分销比" id="ufirst" name="first" type="text">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="name">二级分销比(*)</label><input class="form-control"
-										placeholder="请输入品牌名称" id="usecond" name="second" type="text">
+										placeholder="请输入二级分销比" id="usecond" name="second" type="text">
 								</div>
 							</div>
 						</div>

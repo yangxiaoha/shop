@@ -52,11 +52,5 @@ public final class Contants {
 
 	//openid
 	public static String SESSION_OPENID = "openid";
-	/**
-	 *微信消息模板ID
-	 *来自微信公众平台-模板消息
-	 *
-	 *
-	 */
-	public static final String WX_ORDER_SEND = "uSrGyKm54TwGl2JKKmPOM7vew3cZLCwJ7PO_glL2qj8";
+
 }

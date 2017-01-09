@@ -118,8 +118,7 @@
 		}
 		return childNodes;
 	}
-	$(document).ready(function() {
-		
+	$(document).ready(function() {		
 		t = $.fn.zTree.init(t, settingAdd);
 		domeIframeAdd = $("#testIframe");
 		domeIframeAdd.bind("load", loadReady);

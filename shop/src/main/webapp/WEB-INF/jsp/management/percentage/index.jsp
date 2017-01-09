@@ -20,7 +20,7 @@
             <div class="col-sm-12" >
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>分销管理<small>&nbsp;&nbsp;修改</small></h5>
+                        <h5>分销管理</h5>
                     </div>                    
                     <div class="ibox-contentTable">
                     	<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
@@ -30,8 +30,8 @@
 									<label style="margin-right:0px" class="checkbox-inline i-checks">
 									<input id="checkAll" name="checkAll" type="checkbox"></label>
 								</th>
-								<th>一级分销</th>
-								<th>二级分销</th>	
+								<th>一级分销比</th>
+								<th>二级分销比</th>	
 								<th>操作</th>
 							</thead>
 							<tbody>

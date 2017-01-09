@@ -4,6 +4,7 @@ $(document).ready(function(){
 		"processing": true,
         "serverSide": true,
         "ajax": "listData",
+        "autoWidth":false,
         "language":  "/shop/assets/management/datatablejs/Chinese.json",
         "columns": [
                     { "data": "id","orderable":false,"visible":false},
@@ -13,8 +14,8 @@ $(document).ready(function(){
                     { "data": "address" },
                     { "data": "ordertime" },
                     { "data": "logistics" },
-                    { "data": "logisticsnum" },
-                    { "data": "ordernum" },
+                    { "data": "logisticsnum", "width":"9%","className":"noautowidth" },
+                    { "data": "ordernum" ,"width":"9%","className":"noautowidth"},
                     { "data": "state" },                  
                     { "data":"id","className": "actions","orderable":false },
                 ],

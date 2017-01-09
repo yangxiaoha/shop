@@ -254,7 +254,7 @@
 									'</ul>'+
 									'<div class="shopping-car-edit">'+
 									'<p class="modify">修改</p>'+
-									'<p class="mt8 iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>'+
+									'<p class="iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>'+
 									'<input class="cartId" type="hidden" value="'+cartsList.id+'">'+
 									'<input class="goodsId" type="hidden" value="'+cartsList.goodsId+'">'+
 									'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
@@ -415,15 +415,14 @@
 				clear();
 				Init(goodsStock);
 				$("#modifyAttr").hide();
-				$(".car-tab-bar").show();
 				$(".goods-parameter-choice").slideUp();
 			});
 	    	
 	    	//清空
-			$(".goods-parameter-classify").on("click", ".clear-attr", function() {
+			$(".clear-attr").click(function() {
 				clear();
 				Init(goodsStock);
-			})
+			});
 	    	
 	    	//减少购买数量
 			$("#reduceNum").click(function() {

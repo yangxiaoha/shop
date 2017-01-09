@@ -23,12 +23,7 @@ public class Order {
 	//物流商家
 	public String logistics;
 	
-	/**
-	 * 订单状态
-	 * 2.未发货
-	 * 3.已发货
-	 * 
-	 */
+	//订单状态
 	public Integer state;
 	
 	//收货人姓名

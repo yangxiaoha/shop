@@ -26,6 +26,7 @@
 								<label class="control-label">供应商名称(*)</label>
 								<select class="reg-sel-add" style="width: 100%" id="asupplierId" name="supplierId">
 									<option value=""></option>
+									<option value=""></option>
 									<c:forEach items="${supplierMsg}" var="supplierList">
 										<option value="${supplierList.id}">${supplierList.name}</option>
 									</c:forEach>
@@ -125,6 +126,6 @@
 	        	   }
 	           });     
 	        }  
-	      });
+	     });
 	});
 </script>

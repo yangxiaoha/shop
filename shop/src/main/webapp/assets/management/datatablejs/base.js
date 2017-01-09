@@ -6,6 +6,7 @@
            "serverSide": true,
            "ajax": "listData",
            "language":  "/shop/assets/management/datatablejs/Chinese.json",
+           "autoWidth":true,
            "columns": [{}],
            "aoColumnDefs" : [{}],
            "className" : "",
@@ -39,7 +40,7 @@
            //该回调函数定义了状态该存储在什么地方及如何存储
            "stateSaveCallback":null,
            //对状态进行存储时，对数据处理的回调函数
-           "stateSaveParams":null,
+           "stateSaveParams":null,          
            
            "searchCall":null
        };

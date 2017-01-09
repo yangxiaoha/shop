@@ -45,7 +45,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="<%=basePath%>home/mainindex/index">
+				<a href="../index">
 					<span class="tab-bar-bg home-page"></span>
 					<span>首页</span>
 				</a>
@@ -60,58 +60,56 @@
 			</li>
 		</ul>
 	
-		<div id="modifyAttr">
-			<div class="goods-parameter-choice" id="goods-parameter-choice" style="display: none;">
-				<div class="goods-parameter-show order-list clearfloat">
-					<input id="goodsId" type="hidden" value="${goodsId}">
-					<c:if test="${!empty goodsMsg}">
-					     <img id="goodsImg" src="<%=basePath%>${goodsMsg.url}">
-				         <ul class="shopping-car-detail p5">
-				         	<c:if test="${goodsMsg.price != goodsMsg.highprice}">
-				         		<li class="mb5 font-price" id="goodsPrice">￥${goodsMsg.price} ~ ${goodsMsg.highprice}</li>
-				         	</c:if>
-				         	<c:if test="${goodsMsg.price == goodsMsg.highprice}">
-				         		<li class="mb5 font-price">￥${goodsMsg.price}</li>
-				         	</c:if>
-				            <li class="fc-9fa0a0 fs-1rem mb5">库存<span id="goodsNum">${goodsMsg.quantity}</span>件</li>
-				            <li class="fc-595757 parameter-show">请选择
-					            <c:forEach items="${proMsg}" var="proList">
-				            		<span>${proList.name}</span>
-								</c:forEach>
-				            </li>
-				        </ul>
-				        <div class="shopping-car-edit">
-			            	<i id="close"></i>
-			          	</div>
-					</c:if>
-		        </div>
-		        <div class="goods-parameter-classify">
-		        	<button class="clear-attr">清空</button>
-		        	<c:forEach items="${proMsg}" var="proList">
-					    <div class="clearfloat">
-			        		<p class="fc-595757 pv5">${proList.name}</p>
-			        		<input type="hidden" value="${proList.proId}">
-				        	<ul class="classify-detail clearfloat">
-				        		<c:forEach items="${fn:split(proList.value,',')}" var="option">
-									<li class="select-no-active">${option}</li>
-								</c:forEach>
-				        	</ul>
-			        	</div>
-					</c:forEach>
-		        </div>
-		        <div class="goods-purchase-num">
-		        	<div class="fl">购买数量</div>
-		        	<div class="fr">
-		        		<span id="reduceNum">-</span>
-		        		<span class="bc-fff mh5" id="purchaseNum">1</span>
-		        		<span id="plusNum">+</span>
+		<div class="goods-parameter-choice" id="goods-parameter-choice" style="display: none;">
+			<div class="goods-parameter-show order-list clearfloat">
+				<input id="goodsId" type="hidden" value="${goodsId}">
+				<c:if test="${!empty goodsMsg}">
+				     <img id="goodsImg" src="<%=basePath%>${goodsMsg.url}">
+			         <ul class="shopping-car-detail p5">
+			         	<c:if test="${goodsMsg.price != goodsMsg.highprice}">
+			         		<li class="mb5 font-price" id="goodsPrice">￥${goodsMsg.price} ~ ${goodsMsg.highprice}</li>
+			         	</c:if>
+			         	<c:if test="${goodsMsg.price == goodsMsg.highprice}">
+			         		<li class="mb5 font-price">￥${goodsMsg.price}</li>
+			         	</c:if>
+			            <li class="fc-9fa0a0 fs-1rem mb5">库存<span id="goodsNum">${goodsMsg.quantity}</span>件</li>
+			            <li class="fc-595757 parameter-show">请选择
+				            <c:forEach items="${proMsg}" var="proList">
+			            		<span>${proList.name}</span>
+							</c:forEach>
+			            </li>
+			        </ul>
+			        <div class="shopping-car-edit">
+		            	<i id="close"></i>
+		          	</div>
+				</c:if>
+	        </div>
+	        <div class="goods-parameter-classify">
+	        	<button class="clear-attr">清空</button>
+	        	<c:forEach items="${proMsg}" var="proList">
+				    <div class="clearfloat">
+		        		<p class="fc-595757 pv5">${proList.name}</p>
+		        		<input type="hidden" value="${proList.proId}">
+			        	<ul class="classify-detail clearfloat">
+			        		<c:forEach items="${fn:split(proList.value,',')}" var="option">
+								<li class="select-no-active">${option}</li>
+							</c:forEach>
+			        	</ul>
 		        	</div>
-		        </div>
-		        <div class="goods-purchase" style="position: relative; border-top: 1px solid #C7C3C5;">
-		        	<p class="parameter-prompt">请选择商品属性</p>
-		        	<a href="javascript:void(0)" class="purchase" id="purchase">立即购买</a>
-		        </div>
-			</div>
+				</c:forEach>
+	        </div>
+	        <div class="goods-purchase-num">
+	        	<div class="fl">购买数量</div>
+	        	<div class="fr">
+	        		<span id="reduceNum">-</span>
+	        		<span class="bc-fff mh5" id="purchaseNum">1</span>
+	        		<span id="plusNum">+</span>
+	        	</div>
+	        </div>
+	        <div class="goods-purchase" style="position: relative; border-top: 1px solid #C7C3C5;">
+	        	<p class="parameter-prompt">请选择商品属性</p>
+	        	<a href="javascript:void(0)" class="purchase" id="purchase">立即购买</a>
+	        </div>
 		</div>
 	
 		<a class="shopping-cart" href="<%=basePath%>home/purchase/cart">
@@ -252,7 +250,6 @@
   		}
   		
   		$(document).ready(function() {
-  			
   			var state = 0;//判断是加入购物车还是立即购买
   			var goodsId = $("#goodsId").val();//商品id
   			var oldGoods = new Array();//商品信息
@@ -262,7 +259,6 @@
 	    	$("#close").click(function() {
 				clear();
 				Init(goodsStock);
-				$("#modifyAttr").hide();
 				$(".index-tab-bar").css("display", "block");
 				$(".goods-parameter-choice").slideUp();
 			});
@@ -290,7 +286,6 @@
 	    	//商品选择展开
 	    	$(".shopping").click(function() {
 	    		$(".index-tab-bar").css("display", "none");
-	    		$("#modifyAttr").show();
 				$(".goods-parameter-choice").slideDown();
 				if($(this).hasClass("shopping-state")) {
 					state = 0;
@@ -370,15 +365,12 @@
 	    	});  
 	    	
 			//提交订单
-			$("#purchase").click(function() {	  
-				var select = "false";
+			$("#purchase").click(function() {
+				var judge = checkAll(oldGoods, goodsStock);
+				var judgeList = judge.split(",");
+				var select = judgeList[0];
+				var sub = judgeList[1];
 				var purchaseNum = parseInt($("#purchaseNum").text(), 10);//购买数量
-	  			if($('.classify-detail').length > 0) {
-	  				var judge = checkAll(oldGoods, goodsStock);
-					var judgeList = judge.split(",");
-					select = judgeList[0];
-					var sub = judgeList[1];
-	  			}
 				if(select == "true") {
 					if(purchaseNum > goodsStock[sub].num) {
 		        		$(".parameter-prompt").text("所选商品数不可超过库存数");
@@ -401,7 +393,6 @@
 						   	    		$(".index-tab-bar").css("display", "block");
 										$(".goods-parameter-choice").slideUp();
 						   			}
-						   	    	$("#modifyAttr").hide();
 						   	    	clear();
 						   	    }
 					        })
