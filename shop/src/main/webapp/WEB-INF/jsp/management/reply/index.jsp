@@ -43,7 +43,7 @@
 		                           </div>
 		                           <div class="col-sm-6">
 	                           			<div class="form-group">
-	                                       <label>品牌简介:</label>
+	                                       <label>自定义回复:</label>
 	                                       <input type="text" placeholder="搜索回复内容" id="reply" class="form-control">
 	                                   </div>
 		                           </div>		                           
