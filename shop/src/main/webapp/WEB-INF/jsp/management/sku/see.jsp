@@ -15,37 +15,42 @@
 				<form action="see" id="see" method="post">
 					<fieldset>
 						<div class="row">
-							<div class="col-md-8">
+							<div class="col-sm-8">
 								<div class="row">
-									<div class="col-lg-6">
-										<p>商品名称：${goodsM.name }</p>
-										<p>商品编码：${goodsM.code }</p>									
+									<div class="col-sm-6">
+										<span>商品名称：${goodsM.name }</span>																	
 									</div>
-									<div class="col-lg-6">
-										<p>商品品牌：${goodsM.brandName }</p>									
-									</div>										
+									<div class="col-sm-6">										
+										<span>商品编码：${goodsM.code }</span>							
+									</div>								
 								</div>
 								<div class="row">
-									<div class="col-md-6 mb10">
+									<p></p>
+									<div class="col-sm-6">
+										<span>商品品牌：${goodsM.brandName }</span>									
+									</div>
+									<div class="col-sm-6">
 										<span>商品数量：</span>
 										<span id="snum"></span>
-									</div>			
-									<div class="col-md-6 mb10">
-										<span>商品价格：</span>
-										<span id="sprice"></span>									
 									</div>
 								</div>
-								<div class="row">							
-									<div class="col-md-12 mb10">
+								<div class="row">	
+									<p></p>						
+									<div class="col-sm-6">
 										<span>特征量编码：</span>
 										<span id="scode"></span>									
+									</div>
+									<div class="col-sm-6">
+										<span>商品价格：</span>
+										<span id="sprice"></span>									
 									</div>
 								</div>									
 								<c:forEach items="${goodsM.pros}" var="p" varStatus="status">
 									<c:if test="${status.index%3 == 0}">
-										<div class="row">
+										<div class="row">										
+										<p></p>
 									</c:if>
-									<div class="col-md-4">
+									<div class="col-sm-6">
 										<div class="form-group">
 											<span>${p.name }:</span>
 											<input class="form-control" placeholder="请输入${p.name }"
@@ -60,9 +65,9 @@
 									</c:if>
 								</c:forEach>
 							</div>
-							<div class="col-md-4">
+							<div class="col-sm-4">
 								<div class="row">
-									<div class="col-md-12">
+									<div class="col-sm-12">
 										<div class="form-group">
 											<p>商品图片</p>
 											<p class="error" style="display: none;"></p>

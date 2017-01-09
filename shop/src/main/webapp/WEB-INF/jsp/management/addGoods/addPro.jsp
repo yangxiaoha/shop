@@ -19,8 +19,8 @@
 			<div class="modal-body">
 				<form action="addPro" id="addPro" method="post">
 					<fieldset>
-						<div class="col-lg-12">						
-							<div class="col-lg-4">
+						<div class="col-sm-12">						
+							<div class="col-sm-5">
 								<table border=0 height=200px align=left>
 									<tr>
 										<td width=150px align=left valign=top
@@ -31,22 +31,22 @@
 									</tr>
 								</table>
 							</div>
-							<div class="col-lg-8">
+							<div class="col-sm-7">
 								<div class="row">
 									<div class="row">
-										<div class="col-md-12">
+										<div class="col-sm-12">
 											<div class="form-group divb0"
 												style="margin-bottom: 0px !important;">
 												<label for="name">商品属性(*)</label>
 												<input class="form-control"
 													placeholder="请输入商品属性名称" id="aproname" name="name" type="text">
-												<input style = "opacity: 0; width: 0px"
+												<input
 													placeholder="" id="atypeId" name="typeId" type="text">												
 											</div>
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-md-12">
+										<div class="col-sm-12">
 											<div class="form-group divb0">
 												<label for="typeId">商品类型(*)</label> 
 												<input class="form-control"
@@ -72,6 +72,7 @@
 <script>
 	var zTreeAdd;
 	var domeIframeAdd;
+	var pro;
 	
 	var settingPro = {
 		view: {
@@ -116,7 +117,13 @@
 	}
 
 	$(document).ready(function(){
-		var pro = $("#aprotree");
+		$("#add-pro").click(function(){
+			addProValidate.resetForm();
+			$("#aproname").val("");
+			$("#atypeId").val("");
+			$("#atypeName").val("");
+		});
+		pro = $("#aprotree");
 		pro = $.fn.zTree.init(pro, settingPro);
 		domeIframeAdd = $("#testIframe");
 		domeIframeAdd.bind("load", loadReady);
@@ -127,7 +134,7 @@
 			$("#addPro").submit();
 		});
 		
-	    $("#addPro").validate({
+	    var addProValidate = $("#addPro").validate({
 	        rules: {
 	            name: {
 	        	    required:true,

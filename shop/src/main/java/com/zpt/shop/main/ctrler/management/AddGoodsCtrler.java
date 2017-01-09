@@ -186,6 +186,18 @@ public class AddGoodsCtrler {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value ="/deleteType", method = RequestMethod.POST)
+	public void deleteType(Integer id){
+		String ids = id.toString();
+		try {
+			goodsTypeService.deleteGoodsType(ids);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
+	@ResponseBody
 	@RequestMapping(value ="/deletePro", method = RequestMethod.POST)
 	public Map<String,Object> deletePro(Integer typeId, String ids){
 		Map<String,Object> map = new HashMap<String, Object>();
@@ -198,8 +210,8 @@ public class AddGoodsCtrler {
 		}
 		map.put("proMsg", pro);
 		return map;
-	}
-	
+	}	
+		
 	@ResponseBody
 	@RequestMapping(value ="/addBrand", method = RequestMethod.POST)
 	public Msg addBrand(Brand brand){

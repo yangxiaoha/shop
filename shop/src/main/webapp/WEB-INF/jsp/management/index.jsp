@@ -48,7 +48,7 @@
                                 </span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a class="J_menuItem" href="form_avatar.html">修改密码</a>
+                                <li><a class="icon-user" data-toggle="modal" data-target="#myModal">修改密码</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li><a href="login">安全退出</a>
@@ -71,14 +71,6 @@
                         <a href="#"><i class="fa fa-desktop"></i><span class="nav-label">商品管理</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a class="J_menuItem" href="goods/index">商品管理</a>
-                            </li>
-                            <li><a class="J_menuItem" href="supplier/index">供应商管理</a>
-                            </li>
-                            <li><a class="J_menuItem" href="brand/index">品牌管理</a>
-                            </li>
-                            <li><a class="J_menuItem" href="goodstype/index">商品类型管理</a>
-                            </li>
-                            <li><a class="J_menuItem" href="pro/index">商品属性管理</a>
                             </li>
                             <li><a class="J_menuItem" href="order/index">订单管理</a>
                             </li>
@@ -224,8 +216,10 @@
 
                     </button>
                     <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                    <!-- 
                         <li class="J_tabShowActive"><a>定位当前选项卡</a>
                         </li>
+                     -->
                         <li class="divider"></li>
                         <li class="J_tabCloseAll"><a>关闭全部选项卡</a>
                         </li>
@@ -640,6 +634,34 @@
 
             </a>
         </div> -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="alert alert-danger" style="display: none;"></div>
+					<form id="login_form2" action="" method="post">
+						<div class="form-group">
+							<input class="form-control" id="username" placeholder="用户名"
+								name="username" type="text">
+						</div>
+						<div class="form-group">
+							<input class="form-control" id="password" placeholder="密码"
+								name="password" type="password">
+						</div>
+						<div class="form-group">
+							<input class="form-control" id="newPassword"
+								placeholder="请输入新的密码" name="newPassword" type="password">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" onclick="submit()">保存</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
     </div>
     <script src="<%=basePath %>/assets/management/js/jquery.min.js?v=2.1.4"></script>
     <script src="<%=basePath %>/assets/management/js/bootstrap.min.js?v=3.3.6"></script>
@@ -660,6 +682,45 @@
     		});
     		
     	});
+    	function submit() {
+			var username = $("#username").val();
+			var password = $("#password").val();
+			var newPassword = $("#newPassword").val();
+			var hash = hex_md5(password); //hash为加密后的值
+			var hash2 = hex_md5(newPassword);
+
+			if (username.length == 0 || password.length == 0
+					|| newPassword.length == 0) {
+				$(".alert-danger").css("display", "block");
+				$(".alert-danger").html("请输入用户名信息");
+			} else {
+				$.ajax({
+					type : 'POST',
+					url : '<%=basePath%>management/modify',
+					data : {
+						username : username,
+						password : hash,
+						newPassword : hash2
+					},
+					dataType : 'json',
+					success : function(data) {
+						if (data == 1) {
+							$('#myModal').modal('hide');
+							$("#username").val('');
+							$("#password").val('');
+							$("#newPassword").val('');
+							$(".alert-danger").css("display", "none");
+						} else {
+							$("#username").val('');
+							$("#password").val('');
+							$("#newPassword").val('');
+							$(".alert-danger").css("display", "block");
+							$(".alert-danger").html("用户名或密码错误");
+						}
+					}
+				});
+			}
+		}
     </script>
 </body>
 </html>

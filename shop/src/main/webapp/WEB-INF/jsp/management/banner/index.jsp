@@ -66,7 +66,7 @@
                 <div class="ibox float-e-margins">
                 	<input type="hidden" id="basepath" value="<%=basePath%>">
                     <div class="ibox-title">
-                        <h5>首页滚动图管理<small>&nbsp;&nbsp;新增,修改,删除</small></h5>
+                        <h5>首页滚动图管理</h5>
                         <div class="ibox-tools">
                             <a data-toggle="modal" href="#addModal" id="add-row">
                                 <i class="fa fa-plus"></i>

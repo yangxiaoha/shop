@@ -19,8 +19,8 @@
 			<div class="modal-body">
 				<form action="addType" id="addType" method="post">
 					<fieldset>
-						<div class="col-lg-12">						
-							<div class="col-lg-5">
+						<div class="col-sm-12">						
+							<div class="col-sm-5">
 								<table border=0 height=200px align=left>
 									<tr>
 										<td width=150px align=left valign=top
@@ -31,10 +31,10 @@
 									</tr>
 								</table>
 							</div>
-							<div class="col-lg-7">
+							<div class="col-sm-7">
 								<div class="row">
 									<div class="row">
-										<div class="col-md-12">
+										<div class="col-sm-12">
 											<div class="form-group divb0"
 												style="margin-bottom: 0px !important;">
 												<label for="name">商品类型名称(*)</label><input class="form-control"
@@ -43,7 +43,7 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-md-12">
+										<div class="col-sm-12">
 											<div class="form-group divb0">
 												<label for="pid">上级商品类型</label> 
 												<input class="form-control" readonly="readonly" id="asuperiorname" name="" type="text"> 
@@ -71,6 +71,8 @@
 	</div>
 </div>
 <script>
+	var type;
+	var atype;
 	var settingAdd = {
 		view: {
 			selectedMulti: false
@@ -111,14 +113,14 @@
 	};
 
 	$(document).ready(function(){
-		var type = $("#typeTree");
+		type = $("#typeTree");
 		type = $.fn.zTree.init(type, typeSetting);
 		demoIframe = $("#testIframe");
 		demoIframe.bind("load", loadReady);
 		var tTree = $.fn.zTree.getZTreeObj("typeTree");
 		tTree.selectNode(tTree.getNodeByParam("id", 101));
 		
-		var atype = $("#atypeTree");
+		atype = $("#atypeTree");
 		atype = $.fn.zTree.init(atype, settingAdd);
 		demoIframe = $("#testIframe");
 		demoIframe.bind("load", loadReady);
@@ -176,6 +178,7 @@
 	        		   tableI.table().draw();
 	        		   type.reAsyncChildNodes(null, "refresh");
 	        		   atype.reAsyncChildNodes(null, "refresh");
+	        		   pro.reAsyncChildNodes(null, "refresh");
 	        	   },
 	        	   error:function(){
 	        		   $("#loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");

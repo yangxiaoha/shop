@@ -41,11 +41,14 @@
 </div>
 <script>
 	$(document).ready(function(){
-		$('.datepicker').datepicker();
-		$("#addsubmit").click(function(){
-			$("#add").submit();
+		$("#add-row").click(function(){
+			addValidate.resetForm();
 		});
-	    $("#add").validate({
+		$('.datepicker').datepicker();
+		$("#addsubmit").click(function(){			
+			$("#add").submit();			
+		});
+		var addValidate = $("#add").validate({
 	        rules: {
 	        	reply:{
 	        		required:true,	        		
@@ -66,14 +69,14 @@
 	        },
 	        messages: {
 	          skey: {
-		        	 required:"请输入skey",
-		        	 remote:"该skey已存在"
+		        	 required:"请输入关键字",
+		        	 remote:"该关键字已存在"
 		      },
 		      reply: {
-		        	 required:"请输入reply"
+		        	 required:"请输入内容"
 		      }
 	        },
-	        submitHandler: function(form) {   
+	        submitHandler: function(form) {
 	           $(this).attr("disabled","disabled"); 
 			   $("#loading").html("<i class=\"icon-spinner icon-spin\"></i>");
 	           $(form).ajaxSubmit({
