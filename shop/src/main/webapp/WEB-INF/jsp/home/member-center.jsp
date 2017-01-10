@@ -63,7 +63,7 @@
 	      <ul>
 	        <li class="user-power-show" id="user-power-show">
 	          <div class="user-power-title clearfloat p10">
-	          	<span class="fl show-img"></span>
+	          	<span class="fl show-img"><img src="<%=basePath%>assets/home/images/plus.png"></span>
 	            <span class="fl show-title">代理人推广</span>
 	            <i class="fr agency-all-amount">${num}单(￥${price})</i>
 	          </div>         
@@ -87,7 +87,7 @@
 	        <li class="user-power-show">
 	          <div class="user-power-title clearfloat p10">
 	            <a href="withdrawals" class="fc-595757">
-	              <span class="fl show-img"></span>
+	              <span class="fl show-img"><img src="<%=basePath%>assets/home/images/plus.png"></span>
 	              <span class="fl show-title">申请提现</span>
 	              <i class="fr glyphicon glyphicon-chevron-right" style="line-height: 23px;"></i>
 	            </a>           
@@ -129,10 +129,10 @@
       $("#user-power-show").click(function() {        
         if($(this).find(".user-power-detail").css("display") == "none") {
           $(this).children("ul").show();
-          $(this).find(".show-img").css("background-position", "0px 4px");
+          $(this).find(".show-img img").attr("src", "<%=basePath%>assets/home/images/reduce.png");
         }else {
           $(this).children("ul").hide();
-          $(this).find(".show-img").css("background-position", "0px 34px");
+          $(this).find(".show-img img").attr("src", "<%=basePath%>assets/home/images/plus.png");
         }       
       }); 
     </script>

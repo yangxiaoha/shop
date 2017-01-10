@@ -14,28 +14,25 @@ import org.springframework.stereotype.Service;
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.common.pojo.RandomArray;
-import com.zpt.shop.common.weixin.EnterpriseToUserMsg;
 import com.zpt.shop.common.weixin.WxMpConfigStorage;
-import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.entities.Withdraw;
 import com.zpt.shop.main.mapper.DistributionMapper;
 import com.zpt.shop.main.mapper.UserMapper;
 import com.zpt.shop.main.mapper.WithdrawMapper;
 import com.zpt.shop.main.service.WithdrawService;
+
 import com.zpt.shop.main.service.WxMpService;
 import com.zpt.shop.weixin.utils.CollectionUtil;
 import com.zpt.shop.weixin.utils.WeixinUtils;
 import com.zpt.shop.weixin.utils.WeixinUtils.RequestMethodEnum;
 import com.zpt.shop.weixin.utils.XmlUtil;
 
+
 @Service
 public class WithdrawServiceImpl implements WithdrawService {
 
 	@Autowired
 	private WithdrawMapper withdrawMapper;
-	
-	@Autowired
-	private DistributionMapper distributionMapper;
 	
 	@Autowired
 	private WxMpConfigStorage wxMpConfigStorage;
@@ -45,8 +42,6 @@ public class WithdrawServiceImpl implements WithdrawService {
 	
 	@Autowired
 	private UserMapper userMapper;
-
-
 
 	/**
 	 * 获取会员信息
