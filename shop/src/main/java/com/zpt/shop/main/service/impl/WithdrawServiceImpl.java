@@ -25,6 +25,7 @@ import com.zpt.shop.main.service.WithdrawService;
 import com.zpt.shop.main.service.WxMpService;
 import com.zpt.shop.weixin.utils.CollectionUtil;
 import com.zpt.shop.weixin.utils.WeixinUtils;
+import com.zpt.shop.weixin.utils.WeixinUtils.RequestMethodEnum;
 import com.zpt.shop.weixin.utils.XmlUtil;
 
 @Service
@@ -143,7 +144,7 @@ public class WithdrawServiceImpl implements WithdrawService {
 	@Override
 	public void updateState(Withdraw withdraw) {
 
-	/*	// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub		
 		Map<String, String> restmap = null;
 		try {
 			String partner_trade_no = "pay"+System.currentTimeMillis();
@@ -159,7 +160,7 @@ public class WithdrawServiceImpl implements WithdrawService {
 			parm.put("desc", "测试转账到个人"); //企业付款描述信息
 			parm.put("spbill_create_ip", wxMpConfigStorage.getIp()); //Ip地址
 			parm.put("sign", wxMpService.getSign(parm, wxMpConfigStorage.getAppId()));
-			String restxml = WeixinUtils.posts("https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers", XmlUtil.xmlFormat(parm, false));
+			String restxml = WeixinUtils.httpRequest(wxMpConfigStorage.getSslPath(), wxMpConfigStorage.getPartnerId(), "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers",RequestMethodEnum.POST, XmlUtil.xmlFormat(parm, false));
 			restmap = XmlUtil.xmlParse(restxml);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -180,9 +181,8 @@ public class WithdrawServiceImpl implements WithdrawService {
 			}
 
 		}
->>>>>>> branch 'master' of https://git.oschina.net/liutengda/shop.git
 		if(withdraw.getState() == 2){			
 			withdrawMapper.updateState(withdraw);
-		}*/
+		}
 	}
 }

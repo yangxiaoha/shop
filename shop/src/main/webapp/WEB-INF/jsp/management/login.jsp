@@ -73,8 +73,7 @@
    	      var pas_val = noencryptpassword.value;
    		  if(username.value == ""||username.value == null) {
 	   		  $(".alert-danger").css("display","block");	   		
-	   		  $(".alert-danger").html("用户名不能为空");  
-	   		  return;
+	   		  $(".alert-danger").html("用户名不能为空");
    		  }else {  	   	      
    	   		  var hash = hex_md5(pas_val);//hash为加密后的值
    	   		  password.value = hash;
