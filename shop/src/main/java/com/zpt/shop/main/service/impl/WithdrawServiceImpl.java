@@ -140,7 +140,7 @@ public class WithdrawServiceImpl implements WithdrawService {
 		return true;
 	}
 
-	@Override
+	/*@Override
 	public void updateState(Withdraw withdraw) {
 		// TODO Auto-generated method stub		
 		Map<String, String> restmap = null;
@@ -182,5 +182,5 @@ public class WithdrawServiceImpl implements WithdrawService {
 		if(withdraw.getState() == 2){			
 			withdrawMapper.updateState(withdraw);
 		}
-	}
+	}*/
 }

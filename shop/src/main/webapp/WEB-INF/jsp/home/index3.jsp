@@ -54,19 +54,36 @@
 		vertical-align:  -2px;
 		margin-right:  5px;
 	}
+	.scroller {
+		height: 100%;
+	}
+	.scroller li {
+		float: left;
+		width: 49%;
+		margin-bottom: 9px;
+		text-align: center;
+		border: 1px solid #968f8e;
+		background-color: #fff;
+	}
+	.scroller li:nth-child(odd) {
+		margin-right: 2%;
+	}
+	.scroller li img {
+		width: 100%;
+	}
 </style>
 </head>
 <body>
 
 	<div id="wrap">
 		<!-- 轮播图 -->
-	    <div class="swiper-container">
+	    <%-- <div class="swiper-container">
 	        <div class="swiper-wrapper">
 	        	<c:forEach items="${banner}" var="bannerList">
 	        	    <div class="swiper-slide"><img src="<%=basePath%>${bannerList.image}"></div>	
 	        	</c:forEach>        
 	        </div>
-	    </div> 
+	    </div> --%>
 	    
 	    <!-- 菜单 -->
 	    <div class="index-menu">
@@ -96,19 +113,19 @@
 		</div>
 		
 	    <!-- 商品展示 -->
-	    <div id="wrapper">
-	    	<ul class="goods-detail mb80">
-		    	<c:forEach items="${goodsMsg}" var="goodsList">
-			      	<li class="goods-show">
-			    		<a href="goodsDetail/${goodsList.id}">
-			    	  		<img src="<%=basePath%>${goodsList.url}" />
-					  		<p class="p5 goods-name">${goodsList.name}</p>
-					  		<p class="mb5 font-price">￥${goodsList.price}</p>
-			    		</a>
-				  	</li>
+	    <div id="wrapper" style="height: 150px; overflow-y:auto;">
+		   <ul>
+		     <c:forEach items="${goodsMsg}" var="goodsList">
+			      <li>
+			    	<a href="goodsDetail/${goodsList.id}">
+			    	  <img src="<%=basePath%>${goodsList.url}" />
+					  <p class="p5 goods-name">${goodsList.name}</p>
+					  <p class="mb5 font-price">￥${goodsList.price}</p>
+			    	</a>
+				  </li>
 				</c:forEach>
-		    </ul>
-	    </div>
+		   </ul>
+		</div>
 		
 		<!-- 导航 -->
 		<ul class="tab-bar index-tab-bar">
@@ -169,48 +186,13 @@
 		})
     </script>
     <script>
-    	var num = 20;
-    	var pageStart = 20;
-    	
-	    //最新、人气、现货
-		$(".menu-title").click(function(){
-			$(this).siblings().css("border-bottom", "0");
-			if(!($(this).hasClass('menu-title-notice')) && !($(this).hasClass('menu-title-search'))) {
-				$(".goods-type").hide();
-				$(".goods-search").hide();
-				$(this).css("border-bottom", "1px solid #c8161d");
-				flag = $(this).children("input[type=hidden]").val();
-				var keyword = "";
-				var typeId = "";
-				showGoods(flag, keyword, typeId);
-			}				    
-		});
-		$(".menu-title-search .screen").click(function() {
-			$(".goods-search").hide();
-			$(".goods-type").toggle();
-		});
-		$(".menu-title-search .search").click(function() {
-			$(".goods-type").hide();
-			$(".goods-search").toggle();
-		});
-		
-		//商品搜索
-		$("#searchKeyword").click(function() {				
-			var flag = 0;
-			var keyword = $("#keyword").val();
-			var typeId = "";
-			showGoods(flag, keyword, typeId);
-			$("#flag").val(0);
-			$(".goods-search").hide();
-		});
-    
 	    function showGoods(flag, keyword, typeId) {
 	    	$.ajax({
 		   	    url: "selectGoods",
 		   		type: "Post",
 		   	    data: {
 		   	    	pageStart:0,
-		   	    	num:20,
+		   	    	num:3,
 		   	    	flag:flag,
 		   	    	keyword:keyword,
 		   	    	typeId:typeId
@@ -236,5 +218,127 @@
 	        })
 	    }
     </script>
+	<script>
+		var num = 3;
+	    var pageStart = 3;
+	    
+	    //最新、人气、现货
+		$(".menu-title").click(function(){
+			$(this).siblings().css("border-bottom", "0");
+			if(!($(this).hasClass('menu-title-notice')) && !($(this).hasClass('menu-title-search'))) {
+				$(".goods-type").hide();
+				$(".goods-search").hide();
+				$(this).css("border-bottom", "1px solid #c8161d");
+				flag = $(this).children("input[type=hidden]").val();
+				var keyword = "";
+				var typeId = "";
+				pageStart = 3;
+				showGoods(flag, keyword, typeId);
+			}				    
+		});
+		$(".menu-title-search .screen").click(function() {
+			$(".goods-search").hide();
+			$(".goods-type").toggle();
+		});
+		$(".menu-title-search .search").click(function() {
+			$(".goods-type").hide();
+			$(".goods-search").toggle();
+		});
+		
+		//商品搜索
+		$("#searchKeyword").click(function() {				
+			var flag = 0;
+			var keyword = $("#keyword").val();
+			var typeId = "";
+			pageStart = 3;
+			showGoods(flag, keyword, typeId);
+			$("#flag").val(0);
+			$(".goods-search").hide();
+		});
+		
+		refresher.init({
+			id:"wrapper",
+			pullDownAction:Refresh,                                                            
+			pullUpAction:Load 																			
+		});	
+	    
+	    function Refresh() {
+	        pageStart = 0;
+	        setTimeout(function () {
+	            $.ajax({
+	                type: 'POST',
+	                url: 'loadIndex',
+	                data: {                     
+	                    pageStart:0,
+	                    num:3,
+	                    flag:$("#flag").val(),
+	                    keyword:$("#keyword").val(),
+	                    typeId:""
+	                },
+	                dataType: 'json',
+	                success: function(data){
+	                    var result = '';
+	                    pageStart = pageStart + num;
+	                    $('.goods-detail').html("");
+	                    if(data.goodsMsg != null) { 
+	                        for(var i = 0; i < data.goodsMsg.length; i++){
+	                            result += '<li>'+
+	                                    '<a href="goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
+	                                    '<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
+	                                    '<p class="p5">'+data.goodsMsg[i].name+'</p>'+
+	                                    '<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
+	                                    '</a>'+
+	                                    '</li>';
+	                        }
+	                        $('#scroller ul').append(result);
+	                    }
+	                }
+	            }); 
+	            refresher.loadflag = true;
+	            myScroll.refresh();         
+	        }, 1000);
+	    }
+
+	    function Load() {
+	        setTimeout(function () {
+	            $.ajax({
+	                type: 'POST',
+	                url: 'loadIndex',
+	                data: {                     
+	                    pageStart:pageStart,
+	                    num:num,
+	                    flag:$("#flag").val(),
+	                    keyword:$("#keyword").val(),
+	                    typeId:""
+	                },
+	                dataType: 'json',
+	                success: function(data){
+	                    var result = '';
+	                    pageStart = pageStart + num;
+	                    
+	                    if(data.goodsMsg != null) {  
+	                        for(var i = 0; i < data.goodsMsg.length; i++){
+	                            result += '<li>'+
+	                                    '<a href="goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
+	                                    '<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
+	                                    '<p class="p5">'+data.goodsMsg[i].name+'</p>'+
+	                                    '<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
+	                                    '</a>'+
+	                                    '</li>';
+	                        }
+	                        $('#scroller ul').append(result);
+	                    }
+	                }
+	            });
+	            //alert(pageStart);
+	            if(pageStart < $("#total").val()) {
+	                refresher.loadflag = true;
+	            }else {
+	                refresher.loadflag = false;
+	            }
+	            myScroll.refresh();
+	        }, 1000);
+	    }
+	</script>
 </body>
 </html>

@@ -27,7 +27,6 @@ import com.zpt.shop.main.service.BannerService;
 import com.zpt.shop.main.service.CartService;
 import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.GoodsTypeService;
-import com.zpt.shop.main.service.OrderDetailService;
 import com.zpt.shop.main.service.OrderService;
 import com.zpt.shop.main.service.ProValService;
 import com.zpt.shop.main.service.SkuService;
@@ -74,11 +73,12 @@ public class MainIndexCtrler {
 
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public ModelAndView index(HttpServletRequest request) {
+		//只展示前20条数据
 		ModelAndView mv = new ModelAndView("home/index");
 		User user = (User) request.getSession().getAttribute("user");
-		String userId = user.getId().toString();//先设置用户为1
+		String userId = user.getId().toString();
 		Integer pageStart = 0;
-		Integer num = 10;
+		Integer num = 20;
 		String flag = "0";
 		String keyword = "";
 		String typeId = "";
@@ -138,7 +138,7 @@ public class MainIndexCtrler {
 	public ModelAndView goodsType(@PathVariable("typeId") Integer typeId) {
 		ModelAndView mv = new ModelAndView("home/type-detail");	
 		Integer pageStart = 0;
-		Integer num = 10;
+		Integer num = 3;
 		String flag = "";
 		String keyword = "";
 		List<Goods> goodsList = goodsService.getGoodsByTypeId(pageStart, num, Integer.toString(typeId));

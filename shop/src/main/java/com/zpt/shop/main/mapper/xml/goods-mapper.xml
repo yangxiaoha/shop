@@ -149,7 +149,9 @@
 			and name like CONCAT('%',#{keyword},'%')
 		</if>
 		<if test="typeId != null and typeId != ''">
-			and typeid = #{typeId}
+			and (typeid = #{typeId}
+			or typeid in 
+			(select id from t_goods_type where pid = #{typeId}))
 		</if>
 	</select>
 	
@@ -177,7 +179,8 @@
 			ORDER BY t_goods.id DESC
 		</if>
 		<if test="typeId != null and typeId != ''">
-			where state = 1 and t_goods.typeid = #{typeId}
+			where state = 1 and
+			(t_goods.typeid = #{typeId} or t_goods.typeid in (select id from t_goods_type where pid = #{typeId}))
 			ORDER BY t_goods.id DESC
 		</if>
 		limit #{pageStart},#{num}

@@ -7,6 +7,7 @@
 	<resultMap type="user" id="resultMap">
 		<id property="id" column="id" />
 		<result property="openid" column="openid" />
+		<result property="name" column="name" />
 		<result property="regtime" column="regtime" />
 		<result property="pid" column="pid" />
 		<result property="money" column="money" />
@@ -109,6 +110,10 @@
 	
 	<update id="updateStateMoney">
 		update t_user set money = #{money} where id = #{userId}
+	</update>
+	
+	<update id="updateUsername">
+		update t_user set name = #{userName} where openid = #{openid}
 	</update>
 	
 </mapper>
