@@ -701,11 +701,11 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .goods-parameter-choice .shopping-car-edit > i {
 	display: block;
-    width: 20px;
-    height: 20px;
+    width: 26px;
+    height: 26px;
     background-image: url(../images/close.png);
-    background-size: 20px 20px;
-    background-position: -40px 20px;
+    background-size: 26px 26px;
+    background-position: 0px 26px;
 }
 .goods-parameter-choice .goods-parameter-classify {	
 	width: 100%;
@@ -739,7 +739,7 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .goods-purchase-num span {
 	display: inline-block;
-    width: 30px;
+    width: 40px;
     height: 30px; 
     text-align: center;
     background-color: #f6f5f5;
@@ -844,10 +844,10 @@ a, a:link, a:visited, a:hover, a:active {
 	display: block;
 	width: 26px;
     height: 26px;
-    background-image: url(../images/btn.png);
-    background-size: 20px 60px;
-    background-position: 0px 34px;
-    background-repeat-x: no-repeat;
+    margin-right: 5px;
+}
+.user-power-show .show-img img {
+	width: 100%;
 }
 .user-power-show .show-title {
 	display: block;
