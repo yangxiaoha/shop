@@ -129,7 +129,7 @@ public class WxMpServiceImpl implements WxMpService {
 				if (wxMpConfigStorage.isAccessTokenExpired()) {
 					String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential" + "&appid="
 							+ wxMpConfigStorage.getAppId() + "&secret=" + wxMpConfigStorage.getSecret();
-					String resultContent = WeixinUtils.httpRequest(url, RequestMethodEnum.GET, null);
+					String resultContent = WeixinUtils.httpRequest(null,null,url, RequestMethodEnum.GET, null);
 					WxError error = WxError.fromJson(resultContent);
 					if (error.getErrcode() != 0) {
 						throw new WxErrorException(error);
@@ -151,7 +151,7 @@ public class WxMpServiceImpl implements WxMpService {
 			synchronized (globalJsapiTicketRefreshLock) {
 				if (wxMpConfigStorage.isJsapiTicketExpired()) {
 					String url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="+this.getAccessToken(false)+"&type=jsapi";
-					String resultContent = WeixinUtils.httpRequest(url, RequestMethodEnum.GET, null);
+					String resultContent = WeixinUtils.httpRequest(null,null,url, RequestMethodEnum.GET, null);
 					WxError error = WxError.fromJson(resultContent);
 					if (error.getErrcode() != 0) {
 						throw new WxErrorException(error);
@@ -233,7 +233,7 @@ public class WxMpServiceImpl implements WxMpService {
 			}
 			uriWithAccessToken += uriWithAccessToken.endsWith("?") ? data : '&' + data;
 		}
-		String resultContent = WeixinUtils.httpRequest(uriWithAccessToken, method, data);
+		String resultContent = WeixinUtils.httpRequest(null,null,uriWithAccessToken, method, data);
 		log.debug("wx:{}", resultContent);
 		WxError error = WxError.fromJson(resultContent);
 		if (error.getErrcode() != 0) {

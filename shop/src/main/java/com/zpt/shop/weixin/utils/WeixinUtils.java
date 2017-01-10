@@ -21,6 +21,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
@@ -67,7 +69,6 @@ public class WeixinUtils {
 	public static final String EVENT_TYPE_SUBSCRIBE = "subscribe";//事件类型：subscribe(订阅)
 	public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";//事件类型：unsubscribe(取消订阅)
 	public static final String EVENT_TYPE_TEXT = "text";//事件类型：text(文本消息)
-	
 	private static final String DEFAULT_CHARSET = "UTF-8";
 	
 	private static final int CONNECT_TIME_OUT = 5000; //链接超时时间3秒
@@ -392,7 +393,7 @@ public class WeixinUtils {
 		GET, POST
 	}
 
-	public static String httpRequest(String requestUrl, RequestMethodEnum requestMethod, String outputStr) {
+	public static String httpRequest(String keyPath,String keypwd,String requestUrl, RequestMethodEnum requestMethod, String outputStr) {
 		StringBuilder sb = new StringBuilder();
 		System.setProperty("jsse.enableSNIExtension", "false");
 		try {
@@ -411,7 +412,32 @@ public class WeixinUtils {
 				}
 			} };
 			SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
-			sslContext.init(null, tm, new java.security.SecureRandom());
+			if(keyPath != null && keypwd != null){
+				KeyManager[] kms = null;
+				KeyStore trustStore = KeyStore.getInstance(KeyStore  
+	                    .getDefaultType());  
+	            FileInputStream instream = new FileInputStream(new File(  
+	            		keyPath));  
+	            try {  
+	                // 加载keyStore d:\\tomcat.keystore  
+	                trustStore.load(instream, keypwd.toCharArray());  
+	            } catch (CertificateException e) {  
+	                e.printStackTrace();  
+	            } finally {  
+	            	try {  
+	            		if(instream != null){
+	            			instream.close();  
+	            		}
+	            	} catch (Exception ignore) { 
+	            		
+	            	}  
+	            }
+	            KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
+	            kms = kmf.getKeyManagers();
+				sslContext.init(kms, tm, new java.security.SecureRandom());
+			}else{
+				sslContext.init(null, tm, new java.security.SecureRandom());
+			}
 			SSLSocketFactory ssf = sslContext.getSocketFactory();
 			URL url = new URL(requestUrl);
 			HttpsURLConnection httpUrlConn = (HttpsURLConnection) url.openConnection();
@@ -448,11 +474,6 @@ public class WeixinUtils {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-	}
-	
-	public static String posts(){
-		
-		return null;
 	}
 
 	/**

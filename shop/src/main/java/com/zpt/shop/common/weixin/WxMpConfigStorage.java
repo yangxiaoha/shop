@@ -15,6 +15,15 @@ public class WxMpConfigStorage{
 	protected volatile String aesKey;
 	protected volatile long expiresTime;
 	private volatile String ip;
+	private volatile String sslPath;
+
+	public String getSslPath() {
+		return sslPath;
+	}
+
+	public void setSslPath(String sslPath) {
+		this.sslPath = sslPath;
+	}
 
 	public String getIp() {
 		return ip;
