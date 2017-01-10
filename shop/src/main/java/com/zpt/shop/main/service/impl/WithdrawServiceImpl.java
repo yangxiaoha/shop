@@ -142,7 +142,8 @@ public class WithdrawServiceImpl implements WithdrawService {
 
 	/*@Override
 	public void updateState(Withdraw withdraw) {
-		// TODO Auto-generated method stub		
+
+	/*	// TODO Auto-generated method stub		
 		Map<String, String> restmap = null;
 		try {
 			String partner_trade_no = "pay"+System.currentTimeMillis();
@@ -177,7 +178,6 @@ public class WithdrawServiceImpl implements WithdrawService {
 			if (CollectionUtil.isNotEmpty(restmap)) {
 				//LOG.info("转账失败：" + restmap.get("err_code") + ":" + restmap.get("err_code_des"));
 			}
-
 		}
 		if(withdraw.getState() == 2){			
 			withdrawMapper.updateState(withdraw);

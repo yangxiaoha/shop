@@ -26,9 +26,10 @@
 								<label class="control-label">供应商名称(*)</label>
 								<select class="reg-sel-add" style="width: 100%" id="asupplierId" name="supplierId">
 									<option value=""></option>
-									<c:forEach items="${supplierMsg}" var="supplierList">
+									<option value=""></option>
+									<%-- <c:forEach items="${supplierMsg}" var="supplierList">
 										<option value="${supplierList.id}">${supplierList.name}</option>
-									</c:forEach>
+									</c:forEach> --%>
 								</select>
 							</div>								 
 						</div>
@@ -61,9 +62,22 @@
 		var bTree = $.fn.zTree.getZTreeObj("brandTree");
 		bTree.selectNode(bTree.getNodeByParam("id", 101));
 		
-		$('.reg-sel-add').select2({
-			placeholder: "请选择供应商"
+		$('#addBrandModal').on('shown.bs.modal', function () {
+			$('.reg-sel-add').select2({
+				placeholder: "请选择供应商",
+				language:"zh-CN",
+				ajax: {
+				    url: 'getSupplierAll',
+				    processResults: function (data) {
+				      return {
+				        results: data
+				      };
+				    }
+				  }
+			});
 		});
+		
+		
 		$("#brandSubmit").click(function(){
 			$("#addBrand").submit();
 		});
@@ -103,6 +117,7 @@
 			   $("#loading").html("<i class=\"icon-spinner icon-spin\"></i>");
 	           $(form).ajaxSubmit({
 	        	   success:function(data){
+	        		 
 	        		   if(data.state == 1){
 	        			   $("#loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
 	        		   }else{
@@ -115,6 +130,7 @@
 	        		   reset(form);
 	        		   tableI.table().draw();
 	        		   brand.reAsyncChildNodes(null, "refresh");
+	        		 
 	        	   },
 	        	   error:function(){
 	        		   $("#loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
@@ -125,6 +141,6 @@
 	        	   }
 	           });     
 	        }  
-	      });
+	     });
 	});
 </script>

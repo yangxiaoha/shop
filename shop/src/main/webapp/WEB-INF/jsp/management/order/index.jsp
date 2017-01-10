@@ -13,6 +13,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>订单管理</title>
+    <style type="text/css">
+     .noautowidth{
+     	word-wrap:break-word;
+		word-break:break-all;
+     }
+    </style>
 </head>
 <body class="gray-bg">	
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -65,13 +71,13 @@
 								<th class="check-header hidden-xs">
 									<label style="margin-right:0px" class="checkbox-inline i-checks"><input id="checkAll" name="checkAll" type="checkbox"></label>
 								</th>
-								<th>收货人姓名</th>
+								<th width="9%">收货人姓名</th>
 								<th>收货人电话</th>
 								<th width="18%">收货人地址</th>
 								<th width="10%">下单时间</th>		
-								<th>物流商家</th>		
-								<th width="7%">物流编号</th>		
-								<th width="7%">订单编号</th>		
+								<th width="9%">物流商家</th>		
+								<th>物流编号</th>		
+								<th>订单编号</th>		
 								<th>订单状态</th>
 								<th>详情</th>
 							</thead>

@@ -60,6 +60,20 @@ public class AddGoodsCtrler {
 	}
 	
 	@ResponseBody
+	@RequestMapping("/getSupplierAll")
+	public List<Map<String,String>> getBrandAll(){
+		List<Supplier> supplierList = supplierService.getAllSupplier();		
+		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+		for(int i = 0; i < supplierList.size(); i++){
+			Map<String,String> brand = new HashMap<String,String>();
+			brand.put("id",supplierList.get(i).getId()+"");
+			brand.put("text",supplierList.get(i).getName());
+			list.add(brand);
+		}
+		return list;
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "listData",method = RequestMethod.POST)
 	public Page<Goods> listData(Query<Goods> query){
 		Page<Goods> page = goodsService.page(query);
@@ -186,6 +200,18 @@ public class AddGoodsCtrler {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value ="/deleteType", method = RequestMethod.POST)
+	public void deleteType(Integer id){
+		String ids = id.toString();
+		try {
+			goodsTypeService.deleteGoodsType(ids);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
+	@ResponseBody
 	@RequestMapping(value ="/deletePro", method = RequestMethod.POST)
 	public Map<String,Object> deletePro(Integer typeId, String ids){
 		Map<String,Object> map = new HashMap<String, Object>();
@@ -198,8 +224,8 @@ public class AddGoodsCtrler {
 		}
 		map.put("proMsg", pro);
 		return map;
-	}
-	
+	}	
+		
 	@ResponseBody
 	@RequestMapping(value ="/addBrand", method = RequestMethod.POST)
 	public Msg addBrand(Brand brand){

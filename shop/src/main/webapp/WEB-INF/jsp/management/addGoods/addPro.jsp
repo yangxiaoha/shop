@@ -19,8 +19,8 @@
 			<div class="modal-body">
 				<form action="addPro" id="addPro" method="post">
 					<fieldset>
-						<div class="col-lg-12">						
-							<div class="col-lg-4">
+						<div class="col-sm-12">						
+							<div class="col-sm-5">
 								<table border=0 height=200px align=left>
 									<tr>
 										<td width=150px align=left valign=top
@@ -31,10 +31,10 @@
 									</tr>
 								</table>
 							</div>
-							<div class="col-lg-8">
+							<div class="col-sm-7">
 								<div class="row">
 									<div class="row">
-										<div class="col-md-12">
+										<div class="col-sm-12">
 											<div class="form-group divb0"
 												style="margin-bottom: 0px !important;">
 												<label for="name">商品属性(*)</label>
@@ -46,7 +46,7 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-md-12">
+										<div class="col-sm-12">
 											<div class="form-group divb0">
 												<label for="typeId">商品类型(*)</label> 
 												<input class="form-control"
@@ -72,7 +72,8 @@
 <script>
 	var zTreeAdd;
 	var domeIframeAdd;
-	
+	var pro;
+	var addProValidate;
 	var settingPro = {
 		view: {
 			selectedMulti: false
@@ -114,9 +115,17 @@
 			h = 530;
 		domeIframeAdd.height(h);
 	}
+	
+	$('#addProModal').on('shown.bs.modal',
+	    function() {
+			addProValidate.resetForm();
+			$("#aproname").val("");
+			$("#atypeId").val("");
+			$("#atypeName").val("");
+    })
 
-	$(document).ready(function(){
-		var pro = $("#aprotree");
+	$(document).ready(function(){		
+		pro = $("#aprotree");
 		pro = $.fn.zTree.init(pro, settingPro);
 		domeIframeAdd = $("#testIframe");
 		domeIframeAdd.bind("load", loadReady);
@@ -127,7 +136,7 @@
 			$("#addPro").submit();
 		});
 		
-	    $("#addPro").validate({
+	    addProValidate = $("#addPro").validate({
 	        rules: {
 	            name: {
 	        	    required:true,
@@ -164,11 +173,11 @@
 	       	},
 	        messages: {
 	          	name: {
-		        	required:"请输入商品名称",
+		        	required:"请输入商品属性",
 		        	remote:"该属性已存在"
 		        },
 		      	typeId: {
-		        	required:"请输入商品名称",
+		        	required:"请输入商品类型",
 		        	remote:"该属性已存在"
 		      	}	        
 	        },
@@ -187,7 +196,28 @@
 	        			   $("#addsubmit").removeAttr("disabled"); 
 	        		   },1000);
 	        		   reset(form);
-	        		   tableI.table().draw();
+	        		   
+	        		   $.ajax({
+	       		   	    url: "getGoodsPro",
+	       		   		type: "Post",
+	       		   	    data: {
+	       		   	    	typeId:type.getSelectedNodes()[0].id
+	       		   	    },
+	       		   	    dataType: "json",
+	       		   	    success: function(data) {
+	       	   	    		$(".proCheck .col-sm-10").html("");
+	       	   	    		$.each(data.proMsg, function(i, proList) {   
+	       	   	    			$(".proCheck").show();
+	       	   	    			$(".proCheck .col-sm-10").append( 
+	          	    					'<label class="checkbox-inline i-checks">'+
+	          	    					'<input type="checkbox" value="'+proList.name+'" style="position: absolute; opacity: 0;">'+proList.name+   	   	    				
+	          	    					'<input type="hidden" value="'+proList.id+'" />'+
+	          	    					'</label>'
+	       	    				);
+	          		  			});
+	       	   	    		$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
+	       		   	    }
+	       	        })
 	        	   },
 	        	   error:function(){
 	        		   $("#loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");

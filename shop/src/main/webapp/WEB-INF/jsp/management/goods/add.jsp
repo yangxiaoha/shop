@@ -271,6 +271,7 @@
 			   $("#loading").html("<i class=\"icon-spinner icon-spin\"></i>");
 	           $(form).ajaxSubmit({
 	        	   success:function(data){
+	        		   alert(data);
 	        		   if(data.state == 1){
 	        			   $("#loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
 	        		   }else{
@@ -284,7 +285,8 @@
 	        		   tableI.table().draw();
 	        		   $("#checkbok").html("");
 	        	   },
-	        	   error:function(){
+	        	   error:function(res){
+	        		   alert(res);   
 	        		   $("#loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
 	        		   setTimeout(function(){
 	        			   $("#loading").html("");

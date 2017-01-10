@@ -25,7 +25,7 @@ $(document).ready(function(){
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
-                 			'<a class="table-actions update" data-rowid="'+meta.row+'" href="javascript:void(0)"><i class="fa fa-pencil"></i></a>'+
+                 			'<a class="table-actions update" data-rowid="'+meta.row+'" href="javascript:void(0)" title="修改"><i class="fa fa-pencil"></i></a>'+
                  		'</div>';
                }
             }

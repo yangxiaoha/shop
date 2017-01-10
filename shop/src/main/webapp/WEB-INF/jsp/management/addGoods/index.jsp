@@ -9,27 +9,9 @@
 <html>
 <!-- Mirrored from www.zi-han.net/theme/hplus/table_data_tables.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:01 GMT -->
 <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${webapp}</title>
-    <meta name="keywords" content="${webapp}">
-    <meta name="description" content="${webapp}">
-   
-    <link rel="shortcut icon" href="favicon.ico"> 
-    <link href="<%=basePath %>/assets/management/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
-    <link href="<%=basePath %>/assets/management/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
-    <!-- Data Tables -->
-    <link href="<%=basePath %>/assets/management/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
-    <link href="<%=basePath %>/assets/management/css/style.min862f.css?v=4.1.0" rel="stylesheet">
-    <link href="<%=basePath %>/assets/management/css/animate.min.css" rel="stylesheet">
-    <link href="<%=basePath %>/assets/management/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="<%=basePath %>/assets/management/css/style.min.css" rel="stylesheet">
-    <link href="<%=basePath %>/assets/management/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
-    <link href="<%=basePath %>/assets/management/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-    <link href="<%=basePath %>/assets/management/plugin/ztree/css/metroStyle/metroStyle.css" rel="stylesheet">
-    <link href="<%=basePath %>/assets/management/plugin/select2/css/select2.css" rel="stylesheet">
     <link href="<%=basePath%>/assets/management/js/plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
+    <script type="text/javascript" src="<%=basePath %>/assets/management/plugin/ztree/js/jquery.ztree.all.js"></script>
+    <script src="<%=basePath %>assets/management/datatablejs/goods.js" type="text/javascript"></script>
 	<style>
 		.mb10 {margin-bottom: 10px;}
 		.goods-input {
@@ -65,15 +47,18 @@
 	                <label>商品库存:</label>
 	                <input type="text" placeholder="请输入商品库存量" id="iskuNum" name="skuNum" class="form-control goods-input">
 				</div> -->
+	        </div>
+	        <div class="row">
 				<div class="col-sm-6 mb10">
-	                <label>商品编码:</label>
+	                <label>商品编码&nbsp;&nbsp;&nbsp;:</label>
 	                <input type="text" placeholder="请输入商品编码" id="igoodsCode" name="code" class="form-control goods-input">
 				</div>
 				<div class="col-sm-6 mb10">
-	                <label>所属门店:</label>
+	                <label>所属门店&nbsp;&nbsp;&nbsp;:</label>
 	                <input type="text" placeholder="请输入所属门店" id="istore" name="store" class="form-control goods-input">
 				</div>
-	        </div>
+			</div>
+			<hr>
 	        <div class="row">
 	        	<div class="col-sm-6 mb10">
 					<label>供应商管理:</label>
@@ -113,7 +98,7 @@
 	        		<input type="text" placeholder="请选择商品属性" readonly="readonly" id="selectPro" name="proName" class="form-control goods-input">
 	        		<input type="hidden" id="selectProId" name="idstemp" class="form-control goods-input">
 	        		<button data-toggle="modal" href="#addProModal" class="btn btn-primary btn-sm" id="add-pro">添加属性</button>
-	                <div class="form-group proCheck" style="display: none;">
+	                <div class="form-group proCheck" style="display: none;width:85%">
 	                	<button type="button" class="btn btn-primary btn-sm mb10" id="addProBtn">添加</button>
 	                	<button type="button" class="btn btn-primary btn-sm mb10" id="deleteProBtn">删除</button>
 	                	<div class="col-sm-10"></div>
@@ -157,36 +142,6 @@
 	<jsp:include page="addSupplier.jsp"/>
 	<jsp:include page="addType.jsp"/>
 	<jsp:include page="addPro.jsp"/>
-    <script src="<%=basePath %>/assets/management/js/jquery.min.js?v=2.1.4"></script>
-    <script src="<%=basePath %>/assets/management/js/bootstrap.min.js?v=3.3.6"></script>
-    <script src="<%=basePath %>/assets/management/js/plugins/jeditable/jquery.jeditable.js"></script>
-    <script src="<%=basePath %>/assets/management/js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="<%=basePath %>/assets/management/js/plugins/dataTables/dataTables.bootstrap.js"></script>
-    <script src="<%=basePath %>/assets/management/js/content.min.js?v=1.0.0"></script>
-    <script src="<%=basePath %>/assets/management/datatablejs/base.js"></script>   
-    <script src="<%=basePath %>/assets/management/datatablejs/ajaxSubmit.js"></script>
-    <script src="<%=basePath %>/assets/management/js/plugins/iCheck/icheck.min.js"></script>
-    <script src="<%=basePath %>assets/management/datatablejs/goods.js" type="text/javascript"></script>
-    <script src="<%=basePath %>/assets/management/js/plugins/sweetalert/sweetalert.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/plugin/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/plugin/ueditor/ueditor.all.js"> </script>
-    <script src="<%=basePath %>/assets/management/js/plugins/datapicker/bootstrap-datepicker.js"></script>
-    <script src="<%=basePath %>/assets/management/js/plugins/validate/jquery.validate.min.js"></script>
-    <script src="<%=basePath %>/assets/management/js/plugins/validate/validateCss.js"></script>
-    <script type="text/javascript" src="<%=basePath %>/assets/management/plugin/ztree/js/jquery.ztree.all.js"></script>
-    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
-    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-    <script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
-    
-	<script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/ueditor.config.js"></script>
-	<script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/ueditor.all.js"> </script>
-	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/plugin/select2/js/select2.js"></script>
-	
-	<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
-	<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-	<script type="text/javascript" charset="utf-8" src="<%=basePath%>assets/management/plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
-    
-    <script src="<%=basePath%>assets/management/js/plugins/iCheck/icheck.min.js"></script>
     <script>
     	$(document).ready(function(){
         	$("#addProBtn").click(function(){
@@ -269,6 +224,7 @@
     	        rules: {
     	        	name:{
     	        		required:true,
+    	        		maxlength:20,
     	        	},
     	        	brandName:{
     	        		required:true,
@@ -283,15 +239,16 @@
     	        messages: {
     	        	name: {
     		        	required:"请输入商品名称",
+    		        	maxlength:"最多20个字"
     		        },
     		        brandName:{
-    	        		required:"请输入商品品牌",
+    	        		required:"请选择商品品牌",
     	        	},
     	        	typeName: {
-    	        	 	required:"请输入商品类型",
+    	        	 	required:"请选择商品类型",
     	          	},
     	          	proName: {
-       	        	 	required:"请输入商品属性",
+       	        	 	required:"请选择商品属性",
        	          	}
     	        },
     	        submitHandler: function(form) {
@@ -309,8 +266,6 @@
     	        			   $("#addsubmit").removeAttr("disabled"); 
     	        		   },1000);
     	        		   reset(form);
-    	        		   tableI.table().draw();
-    	        		   $("#checkbok").html("");
     	        	   },
     	        	   error:function(){
     	        		   $("#loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
@@ -359,7 +314,7 @@
 				enable: true,
 				showRemoveBtn: true,
 				showRenameBtn: false,
-				removeTitle: "删除节点"
+				removeTitle: "删除"
 			}
 		};
 		
@@ -382,7 +337,7 @@
 				enable: true,
 				showRemoveBtn: true,
 				showRenameBtn: false,
-				removeTitle: "删除节点"
+				removeTitle: "删除"
 			}
 		};
 		
@@ -405,7 +360,7 @@
 				enable: true,
 				showRemoveBtn: true,
 				showRenameBtn: false,
-				removeTitle: "删除节点"
+				removeTitle: "删除"
 			}
 		};
 
@@ -474,7 +429,7 @@
 		
 		function zTreeOnRemoveType(event, treeId, treeNode) {
 			$.ajax({
-		   	    url: "deleteSupplier",
+		   	    url: "deleteType",
 		   		type: "Post",
 		   	    data: {
 		   	    	id:treeNode.id
@@ -482,6 +437,9 @@
 		   	    dataType: "json",
 		   	    success: function(data) {}
 	        })
+	       type.reAsyncChildNodes(null, "refresh");
+ 		   atype.reAsyncChildNodes(null, "refresh");
+ 		   pro.reAsyncChildNodes(null, "refresh");
 		}
 	
 		function filter(treeId, parentNode, childNodes) {

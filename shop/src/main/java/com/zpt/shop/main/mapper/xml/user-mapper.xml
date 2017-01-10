@@ -20,8 +20,8 @@
 	
 	<sql id="queryCondition">
 		where 1 = 1
-		<if test="obj.openid != null and obj.openid != ''">
-			and openid like CONCAT('%',#{obj.openid},'%')
+		<if test="obj.name != null and obj.name != ''">
+			and name like CONCAT('%',#{obj.name},'%')
 		</if>
 		<if test="obj.startmoney != null and obj.startmoney != ''">
 			and money &gt; #{obj.startmoney}
@@ -44,7 +44,7 @@
 			left join t_user as b on a.id = b.pid where b.pid is not null)
 		</if>
 		<if test="search != null and search != ''">
-			and openid like CONCAT('%',#{search},'%')
+			and name like CONCAT('%',#{name},'%')
 		</if>
 	</sql>
 	

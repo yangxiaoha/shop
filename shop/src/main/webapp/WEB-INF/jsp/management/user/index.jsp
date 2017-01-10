@@ -50,7 +50,7 @@
 								<hr>
 								<h5>上级会员信息：</h5>
 								<p></p>
-								<p>用户id&nbsp：${user.openid}</p>
+								<p>用户名&nbsp：${user.name}</p>
 								<p>注册时间：${user.regtime}</p>
 								<p>财&nbsp;&nbsp富：${user.money}</p>
 							</div>
@@ -63,18 +63,18 @@
 							<form role="form">
 								<div class="col-sm-3">
 									<div class="form-group">
-										<label>用户id:</label> <input type="text" placeholder="搜索用户id"
-											id="openid" class="form-control">
+										<label>用户名:</label> <input type="text" placeholder="搜索用户名"
+											id="name" class="form-control">
 									</div>
 								</div>
 								<div class="col-sm-3">
                            			<div class="form-group">
-                           				<label class="control-label">是否有下线：</label>	
+                           				<label class="control-label">会员类型：</label>	
                                        	<select class="reg-sel-index form-control" id="isnot"  name="isnot">
 											<option value=""></option>
 											<option value="0">全部</option>
-											<option name="isnot" value="1">没下线</option>
-											<option name="isnot" value="2">有下线</option>
+											<option name="isnot" value="1">非会员</option>
+											<option name="isnot" value="2">会员</option>
 										</select>
                                    </div>
 	                           </div>
@@ -86,7 +86,8 @@
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
-										<input style="margin-top: 9.5%" type="text"
+										<label>&nbsp;</label> 
+										<input type="text"
 											placeholder="财富值上限" id="endmoney" class="form-control">
 									</div>
 								</div>						
@@ -123,7 +124,7 @@
 								<th class="check-header hidden-xs" width="7%"><label
 									style="margin-right: 0px" class="checkbox-inline i-checks"><input
 										id="checkAll" name="checkAll" type="checkbox"></label></th>
-								<th width="20%">用户id</th>
+								<th width="20%">用户名</th>
 								<th>注册时间</th>
 								<th>财富</th>
 								<th></th>
@@ -144,7 +145,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('.reg-sel-index').select2({
-				  placeholder: "搜索下线"
+				  placeholder: "搜索会员"
 			});
 		});
 		var start = {

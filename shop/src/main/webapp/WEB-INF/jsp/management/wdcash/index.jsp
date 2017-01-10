@@ -28,7 +28,7 @@ type="text/javascript"></script>
 			<div class="col-sm-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-                        <h5>结算管理<small></small></h5>                       
+                        <h5>结算管理</h5>                       
                     </div>
 					<div class="ibox-content">					
 						<div class="row">
@@ -36,8 +36,8 @@ type="text/javascript"></script>
 							<div class="col-sm-5">
 	                           <div class="col-sm-6">
                                    <div class="form-group">
-                                       <label>用户id:</label>
-                                       <input type="text" placeholder="搜索用户id" id="username" class="form-control">
+                                       <label>用户名:</label>
+                                       <input type="text" placeholder="搜索用户名" id="username" class="form-control">
                                    </div>
 	                           </div>	                           
 	                           <div class="col-sm-6">
@@ -77,7 +77,7 @@ type="text/javascript"></script>
 							</div>
 						</div>
 						<hr>
-						 <div class="ibox-contentTable">
+						<div class="ibox-contentTable">
 						<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
 							<thead>
 								<th></th>
@@ -89,8 +89,8 @@ type="text/javascript"></script>
 								<th>提现时间</th>
 								<th width="15%">提现金额</th>		
 								<th>提现状态</th>
-								<th>详情</th>
-								<th>操作</th>
+								<th style="text-align:center">详情</th>
+								<th style="text-align:center">操作</th>
 								<th></th>
 								<th></th>
 								<th></th>

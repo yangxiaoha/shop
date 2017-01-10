@@ -34,16 +34,7 @@
             <div class="col-sm-12" >
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>统计管理<small>查找，新增，修改</small></h5>
-                        <div class="ibox-tools">
-                            <a data-toggle="modal" href="#addModal" id="add-row">
-                                <i class="fa fa-plus"></i>
-                            </a>
-                            
-                            <a id="delete-row">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                        </div>
+                        <h5>统计管理</h5>
                     </div>
                     <div class="ibox-content">
                       <div class="row">

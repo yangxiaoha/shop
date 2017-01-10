@@ -17,13 +17,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<link rel="stylesheet" href="<%=basePath%>assets/home/css/pullToRefresh2.css"/>
-<script src="<%=basePath%>assets/home/js/iscroll.js"></script>
-<script src="<%=basePath%>assets/home/js/pullToRefresh2.js"></script>
 <style type="text/css" media="all">
-	.swiper-container {
-	        width: 100%;
-	 }
+	body, html {
+		padding: 0;
+		margin: 0;
+		height: 100%;
+	}
+    .swiper-container {
+        width: 100%;
+    }
     .swiper-slide {
         text-align: center;
         font-size: 18px;
@@ -46,18 +48,9 @@
     .swiper-slide > img {
         width: 100%;
     }
-    
-	.pullDownLabel img {
-		width:  13px;
-		height:  13px;
-		margin-top:  -1px;
-		vertical-align:  -2px;
-		margin-right:  5px;
-	}
 </style>
 </head>
 <body>
-
 	<div id="wrap">
 		<!-- 轮播图 -->
 	    <div class="swiper-container">
@@ -69,7 +62,7 @@
 	    </div> 
 	    
 	    <!-- 菜单 -->
-	    <div class="index-menu">
+		<div class="index-menu" style="position: relative;">
 		  	<ul class="menu">
 				<li class="menu-title menu-title-notice" data-toggle="modal" data-target="#myModal">公告</li>
 				<li class="menu-title">最新<input type="hidden" value="1"></li>
@@ -109,7 +102,7 @@
 				</c:forEach>
 		    </ul>
 	    </div>
-		
+
 		<!-- 导航 -->
 		<ul class="tab-bar index-tab-bar">
 			<li>
@@ -137,13 +130,12 @@
 				</a>
 			</li>
 		</ul>
-		
-		<!-- 购物车 -->
+
 		<a class="shopping-cart" href="../purchase/cart">
 	 		<span class="shopping-num">${amount}</span>
 	    </a>
-	</div>
-	
+    </div>
+
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	    <div class="modal-dialog">
@@ -158,14 +150,14 @@
 		    </div>
 	    </div>
 	</div>
+	<script src="<%=basePath%>assets/home/js/iscroll.js"></script>
+	<script src="<%=basePath%>assets/home/js/pullToRefresh.js"></script>
 	<!-- Swiper JS -->
     <script src="<%=basePath%>assets/home/Swiper-3.4.0/dist/js/swiper.min.js"></script>
     <!-- Initialize Swiper -->
     <script>
     	var mySwiper = new Swiper('.swiper-container', {
 			autoplay: 3000,//可选选项，自动滑动
-			loop: true,
-			autoplayDisableOnInteraction : false
 		})
     </script>
     <script>
