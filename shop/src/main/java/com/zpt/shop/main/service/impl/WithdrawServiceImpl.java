@@ -179,7 +179,6 @@ public class WithdrawServiceImpl implements WithdrawService {
 			if (CollectionUtil.isNotEmpty(restmap)) {
 				//LOG.info("转账失败：" + restmap.get("err_code") + ":" + restmap.get("err_code_des"));
 			}
-
 		}
 		if(withdraw.getState() == 2){			
 			withdrawMapper.updateState(withdraw);

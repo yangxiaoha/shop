@@ -612,7 +612,7 @@ public class WeixinUtils {
 
 	public static Map<String, String> parseXml(HttpServletRequest request) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
-		StringBuilder buffer = new StringBuilder();
+		StringBuffer  buffer = new StringBuffer();
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
@@ -633,7 +633,8 @@ public class WeixinUtils {
 		}
 		Document document = null;
 		try {
-			document = DocumentHelper.parseText(buffer.toString());
+			String tmp = new String(buffer.toString().getBytes(), "UTF-8");
+			document = DocumentHelper.parseText(tmp);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

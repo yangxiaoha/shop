@@ -75,4 +75,11 @@ public interface UserService {
 	 * */
 	public void updateMoney(Integer id, BigDecimal money);
 
+	/**
+	 * 修改用户名
+	 * @param String openid 用户openid
+	 * @param String userName 用户名
+	 * */
+	public void updateUsername(String openid, String userName);
+
 }

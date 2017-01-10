@@ -15,10 +15,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>一见喜</title>
-<link rel="stylesheet" href="<%=basePath%>assets/home/css/pullToRefresh.css">
+<link rel="stylesheet" href="<%=basePath%>assets/home/css/pullToRefresh2.css">
 <style>
 	.active {
 		color: red;
+	}
+	#scroller li {
+		float: left;
+		width: 49%;
+		margin-bottom: 9px;
+		text-align: center;
+		border: 1px solid #968f8e;
+		background-color: #fff;
+	}
+	#scroller li:nth-child(odd) {
+		margin-right: 2%;
+	}
+	#scroller li img {
+		width: 100%;
 	}
 </style>
 </head>
@@ -52,10 +66,10 @@
 			</c:forEach>
 	      </div>
 	      <div style="position: relative; width: 76%; height: 100%; float: right;">
-	      	<div id="wrapper">
-		      <ul class="goods-detail">
+	      	<div id="wrapper" style="overflow-y:auto;">
+		      <ul>
 			    <c:forEach items="${goodsMsg}" var="goodsList">
-			      <li class="goods-show">
+			      <li>
 			    	<a href="goodsDetail/${goodsList.id}">
 			    	  <img src="<%=basePath%>${goodsList.url}" />
 					  <p class="p5 goods-name">${goodsList.name}</p>
@@ -69,9 +83,13 @@
 	    </div>
     </div>
     <script src="<%=basePath%>assets/home/js/iscroll.js"></script>
-    <script src="<%=basePath%>assets/home/js/pullToRefresh.js"></script>
+    <script src="<%=basePath%>assets/home/js/pullToRefresh2.js"></script>
 	<script type="text/javascript">
     	$(document).ready(function(){
+
+	    	var num = 3;
+	        var pageStart = 3;
+	        
     		var typeId = $("#typeId").val();
 			//商品搜索
 			$(".type-detail-show").each(function() {	
@@ -89,6 +107,11 @@
 				}else {
 					$(".type-detail-show ul li").removeClass("active");
 					$(this).addClass("active");
+					refresher.loadflag = true;
+					refresher.info.loadingLable = "加载中...";
+					$("#pullDown").css("display", "block");
+   	    			$("#pullUp").css("display", "block");
+   	 	            pageStart = 3;
 					showGoodsByType(typeId);
 				}				
 			});
@@ -99,9 +122,15 @@
 					$(this).siblings("ul").hide();
 				}else {
 					$("p").removeClass("active");
+					$("p").siblings().find("li").removeClass("active");
 					$(".type-detail-show ul").hide();
 					$(this).addClass("active");
 					$(this).siblings("ul").show();
+					refresher.loadflag = true;
+					refresher.info.loadingLable = "加载中...";
+					$("#pullDown").css("display", "block");
+   	    			$("#pullUp").css("display", "block");
+   	    			pageStart = 3;
 					showGoodsByType(typeId);
 				}				
 			});
@@ -118,25 +147,29 @@
 			   	    },
 			   	    dataType: "json",
 			   	    success: function(data) {
-		   	    		$(".goods-detail").html("");
+		   	    		$("#scroller ul").html("");
 		   	    		$("#total").val(data.total);
-		   	    		$.each(data.goodsMsg, function(i, goodsList) {   
-		   	    			$(".goods-detail").append( 
-		   	    				'<div class="goods-show">'+
-   			          	  	    '<a href="../goodsDetail/'+goodsList.id+'">'+
-   					            '<img src="<%=basePath%>'+goodsList.url+'">'+
-								'<p class="p5">'+goodsList.name+'</p>'+
-								'<p class="mb5 font-price">￥'+goodsList.price+'</p>'+
-								'</a>'+
-								'</div>'
-		    				);
-	   		  			});
+		   	    		if(data.goodsMsg != null) { 
+			   	    		$.each(data.goodsMsg, function(i, goodsList) {   
+			   	    			$("#scroller ul").append( 
+			   	    				'<li>'+
+	   			          	  	    '<a href="../goodsDetail/'+goodsList.id+'">'+
+	   					            '<img src="<%=basePath%>'+goodsList.url+'">'+
+									'<p class="p5">'+goodsList.name+'</p>'+
+									'<p class="mb5 font-price">￥'+goodsList.price+'</p>'+
+									'</a>'+
+									'</li>'
+			    				);
+		   		  			});
+		   	    		}else {
+		   	    			refresher.loadflag = false;
+		   	    			$("#pullDown").css("display", "none");
+		   	    			$("#pullUp").css("display", "none");
+		   	    		}
 		   			}
 		        })
 			}
-
-	    	var num = 3;
-	        var pageStart = 3;
+			
 	    	refresher.init({
 	    		id:"wrapper",
 	    		pullDownAction:Refresh,
@@ -151,7 +184,7 @@
 	    	            url: '<%=basePath%>home/mainindex/loadIndex',
 	    	            data: {    	                
 	    	            	pageStart:0,
-	    	            	num:3,
+	    	            	num:num,
 	    	            	flag:"",
 	    		   	    	keyword:"",
 	    		   	    	typeId:typeId
@@ -160,19 +193,19 @@
 	    	            success: function(data){
 	    	                var result = '';
 	    	                pageStart = pageStart + num;
-	    	                $('.goods-detail').html("");
+	    	                $('#scroller ul').html("");
 	    	                if(data.goodsMsg != null) { 
 	    	                    for(var i = 0; i < data.goodsMsg.length; i++){
-	    	                        result += '<li class="goods-show">'+
+	    	                        result += '<li>'+
 	    			          	  	    	'<a href="goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
 	    					            	'<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
 	    									'<p class="p5">'+data.goodsMsg[i].name+'</p>'+
 	    									'<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
 	    									'</a>'+
 	    									'</li>';
-	    	                    }
-	    	                    $('.goods-detail').append(result);
-	    	                }
+	    	                    }	
+	    	                    $('#scroller ul').append(result);
+	    	                }	    	               
 	    	            }
 	    	        });	
 	    			refresher.loadflag = true;
@@ -196,10 +229,9 @@
 	    	            success: function(data){
 	    	                var result = '';
 	    	                pageStart = pageStart + num;
-	    	                
 	    	                if(data.goodsMsg != null) {  
 	    	                    for(var i = 0; i < data.goodsMsg.length; i++){
-	    	                        result += '<li class="goods-show">'+
+	    	                        result += '<li>'+
 	    			          	  	    	'<a href="goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
 	    					            	'<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
 	    									'<p class="p5">'+data.goodsMsg[i].name+'</p>'+
@@ -207,15 +239,16 @@
 	    									'</a>'+
 	    									'</li>';
 	    	                    }
-	    	                    $('.goods-detail').append(result);
+	    	                    $('#scroller ul').append(result);
 	    	                }
+	    	                
 	    	            }
 	    	        });
-	    	        alert(pageStart);
-	    	        if(pageStart < $("#total").val()) {
-	                    refresher.loadflag = true;
-	    	        }else {
+	    	        if(parseInt($("#total").val(), 10)-pageStart < num) {
 	    	        	refresher.loadflag = false;
+	    	        	$('#scroller').append('<div style="height: 60px; width: 100%; background-color: fff"></div>');	                    
+	    	        }else {
+	    	        	refresher.loadflag = true;
 	    	        }
 	    			myScroll.refresh();
 	    		}, 1000);

@@ -140,10 +140,11 @@ public class WeixinCtrler {
 	    String respContent = "";
     	
     	try {
+    		request.setCharacterEncoding("UTF-8");
     		response.setCharacterEncoding("UTF-8");
         	//解析微信发来的请求（XML）
         	Map<String, String> reqMap = WeixinUtils.parseXml(request);
-         
+
         	System.out.println("reqMap:" + reqMap.toString());
     		
     	    String fromUserName = reqMap.get("FromUserName");

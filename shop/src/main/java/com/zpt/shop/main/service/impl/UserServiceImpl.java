@@ -135,4 +135,10 @@ public class UserServiceImpl implements UserService {
 		userMapper.updateMoney(id, money);
 	}
 
+	@Override
+	public void updateUsername(String openid, String userName) {
+		// TODO Auto-generated method stub
+		userMapper.updateUsername(openid, userName);
+	}
+
 }

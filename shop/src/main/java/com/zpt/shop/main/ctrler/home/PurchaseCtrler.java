@@ -323,9 +323,10 @@ public class PurchaseCtrler {
 	
 	//提交订单
 	//若未付款，跳到订单详细页
+	@ResponseBody
 	@RequestMapping(value="/submitOrder", method=RequestMethod.POST)
-	public ModelAndView submitOrder(HttpServletRequest request, HttpServletResponse response, String postData, Integer orderId, String cartIds, String state) {
-		ModelAndView mv = new ModelAndView("home/order-detail");		
+	public void submitOrder(HttpServletRequest request, HttpServletResponse response, String postData, Integer orderId, String cartIds, String state) {
+		//ModelAndView mv = new ModelAndView("home/order-detail");		
 		User user = (User) request.getSession().getAttribute("user");
 		Order order = (Order) JSON.parseObject(postData, Order.class);
 		System.out.println("订单地址:-----------"+order.getAddress()); 
@@ -345,10 +346,10 @@ public class PurchaseCtrler {
 			orderService.updateOrder(order);
 		}
 		//查询订单详情
-		List<Order> orderList = orderService.getOrderDetail(user.getId());
-		mv.addObject("orderMsg", orderList);
+		//List<Order> orderList = orderService.getOrderDetail(user.getId());
+		//mv.addObject("orderMsg", orderList);
 		
-		return mv;
+		//return mv;
 	}
 	
 	//订单详细页

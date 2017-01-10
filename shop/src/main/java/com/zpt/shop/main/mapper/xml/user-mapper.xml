@@ -112,4 +112,8 @@
 		update t_user set money = #{money} where id = #{userId}
 	</update>
 	
+	<update id="updateUsername">
+		update t_user set name = #{userName} where openid = #{openid}
+	</update>
+	
 </mapper>

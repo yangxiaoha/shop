@@ -76,4 +76,11 @@ public interface UserMapper {
 	
 	public void updateStateMoney(@Param("id")Integer id, @Param("money")BigDecimal money);
 
+	/**
+	 * 修改用户名
+	 * @param String openid 用户openid
+	 * @param String userName 用户名
+	 * */
+	public void updateUsername(@Param("openid")String openid, @Param("userName")String userName);
+
 }

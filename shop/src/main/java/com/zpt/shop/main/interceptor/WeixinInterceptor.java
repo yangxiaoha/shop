@@ -52,7 +52,7 @@ public class WeixinInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception {
 		System.out.println("w333"+request.getSession().getAttribute(Contants.SESSION_OPENID));
 		request.getSession().setAttribute(Contants.SESSION_OPENID,
-		 "ozmycs6JuZxrpxDuNMluTyvyUDCY");
+		"ozmycs6JuZxrpxDuNMluTyvyUDCY");
 		if (request.getSession().getAttribute(Contants.SESSION_OPENID) == null
 				|| request.getSession().getAttribute(Contants.SESSION_OPENID) == "") {
 			
@@ -90,6 +90,7 @@ public class WeixinInterceptor implements HandlerInterceptor {
 					User user = userService.getUserByOpenId(openid);
 					if(user != null){
 						request.getSession().setAttribute("user", user);
+						userService.updateUsername(openid, userInfoObject.getString("nickname"));
 					}					
 				}
 			} else {
