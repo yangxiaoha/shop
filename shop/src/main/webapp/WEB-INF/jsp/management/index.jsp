@@ -670,6 +670,7 @@
     <script src="<%=basePath %>/assets/management/js/hplus.min.js?v=4.1.0"></script>
     <script type="text/javascript" src="<%=basePath %>/assets/management/js/contabs.min.js"></script>
     <script src="<%=basePath %>/assets/management/js/plugins/pace/pace.min.js"></script>
+    <script src="<%=basePath %>/assets/management/js/md5.js"></script>
     <script type="text/javascript">
     	$(document).ready(function(){
     		$(".J_reload").click(function(){
@@ -709,9 +710,8 @@
 							$("#password").val('');
 							$("#newPassword").val('');
 							$(".alert-danger").css("display", "none");
+							alert("密码修改成功！");
 						} else {
-							alert("111111111");
-							alert(data);
 							$("#username").val('');
 							$("#password").val('');
 							$("#newPassword").val('');

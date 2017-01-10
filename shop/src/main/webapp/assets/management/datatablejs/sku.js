@@ -22,7 +22,7 @@ $(document).ready(function(){
         	   "targets": [1],
                "data": "id",
                "render": function(data, type, full,meta) {
-              	 return '<label style="margin-right:0px" class="checkbox-inline i-checks"><input type="checkbox" value="'+data+'"></label>';
+              	 return '<label style="margin-right:0px" class="checkbox-inline i-checks"><input name = "id" type="checkbox" value="'+data+'"></label>';
                }
            },          
            {
@@ -30,8 +30,8 @@ $(document).ready(function(){
                "data": "id",
                "render": function(data, type, full, meta) {
                  return '<div class="action-buttons">'+
-                 			'<a class="table-actions update" data-rowid="'+meta.row+'" href="javascript:void(0)"><i class="fa fa-pencil"></i></a>'+
-                 			'<a class="table-actions updateAdd" data-rowid="'+meta.row+'" href="javascript:void(0)"><i class="fa fa-plus-sign-alt"></i></a>'+
+                 			'<a class="table-actions update" data-rowid="'+meta.row+'" href="javascript:void(0)" title="修改"><i class="fa fa-pencil"></i></a>'+
+                 			'<a class="table-actions updateAdd" data-rowid="'+meta.row+'" href="javascript:void(0)" title="添加数量"><i class="fa fa-plus-square-o"></i></a>'+
                  		'</div>';
                }
             },          

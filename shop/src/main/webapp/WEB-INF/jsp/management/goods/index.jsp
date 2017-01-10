@@ -105,14 +105,12 @@
 		};
 		
 		$("#blank").click(function(){
-			alert("1111");
 			tableI.table().columns(10).search("").draw();
 			var treeObj = $.fn.zTree.getZTreeObj("tree");
 			treeObj.cancelSelectedNode();
 		});
 		
 		function zTreeOnClick(event, treeId, treeNode) {
-			alert("11111");
 			tableI.table().columns(10).search(treeNode.id).draw();
 		};
 	

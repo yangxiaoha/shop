@@ -13,7 +13,8 @@ $(document).ready(function(){
                     { "data": "cashTime" },
                     { "data": "cashMoney" },
                     { "data": "state" },
-                    { "data":"id","className": "actions","orderable":false },                    { "data":"id","className": "actions","orderable":false },
+                    { "data":"id","className": "actions","orderable":false },
+                    { "data":"id","className": "actions","orderable":false },
                     { "data": "starttime","orderable":false,"visible":false },
                     { "data": "endtime","orderable":false,"visible":false },              
                     { "data": "userId","orderable":false,"visible":false },              
@@ -24,7 +25,7 @@ $(document).ready(function(){
              "data": "id",
              "orderable":false,
              "render": function(data, type, full,meta) {
-            	 return '<label style="margin-right:0px" class="checkbox-inline i-checks"><input type="checkbox" value="'+data+'"></label>';
+            	 return '<label style="margin-right:0px" class="checkbox-inline i-checks"><input name = "id" type="checkbox" value="'+data+'"></label>';
              }
            },             
            {
@@ -137,7 +138,6 @@ $(document).ready(function(){
         				checkboxhtml = checkboxhtml + "<thead style=\"solid; border-width:1px; border-color:#000\">";
         				checkboxhtml = checkboxhtml + "<tr>";
         				checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:blue\">用户名</td>";
-        				checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:blue\">用户id</td>";
         				checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:blue\">买家姓名</td>";
         				checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:blue\">订单编号</td>";
         				checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:blue\">订单金额</td>";
@@ -146,7 +146,6 @@ $(document).ready(function(){
         				for(var i = 0;i<res.length;i++){
         					checkboxhtml = checkboxhtml + "<tr>";
         					checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:black\"><span>"+obj.username+"</span></td>";
-        					checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:black\"><span>"+res[i].openid+"</span></td>";
         					checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:black\"><span>"+res[i].name+"</span></td>";
         					checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:black\"><span>"+res[i].ordernum+"</span></td>";
         					checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:black\"><span>"+res[i].totalprice+"</span></td>";

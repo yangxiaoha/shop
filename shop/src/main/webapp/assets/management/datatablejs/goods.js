@@ -25,7 +25,7 @@ $(document).ready(function(){
              "data": "id",
              "orderable":false,
              "render": function(data, type, full,meta) {
-                return '<label style="margin-right:0px" class="checkbox-inline i-checks"><input type="checkbox" value="'+data+'"></label>';
+                return '<label style="margin-right:0px" class="checkbox-inline i-checks"><input name = "id" type="checkbox" value="'+data+'"></label>';
              }
            },          
            {

@@ -70,11 +70,11 @@
 	    	},
 	        messages: {
 				skey: {
-		        	 required:"请输入skey",
-		        	 remote:"该skey已存在"
+		        	 required:"请输入关键词",
+		        	 remote:"该关键词已存在"
 				},
 				reply: {
-		        	 required:"请输入reply"
+		        	 required:"请输入内容"
 				}
 	        },
 	        submitHandler: function(form) { 
