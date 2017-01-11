@@ -1,6 +1,7 @@
 package com.zpt.shop.main.service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import com.zpt.shop.common.pojo.Page;
@@ -35,7 +36,7 @@ public interface UserService {
 	/**
 	 * 添加用户
 	 * @param String fromUserName 用户openId
-	 * @param String createTime 关注时间
+	 * @param Date createTime 关注时间
 	 * @param Integer pid 上级id
 	 * @param String money 可提现金额
 	 * */
@@ -44,7 +45,7 @@ public interface UserService {
 	/**
 	 * 修改用户
 	 * @param String fromUserName 用户openId
-	 * @param String createTime 关注时间
+	 * @param Date createTime 关注时间
 	 * @param Integer pid 上级id
 	 * @param String money 可提现金额
 	 * */

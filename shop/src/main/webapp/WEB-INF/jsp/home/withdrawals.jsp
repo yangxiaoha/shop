@@ -98,46 +98,54 @@
 		$(document).ready(function(){
 			var money = "${money}";
 			$(".withdrawals-submit").click(function() {	
-				if(parseInt($("#withdrawalsPrice").val(), 10) > parseInt(money, 10)) {
-					alert("提现金额不可大于可提现金额！");
-				}else{
-					$.ajax({
-				   	    url: "withdrawalsApply",
-				   		type: "Post",
-				   	    data: {
-				   	    	money:$("#withdrawalsPrice").val()
-				   	    },
-				   	    dataType: "json",
-				   	    success: function(data) {
-				   	    	if(data.state){
-				   	    		$("#withdrawals-info-detail > tbody").html("");
-				   	    		$.each(data.withdrawsMsg, function(i, withdrawsList) {   
-				   	    			if(withdrawsList.state == 3) {
-					   	    			$("#withdrawals-info-detail > tbody").append( 
-				   	    					'<tr>'+
-				   	    					'<td>'+withdrawsList.cashNum+'</td>'+
-				   	    					'<td>￥'+withdrawsList.cashMoney+'</td>'+
-				   	    					'<td>已提现</td>'
-					    				);
-				   	    			}else if(withdrawsList.state == 2) {
-				   	    				$("#withdrawals-info-detail > tbody").append( 
-				   	    					'<tr>'+
-				   	    					'<td>'+withdrawsList.cashNum+'</td>'+
-				   	    					'<td>￥'+withdrawsList.cashMoney+'</td>'+
-				   	    					'<td>审批不通过</td>'
-					    				);
-				   	    			}else if(withdrawsList.state == 1) {
-					   	    			$("#withdrawals-info-detail > tbody").append( 
-				   	    					'<tr>'+
-				   	    					'<td>'+withdrawsList.cashNum+'</td>'+
-				   	    					'<td>￥'+withdrawsList.cashMoney+'</td>'+
-				   	    					'<td>等待</td>'
-					    				);
-				   	    			}
-			   		  			});
-				   			}
-				   	    }
-			        })
+				if($("#withdrawalsPrice").val() != "") {
+					if(!(isNaN($("#withdrawalsPrice").val())) && parseFloat($("#withdrawalsPrice").val(), 10) > parseFloat("0.00", 10)) {
+						if(parseFloat($("#withdrawalsPrice").val(), 10) > parseFloat(money, 10)) {
+							alert("提现金额不可大于可提现金额！");
+						}else{
+							$.ajax({
+						   	    url: "withdrawalsApply",
+						   		type: "Post",
+						   	    data: {
+						   	    	money:$("#withdrawalsPrice").val()
+						   	    },
+						   	    dataType: "json",
+						   	    success: function(data) {
+						   	    	if(data.state){
+						   	    		$("#withdrawals-info-detail > tbody").html("");
+						   	    		$.each(data.withdrawsMsg, function(i, withdrawsList) {   
+						   	    			if(withdrawsList.state == 3) {
+							   	    			$("#withdrawals-info-detail > tbody").append( 
+						   	    					'<tr>'+
+						   	    					'<td>'+withdrawsList.cashNum+'</td>'+
+						   	    					'<td>￥'+withdrawsList.cashMoney+'</td>'+
+						   	    					'<td>已提现</td>'
+							    				);
+						   	    			}else if(withdrawsList.state == 2) {
+						   	    				$("#withdrawals-info-detail > tbody").append( 
+						   	    					'<tr>'+
+						   	    					'<td>'+withdrawsList.cashNum+'</td>'+
+						   	    					'<td>￥'+withdrawsList.cashMoney+'</td>'+
+						   	    					'<td>审批不通过</td>'
+							    				);
+						   	    			}else if(withdrawsList.state == 1) {
+							   	    			$("#withdrawals-info-detail > tbody").append( 
+						   	    					'<tr>'+
+						   	    					'<td>'+withdrawsList.cashNum+'</td>'+
+						   	    					'<td>￥'+withdrawsList.cashMoney+'</td>'+
+						   	    					'<td>等待</td>'
+							    				);
+						   	    			}
+					   		  			});
+						   			}
+						   	    }
+					        })
+						}
+					}else {
+						alert("请填写正确的提现金额！");
+					}
+				}else {
+					alert("请填写提现金额！");
 				}
 			});
 		});

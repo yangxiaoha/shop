@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,11 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zpt.shop.common.weixin.TextMessage;
 import com.zpt.shop.common.weixin.WxMpConfigStorage;
-import com.zpt.shop.main.entities.Reply;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.ReplyService;
 import com.zpt.shop.main.service.UserService;
-import com.zpt.shop.weixin.utils.Sha1Util;
 import com.zpt.shop.weixin.utils.WeixinUtils;
 
 /**
@@ -169,18 +167,26 @@ public class WeixinCtrler {
                 //关注
                 if (eventType.equals(WeixinUtils.EVENT_TYPE_SUBSCRIBE)) {
                 	User user = userService.getUserByOpenId(fromUserName);
+                	
+                	 long msgCreateTime = Long.parseLong(createTime) * 1000L;  
+
+                	 DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+
+                	 String date = format.format(new Date(msgCreateTime));  
+            		
             		if(user != null) {//扫过码
             			System.out.println("扫过码" + eventKey);
                     	if(user.getFpid() != null && !("".equals(user.getFpid()))) {//有上级
                     		System.out.println("有上级" + eventKey);
-                    		userService.updateUser(fromUserName, createTime, user.getFpid());
+                    		
+                    		userService.updateUser(fromUserName, date, user.getFpid());
                     	}else {//无上级
                     		System.out.println("无上级" + eventKey);
-                    		userService.updateUser(fromUserName, createTime, 0);
+                    		userService.updateUser(fromUserName, date, 0);
                     	}   
             		}else {
             			System.out.println("关注" + eventKey);
-            			userService.addUser(fromUserName, createTime, 0, money);
+            			userService.addUser(fromUserName, date, 0, money);
             		}       	
                 }
                 //扫描带参数二维码

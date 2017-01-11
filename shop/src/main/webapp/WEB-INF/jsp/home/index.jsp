@@ -96,7 +96,11 @@
 			      	<li class="goods-show">
 			    		<a href="goodsDetail/${goodsList.id}">
 			    	  		<img src="<%=basePath%>${goodsList.url}" />
-					  		<p class="p5 goods-name">${goodsList.name}</p>
+			    	  		<div style="position: relative; height: 50px;">
+			    	  			<div class="goods-block">
+			    	  				<p class="goods-name">${goodsList.name}</p>
+			    	  			</div>			    	  			
+			    	  		</div>					  		
 					  		<p class="mb5 font-price">￥${goodsList.price}</p>
 			    		</a>
 				  	</li>
@@ -156,12 +160,22 @@
 	<!-- Swiper JS -->
     <script src="<%=basePath%>assets/home/Swiper-3.4.0/dist/js/swiper.min.js"></script>
     <!-- Initialize Swiper -->
-    <script>
+    <script type="text/javascript">
     	var mySwiper = new Swiper('.swiper-container', {
-			autoplay: 3000,//可选选项，自动滑动
+    		autoplay: 3000,//可选选项，自动滑动
+			loop: true,
+			autoplayDisableOnInteraction : false
 		})
     </script>
-    <script>
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	    	$(".goods-name").each(function() {
+	    		var pHeight = $(this).height();
+	    		$(this).parent($(".goods-block")).css("margin-top", -(pHeight/2));	    		
+	    	});	
+	    })    	  	
+    </script>
+    <script type="text/javascript">
     	var num = 20;
     	var pageStart = 20;
     	
@@ -218,12 +232,19 @@
 		   	    				'<div class="goods-show">'+
    			          	  	    '<a href="goodsDetail/'+'/'+goodsList.id+'">'+
    					            '<img src="<%=basePath%>'+goodsList.url+'">'+
-								'<p class="p5">'+goodsList.name+'</p>'+
+   					            '<div style="position: relative; height: 50px;">'+
+   					            '<div class="goods-block">'+
+								'<p class="goods-name">'+goodsList.name+'</p>'+
+								'</div></div>'+
 								'<p class="mb5 font-price">￥'+goodsList.price+'</p>'+
 								'</a>'+
 								'</div>'
 		    				);
 	   		  			});
+		   	    		$(".goods-name").each(function() {
+		   		    		var pHeight = $(this).height();
+		   		    		$(this).parent($(".goods-block")).css("margin-top", -(pHeight/2));	    		
+		   		    	});
 		   			}
 		   	    }
 	        })

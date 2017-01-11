@@ -274,7 +274,8 @@
                     $("#username").val(res.userName);                   
                     $("#oldName").text(res.userName);
                     $("#oldPhone").text(res.telNumber);
-                    $("#oldAddress").text(addr); 	
+                    $("#oldAddress").text(addr); 
+                    $(".check-addr").hide();
 	       	    }
             });          
         }

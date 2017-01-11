@@ -45,7 +45,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="../index">
+				<a href="<%=basePath%>home/mainindex/index">
 					<span class="tab-bar-bg home-page"></span>
 					<span>首页</span>
 				</a>
@@ -130,58 +130,64 @@
 	    //属性是否都选了
 	    function checkAll(oldGoods, goodsStock) {
 	    	var select = false;//属性是否已选
-	    	var sub = 0;//数组下标
+	    	var sub = -1;//数组下标
 	    	var str = "";
 	    	var parameter = "";//未选属性	  
 	    	var judge = "";
 	    	var myAttr = new Array();
 	    	var liNum = $('.classify-detail').length;
 	    	var checkNum = $('.active').length;
-	    	if(liNum == checkNum) {//全选
-	    		//alert("全选");
-	    		select = true;
-	    		$(".active").each(function(e) {
-	    			str+='"'+$(this).text()+'" ';
-	    			myAttr[e] = $(this).text();
-	    		});
-    			$(".parameter-show").text("已选:"+str); 
-    			for(var i=0; i<goodsStock.length; i++) {
-    				var a = 0;
-					for(var j=0; j<myAttr.length; j++) {
-						var value = goodsStock[i].value;
-						var valueList = value.split(",");
-						if(myAttr[j] == valueList[j]) {
-							a++;
-						}else {
-							break;
+	    	//是否有属性
+	    	if(liNum > 0) {
+	    		if(liNum == checkNum) {//全选
+		    		//alert("全选");
+		    		select = true;
+		    		$(".active").each(function(e) {
+		    			str+='"'+$(this).text()+'" ';
+		    			myAttr[e] = $(this).text();
+		    		});
+	    			$(".parameter-show").text("已选:"+str); 
+	    			for(var i=0; i<goodsStock.length; i++) {
+	    				var a = 0;
+						for(var j=0; j<myAttr.length; j++) {
+							var value = goodsStock[i].value;
+							var valueList = value.split(",");
+							if(myAttr[j] == valueList[j]) {
+								a++;
+							}else {
+								break;
+							}
+						}
+						if(a == myAttr.length) {
+				    		sub = i;
+				        	$("#goodsImg").attr("src", '<%=basePath%>'+goodsStock[sub].url);
+				        	$("#goodsPrice").text('￥'+goodsStock[sub].price);
+				        	$("#goodsNum").text(goodsStock[sub].num);
+			        		$(".parameter-prompt").text("请选择商品属性");       		
+				        	break;
 						}
 					}
-					if(a == myAttr.length) {
-			    		sub = i;
-			        	$("#goodsImg").attr("src", '<%=basePath%>'+goodsStock[sub].url);
-			        	$("#goodsPrice").text('￥'+goodsStock[sub].price);
-			        	$("#goodsNum").text(goodsStock[sub].num);
-		        		$(".parameter-prompt").text("请选择商品属性");       		
-			        	break;
-					}
-				}
+		    	}else {
+		    		select = false;
+		    		$(".classify-detail").each(function(){
+		    			if(!($(this).children().hasClass('active'))) {
+		    				parameter+='"'+$(this).siblings("p").text()+'" ';
+						}
+		    		});
+		    		$(".parameter-show").text("请选择:"+parameter);
+		        	$("#goodsImg").attr("src", '<%=basePath%>'+oldGoods.url);
+		        	if(oldGoods.price == oldGoods.highprice) {
+		        		$("#goodsPrice").text('￥'+oldGoods.price);
+		        	}else {
+		        		$("#goodsPrice").text('￥'+oldGoods.price+' ~ '+oldGoods.highprice);
+		        	}	
+		        	$("#goodsNum").text(oldGoods.quantity);
+		    	}
+	    		judge = select + "," + sub;
 	    	}else {
 	    		select = false;
-	    		$(".classify-detail").each(function(){
-	    			if(!($(this).children().hasClass('active'))) {
-	    				parameter+='"'+$(this).siblings("p").text()+'" ';
-					}
-	    		});
-	    		$(".parameter-show").text("请选择:"+parameter);
-	        	$("#goodsImg").attr("src", '<%=basePath%>'+oldGoods.url);
-	        	if(oldGoods.price == oldGoods.highprice) {
-	        		$("#goodsPrice").text('￥'+oldGoods.price);
-	        	}else {
-	        		$("#goodsPrice").text('￥'+oldGoods.price+' ~ '+oldGoods.highprice);
-	        	}	
-	        	$("#goodsNum").text(oldGoods.quantity);
+	    		judge = select + "," + sub;
 	    	}
-	    	judge = select + "," + sub;
 			return judge;
 	    }
 	  
@@ -267,7 +273,7 @@
 			});
 	    	
 	    	//清空
-			$(".clear-attr").click(function() {
+	    	$(".goods-parameter-choice").on("click", ".clear-attr", function(){
 				clear();
 				Init(goodsStock);
 			});

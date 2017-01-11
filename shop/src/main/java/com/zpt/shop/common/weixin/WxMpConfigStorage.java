@@ -55,7 +55,7 @@ public class WxMpConfigStorage{
 
 	public synchronized void updateAccessToken(String accessToken, int expiresInSeconds) {
 		this.accessToken = accessToken;
-		this.expiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000l;
+		this.expiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) ;
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class WxMpConfigStorage{
 	public synchronized void updateJsapiTicket(String jsapiTicket, int expiresInSeconds) {
 		this.jsapiTicket = jsapiTicket;
 		// 预留200秒的时间
-		this.jsapiTicketExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000l;
+		this.jsapiTicketExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) ;
 	}
 
 	public void expireJsapiTicket() {
