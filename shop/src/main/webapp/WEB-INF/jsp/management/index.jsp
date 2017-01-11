@@ -710,9 +710,8 @@
 							$("#password").val('');
 							$("#newPassword").val('');
 							$(".alert-danger").css("display", "none");
+							alert("密码修改成功！");
 						} else {
-							alert("111111111");
-							alert(data);
 							$("#username").val('');
 							$("#password").val('');
 							$("#newPassword").val('');

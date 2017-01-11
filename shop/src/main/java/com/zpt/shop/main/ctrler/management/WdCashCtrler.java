@@ -57,7 +57,7 @@ public class WdCashCtrler {
 	public Msg update(Withdraw withdraw){
 		Msg msg = new Msg();
 		try {
-			//withdrawService.updateState(withdraw);
+			withdrawService.updateState(withdraw);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.UPDATE_SUCCESS);
 			return msg;
