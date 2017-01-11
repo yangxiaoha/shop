@@ -24,19 +24,14 @@
 .cztree * {
     font-size: 13.5px;
 }
-#control {
-			color: #007aff;
-		}
-</style>
-	
+</style>	
 </head>
-<body>
-	<div class="container-fluid main-content">
-		<!-- DataTables Example -->
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="widget-container fluid-height clearfix">
-					<div class="col-lg-3">
+<body class="gray-bg">	
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12" >
+                <div class="ibox float-e-margins">
+					<div class="col-sm-3">
 						<table border=0 height=600px align=left>
 							<tr>
 								<td width=260px align=left valign=top
@@ -50,36 +45,45 @@
 							</tr>
 						</table>
 					</div>					
-					<div class="col-lg-9">
-						<div class="heading">
-							<i class="icon-table"></i>商品类型管理 <a
-								class="btn btn-sm btn-primary-outline pull-right"
-								data-toggle="modal" href="javascript:void(0)" id="delete-row"><i
-								class="icon-trash"></i>删除</a> <a
-								class="btn btn-sm btn-primary-outline pull-right"
-								data-toggle="modal" href="#addModal" id="add-row"><i
-								class="icon-plus"></i>添加</a>
-						</div>
+					<div class="col-sm-9">
+					<div class="row">
+			            <div class="col-sm-12" >
+			                <div class="ibox float-e-margins">
+								<div class="ibox-title">						
+						<h5>商品类型管理</h5>
+						<div class="ibox-tools">
+                            <a data-toggle="modal" href="#addModal" id="add-row" title="添加">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            
+                            <a id="delete-row" title="删除">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div> 
+                        <hr>                      
 						<div class="widget-content padded clearfix">
-							
-							<hr>
 							<table class="table table-bordered table-striped table-hover"
 								id="datatable" width="100%">
 								<thead>
 									<th></th>
-									<th class="check-header hidden-xs " width = 10%><label><input
-											id="checkAll" name="checkAll" type="checkbox"><span></span></label>
-									</th>									
+									<th class="check-header hidden-xs">
+										<label style="margin-right:0px" class="checkbox-inline i-checks"><input id="checkAll" name="checkAll" type="checkbox"></label>
+									</th>								
 									<th>商品类型名称</th>																	
-									<th style="color: #007aff;">操作</th>																	
+									<th>操作</th>																	
 									<th></th>																	
 								</thead>
 								<tbody>
 								</tbody>
 							</table>
 						</div>
+						</div>
+						</div>
+						</div>
+						</div>
 					</div>
 				</div>
+			
 			</div>
 		</div>
 	</div>

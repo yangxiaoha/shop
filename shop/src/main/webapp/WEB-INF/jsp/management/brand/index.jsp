@@ -21,13 +21,13 @@
             <div class="col-sm-12" >
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>品牌管理<small>查找，新增，修改</small></h5>
+                        <h5>品牌管理</h5>
                         <div class="ibox-tools">
-                            <a data-toggle="modal" href="#addModal" id="add-row">
+                            <a data-toggle="modal" href="#addModal" id="add-row" title="添加">
                                 <i class="fa fa-plus"></i>
                             </a>
                             
-                            <a id="delete-row">
+                            <a id="delete-row" title="删除">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </div>
@@ -71,7 +71,7 @@
 								</th>
 								<th>品牌名称</th>
 								<th>供应商名称</th>
-								<th>品牌简介</th>
+								<th width="50%">品牌简介</th>
 								<th>操作</th>								
 								<th></th>	
 							</thead>
@@ -86,8 +86,6 @@
     <jsp:include page="add.jsp"/>
 	<jsp:include page="delete.jsp"/>
 	<jsp:include page="update.jsp"/>
-    <!-- 
-     -->
     <script>
 	    $(document).ready(function(){
 			$('.reg-sel-index').select2({

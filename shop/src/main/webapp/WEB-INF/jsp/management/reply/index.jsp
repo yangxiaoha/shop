@@ -27,7 +27,7 @@
                                 <i class="fa fa-plus"></i>
                             </a>
                             
-                            <a id="delete-row">
+                            <a id="delete-row" title="删除">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </div>
@@ -35,18 +35,18 @@
                     <div class="ibox-content">
                       <div class="row">
                             <form role="form">
-		                           <div class="col-sm-6">
-	                                   <div class="form-group">
-	                                       <label>关键词:</label>
-	                                       <input type="text" placeholder="搜索关键词" id="skey" class="form-control">
-	                                   </div>
-		                           </div>
-		                           <div class="col-sm-6">
-	                           			<div class="form-group">
-	                                       <label>自定义回复:</label>
-	                                       <input type="text" placeholder="搜索回复内容" id="reply" class="form-control">
-	                                   </div>
-		                           </div>		                           
+	                           <div class="col-sm-6">
+                                   <div class="form-group">
+                                       <label>关键词:</label>
+                                       <input type="text" placeholder="搜索关键词" id="skey" class="form-control">
+                                   </div>
+	                           </div>
+	                           <div class="col-sm-6">
+                           			<div class="form-group">
+                                       <label>自定义回复:</label>
+                                       <input type="text" placeholder="搜索回复内容" id="reply" class="form-control">
+                                   </div>
+	                           </div>		                           
                             </form>
                         </div>
                     </div>

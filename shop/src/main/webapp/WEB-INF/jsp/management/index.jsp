@@ -73,6 +73,14 @@
                             </li>
                             <li><a class="J_menuItem" href="order/index">订单管理</a>
                             </li>
+                            <li><a class="J_menuItem" href="supplier/index">供应商管理</a>
+                            </li>
+                            <li><a class="J_menuItem" href="brand/index">品牌管理</a>
+                            </li>
+                            <li><a class="J_menuItem" href="goodstype/index">商品类型管理</a>
+                            </li>
+                            <li><a class="J_menuItem" href="pro/index">商品属性管理</a>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -662,7 +670,7 @@
 		</div>
 	</div>
     </div>
-    <script src="<%=basePath %>/assets/management/js/jquery.min.js?v=2.1.4"></script>
+    <script src="<%=basePath %>/assets/management/js/jquery.min.js"></script>
     <script src="<%=basePath %>/assets/management/js/bootstrap.min.js?v=3.3.6"></script>
     <script src="<%=basePath %>/assets/management/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="<%=basePath %>/assets/management/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>

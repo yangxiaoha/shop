@@ -15,9 +15,9 @@ public class Statistics {
 	
 	private String num;
 	
-	public Date starttime;
+	private Date starttime;
 	
-	public Date endtime;	
+	private Date endtime;	
 	
 	public String getStarttime() {
 		if(this.starttime != null){

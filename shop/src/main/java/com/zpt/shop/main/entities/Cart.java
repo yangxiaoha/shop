@@ -4,27 +4,27 @@ import java.math.BigDecimal;
 
 public class Cart {
 	
-	public Integer id;
+	private Integer id;
 	
-	public Integer userId;
+	private Integer userId;
 	
-	public Integer skuId;
+	private Integer skuId;
 	
-	public Integer num;
+	private Integer num;
 	
-	public BigDecimal price;
+	private BigDecimal price;
 	
-	public BigDecimal totalprice;
+	private BigDecimal totalprice;
 	
-	public Integer goodsId;//商品id
+	private Integer goodsId;//商品id
 	
-	public String name;//商品名称
+	private String name;//商品名称
 	
-	public String url;//商品图片
+	private String url;//商品图片
 	
-	public Integer skuNum;//库存数量
+	private Integer skuNum;//库存数量
 	
-	public String value;//商品属性
+	private String value;//商品属性
 
 	public Integer getId() {
 		return id;

@@ -5,13 +5,13 @@ public class ProVal {
 	//主键id
 	private Integer id;
 	
-	public Integer skuId;
+	private Integer skuId;
 	
-	public Integer proId;
+	private Integer proId;
 	
-	public String value;
+	private String value;
 	
-	public String name;
+	private String name;
 
 	public Integer getId() {
 		return id;

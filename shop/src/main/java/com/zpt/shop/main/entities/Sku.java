@@ -2,21 +2,21 @@ package com.zpt.shop.main.entities;
 
 public class Sku {
 	
-	public Integer id;
+	private Integer id;
 	
-	public Integer num;
+	private Integer num;
 	
-	public Float price;
+	private Float price;
 	
-	public String name;	
+	private String name;	
 	
-	public Integer goodsId;
+	private Integer goodsId;
 	
-	public String code;
+	private String code;
 	
-	public String ids;
+	private String ids;
 	
-	public String value;
+	private String value;
 		
 	public String getIds() {
 		return ids;

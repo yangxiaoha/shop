@@ -55,9 +55,9 @@
         <div class="row" style="margin: 0;">
         	<div class="col-sm-3 ibox-title">
         		<p>商品名称：${goodsM.name }</p>
-				<p>扩充名称：${goodsM.exp_name }</p>
 				<p>商品总量：${goodsM.quantity }</p>
 				<p>商品编码：${goodsM.code }</p>
+				<p>商品供应商：${goodsM.suppliername }</p>
 				<p>商品品牌：${goodsM.brandName }</p>
 				<p>所属门店：${goodsM.store }</p>
         	</div>
@@ -95,8 +95,8 @@
             </div>
         </div>
     </div>
-	<jsp:include page="update.jsp" />
 	<jsp:include page="add.jsp" />
+	<jsp:include page="update.jsp" />
 	<jsp:include page="updateAdd.jsp" />
 	<jsp:include page="see.jsp" />
 </body>

@@ -40,6 +40,17 @@ public class Goods {
 	
 	//品牌名称
 	private String brandName;
+	
+	//供应商名称
+	private String suppliername;
+	
+	public String getSuppliername() {
+		return suppliername;
+	}
+
+	public void setSuppliername(String suppliername) {
+		this.suppliername = suppliername;
+	}
 
 	private List<Pro> pros;
 	

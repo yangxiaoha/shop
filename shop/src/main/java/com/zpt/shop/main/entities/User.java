@@ -26,11 +26,11 @@ public class User {
 	//用户名
 	private String name;
 
-	public Date starttime;
+	private Date starttime;
 	
-	public Date endtime;
+	private Date endtime;
 	
-	public String isnot;
+	private String isnot;
 	
 	public String getIsnot() {
 		return isnot;

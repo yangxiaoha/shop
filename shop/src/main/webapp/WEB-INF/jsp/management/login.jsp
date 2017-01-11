@@ -47,7 +47,7 @@
 							name="noencryptpassword" type="password"> <input
 							class="form-control" id="password" name="password" type="hidden">
 					</div>
-					<input type="button" class="btn btn-success btn-block" onclick="submitForm()" value="登陆">				
+					<input type="button" class="btn btn-success btn-block" onclick="submitForm()" value="登录">				
 				</form>
 				<c:if test="${!empty msg}">
 					<div class="alert alert-danger">${msg}</div>

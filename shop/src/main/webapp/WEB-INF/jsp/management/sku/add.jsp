@@ -59,7 +59,7 @@
 											<label for="proId">${p.name }(*)</label>
 											<input
 												class="form-control avalue" placeholder="请输入${p.name }"
-												title="${p.name }不能为空" id="a${status.index}" required="required"
+												title="${p.name }不能为空" id="c${status.index}" required="required"
 												 name="value" type="text"> 
 											<input
 												class=aproId type="hidden" id="" name="proId" value="${p.id }"

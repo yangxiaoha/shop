@@ -19,8 +19,8 @@
 			<div class="modal-body">
 				<form action="add" id="add" method="post">
 					<fieldset>
-						<div class="col-lg-12">						
-							<div class="col-lg-4">
+						<div class="col-sm-12">						
+							<div class="col-sm-5">
 								<table border=0 height=200px align=left>
 									<tr>
 										<td width=150px align=left valign=top
@@ -31,10 +31,10 @@
 									</tr>
 								</table>
 							</div>
-							<div class="col-lg-8">
+							<div class="col-sm-7">
 								<div class="row">
 									<div class="row">
-										<div class="col-md-12">
+										<div class="col-sm-12">
 											<div class="form-group divb0"
 												style="margin-bottom: 0px !important;">
 												<label for="name">商品属性(*)</label><input class="form-control"
@@ -45,7 +45,7 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-md-12">
+										<div class="col-sm-12">
 											<div class="form-group divb0">
 												<label for="typeId">商品类型(*)</label> <input class="form-control"
 													placeholder="" readonly="readonly" id=""

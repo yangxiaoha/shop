@@ -13,44 +13,52 @@
 	<script
 	src="<%=basePath%>assets/management/datatablejs/supplier.js"
 	type="text/javascript"></script>
-<style type="text/css">
-	#control {
-			color: #007aff;
-		}
-</style>
 </head>
-<body>
-	<div class="container-fluid main-content">
-		<!-- DataTables Example -->
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="widget-container fluid-height clearfix">
-					<div class="heading">
-						<i class="icon-table"></i>供应商管理						
-						<a class="btn btn-sm btn-primary-outline pull-right" data-toggle="modal" href="javascript:void(0)" id="delete-row"><i class="icon-trash"></i>删除</a>
-						<a class="btn btn-sm btn-primary-outline pull-right" data-toggle="modal" href="#addModal" id="add-row"><i class="icon-plus"></i>添加</a>
-					</div>
-					<div class="widget-content padded clearfix">
-						<div class="col-lg-12">
-							<table class="table table-bordered table-striped table-hover">
-								<tr>
-						            <td width="8%">供应商名称:</td>
-						            <td><input class="form-control" type="text" id="name" name="name" placeholder="搜索sysvalue"></td>
-						            <td width="8%">供应商简介:</td>
-						            <td><input class="form-control" type="text" id="brief" name="brief" placeholder="搜索供应商简介"></td>
-						        </tr>
-						    </table>
-						 </div>
-						 <hr>
+<body class="gray-bg">	
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12" >
+                <div class="ibox float-e-margins">
+					<div class="ibox-title">
+                        <h5>供应商管理</h5>
+                        <div class="ibox-tools">
+                            <a data-toggle="modal" href="#addModal" id="add-row" title="添加">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            
+                            <a id="delete-row" title="删除">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+					<div class="ibox-content">
+                        <div class="row">
+                            <form role="form">
+	                           <div class="col-sm-6">
+                                   <div class="form-group">
+                                       <label>供应商名称:</label>
+                                       <input type="text" placeholder="请输入供应商名称" id="name" class="form-control">
+                                   </div>
+	                           </div>
+	                           <div class="col-sm-6">
+                           			<div class="form-group">
+                                       <label>供应商简介:</label>
+                                       <input type="text" placeholder="请输供应商简介" id="brief" class="form-control">
+                                   </div>
+	                           </div>
+                            </form>
+                        </div>
+                    </div>					
+                    <div class="ibox-contentTable">
 						<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
 							<thead>
 								<th></th>
-								<th class="check-header hidden-xs" width="8%"><label><input
-										id="checkAll" name="checkAll" type="checkbox"><span></span></label>
+								<th class="check-header hidden-xs">
+									<label style="margin-right:0px" class="checkbox-inline i-checks"><input id="checkAll" name="checkAll" type="checkbox"></label>
 								</th>
 								<th width="20%">供应商名称</th>
 								<th>供应商简介</th>		
-								<th style="color: #007aff;">操作</th>
+								<th>操作</th>
 							</thead>
 							<tbody>
 							</tbody>
