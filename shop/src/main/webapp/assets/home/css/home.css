@@ -261,9 +261,16 @@ a, a:link, a:visited, a:hover, a:active {
 	display: block;
     text-align: center;
 }
-.goods-detail .goods-show .goods-name {
+.goods-show .goods-name {	
 	display: inline-block;
+	padding: 0 5px;
 	text-align: left;
+	word-break: break-all;
+}
+.goods-block {	
+	position: absolute;
+    width: 100%;
+    top: 50%;
 }
 .tab-bar {
 	position: fixed;
@@ -393,7 +400,7 @@ a, a:link, a:visited, a:hover, a:active {
 	width: 100%;
 }
 .go-shopping {
-	position: absolute;
+	position: fixed;
     top: 0;
     left: 0;
 	width: 100%;
@@ -402,6 +409,7 @@ a, a:link, a:visited, a:hover, a:active {
 	line-height: 34px;
 	background-color: #F9F9FA;
 	border-bottom: 1px solid #ECECF2;
+	z-index: 999;
 }
 .go-shopping .go-shopping-title {
 	display: block;

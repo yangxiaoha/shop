@@ -32,7 +32,7 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="<%=basePath %>/assets/management/js/jquery.min.js"></script>
-<%--     <script src="<%=basePath %>/assets/management/js/jquery.min.js?v=2.1.4"></script> --%>
+    <%-- <script src="<%=basePath %>/assets/management/js/jquery.min.js?v=2.1.4"></script> --%>
     <script src="<%=basePath %>/assets/management/js/bootstrap.min.js?v=3.3.6"></script>
     <script src="<%=basePath %>/assets/management/js/plugins/jeditable/jquery.jeditable.js"></script>
     <script src="<%=basePath %>/assets/management/js/plugins/dataTables/jquery.dataTables.js"></script>
@@ -58,7 +58,7 @@
 
 	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/plugin/select2/js/i18n/zh-CN.js"></script>
 
-	  <script src="<%=basePath %>/assets/management/js/jquery.PrintArea.js"></script> 
+	<script src="<%=basePath %>/assets/management/js/jquery.PrintArea.js"></script> 
 	<script src="<%=basePath %>/assets/management/js/jQuery.print.js"></script> 
 
 	<decorator:head />

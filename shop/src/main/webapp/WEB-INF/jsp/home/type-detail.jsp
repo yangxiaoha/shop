@@ -72,7 +72,11 @@
 			      <li>
 			    	<a href="goodsDetail/${goodsList.id}">
 			    	  <img src="<%=basePath%>${goodsList.url}" />
-					  <p class="p5 goods-name">${goodsList.name}</p>
+					  <div style="position: relative; height: 50px;">
+	    	  			<div class="goods-block">
+	    	  				<p class="goods-name">${goodsList.name}</p>
+	    	  			</div>			    	  			
+	    	  		  </div>
 					  <p class="mb5 font-price">￥${goodsList.price}</p>
 			    	</a>
 				  </li>
@@ -86,6 +90,11 @@
     <script src="<%=basePath%>assets/home/js/pullToRefresh2.js"></script>
 	<script type="text/javascript">
     	$(document).ready(function(){
+    		
+    		$(".goods-name").each(function() {
+	    		var pHeight = $(this).height();
+	    		$(this).parent($(".goods-block")).css("margin-top", -(pHeight/2));	    		
+	    	});
 
 	    	var num = 3;
 	        var pageStart = 3;
@@ -155,12 +164,19 @@
 			   	    				'<li>'+
 	   			          	  	    '<a href="../goodsDetail/'+goodsList.id+'">'+
 	   					            '<img src="<%=basePath%>'+goodsList.url+'">'+
-									'<p class="p5">'+goodsList.name+'</p>'+
+	   					            '<div style="position: relative; height: 50px;">'+
+	   					            '<div class="goods-block">'+
+									'<p class="goods-name">'+goodsList.name+'</p>'+
+									'</div></div>'+
 									'<p class="mb5 font-price">￥'+goodsList.price+'</p>'+
 									'</a>'+
 									'</li>'
 			    				);
 		   		  			});
+			   	    		$(".goods-name").each(function() {
+			   		    		var pHeight = $(this).height();
+			   		    		$(this).parent($(".goods-block")).css("margin-top", -(pHeight/2));	    		
+			   		    	});
 		   	    		}else {
 		   	    			refresher.loadflag = false;
 		   	    			$("#pullDown").css("display", "none");
@@ -199,16 +215,24 @@
 	    	                        result += '<li>'+
 	    			          	  	    	'<a href="goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
 	    					            	'<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
-	    									'<p class="p5">'+data.goodsMsg[i].name+'</p>'+
+	    					            	'<div style="position: relative; height: 50px;">'+
+	    	   					            '<div class="goods-block">'+
+	    									'<p class="goods-name">'+data.goodsMsg[i].name+'</p>'+
+	    									'</div></div>'+
 	    									'<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
 	    									'</a>'+
 	    									'</li>';
-	    	                    }	
+	    	                    }
 	    	                    $('#scroller ul').append(result);
+	    	                    $(".goods-name").each(function() {
+	    		   		    		var pHeight = $(this).height();
+	    		   		    		$(this).parent($(".goods-block")).css("margin-top", -(pHeight/2));	    		
+	    		   		    	});
 	    	                }	    	               
 	    	            }
 	    	        });	
 	    			refresher.loadflag = true;
+	    			$("#block").remove();
 	    			myScroll.refresh();			
 	    		}, 1000);
 	    	}
@@ -234,19 +258,25 @@
 	    	                        result += '<li>'+
 	    			          	  	    	'<a href="goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
 	    					            	'<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
-	    									'<p class="p5">'+data.goodsMsg[i].name+'</p>'+
+	    					            	'<div style="position: relative; height: 50px;">'+
+	    	   					            '<div class="goods-block">'+
+	    									'<p class="goods-name">'+data.goodsMsg[i].name+'</p>'+
+	    									'</div></div>'+
 	    									'<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
 	    									'</a>'+
 	    									'</li>';
 	    	                    }
 	    	                    $('#scroller ul').append(result);
-	    	                }
-	    	                
+	    	                    $(".goods-name").each(function() {
+	    		   		    		var pHeight = $(this).height();
+	    		   		    		$(this).parent($(".goods-block")).css("margin-top", -(pHeight/2));	    		
+	    		   		    	});
+	    	                }	    	                
 	    	            }
 	    	        });
 	    	        if(parseInt($("#total").val(), 10)-pageStart < num) {
 	    	        	refresher.loadflag = false;
-	    	        	$('#scroller').append('<div style="height: 60px; width: 100%; background-color: fff"></div>');	                    
+	    	        	$('#scroller').append('<div id="block" style="height: 60px; width: 100%; background-color: fff"></div>');	                    
 	    	        }else {
 	    	        	refresher.loadflag = true;
 	    	        }
