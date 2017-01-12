@@ -267,7 +267,9 @@
     	        		   }
     	        		   setTimeout(function(){
     	        			   $("#loading").html("");
-    	        			   $("#addsubmit").removeAttr("disabled"); 
+    	        			   $("#addsubmit").removeAttr("disabled");
+    	        			   alert("保存成功！");
+        	        		   window.location.href="index"; 
     	        		   },1000);
     	        		   reset(form);
     	        	   },

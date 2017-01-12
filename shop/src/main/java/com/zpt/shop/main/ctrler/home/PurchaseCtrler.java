@@ -74,20 +74,20 @@ public class PurchaseCtrler {
 	@RequestMapping(value="/cart", method=RequestMethod.GET)
 	public ModelAndView cart(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("home/cart");
-		int num = 0;
-		int totalNum = 0;
+		//int num = 0;
+		//int totalNum = 0;
 		BigDecimal total = new BigDecimal("0.0");
 		User user = (User) request.getSession().getAttribute("user");
 		Integer userId = user.getId();//先设置用户为1
 		List<Cart> cartsList = cartService.getCartInfo(userId.toString());
 		if(cartsList != null && cartsList.size() > 0) {
 			for(int i=0; i<cartsList.size(); i++) {
-				num = cartsList.get(i).getNum();
-				totalNum += num;
+				//num = cartsList.get(i).getNum();
+				//totalNum += num;
 				total= total.add(cartsList.get(i).getTotalprice());
 			}
 			mv.addObject("state", 0);
-			mv.addObject("totalNum", totalNum);
+			mv.addObject("totalNum", cartsList.size());
 			mv.addObject("total", total.toString());
 			mv.addObject("cartsMsg", cartsList);	
 		}else {
@@ -117,20 +117,20 @@ public class PurchaseCtrler {
 	@RequestMapping(value="/deleteGoods", method=RequestMethod.POST)
 	public Map<String,Object> deleteGoods(HttpServletRequest request, String cartId) {
 		Map<String,Object> map = new HashMap<String, Object>();
-		int num = 0;
-		int totalNum = 0;
+		//int num = 0;
+		//int totalNum = 0;
 		BigDecimal total = new BigDecimal("0.0");
 		User user = (User) request.getSession().getAttribute("user");
 		String userId = user.getId().toString();//先设置用户为1
 		List<Cart> cartsList = cartService.deleteCartInfo(userId, cartId);
 		if(cartsList != null && cartsList.size() > 0) {
 			for(int i=0; i<cartsList.size(); i++) {
-				num = cartsList.get(i).getNum();
-				totalNum += num;
+				//num = cartsList.get(i).getNum();
+				//totalNum += num;
 				total= total.add(cartsList.get(i).getTotalprice());
 			}
 			map.put("state", true);
-			map.put("totalNum", totalNum);
+			map.put("totalNum", cartsList.size());
 			map.put("total", total.toString());
 			map.put("cartsMsg", cartsList);
 		}else {
@@ -147,8 +147,8 @@ public class PurchaseCtrler {
 	@RequestMapping(value="/modifyCart", method=RequestMethod.POST)
 	public Map<String,Object> modifyCart(HttpServletRequest request, String cartId, String skuId, Integer goodsNum, String goodsPrice) {
 		Map<String,Object> map = new HashMap<String, Object>();
-		int num = 0;
-		int totalNum = 0;
+		//int num = 0;
+		//int totalNum = 0;
 		BigDecimal total = new BigDecimal("0.0");
 		User user = (User) request.getSession().getAttribute("user");
 		String userId = user.getId().toString();//先设置用户为1
@@ -156,12 +156,12 @@ public class PurchaseCtrler {
 		List<Cart> cartsList = cartService.modifyGoodsIntoCart(userId, cartId, skuId, goodsNum, goodsPrice);
 		if(cartsList != null && cartsList.size() > 0) {
 			for(int i=0; i<cartsList.size(); i++) {
-				num = cartsList.get(i).getNum();
-				totalNum += num;
+				//num = cartsList.get(i).getNum();
+				//totalNum += num;
 				total= total.add(cartsList.get(i).getTotalprice());
 			}
 			map.put("state", true);
-			map.put("totalNum", totalNum);
+			map.put("totalNum", cartsList.size());
 			map.put("total", total.toString());
 			map.put("cartsMsg", cartsList);	
 		}else {
@@ -179,8 +179,8 @@ public class PurchaseCtrler {
 		ModelAndView mv = new ModelAndView("home/cart");
 		//立即购买的商品放入购物车内
 		List<Sku> sku = skuService.getSkuInfoByIds(skuId);
-		int num = 0;
-		int totalNum = 0;
+		//int num = 0;
+		//int totalNum = 0;
 		String goodsPrice = sku.get(0).getPrice().toString();
 		BigDecimal total = new BigDecimal("0.0");
 		User user = (User) request.getSession().getAttribute("user");
@@ -189,12 +189,12 @@ public class PurchaseCtrler {
 		List<Cart> cartsList = cartService.getCartInfo(userId);
 		if(cartsList != null && cartsList.size() > 0) {
 			for(int i=0; i<cartsList.size(); i++) {
-				num = cartsList.get(i).getNum();
-				totalNum += num;
+				//num = cartsList.get(i).getNum();
+				//totalNum += num;
 				total= total.add(cartsList.get(i).getTotalprice());
 			}
 			mv.addObject("state", 1);
-			mv.addObject("totalNum", totalNum);
+			mv.addObject("totalNum", cartsList.size());
 			mv.addObject("total", total.toString());
 			mv.addObject("cartsMsg", cartsList);	
 		}else {

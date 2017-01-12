@@ -69,6 +69,9 @@ a, a:link, a:visited, a:hover, a:active {
 .mb80 {
 	margin-bottom: 80px;
 }
+.mb100 {
+	margin-bottom: 200px;
+}
 .mh5 {
 	margin-left: 5px;
 	margin-right: 5px;
@@ -261,7 +264,7 @@ a, a:link, a:visited, a:hover, a:active {
 	display: block;
     text-align: center;
 }
-.goods-show .goods-name {	
+.goods-name {	
 	display: inline-block;
 	padding: 0 5px;
 	text-align: left;
@@ -335,7 +338,7 @@ a, a:link, a:visited, a:hover, a:active {
     background-image: url(../images/cart.png);
     background-size: 70px 70px;
     background-position: -5px -3px;
-    z-index: 999;
+    z-index: 888;
 }
 .shopping-cart .shopping-num {
 	position: absolute;
@@ -467,7 +470,7 @@ a, a:link, a:visited, a:hover, a:active {
     top: 60px;
     left: 0;
     width: 100%;
-    height: 100%;
+    overflow: auto;
 }
 /************************car结束************************/
 

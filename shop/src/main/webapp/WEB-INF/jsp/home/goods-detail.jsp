@@ -74,7 +74,7 @@
 				         		<li class="mb5 font-price">￥${goodsMsg.price}</li>
 				         	</c:if>
 				            <li class="fc-9fa0a0 fs-1rem mb5">库存<span id="goodsNum">${goodsMsg.quantity}</span>件</li>
-				            <li class="fc-595757 parameter-show">请选择
+				            <li class="fc-595757 parameter-show" id="eGoodsSelect">请选择
 					            <c:forEach items="${proMsg}" var="proList">
 				            		<span>${proList.name}</span>
 								</c:forEach>
@@ -261,7 +261,7 @@
   			var state = 0;//判断是加入购物车还是立即购买
   			var goodsId = $("#goodsId").val();//商品id
   			var oldGoods = new Array();//商品信息
-	    	var goodsStock = new Array();//现货信息
+	    	var goodsStock = new Array();//现货信息	    	
 	    	
 	    	//关闭选择
 	    	$("#close").click(function() {
@@ -274,6 +274,20 @@
 	    	
 	    	//清空
 	    	$(".goods-parameter-choice").on("click", ".clear-attr", function(){
+	    		var attrText = "";
+	        	$("#goodsImg").attr("src", '<%=basePath%>'+oldGoods.url);
+	        	if(oldGoods.price == oldGoods.highprice) {
+	        		$("#goodsPrice").text('￥'+oldGoods.price);
+	        	}else {
+	        		$("#goodsPrice").text('￥'+oldGoods.price+' ~ '+oldGoods.highprice);
+	        	}	
+	        	$("#goodsNum").text(oldGoods.quantity);
+				if($(".goods-parameter-classify p").length > 0) {
+					$(".goods-parameter-classify p").each(function(){
+						attrText = attrText + '"' + $(this).text() + '"';
+					});
+				}				
+				$("#eGoodsSelect").text("请选择:"+attrText);
 				clear();
 				Init(goodsStock);
 			});
@@ -403,6 +417,7 @@
 						   	    		$(".index-tab-bar").css("display", "block");
 										$(".goods-parameter-choice").slideUp();
 						   			}
+						   	    	$("#modifyAttr").hide();
 						   	    	clear();
 						   	    }
 					        })

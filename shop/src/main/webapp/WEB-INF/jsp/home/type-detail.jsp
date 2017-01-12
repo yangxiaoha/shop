@@ -70,7 +70,7 @@
 		      <ul>
 			    <c:forEach items="${goodsMsg}" var="goodsList">
 			      <li>
-			    	<a href="goodsDetail/${goodsList.id}">
+			    	<a href="../goodsDetail/${goodsList.id}">
 			    	  <img src="<%=basePath%>${goodsList.url}" />
 					  <div style="position: relative; height: 50px;">
 	    	  			<div class="goods-block">
@@ -93,7 +93,11 @@
     		
     		$(".goods-name").each(function() {
 	    		var pHeight = $(this).height();
-	    		$(this).parent($(".goods-block")).css("margin-top", -(pHeight/2));	    		
+	    		var text = $(this).text();
+	    		$(this).parent($(".goods-block")).css("margin-top", -(pHeight/2));	
+	    		if(text.length > 14) {
+	    			$(this).text(text.substring(0,13)+"...");
+	    		}
 	    	});
 
 	    	var num = 3;

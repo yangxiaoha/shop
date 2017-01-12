@@ -114,7 +114,7 @@
 	  		<a href="<%=basePath%>home/mainindex/index" class="fl btn mr5 bc-c8161d">继续购买</a>
 	  		<p class="fl go-shopping-title">购物车：立即结算，抢回还有货的商品</p>
 		</div>
-	    <div class="shopping-car mb80">	    	
+	    <div class="shopping-car">	    	
 	  		<!--无商品-->
 	  		<c:if test="${empty cartsMsg}">
 	  			<div class="no-shopping-car-show ta-center">
@@ -124,7 +124,8 @@
 	  		</c:if>
 		  	<!--有商品-->
 		  	<c:if test="${!empty cartsMsg}"> 
-		  	    <div class="have-data">
+		  		<div style="position: relative;">
+		  		<div class="have-data">
 		  	    	<c:forEach items="${cartsMsg}" var="cartsList">
 						<div class="shopping-car-show order-list clearfloat">
 					        <img src="<%=basePath%>${cartsList.url}">
@@ -147,7 +148,8 @@
 					        </div>
 				  	    </div>
 					</c:forEach>
-		  	    </div>				
+		  	    </div>
+		  		</div>		  	    				
 	        </c:if>
 	        <form id="buyGoodsForm" action="payment" method="post">
 	        	<input type="hidden" name="cartIds" id="cartIds" value="" />
@@ -169,7 +171,7 @@
 				    <img id="eGoodsImg" />
 			        <ul class="shopping-car-detail p5">
 			         	<li class="fc-c8161d mb5" id="eGoodsPrice"></li>
-			            <li class="fc-9fa0a0 fs-1rem mb5">库存<span id="eGoodsNum"></span>件</li>
+			            <li class="fc-9fa0a0 fs-1rem mb5">库存<span id="eGoodsNum" style="display: inline-block;"></span>件</li>
 			            <li class="fc-595757 parameter-show" id="eGoodsSelect">请选择</li>
 			        </ul>
 			        <div class="shopping-car-edit">
@@ -226,6 +228,12 @@
 
 	<script type="text/javascript">
     	$(document).ready(function() {
+    		//alert($(window).height());
+    		//alert($(".go-shopping").innerHeight());
+    		//alert($(".tab-bar").innerHeight());
+    		var wHeight = $(window).height()-$(".go-shopping").innerHeight()-$(".tab-bar").innerHeight();
+    		$(".have-data").css("height", wHeight);
+    		
     		//删除商品
     		$(".shopping-car").on("click", ".order-delete", function() {
     			var cartId = $(this).siblings(".cartId").val();
@@ -250,11 +258,11 @@
        			          	  	    '<ul class="shopping-car-detail ph5">'+
        					            '<li><a href="../mainindex/goodsDetail/'+cartsList.goodsId+'"class="fc-000">'+cartsList.name+'</a></li>'+
        					            '<li>商品规格：<span class="goodsValue">'+cartsList.value+'</span></li>'+
-       					            '<li><span class="fl">￥'+cartsList.price+'</span><span class="fr">x'+cartsList.num+'</span></li>'+
+       					            '<li><span class="fl goodsPrice">￥'+cartsList.price+'</span><span class="fr">x'+cartsList.num+'</span><input type="hidden" class="goodsNum" value="'+cartsList.num+'" /></li>'+
 									'</ul>'+
 									'<div class="shopping-car-edit">'+
 									'<p class="modify">修改</p>'+
-									'<p class="iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>'+
+									'<p class="mt8 iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>'+
 									'<input class="cartId" type="hidden" value="'+cartsList.id+'">'+
 									'<input class="goodsId" type="hidden" value="'+cartsList.goodsId+'">'+
 									'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
@@ -408,7 +416,7 @@
 	    	var state = 0;
 	    	var oldGoods = new Array();//商品信息
 	    	var goodsStock = new Array();//现货信息
-	    	var goodsId = $("#goodsId").val();//商品id
+	    	var goodsId = $("#goodsId").val();//商品id    	
 	    	
 	    	//关闭选择
 	    	$("#close").click(function() {
@@ -420,8 +428,22 @@
 	    	
 	    	//清空
 			$(".goods-parameter-choice").on("click", ".clear-attr", function(){
+				var attrText = "";
+	        	$("#eGoodsImg").attr("src", '<%=basePath%>'+oldGoods.url);
+	        	if(oldGoods.price == oldGoods.highprice) {
+	        		$("#eGoodsPrice").text('￥'+oldGoods.price);
+	        	}else {
+	        		$("#eGoodsPrice").text('￥'+oldGoods.price+' ~ '+oldGoods.highprice);
+	        	}	
+	        	$("#eGoodsNum").text(oldGoods.quantity);
+				if($(".goods-parameter-classify p").length > 0) {
+					$(".goods-parameter-classify p").each(function(){
+						attrText = attrText + '"' + $(this).text() + '"';
+					});
+				}				
+				$("#eGoodsSelect").text("请选择:"+attrText);
 				clear();
-				Init(goodsStock);
+				Init(goodsStock);				
 			});
 	    	
 	    	//减少购买数量
@@ -474,7 +496,8 @@
 		       			          	  	    '<ul class="shopping-car-detail ph5">'+
 		       					            '<li><a href="../mainindex/goodsDetail/'+cartsList.goodsId+'"class="fc-000">'+cartsList.name+'</a></li>'+    
 		       					            '<li>商品规格：<span class="goodsValue">'+cartsList.value+'</span></li>'+
-		       					            '<li><span class="fl">￥'+cartsList.price+'</span><span class="fr">x'+cartsList.num+'</span></li>'+
+		       					            '<li><span class="fl goodsPrice">￥'+cartsList.price+'</span>'+
+		       					            '<span class="fr">x'+cartsList.num+'</span><input type="hidden" class="goodsNum" value="'+cartsList.num+'" /></li>'+
 											'</ul>'+
 											'<div class="shopping-car-edit">'+
 											'<p class="modify">修改</p>'+
@@ -514,7 +537,7 @@
 				$("#eGoodsImg").attr("src", src);
 				$("#eGoodsPrice").text($(this).parents("div.shopping-car-show").find(".goodsPrice").text());
 				$("#eGoodsNum").text($(this).siblings(".goodsSkuNum").val());
-		  		$("#eGoodsSelect").text("已选 "+spec);
+		  		$("#eGoodsSelect").text("已选 "+spec);	  		
 				//获取库存信息(若库存为0，直接不可点击)
 				$.ajax({
 					url: '<%=basePath%>home/mainindex/getGoodsStockInfo/'+$(this).siblings(".goodsId").val(),
