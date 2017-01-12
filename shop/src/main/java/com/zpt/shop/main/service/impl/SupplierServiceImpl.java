@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Supplier;
+import com.zpt.shop.main.mapper.BrandMapper;
 import com.zpt.shop.main.mapper.SupplierMapper;
 import com.zpt.shop.main.service.SupplierService;
 
@@ -16,6 +17,9 @@ public class SupplierServiceImpl implements SupplierService {
 	
 	@Autowired
 	private SupplierMapper supplierMapper;
+	
+	@Autowired
+	private BrandMapper brandMapper;
 
 	@Override
 	public Page<Supplier> page(Query<Supplier> query) {
@@ -52,6 +56,7 @@ public class SupplierServiceImpl implements SupplierService {
 	public void deleteSupplier(String ids) {
 		// TODO Auto-generated method stub
 		supplierMapper.deleteSupplier(ids);
+		brandMapper.deleteBrandinSupplier(ids);
 		
 	}
 

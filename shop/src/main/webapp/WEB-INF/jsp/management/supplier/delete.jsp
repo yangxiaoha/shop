@@ -19,7 +19,7 @@
 			<hr>
 			<div class="modal-footer">
 				<button class="btn btn-primary" id="deletesubmit" type="button">确定</button>
-				<button class="btn btn-default-outline" data-dismiss="modal"
+				<button class="btn btn-default-outline" data-dismiss="modal" id="deletecancel"
 					type="button">取消</button>
 			</div>
 		</div>
@@ -38,7 +38,10 @@
 			}
 			$("#delModal").modal('show');
 		});
-		
+		$("#deletecancel").click(function(){
+			$("#ids").val("");
+			$("#deletesubmit").removeAttr("disabled"); 
+		});
 		
 		$("#deletesubmit").click(function(){
 			$(this).attr("disabled","disabled"); 

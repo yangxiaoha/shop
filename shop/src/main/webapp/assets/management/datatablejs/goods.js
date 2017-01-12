@@ -59,6 +59,9 @@ $(document).ready(function(){
         		var api = new $.fn.dataTable.Api( settings );
                 var obj = api.rows(rowid).data()[0];
         		$("#did").val($(this).data("id"));
+        		if(obj.content == null){
+        			obj.content = "";
+        		}
         		ue.setContent(obj.content);
         		$("#detailModal").modal('show');
         	});
@@ -89,9 +92,9 @@ $(document).ready(function(){
         				for (var i=0;i<res.length;i++){
         					var restemp = idstemp.indexOf(","+res[i].id+",");
         					if(restemp != -1){        						
-        						checkboxhtml = checkboxhtml + '<div class="checkbox i-checks"><label><input name="idstemp" type="checkbox" value="'+res[i].id+'" checked=""> <i></i>'+res[i].name+'</label></div>'
+        						checkboxhtml = checkboxhtml + '<div class="checkbox i-checks"><label><input name="idstemp" type="checkbox" value="'+res[i].id+'" checked="" disabled="disabled"> <i></i>'+res[i].name+'</label></div>'
         					}else{        							
-        						checkboxhtml = checkboxhtml + '<div class="checkbox i-checks"><label><input name="idstemp" type="checkbox" value="'+res[i].id+'"> <i></i>'+res[i].name+'</label></div>'	
+        						checkboxhtml = checkboxhtml + '<div class="checkbox i-checks"><label><input name="idstemp" type="checkbox" value="'+res[i].id+'" disabled="disabled"> <i></i>'+res[i].name+'</label></div>'	
         					}        				
         				}
         				$("#ucheckbok").html(checkboxhtml);

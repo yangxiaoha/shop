@@ -11,12 +11,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>商品类型管理</title>
-<script type="text/javascript"
-	src="<%=basePath%>assets/management/javascripts/jquery.ztree.core.js"></script>
 <script
 	src="<%=basePath%>assets/management/datatablejs/goodstype.js"	type="text/javascript"></script>
-<link rel="stylesheet" href="<%=basePath%>assets/management/images/zTreeStyle.css"
-	type="text/css">
 <style type="text/css">
 .cztree li {
     padding: 3px;
@@ -39,6 +35,7 @@
 									<div style="position: absolute;right:10px;top:8px">
 									 	<button class="btn btn-xs btn-info-outline" id = "blank">重置</button>
 									</div>
+									<h5>商品类型：</h5>
 									<ul id="tree" class="ztree cztree"
 										style="width: 260px; overflow: auto;"></ul>
 								</td>

@@ -38,7 +38,7 @@
 										<div class="col-sm-12">
 											<div class="form-group divb0"
 												style="margin-bottom: 0px !important;">
-												<label for="name">商品名称(*)</label><input class="form-control"
+												<label for="name">商品属性名称(*)</label><input class="form-control"
 													placeholder="请输入商品属性名称" id="uname" name="name" type="text">
 													<input style = "opacity: 0; width: 0px"
 													placeholder="" id="" name="" type="text">

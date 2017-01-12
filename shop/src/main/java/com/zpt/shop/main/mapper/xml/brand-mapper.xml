@@ -80,6 +80,10 @@
 		update t_goods_brand set state = 0 where id in (${ids})	
 	</delete>
 	
+	<delete id="deleteBrandinSupplier">
+		update t_goods_brand set state = 0 where supplierid in (${ids})	
+	</delete>
+	
 	<update id="updateBrand" parameterType="brand">
 		update t_goods_brand set name = #{name},content = #{content},supplierId = #{supplierId} where id = #{id}
 	</update>
