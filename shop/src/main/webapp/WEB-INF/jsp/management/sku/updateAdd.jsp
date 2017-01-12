@@ -17,18 +17,12 @@
 						<div class="row">
 						<input type="hidden" id="aid" name="skuId" >	
 						<input type="hidden" name="goodsId" value="${goodsM.id }" type="text">									
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<div class="form-group">
 									<label for="num">商品数量(*)</label><input class="form-control"
 										placeholder="请输入商品数量" id="anum" name="num" type="text">
 								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="batch">商品批次</label><input class="form-control"
-										placeholder="请输入商品批次" id="abatch" name="batch" type="text">
-								</div>
-							</div>							
+							</div>													
 						</div>
 					</fieldset>
 				</form>
@@ -41,7 +35,7 @@
 		</div>
 	</div>
 </div>
-<script>
+<script>	
 	$(document).ready(function(){		
 		$("#updateAddsubmit").click(function(){
 			$("#updateAdd").submit();
@@ -57,10 +51,7 @@
 		      num: {
 		        	 required:"请输入商品数量",
 		        	 digits:"请输入一个整数"
-		      },
-		      batch: {
-		        	 required:"请输入商品批次",
-		      }		         
+		      }	         
         	},
 	        submitHandler: function(form) {   
 	           $(this).attr("disabled","disabled"); 
@@ -78,8 +69,7 @@
 	        		   },1000);
 	        		   reset(form);
 	        		   $("#updateAddModal").modal("hide");
-	        		   tableI.table().draw();
-	        		   
+	        		   tableI.table().draw();	        		   
 	        	   },
 	        	   error:function(){
 	        		   $("#loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");

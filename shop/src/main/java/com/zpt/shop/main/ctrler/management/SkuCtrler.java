@@ -66,10 +66,16 @@ public class SkuCtrler {
 	
 	@ResponseBody
 	@RequestMapping(value = "/add",method = RequestMethod.POST)
-	public Msg add(Sku sku,	Integer[] proId,String[] value,HttpServletRequest request, HttpSession session){
+	public Msg add(Sku sku,	String proId,String value,HttpServletRequest request, HttpSession session){
 		Msg msg = new Msg();
-		try {			
-			skuService.insertSku(sku, proId, value, request, session);
+		try {
+			String[] sproId = proId.split(",");
+			Integer[] proIds = new Integer[sproId.length];
+			for (int i = 0; i < sproId.length; i++) {
+				proIds[i] = Integer.valueOf(sproId[i]);
+			}
+			String[] values = value.split(",");
+			skuService.insertSku(sku, proIds, values, request, session);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.ADD_SUCCESS);
 			return msg;
@@ -120,10 +126,16 @@ public class SkuCtrler {
 	
 	@ResponseBody
 	@RequestMapping(value = "/update",method = RequestMethod.POST)
-	public Msg update(Sku sku,	Integer[] proId,String[] value,HttpServletRequest request, HttpSession session){
+	public Msg update(Sku sku, String proId,String value,HttpServletRequest request, HttpSession session){
 		Msg msg = new Msg();
 		try {
-			skuService.updateSku(sku, proId, value, request, session);
+			String[] sproId = proId.split(",");
+			Integer[] proIds = new Integer[sproId.length];
+			for (int i = 0; i < sproId.length; i++) {
+				proIds[i] = Integer.valueOf(sproId[i]);
+			}
+			String[] values = value.split(",");
+			skuService.updateSku(sku, proIds, values, request, session);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.UPDATE_SUCCESS);
 			return msg;

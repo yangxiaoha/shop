@@ -14,9 +14,10 @@
 
 <body class="gray-bg">	
     <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
+        <div class="row">        	
         	<div class="col-sm-3" style="padding-right:0px">
         		<div class="ibox-contentTable">	
+        			<h5>商品属性：</h5>
 					<ul id="tree" class="ztree"></ul>
                 </div>
         	</div>
@@ -60,8 +61,8 @@
 										<input id="checkAll" name="checkAll" type="checkbox">
 									</label>
 								</th>
-								<th>商品名称</th>
-								<th>商品扩充名称</th>
+								<th width="20%">商品名称</th>
+								<th>商品供应商</th>
 								<th>商品总量</th>
 								<th>商品编码</th>
 								<th>商品品牌</th>

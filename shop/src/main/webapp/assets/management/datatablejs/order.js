@@ -115,6 +115,7 @@ $(document).ready(function(){
         		$("#sphone").html(obj.phone);
         		$("#saddress").html(obj.address);
         		$("#smemo").html(obj.memo);
+        		$("#sordernum").html(obj.ordernum);
         		$("#umemo").val(obj.memo);
         		$("#ulogistics").val(obj.logistics);
         		$("#ulogisticsnum").val(obj.logisticsnum);
@@ -134,24 +135,34 @@ $(document).ready(function(){
         			data:{orderId: obj.id},
         			dataType:"json",
         			async:true,
-        			success:function(res){
+        			success:function(res){        				
         				var checkboxhtml = "<table style=\"solid; border-width:1px; border-color:#000;width: 85%;margin-left: 40px;\" class=\"table table-bordered table-striped table-hover\" width=\"100%\">";
         				checkboxhtml = checkboxhtml + "<thead style=\"solid; border-width:1px; border-color:#000\">";
         				checkboxhtml = checkboxhtml + "<tr>";
-        				checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:blue\">商品名称</td>";
-        				checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:blue\">商品单价</td>";
-        				checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:blue\">购买数量</td>";
-        				checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:blue\">商品总价</td>";
+        				checkboxhtml = checkboxhtml + "<td style=\"width:20%;solid; border-width:1px; border-color:#000;font-size:1em;color:blue\">商品名称</td>";
+        				checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:blue\">商品属性</td>";
+        				checkboxhtml = checkboxhtml + "<td style=\"width:10%;solid; border-width:1px; border-color:#000;font-size:1em;color:blue\">商品单价</td>";
+        				checkboxhtml = checkboxhtml + "<td style=\"width:10%;solid; border-width:1px; border-color:#000;font-size:1em;color:blue\">购买数量</td>";
+        				checkboxhtml = checkboxhtml + "<td style=\"width:10%;solid; border-width:1px; border-color:#000;font-size:1em;color:blue\">商品总价</td>";
         				checkboxhtml = checkboxhtml + "</tr>";        				
         				for(var i = 0;i<res.length;i++){
+        					var valname = "";
+        					if(res[i].provalue != null && res[i].provalue != ""){        						
+        						var provalue = res[i].provalue.split("|#$%|");
+        						var proname = res[i].proname.split(",");
+        						for(var j=0;j<provalue.length;j++){
+        							valname = valname + proname[j]+":"+provalue[j]+";";	
+        						}
+        					}
         					checkboxhtml = checkboxhtml + "<tr>";
         					checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:black\"><span>"+res[i].name+"</span></td>";
+        					checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:black\"><span>"+valname+"</span></td>";
         					checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:black\"><span>"+res[i].price+"</span></td>";
         					checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:black\"><span>"+res[i].num+"</span></td>";
         					checkboxhtml = checkboxhtml + "<td style=\"solid; border-width:1px; border-color:#000;font-size:1em;color:black\"><span>"+res[i].totalPrice+"</span></td>";
         					checkboxhtml = checkboxhtml + "</tr>";   
         				}
-        				checkboxhtml = checkboxhtml + "<th colspan=\"4\" style=\"solid;text-align:right; border-width:1px; border-color:#000;font-size:1em;color:black\"><span>总价：￥"+obj.totalPrice+"</span></th>";
+        				checkboxhtml = checkboxhtml + "<th colspan=\"5\" style=\"solid;text-align:right; border-width:1px; border-color:#000;font-size:1em;color:black\"><span>总价：￥"+obj.totalPrice+"</span></th>";
         				checkboxhtml = checkboxhtml + "</thead>";
         				checkboxhtml = checkboxhtml + "</table>";
         				$("#checkbok").html(checkboxhtml);

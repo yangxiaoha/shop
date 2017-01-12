@@ -14,7 +14,8 @@
 	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/js/plugins/flot/jquery.flot.js"></script>	
 	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/js/plugins/flot/jquery.flot.pie.js"></script>	
 	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/js/plugins/flot/jquery.flot.resize.js"></script>	
-	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/js/plugins/flot/jquery.flot.tooltip.min.js"></script>	
+	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+		
 	<script src="<%=basePath%>assets/management/datatablejs/statistics.js" type="text/javascript"></script>
 	<style type="text/css">
 		.error {
@@ -177,7 +178,16 @@ $("#btn-inquiry").click( function() {
 	countName();
 });
 
-var countCity=function(){
+jQuery.browser={};(function(){
+	jQuery.browser.msie=false; 
+	jQuery.browser.version=0;
+	if(navigator.userAgent.match(/MSIE ([0-9]+)./)){ 
+		jQuery.browser.msie=true;
+		jQuery.browser.version=RegExp.$1;
+	}
+})();
+
+function countCity(){
 	$.ajax({
 		url:"getNumbyCity",
 		type:"post",
@@ -212,7 +222,7 @@ var countCity=function(){
 countCity();
 function countName(){
 	$.ajax({
-		url:"getNumbyCity",
+		url:"getNumbyName",
 		type:"post",
 		data:{cityname:$("#cityname").val(),name:$("#name").val(),starttime:$("#starttime").val(),endtime:$("#endtime").val()},
 		dataType:"json",

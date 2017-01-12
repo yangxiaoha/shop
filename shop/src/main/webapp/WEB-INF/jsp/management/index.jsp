@@ -73,6 +73,14 @@
                             </li>
                             <li><a class="J_menuItem" href="order/index">订单管理</a>
                             </li>
+                            <li><a class="J_menuItem" href="supplier/index">供应商管理</a>
+                            </li>
+                            <li><a class="J_menuItem" href="brand/index">品牌管理</a>
+                            </li>
+                            <li><a class="J_menuItem" href="goodstype/index">商品类型管理</a>
+                            </li>
+                            <li><a class="J_menuItem" href="pro/index">商品属性管理</a>
+                            </li>
                         </ul>
                     </li>
                     <li>

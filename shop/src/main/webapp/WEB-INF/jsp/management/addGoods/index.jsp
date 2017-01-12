@@ -315,7 +315,7 @@
 			edit: {
 				enable: true,
 				showRemoveBtn: true,
-				showRenameBtn: false,
+				showRenameBtn: true,
 				removeTitle: "删除"
 			}
 		};
@@ -415,7 +415,7 @@
 		   	    dataType: "json",
 		   	    success: function(data) {}
 	        })
-		}
+		}		
 		
 		function zTreeOnRemoveSupplier(event, treeId, treeNode) {
 			$.ajax({

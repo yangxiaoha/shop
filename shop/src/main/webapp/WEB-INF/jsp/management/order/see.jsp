@@ -69,6 +69,14 @@
 							</div>
 							</div>
 							</div>
+							<div class="col-md-12">
+							<div class="row">
+								<div class="form-group"  style="margin-left:7%;">
+									<span style="font-size: 1em; color: black">订单编号：</span> <span
+										style="font-size: 1em; color: black;margin-left:0px" id="sordernum"></span>
+								</div>
+							</div>
+							</div>
 							<div class="row">
 								<div class="col-md-12">
 								<div class="form-group" style="margin-right:15px;margin-left:15px">									

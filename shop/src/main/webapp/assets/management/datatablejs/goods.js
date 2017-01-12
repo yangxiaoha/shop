@@ -10,7 +10,7 @@ $(document).ready(function(){
                     { "data": "id","orderable":false,"visible":false},
                     { "data": "id","orderable":false},
                     { "data": "name"},
-                    { "data": "exp_name" },
+                    { "data": "suppliername" },
                     { "data": "quantity" },
                     { "data": "code" },
                     { "data": "brandName" },
@@ -33,7 +33,7 @@ $(document).ready(function(){
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
-			                '<a class="table-actions" href="../sku/index?goodsId='+data+'"><i class="fa fa-sitemap" title="详细商品"></i></a>'+
+			                '<a class="table-actions" href="../sku/index?goodsId='+data+'"><i class="fa fa-sitemap" title="商品详情"></i></a>'+
 			                '<a class="table-actions detail" data-rowid="'+meta.row+'" data-id="'+data+'" href="javascript:void(0)" title="编辑"><i class="fa fa-file-word-o"></i></a>'+
                  			'<a class="table-actions update" data-rowid="'+meta.row+'" href="javascript:void(0)" title="修改"><i class="fa fa-pencil"></i></a>'+
                  			'<a class="table-actions stick" data-id="'+data+'" href="javascript:void(0)" title="置顶"><i class="fa fa-arrow-up"></i></a>'+

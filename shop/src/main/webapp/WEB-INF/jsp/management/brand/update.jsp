@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<div class="modal fade" id="updateModal">
+<div class="modal fade" id="updateModalBrand">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -98,7 +98,7 @@
 	        		   setTimeout(function(){
 	        			   $(".loading").html("");
 	        			   $("#updatesubmit").removeAttr("disabled"); 
-	        			   $("#updateModal").modal('hide');
+	        			   $("#updateModalBrand").modal('hide');
 	        		   },1000);
 	        		   tableI.table().draw();
 	        	   },

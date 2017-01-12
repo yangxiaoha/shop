@@ -27,7 +27,7 @@
 		left join t_user as tuser on tuser.id = db.userid
 		left join t_withdraw_cash as cash on db.userid = cash.userid 
 		left join t_order as torder on torder.id = db.orderid
-		where db.userId = #{userId}
+		where db.userId = #{userId} group by db.id
 	</select>
 	
 </mapper>

@@ -17,7 +17,7 @@ public class GoodsType {
 	private Integer state;
 	
 	//商品类型详情
-	public List<GoodsType> goodsType;
+	private List<GoodsType> goodsType;
 	
 	public Integer getState() {
 		return state;

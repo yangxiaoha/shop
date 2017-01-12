@@ -13,16 +13,21 @@
 		<result property="totalPrice" column="totalPrice" />
 		<result property="name" column="name" />
 		<result property="ordertime" column="ordertime" />
+		<result property="proname" column="proname" />
+		<result property="provalue" column="provalue" />
 	</resultMap>
 	
 	<select id="getAllOrderDetail" resultMap="resultMap">
 		select orderDetail.id as id,orderDetail.orderId as orderId,orderDetail.skuId as skuId,
 		orderDetail.num as num,orderDetail.price as price,orderDetail.totalPrice as totalPrice,
-		goods.name as name
+		goods.name as name,t.provalue as provalue,t.proname as proname
 		from t_order_detail as orderDetail 
 		left join t_goods_sku as sku on orderDetail.skuid = sku.id
 		left join t_goods as goods on goods.id = sku.goodsid 
 		left join t_order as torder on orderDetail.orderid = torder.id
+		left join (select proval.skuid as skuid,group_concat(pro.name) as proname,
+					GROUP_CONCAT(proval.value SEPARATOR '|#$%|') as provalue from t_goods_pro_val as proVal
+					left join t_goods_pro as pro on pro.id = proVal.proid group by proval.skuid) as t on t.skuid = sku.id
 		where orderId = #{orderId}
 	</select>
 

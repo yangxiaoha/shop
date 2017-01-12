@@ -5,15 +5,19 @@ import java.util.Date;
 
 public class OrderDetail {
 	
-	public Integer id;
+	private Integer id;
 	
-	public Integer orderId;
+	private Integer orderId;
 	
-	public Integer skuId;
+	private Integer skuId;
 	
-	public Integer num;
+	private Integer num;
 	
-	public BigDecimal price;
+	private BigDecimal price;
+	
+	private String proname;
+	
+	private String provalue;
 	
 	//商品总价
 	public BigDecimal totalPrice;	
@@ -31,7 +35,23 @@ public class OrderDetail {
 	public String val;
 	
 	//下单时间
-	public Date ordertime;
+	public Date ordertime;	
+	
+	public String getProname() {
+		return proname;
+	}
+
+	public void setProname(String proname) {
+		this.proname = proname;
+	}
+
+	public String getProvalue() {
+		return provalue;
+	}
+
+	public void setProvalue(String provalue) {
+		this.provalue = provalue;
+	}
 
 	public Integer getId() {
 		return id;

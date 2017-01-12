@@ -7,50 +7,50 @@ import java.text.SimpleDateFormat;
 
 public class Order {
 	
-	public Integer id;
+	private Integer id;
 	
-	public Integer userId;
+	private Integer userId;
 	
 	//收货地址
-	public String address;
+	private String address;
 	
 	//下单时间
-	public Date ordertime;
+	private Date ordertime;
 	
 	//物流编号
-	public String logisticsnum;
+	private String logisticsnum;
 	
 	//物流商家
-	public String logistics;
+	private String logistics;
 	
 	//订单状态
-	public Integer state;
+	private Integer state;
 	
 	//收货人姓名
-	public String name;
+	private String name;
 	
 	//收货人电话
-	public String phone;
+	private String phone;
 	
 	//商品总价
-	public BigDecimal totalPrice;
+	private BigDecimal totalPrice;
 
 	//订单详情
-	public List<OrderDetail> orderDetail;
+	private List<OrderDetail> orderDetail;
 	
 	//备注
-	public String memo;
+	private String memo;
 	
 	//订单编号
-	public String ordernum;	
+	private String ordernum;	
 	
-	public String postalCode;
+	private String postalCode;
 	
-	public String provinceName;
+	private String provinceName;
 	
-	public String cityName;	
+	private String cityName;	
 	
-	public String countryName;
+	private String countryName;
 
 	public String getPostalCode() {
 		return postalCode;

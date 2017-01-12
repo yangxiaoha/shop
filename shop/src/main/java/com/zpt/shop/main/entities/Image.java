@@ -2,11 +2,11 @@ package com.zpt.shop.main.entities;
 
 public class Image {
 	
-	public Integer id;
+	private Integer id;
 	
-	public String url;
+	private String url;
 		
-	public Integer skuId;
+	private Integer skuId;
 
 	public Integer getId() {
 		return id;

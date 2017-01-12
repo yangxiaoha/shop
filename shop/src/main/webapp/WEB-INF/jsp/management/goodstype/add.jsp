@@ -19,8 +19,8 @@
 			<div class="modal-body">
 				<form action="add" id="add" method="post">
 					<fieldset>
-						<div class="col-lg-12">						
-							<div class="col-lg-5">
+						<div class="col-sm-12">						
+							<div class="col-sm-5">
 								<table border=0 height=200px align=left>
 									<tr>
 										<td width=150px align=left valign=top
@@ -31,28 +31,30 @@
 									</tr>
 								</table>
 							</div>
-							<div class="col-lg-7">
+							<div class="col-sm-7">
 								<div class="row">
 									<div class="row">
-										<div class="col-md-12">
+										<div class="col-sm-12">
 											<div class="form-group divb0"
 												style="margin-bottom: 0px !important;">
 												<label for="name">商品类型名称(*)</label><input class="form-control"
 													placeholder="请输入商品类型名称" id="aname" name="name" type="text">
+													<input style = "opacity: 0; width: 0px"
+													placeholder="" id="" name="" type="text">
 											</div>
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-md-12">
+										<div class="col-sm-12">
 											<div class="form-group divb0">
 												<label for="pid">上级商品类型</label> <input class="form-control"
 													placeholder="" readonly="readonly" id="aaname"
 													name="" type="text"> <input type="hidden"
-													placeholder="" id="apid" name="pid" value = "0" type="text">
+													placeholder="" id="apid" name="pid" value = "0" type="text">													
 													<input type="hidden"	placeholder="" 
-													id="aisParent" name="isParent" value = "1" type="text">
+													id="aisParent" name="isParent" value = "1" type="text">													
 											</div>
-											<div>
+											<div>												
 												<button class="btn btn-default-outline" style ="float:right;margin:5px" 
 												id = "dpid"	type="button">取消上级类型</button>
 											</div>
