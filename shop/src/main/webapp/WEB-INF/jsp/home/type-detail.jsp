@@ -90,6 +90,9 @@
     <script src="<%=basePath%>assets/home/js/pullToRefresh2.js"></script>
 	<script type="text/javascript">
     	$(document).ready(function(){
+
+    		var wHeight = $(window).height()-$(".nav-bar").innerHeight();
+    		$("#wrapper").css("height", wHeight);    		
     		
     		$(".goods-name").each(function() {
 	    		var pHeight = $(this).height();

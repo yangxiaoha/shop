@@ -124,13 +124,15 @@
 				$("#paymentForm").submit();
 			});
 			$(".order-state-detail").each(function(){
-				var num = 0;
+				/* var num = 0;
 				var val = 0;
 			    for(var i=0; i<$(this).find(".pur-num").length; i++) {
 			    	val = parseInt($(this).find(".pur-num").eq(i).text(), 10);
 			    	num += val;
 			    }
-			    $(this).find(".pur-total").text(num);
+			    $(this).find(".pur-total").text(num); */
+			    var num = $(this).find(".order-detail-show").length;
+				$(this).find(".pur-total").text(num); 
 			});
 		});    	
     </script>

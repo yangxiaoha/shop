@@ -1,6 +1,7 @@
 package com.zpt.shop.main.ctrler.home;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -357,6 +358,13 @@ public class PurchaseCtrler {
 	public ModelAndView orderDetail(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("home/order-detail");			
 		User user = (User) request.getSession().getAttribute("user");
+		//超过半小时还未支付的订单视为订单关闭
+		try {
+			orderService.closeOrder();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//查询订单详情
 		List<Order> orderList = orderService.getOrderDetail(user.getId());
 		mv.addObject("orderMsg", orderList);
