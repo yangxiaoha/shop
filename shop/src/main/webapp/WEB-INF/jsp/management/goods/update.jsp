@@ -41,6 +41,8 @@
 												<option value="${brandList.id}">${brandList.name}</option>
 											</c:forEach>
 										</select>
+										<input style = "opacity: 0; width: 0px"
+													placeholder="" id="" name="" type="text">
 									</div>
 								</div>
 								<div class="row">
@@ -52,26 +54,20 @@
 									</div>
 									<div class="col-sm-6">
 										<div class="form-group divb0">
-											<label for="exp_name">商品扩充名称</label>
-											<input class="form-control" placeholder="请输入商品扩充名称" id="uexp_name" name="exp_name" type="text">
-										</div>
-									</div>
-								</div>
-								<div class="row">																				
-									<div class="col-sm-6">
-										<div class="form-group divb0">
 											<label for="code">商品编码</label><input class="form-control"
 												placeholder="请输入商品编码" id="ucode" name="code" type="text">
 										</div>
 									</div>
+									<input style = "opacity: 0; width: 0px"
+													placeholder="" id="" name="" type="text">
+								</div>
+								<div class="row">																				
 									<div class="col-sm-6">
 										<div class="form-group divb0">
 											<label for="store">所属门店</label><input class="form-control"
 												placeholder="请输入所属门店" id="ustore" name="store" type="text">
 										</div>
 									</div>
-								</div>
-								<div class="row">							
 									<div class="col-sm-6">
 										<div class="form-group divb0">
 											<label for="typeId">商品类型(*)</label> 
@@ -84,6 +80,8 @@
 												placeholder="" id="uids" name="ids" type="text">												
 										</div>
 									</div>
+									<p>&nbsp;</p>
+									<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品类型与属性不能修改！</h6>
 								</div>
 							</div>
 							<div class="col-sm-3" id="ucheckbok"></div>
@@ -118,9 +116,7 @@
 		}
 	};
 	function zTreeOnClickUpdate(event, treeId, treeNode) {		
-		console.log(treeNode);		
-		$("#utypeId").val(treeNode.id);
-		$("#utypename").val(treeNode.name);
+		console.log(treeNode);
 		$.ajax({
 			url:"getPro",
 			type:"post",
@@ -132,9 +128,9 @@
 				for (var i=0;i<res.length;i++){
 					var restemp = (","+uids.value+",").indexOf(","+res[i].id+",");
 					if(restemp != -1){
-						checkboxhtml = checkboxhtml + '<div class="checkbox i-checks"><label><input name="idstemp" type="checkbox" value="'+res[i].id+'" checked=""> <i></i>'+res[i].name+'</label></div>'
+						checkboxhtml = checkboxhtml + '<div class="checkbox i-checks"><label><input name="idstemp" type="checkbox" value="'+res[i].id+'" checked="" disabled="disabled"> <i></i>'+res[i].name+'</label></div>'
 					}else{
-						checkboxhtml = checkboxhtml + '<div class="checkbox i-checks"><label><input name="idstemp" type="checkbox" value="'+res[i].id+'"> <i></i>'+res[i].name+'</label></div>'				
+						checkboxhtml = checkboxhtml + '<div class="checkbox i-checks"><label><input name="idstemp" type="checkbox" value="'+res[i].id+'" disabled="disabled"> <i></i>'+res[i].name+'</label></div>'				
 					}
 				}
 				$("#ucheckbok").html(checkboxhtml);
@@ -254,10 +250,6 @@
 		      	}
         	},
 	        submitHandler: function(form) {
-		        if($("[name=idstemp]:checked").val()==null ||$("[name=idstemp]:checked").val()=="" ){
-	        	   	alert("属性必选");
-	        	   	return;
-		       	};
 	           	$(this).attr("disabled","disabled"); 
 			   	$("#loading").html("<i class=\"icon-spinner icon-spin\"></i>");
 	           	$(form).ajaxSubmit({

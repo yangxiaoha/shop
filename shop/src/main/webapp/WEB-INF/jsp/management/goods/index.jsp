@@ -17,7 +17,7 @@
         <div class="row">        	
         	<div class="col-sm-3" style="padding-right:0px">
         		<div class="ibox-contentTable">	
-        			<h5>商品属性：</h5>
+        			<h5>商品类型：</h5>
 					<ul id="tree" class="ztree"></ul>
                 </div>
         	</div>

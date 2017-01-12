@@ -124,8 +124,11 @@
 	        </div> -->
 	        <div class="row">
 	        	<div class="col-sm-6 mb10">
-		   			<label style="float: left;">商品简介:</label>	
+		   			<label style="float: left;">商品简介:</label>
+		   			<!-- 
 		   			<div><textarea name="content" style="float: left; width: 60%; min-height: 100px;" placeholder="请输入商品简介"></textarea></div>
+		   			 -->	
+		   			<script name="content" id="aditor" type="text/plain" style="float: left; width: 100%; min-height: 100px;"></script>
 		   		</div>
 	        </div>
 	       	<div style="width: 50%; margin: 0 auto;">
@@ -143,6 +146,7 @@
 	<jsp:include page="addType.jsp"/>
 	<jsp:include page="addPro.jsp"/>
     <script>
+    var ue = UE.getEditor('aditor');
     	$(document).ready(function(){
         	$("#addProBtn").click(function(){
         		var addVal = "";
@@ -217,7 +221,7 @@
         	});
         	
     		$("#goodsSubmit").click(function(){
-    			$("#addGoods").submit();
+    			$("#addGoods").submit();    			
     		});
     		
     	    $("#addGoods").validate({
@@ -313,7 +317,7 @@
 			edit: {
 				enable: true,
 				showRemoveBtn: true,
-				showRenameBtn: true,
+				showRenameBtn: false,
 				removeTitle: "删除"
 			}
 		};

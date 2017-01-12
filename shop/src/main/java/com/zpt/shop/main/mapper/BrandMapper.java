@@ -14,6 +14,8 @@ public interface BrandMapper {
 	
 	public void deleteBrand(@Param("ids")String ids);
 	
+	public void deleteBrandinSupplier(@Param("ids")String ids);
+	
 	public void updateBrand(Brand brand);
 	
 	public List<Brand> listBrand(Query<Brand> query);

@@ -118,9 +118,9 @@
 		update t_goods set state = 0 where id in (${ids})
 	</update>
 	<update id="updateGoods" parameterType="goods">
-		update t_goods set name = #{name},exp_name = #{exp_name},
+		update t_goods set name = #{name},
 		content = #{content},code = #{code},brandId = #{brandId},store = #{store},
-		typeId = #{typeId},ids = #{ids} where id = #{id}
+		where id = #{id}
 	</update>
 	<update id="stickGoods" parameterType="goods">
 		update t_goods set top = #{top} where id = #{id}
