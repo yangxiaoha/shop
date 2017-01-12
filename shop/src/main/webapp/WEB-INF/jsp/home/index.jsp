@@ -91,7 +91,7 @@
 		
 	    <!-- 商品展示 -->
 	    <div id="wrapper">
-	    	<ul class="goods-detail mb80">
+	    	<ul class="goods-detail">
 		    	<c:forEach items="${goodsMsg}" var="goodsList">
 			      	<li class="goods-show">
 			    		<a href="goodsDetail/${goodsList.id}">
@@ -106,6 +106,7 @@
 				  	</li>
 				</c:forEach>
 		    </ul>
+		    <div style="width: 100%; height: 100px;"></div>
 	    </div>
 
 		<!-- 导航 -->
@@ -206,9 +207,13 @@
 			var flag = 0;
 			var keyword = $("#keyword").val();
 			var typeId = "";
-			showGoods(flag, keyword, typeId);
-			$("#flag").val(0);
-			$(".goods-search").hide();
+			if($.trim(keyword) == "") {
+				alert("请输入关键字");
+			}else {
+				showGoods(flag, keyword, typeId);
+				$(".goods-search").hide();
+			}		
+			$("#flag").val(0);			
 		});
     
 	    function showGoods(flag, keyword, typeId) {

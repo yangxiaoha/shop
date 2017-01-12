@@ -85,7 +85,7 @@
           <div class="order-detail p10">      
             <div class="order-detail-addr">
               <h4 class="mb5"><span id="oldName">${orderList.name}</span>，<span id="oldPhone">${orderList.phone}</span></h4>
-              <p class="fc-9fa0a0 fs-12" id="oldAddress">${orderList.address}</p>
+              <p class="fc-9fa0a0 fs-12" id="oldAddress">${orderList.provinceName}&nbsp;${orderList.cityName}&nbsp;${orderList.countryName}&nbsp;${orderList.address}</p>
               <a href="javascript:void(0)" class="icon-item" id="getAddr" style="display: block; color: #231815;">
                 <span class="iconfont">&#xe7f7;</span>
               </a>
@@ -206,7 +206,7 @@
                 if($("#username").val() != null && $("#username").val() != "") {
                 	$(".check-addr").hide();
                 }
-        	}        
+        	}   
         });
         
         $(document).ready(function() {

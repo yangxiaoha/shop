@@ -662,7 +662,7 @@
 		</div>
 	</div>
     </div>
-    <script src="<%=basePath %>/assets/management/js/jquery.min.js?v=2.1.4"></script>
+    <script src="<%=basePath %>/assets/management/js/jquery.min.js"></script>
     <script src="<%=basePath %>/assets/management/js/bootstrap.min.js?v=3.3.6"></script>
     <script src="<%=basePath %>/assets/management/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="<%=basePath %>/assets/management/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
