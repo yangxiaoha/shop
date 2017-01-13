@@ -11,13 +11,16 @@ import org.springframework.stereotype.Service;
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Cart;
+import com.zpt.shop.main.entities.Goods;
 import com.zpt.shop.main.entities.Order;
 import com.zpt.shop.main.entities.OrderDetail;
 import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.mapper.CartMapper;
+import com.zpt.shop.main.mapper.GoodsMapper;
 import com.zpt.shop.main.mapper.OrderDetailMapper;
 import com.zpt.shop.main.mapper.OrderMapper;
 import com.zpt.shop.main.mapper.SkuMapper;
+import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.OrderService;
 
 @Service
@@ -28,6 +31,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private CartMapper cartMapper;
+	
+	@Autowired
+	private GoodsMapper goodsMapper;
 	
 	@Autowired
 	private OrderMapper orderMapper;
@@ -108,11 +114,14 @@ public class OrderServiceImpl implements OrderService {
 		}
 		List<Sku> goodsSkuList = skuMapper.getSkuInfoByIds(skuIds);//商品具体信息
 		for(int i=0; i<orderDetailsList.size(); i++) {
-			for(int j=0; j<goodsSkuList.size(); j++) {
+			for(int j=0; j<goodsSkuList.size(); j++) {				
 				if(orderDetailsList.get(i).getSkuId() == goodsSkuList.get(j).getId()) {
+					Goods goodsList = goodsMapper.getGoodsInfo(goodsSkuList.get(j).getGoodsId());
 					Integer num = goodsSkuList.get(j).getNum() - orderDetailsList.get(i).getNum();
-					//修改库存数量
+					Integer goodsNum = (int) (goodsList.getNum() - orderDetailsList.get(i).getNum());
+					//修改库存数量					
 					skuMapper.updateSkuNum(goodsSkuList.get(j).getId(), num);
+					goodsMapper.updateNum(goodsList.getId(), goodsNum);
 				}
 			}
 		}
@@ -252,16 +261,29 @@ public class OrderServiceImpl implements OrderService {
 					for(int j=0; j<detailList.size(); j++) {
 						for(int s=0; s<allSkuList.size(); s++) {
 							if(detailList.get(j).getSkuId() == allSkuList.get(s).getId()) {
+								Goods goodsList = goodsMapper.getGoodsInfo(allSkuList.get(s).getGoodsId());
 								Integer num = allSkuList.get(s).getNum() + detailList.get(j).getNum();
+								Integer goodsNum = (int) (goodsList.getNum() + detailList.get(j).getNum());
 								//更新库存数
 								skuMapper.updateSkuNum(allSkuList.get(s).getId(), num);
+								goodsMapper.updateNum(goodsList.getId(), goodsNum);
 							}
 						}
-					}
+					}					
 					orderMapper.updateOrderStateByOrderId(orderList.get(i).getId(), 0);					
 				}
 			}
 		}
+	}
+
+	@Override
+	public List<Order> getOrderByOrderIdAndSkuId(Integer orderId, Integer skuId) {
+		// TODO Auto-generated method stub
+		List<Order> list = orderMapper.getOrderByOrderIdAndSkuId(orderId, skuId);
+		if(list != null && list.size()>0){
+			return list;
+		}
+		return null;
 	}
 
 }

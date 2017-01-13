@@ -60,6 +60,18 @@
 		            </ul>
 		            <div class="shopping-car-edit">
 		              <p class="pv5 font-price">￥<span class="unit-price">${orderDetailList.price}</span>x<span class="pur-num">${orderDetailList.num}</span></p>
+		              <c:if test="${orderList.state == 4}">
+		              	<c:set var="state" value="true"/>
+		              	<c:forEach items="${evaluatesMsg}" var="evaluatesList">
+		              		<c:if test="${evaluatesList.orderId == orderList.id && evaluatesList.skuId == orderDetailList.skuId}">
+		              			<c:set var="state" value="false"/>
+		              			<a href="javascript:void(0);" class="btn fr">已评价</a>
+		              		</c:if>		              		 			
+		  		  		</c:forEach>
+		  		  		<c:if test="${state}">
+	              			<a href="evaluate/${orderList.id}/${orderDetailList.skuId}" class="btn fr">评价</a>
+	              		</c:if> 
+		  		  	  </c:if>
 		            </div>
 		          </div> 
 		    	</c:forEach>
@@ -124,13 +136,15 @@
 				$("#paymentForm").submit();
 			});
 			$(".order-state-detail").each(function(){
-				var num = 0;
+				/* var num = 0;
 				var val = 0;
 			    for(var i=0; i<$(this).find(".pur-num").length; i++) {
 			    	val = parseInt($(this).find(".pur-num").eq(i).text(), 10);
 			    	num += val;
 			    }
-			    $(this).find(".pur-total").text(num);
+			    $(this).find(".pur-total").text(num); */
+			    var num = $(this).find(".order-detail-show").length;
+				$(this).find(".pur-total").text(num); 
 			});
 		});    	
     </script>

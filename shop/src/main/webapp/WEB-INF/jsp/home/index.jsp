@@ -75,8 +75,7 @@
 						<span class="glyphicon glyphicon-search" style="line-height: 40px;"></span>
 					</p>
 				</li>
-		    </ul>	
-		    <input id="flag" type="hidden" value="0" />
+		    </ul>			    
 		    <input id="total" type="hidden" value="${total}" />
 		    <ul class="goods-type" style="display: none;">
 		    	<c:forEach items="${goodsTypeMsg}" var="goodsTypeList">
@@ -91,21 +90,26 @@
 		
 	    <!-- 商品展示 -->
 	    <div id="wrapper">
-	    	<ul class="goods-detail">
-		    	<c:forEach items="${goodsMsg}" var="goodsList">
-			      	<li class="goods-show">
-			    		<a href="goodsDetail/${goodsList.id}">
-			    	  		<img src="<%=basePath%>${goodsList.url}" />
-			    	  		<div style="position: relative; height: 50px;">
-			    	  			<div class="goods-block">
-			    	  				<p class="goods-name">${goodsList.name}</p>
-			    	  			</div>			    	  			
-			    	  		</div>					  		
-					  		<p class="mb5 font-price">￥${goodsList.price}</p>
-			    		</a>
-				  	</li>
-				</c:forEach>
-		    </ul>
+	    	<c:if test="${!empty goodsMsg}">
+		    	<ul class="goods-detail">
+			    	<c:forEach items="${goodsMsg}" var="goodsList">
+				      	<li class="goods-show">
+				    		<a href="goodsDetail/${goodsList.id}">
+				    	  		<img src="<%=basePath%>${goodsList.url}" />
+				    	  		<div style="position: relative; height: 50px;">
+				    	  			<div class="goods-block">
+				    	  				<p class="goods-name">${goodsList.name}</p>
+				    	  			</div>			    	  			
+				    	  		</div>					  		
+						  		<p class="mb5 font-price">￥${goodsList.price}</p>
+				    		</a>
+					  	</li>
+					</c:forEach>
+			    </ul>
+	    	</c:if>
+	    	<c:if test="${empty goodsMsg}">
+	    		<p style="margin-top: 40px; text-align: center;">暂无符合搜索条件的商品</p>
+	    	</c:if>
 		    <div style="width: 100%; height: 100px;"></div>
 	    </div>
 
@@ -140,6 +144,13 @@
 		<a class="shopping-cart" href="../purchase/cart">
 	 		<span class="shopping-num">${amount}</span>
 	    </a>
+	    
+	    <form action="selectGoods" method="get" id="selectForm">
+		    <input id="flag" name="flag" type="hidden" value="0" />
+		    <input id="fKeyword" name="keyword" type="hidden" value="" />
+		    <input id="fTypeId" name="typeId" type="hidden" value="" />
+		</form>
+	    
     </div>
 
 	<!-- Modal -->
@@ -170,10 +181,16 @@
     </script>
     <script type="text/javascript">
 	    $(document).ready(function() {
+	    	var flag = "${flag}";
 	    	$(".goods-name").each(function() {
 	    		var pHeight = $(this).height();
 	    		$(this).parent($(".goods-block")).css("margin-top", -(pHeight/2));	    		
 	    	});	
+	    	$(".menu-title").each(function() {
+	    		if(flag == $(this).children("input[type=hidden]").val()) {
+	    			$(this).css("border-bottom", "1px solid #c8161d");
+	    		}
+	    	});
 	    })    	  	
     </script>
     <script type="text/javascript">
@@ -187,10 +204,14 @@
 				$(".goods-type").hide();
 				$(".goods-search").hide();
 				$(this).css("border-bottom", "1px solid #c8161d");
-				flag = $(this).children("input[type=hidden]").val();
+				/*flag = $(this).children("input[type=hidden]").val();
 				var keyword = "";
-				var typeId = "";
-				showGoods(flag, keyword, typeId);
+				var typeId = ""; */
+				$("#flag").val($(this).children("input[type=hidden]").val());
+				$("#fKeyword").val("");
+				$("#fTypeId").val("");
+				$("#selectForm").submit();
+				//showGoods(flag, keyword, typeId);			
 			}				    
 		});
 		$(".menu-title-search .screen").click(function() {
@@ -204,13 +225,18 @@
 		
 		//商品搜索
 		$("#searchKeyword").click(function() {				
-			var flag = 0;
+			/* var flag = 0;
 			var keyword = $("#keyword").val();
-			var typeId = "";
+			var typeId = ""; */
+			var keyword = $("#keyword").val();
+			$("#flag").val("");
+			$("#fKeyword").val($("#keyword").val());
+			$("#fTypeId").val("");
 			if($.trim(keyword) == "") {
 				alert("请输入关键字");
 			}else {
-				showGoods(flag, keyword, typeId);
+				//showGoods(flag, keyword, typeId);
+				$("#selectForm").submit();
 				$(".goods-search").hide();
 			}		
 			$("#flag").val(0);			

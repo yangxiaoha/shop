@@ -282,10 +282,24 @@
     
     <script type="text/javascript">
   		//清空所选属性
-	    function clear() {
+	    function clear(oldGoods) {
 			$(".classify-detail > li").removeClass("active");
 			$(".classify-detail > li").removeClass("select-active");
 			$(".classify-detail > li").addClass("select-no-active");
+			var attrText = "";
+        	$("#eGoodsImg").attr("src", '<%=basePath%>'+oldGoods.url);
+        	if(oldGoods.price == oldGoods.highprice) {
+        		$("#eGoodsPrice").text('￥'+oldGoods.price);
+        	}else {
+        		$("#eGoodsPrice").text('￥'+oldGoods.price+' ~ '+oldGoods.highprice);
+        	}	
+        	$("#eGoodsNum").text(oldGoods.quantity);
+			if($(".goods-parameter-classify p").length > 0) {
+				$(".goods-parameter-classify p").each(function(){
+					attrText = attrText + '"' + $(this).text() + '"';
+				});
+			}				
+			$("#eGoodsSelect").text("请选择:"+attrText);
 	    }
   		
 	    //初始化
@@ -420,29 +434,15 @@
 	    	
 	    	//关闭选择
 	    	$("#close").click(function() {
-				clear();
+				clear(oldGoods);
 				Init(goodsStock);
 				$("#modifyAttr").hide();
 				$(".goods-parameter-choice").slideUp();
 			});
 	    	
 	    	//清空
-			$(".goods-parameter-choice").on("click", ".clear-attr", function(){
-				var attrText = "";
-	        	$("#eGoodsImg").attr("src", '<%=basePath%>'+oldGoods.url);
-	        	if(oldGoods.price == oldGoods.highprice) {
-	        		$("#eGoodsPrice").text('￥'+oldGoods.price);
-	        	}else {
-	        		$("#eGoodsPrice").text('￥'+oldGoods.price+' ~ '+oldGoods.highprice);
-	        	}	
-	        	$("#eGoodsNum").text(oldGoods.quantity);
-				if($(".goods-parameter-classify p").length > 0) {
-					$(".goods-parameter-classify p").each(function(){
-						attrText = attrText + '"' + $(this).text() + '"';
-					});
-				}				
-				$("#eGoodsSelect").text("请选择:"+attrText);
-				clear();
+			$(".goods-parameter-choice").on("click", ".clear-attr", function(){				
+				clear(oldGoods);
 				Init(goodsStock);				
 			});
 	    	

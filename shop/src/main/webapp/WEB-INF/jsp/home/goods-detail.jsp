@@ -29,14 +29,40 @@
 	   	color: #C9CACB !important;
 	   	background-color: #F5F4F4 !important;	    	
 	}
+	.tabActive {
+		color: #c8161d;
+	}
 </style>
 </head>
 <body>
 	<div id="wrap">
-		<c:if test="${!empty goodsMsg}">
-			<div class="goods-parameter-detail mb80">${goodsMsg.content}</div>
-		</c:if>
-	
+		<ul class="tabs nav-bar clearfloat" id="tabs">
+	       <li class="tabActive">商品详情</li>
+	       <li class="">评价</li>
+	    </ul>
+	    
+		<ul class="tab_conbox mt40" id="tab_conbox">
+	        <li class="tab_con" style="display: none;">
+	           	<c:if test="${!empty goodsMsg}">
+					<div class="goods-parameter-detail mb80">${goodsMsg.content}</div>
+				</c:if>
+	        </li>
+	        <li class="tab_con" style="display: none; margin-bottom: 60px;">
+	           <c:if test="${!empty evaluateMsg}">					
+					<c:forEach items="${evaluateMsg}" var="evaluateList">
+						<div class="evaluate-show">
+							<p>${evaluateList.name}</p>
+							<p class="fc-9fa0a0 pv5">${evaluateList.evaluateTime}&nbsp;商品属性:${evaluateList.val}</p>
+							<p>${evaluateList.evaluate}</p>
+						</div>
+					</c:forEach>			
+				</c:if>
+				<c:if test="${empty evaluateMsg}">
+					<p>暂无评论</p>
+				</c:if>
+	        </li>
+	    </ul>
+	    
 		<ul class="tab-bar index-tab-bar">
 			<li>
 				<a href="../index">
@@ -118,13 +144,46 @@
 	 		<span class="shopping-num" id="shopping-num">${amount}</span>
 	    </a>
     </div>
-
+    
+	<script type="text/javascript">
+		$(document).ready(function() {
+			jQuery.jqtab = function(tabtit,tab_conbox,shijian) {
+				$(tab_conbox).find("li").hide();
+				$(tabtit).find("li:first").addClass("thistab").show(); 
+				$(tab_conbox).find("li:first").show();
+			
+				$(tabtit).find("li").bind(shijian,function(){
+				  $(this).addClass("tabActive").siblings("li").removeClass("tabActive"); 
+				  $(this).addClass("thistab").siblings("li").removeClass("thistab"); 
+				  var activeindex = $(tabtit).find("li").index(this);
+				  $(tab_conbox).children().eq(activeindex).show().siblings().hide();
+				  return false;
+				});
+			
+			};
+			$.jqtab("#tabs","#tab_conbox","click");
+		});
+	</script>
     <script type="text/javascript">    
 	    //清空所选属性
-	    function clear() {
+	    function clear(oldGoods) {
 			$(".classify-detail > li").removeClass("active");
 			$(".classify-detail > li").removeClass("select-active");
 			$(".classify-detail > li").addClass("select-no-active");
+			var attrText = "";
+        	$("#goodsImg").attr("src", '<%=basePath%>'+oldGoods.url);
+        	if(oldGoods.price == oldGoods.highprice) {
+        		$("#goodsPrice").text('￥'+oldGoods.price);
+        	}else {
+        		$("#goodsPrice").text('￥'+oldGoods.price+' ~ '+oldGoods.highprice);
+        	}	
+        	$("#goodsNum").text(oldGoods.quantity);
+			if($(".goods-parameter-classify p").length > 0) {
+				$(".goods-parameter-classify p").each(function(){
+					attrText = attrText + '"' + $(this).text() + '"';
+				});
+			}				
+			$("#eGoodsSelect").text("请选择:"+attrText);
 	    }
 	    
 	    //属性是否都选了
@@ -265,7 +324,7 @@
 	    	
 	    	//关闭选择
 	    	$("#close").click(function() {
-				clear();
+				clear(oldGoods);
 				Init(goodsStock);				
 				$(".index-tab-bar").css("display", "block");
 				$("#modifyAttr").hide();
@@ -273,22 +332,8 @@
 			});
 	    	
 	    	//清空
-	    	$(".goods-parameter-choice").on("click", ".clear-attr", function(){
-	    		var attrText = "";
-	        	$("#goodsImg").attr("src", '<%=basePath%>'+oldGoods.url);
-	        	if(oldGoods.price == oldGoods.highprice) {
-	        		$("#goodsPrice").text('￥'+oldGoods.price);
-	        	}else {
-	        		$("#goodsPrice").text('￥'+oldGoods.price+' ~ '+oldGoods.highprice);
-	        	}	
-	        	$("#goodsNum").text(oldGoods.quantity);
-				if($(".goods-parameter-classify p").length > 0) {
-					$(".goods-parameter-classify p").each(function(){
-						attrText = attrText + '"' + $(this).text() + '"';
-					});
-				}				
-				$("#eGoodsSelect").text("请选择:"+attrText);
-				clear();
+	    	$(".goods-parameter-choice").on("click", ".clear-attr", function(){	    		
+				clear(oldGoods);
 				Init(goodsStock);
 			});
 	    	
@@ -418,7 +463,7 @@
 										$(".goods-parameter-choice").slideUp();
 						   			}
 						   	    	$("#modifyAttr").hide();
-						   	    	clear();
+						   	    	clear(oldGoods);
 						   	    }
 					        })
 		        		}

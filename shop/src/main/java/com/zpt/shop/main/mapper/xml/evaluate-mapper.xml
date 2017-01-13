@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.EvaluateMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="evaluate" id="resultMap">
+		<id property="id" column="id" />
+		<result property="orderId" column="orderId" />		
+		<result property="skuId" column="skuId" />	
+		<result property="userId" column="userId" />
+		<result property="evaluate" column="evaluate" />	
+		<result property="evaluateTime" column="evaluateTime" />		
+	</resultMap>
+	
+	<insert id="addEvaluate">
+		insert into t_evaluate (orderId, skuId, userId, evaluate, evaluateTime) 
+		values (#{orderId}, #{skuId}, #{userId}, #{evaluate}, #{evaluateTime})
+	</insert>
+	
+	<select id="getEvaluateByUserId" resultMap="resultMap">
+		select evaluate.*, t.val from t_evaluate as evaluate
+		left join (select *, GROUP_CONCAT(value) as val from t_goods_pro_val GROUP BY skuid) as t
+		on evaluate.skuid = t.skuid
+	</select>
+	
+	<select id="getEvaluateByGoodsId" resultMap="resultMap">
+		select evaluate.*, t.val, sku.goodsid, user.name from t_evaluate as evaluate
+		left join (select *, GROUP_CONCAT(value) as val from t_goods_pro_val GROUP BY skuid) as t
+		on evaluate.skuid = t.skuid
+		left join t_goods_sku as sku 
+		on evaluate.skuid = sku.id 
+		left join t_user as user
+		on evaluate.userId = user.id
+		where sku.goodsid = #{goodsId}
+	</select>
+
+</mapper>

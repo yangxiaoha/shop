@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zpt.shop.main.entities.Banner;
+import com.zpt.shop.main.entities.Evaluate;
 import com.zpt.shop.main.entities.Goods;
 import com.zpt.shop.main.entities.GoodsType;
 import com.zpt.shop.main.entities.ProVal;
@@ -25,6 +26,7 @@ import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.BannerService;
 import com.zpt.shop.main.service.CartService;
+import com.zpt.shop.main.service.EvaluateService;
 import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.GoodsTypeService;
 import com.zpt.shop.main.service.OrderService;
@@ -70,6 +72,9 @@ public class MainIndexCtrler {
 	
 	@Autowired
 	private BannerService bannerService;
+	
+	@Autowired
+	private EvaluateService evaluateService;
 
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public ModelAndView index(HttpServletRequest request) {
@@ -118,7 +123,34 @@ public class MainIndexCtrler {
 		return map;
 	}
 	
-	@ResponseBody
+	@RequestMapping(value="/selectGoods", method=RequestMethod.GET)
+	public ModelAndView selectGoods(HttpServletRequest request, String flag, String keyword, String typeId) {
+		ModelAndView mv = new ModelAndView("home/index");
+		User user = (User) request.getSession().getAttribute("user");
+		String userId = user.getId().toString();
+		//根据商品类型查询商品数据		
+		Integer pageStart = 0;
+		Integer num = 20;
+		List<Goods> goodsList = goodsService.getGoodsByCondition(pageStart, num, flag, keyword, typeId);
+		//商品类型数据
+		List<GoodsType> goodsTypeList = goodsTypeService.getGoodsType();
+		//banner
+		List<Banner> bannerList = bannerService.getAllBanner();
+		//符合商品数量的个数
+		Integer total = goodsService.getGoodsTotal(flag, keyword, typeId);
+		//购物车数量
+		Integer amount = cartService.selectAmount(userId);
+		mv.addObject("state", true);
+		mv.addObject("flag", flag);
+		mv.addObject("banner", bannerList);
+		mv.addObject("total", total);
+		mv.addObject("amount", amount);
+		mv.addObject("goodsMsg", goodsList);
+		mv.addObject("goodsTypeMsg", goodsTypeList);
+		return mv;
+	}
+	
+	/*@ResponseBody
 	@RequestMapping(value="/selectGoods", method=RequestMethod.POST)
 	public Map<String,Object> selectGoods(String flag, Integer num, String keyword, String typeId) {
 		Map<String,Object> map = new HashMap<String, Object>();
@@ -131,7 +163,7 @@ public class MainIndexCtrler {
 		map.put("total", total);
 		map.put("goodsMsg", goodsList);
 		return map;
-	}
+	}*/
 	
 	//商品类型页
 	@RequestMapping(value="/goodsType/{typeId}", method=RequestMethod.GET)
@@ -173,15 +205,18 @@ public class MainIndexCtrler {
 		ModelAndView mv = new ModelAndView("home/goods-detail");
 		User user = (User) request.getSession().getAttribute("user");
 		String userId = user.getId().toString();//先设置用户为1
+		//评论		
+		List<Evaluate> evaluateList = evaluateService.getEvaluateByGoodsId(goodsId);
 		//商品数据
 		Goods goodsList = goodsService.getGoodsById(goodsId);
 		//商品属性
 		List<ProVal> proList = proValService.getProByTypeId(goodsId);
 		//购物车数量
 		Integer amount = cartService.selectAmount(userId);
-		mv.addObject("goodsId", goodsId);
+		mv.addObject("evaluateMsg", evaluateList);		
 		mv.addObject("goodsMsg", goodsList);
 		mv.addObject("proMsg", proList);
+		mv.addObject("goodsId", goodsId);
 		mv.addObject("amount", amount);
 		return mv;
 	}
@@ -199,7 +234,6 @@ public class MainIndexCtrler {
 		orderService.closeOrder();
 		//查询指定库存信息
 		List<Sku> goodsSkuList = skuService.getGoodsStockInfo(goodsId);
-
 		map.put("state", true);
 		map.put("goodsMsg", goodsList);
 		map.put("proMsg", proList);
