@@ -45,6 +45,7 @@ $(document).ready(function(){
         "drawCallback":function(settings){
         	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
         	$(".del").click(function(){
+        		$("#dcontext").html("确认删除当前选项？");
         		$("#ids").val($(this).data("id"));
         		$("#delModal").modal('show');
         	});

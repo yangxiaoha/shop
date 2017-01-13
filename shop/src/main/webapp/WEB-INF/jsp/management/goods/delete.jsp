@@ -27,7 +27,7 @@
 <script>
 	
 	$(document).ready(function(){
-		$("#delete-row").click(function(){
+		$("#delete-row").click(function(){        	
 			var ids = getchecked('id');
 			if(ids == null || ids == ""){
 				$("#dcontext").html("请至少选择一条数据");

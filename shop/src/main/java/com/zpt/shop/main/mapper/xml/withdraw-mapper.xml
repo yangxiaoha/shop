@@ -34,7 +34,9 @@
 			and (cashTime &gt; #{obj.starttime} and cashTime &lt; #{obj.endtime})
 		</if>
 		<if test="search != null and search != ''">
-			and cash.username like CONCAT('%',#{search},'%') 
+			and (cash.username like CONCAT('%',#{search},'%') or
+				user.money like CONCAT('%',#{search},'%') or
+				cash.money like CONCAT('%',#{search},'%'))
 		</if>
 	</sql>
 	

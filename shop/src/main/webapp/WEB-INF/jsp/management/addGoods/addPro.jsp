@@ -119,9 +119,6 @@
 	$('#addProModal').on('shown.bs.modal',
 	    function() {
 			addProValidate.resetForm();
-			$("#aproname").val("");
-			$("#atypeId").val("");
-			$("#atypeName").val("");
     })
 
 	$(document).ready(function(){		

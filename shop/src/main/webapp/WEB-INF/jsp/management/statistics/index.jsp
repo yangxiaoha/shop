@@ -13,8 +13,8 @@
 	<title>数据统计</title>	
 	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/js/plugins/flot/jquery.flot.js"></script>	
 	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/js/plugins/flot/jquery.flot.pie.js"></script>	
-	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/js/plugins/flot/jquery.flot.resize.js"></script>	
-	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<%-- 	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/js/plugins/flot/jquery.flot.resize.js"></script>	
+ --%>	<script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
 		
 	<script src="<%=basePath%>assets/management/datatablejs/statistics.js" type="text/javascript"></script>
 	<style type="text/css">
@@ -129,7 +129,7 @@
 	var start={elem:"#starttime",
 			format:"YYYY-MM-DD",
 			event: 'click',
-			istime:true,istoday:false,
+			istime:false,istoday:false,
 			choose:function(datas){
 				select_time();
 		}
@@ -137,7 +137,7 @@
 	var end={elem:"#endtime",
 			format:"YYYY-MM-DD",
 			event: 'click',
-			istime:true,istoday:false,
+			istime:false,istoday:false,
 			choose:function(datas){
 				select_time();
 			}

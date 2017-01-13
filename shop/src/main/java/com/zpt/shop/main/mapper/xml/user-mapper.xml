@@ -44,7 +44,8 @@
 			left join t_user as b on a.id = b.pid where b.pid is not null)
 		</if>
 		<if test="search != null and search != ''">
-			and name like CONCAT('%',#{name},'%')
+			and (name like CONCAT('%',#{search},'%') or
+			money like CONCAT('%',#{search},'%'))
 		</if>
 	</sql>
 	

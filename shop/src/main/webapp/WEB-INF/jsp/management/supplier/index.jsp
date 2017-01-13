@@ -37,13 +37,13 @@
 	                           <div class="col-sm-6">
                                    <div class="form-group">
                                        <label>供应商名称:</label>
-                                       <input type="text" placeholder="请输入供应商名称" id="name" class="form-control">
+                                       <input type="text" placeholder="搜索供应商名称" id="name" class="form-control">
                                    </div>
 	                           </div>
 	                           <div class="col-sm-6">
                            			<div class="form-group">
                                        <label>供应商简介:</label>
-                                       <input type="text" placeholder="请输供应商简介" id="brief" class="form-control">
+                                       <input type="text" placeholder="搜索供应商简介" id="brief" class="form-control">
                                    </div>
 	                           </div>
                             </form>

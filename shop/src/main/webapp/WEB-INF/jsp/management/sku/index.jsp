@@ -99,5 +99,10 @@
 	<jsp:include page="update.jsp" />
 	<jsp:include page="updateAdd.jsp" />
 	<jsp:include page="see.jsp" />
+	<script type="text/javascript">
+		$(document).ready(function(){
+			alert(tableI.table().page());
+		});
+	</script>
 </body>
 </html>
