@@ -42,7 +42,7 @@
 	      <p class="clearfloat"><a href="../index" class="fc-231815">商品分类</a></p>
 	    </div>
 	    
-		<input id="typeId" value="${typeId}" />
+		<input id="typeId" type="hidden" value="${typeId}" />
 		<input id="total" type="hidden" value="${total}" />
 	    <div class="type-detail">
 	      <div class="type-show fl">
@@ -65,8 +65,8 @@
 	          </div>
 			</c:forEach>
 	      </div>
-	      <div style="position: relative; width: 76%; height: 100%; float: right;">
-	      	<div id="wrapper" style="overflow-y:auto;">
+	      
+	      	<div id="wrapper" style="width: 76%; height: 100%; right: 0">
 		      <ul>
 			    <c:forEach items="${goodsMsg}" var="goodsList">
 			      <li>
@@ -83,7 +83,7 @@
 				</c:forEach>
 			  </ul>
 		    </div>
-	      </div>
+	     
 	    </div>
     </div>
     <script src="<%=basePath%>assets/home/js/iscroll.js"></script>
@@ -92,7 +92,7 @@
     	$(document).ready(function(){
 
     		var wHeight = $(window).height()-$(".nav-bar").innerHeight();
-    		$("#wrapper").css("height", wHeight);    		
+        	$(".type-detail").css("height", wHeight);  		
     		
     		$(".goods-name").each(function() {
 	    		var pHeight = $(this).height();
@@ -124,7 +124,6 @@
 					$(".type-detail-show ul li").removeClass("active");
 					$(this).addClass("active");
 					refresher.loadflag = true;
-					refresher.info.loadingLable = "加载中...";
 					$("#pullDown").css("display", "block");
    	    			$("#pullUp").css("display", "block");
    	 	            pageStart = 3;
@@ -143,7 +142,7 @@
 					$(this).addClass("active");
 					$(this).siblings("ul").show();
 					refresher.loadflag = true;
-					refresher.info.loadingLable = "加载中...";
+					$("#block").remove();
 					$("#pullDown").css("display", "block");
    	    			$("#pullUp").css("display", "block");
    	    			pageStart = 3;

@@ -276,4 +276,14 @@ public class OrderServiceImpl implements OrderService {
 		}
 	}
 
+	@Override
+	public List<Order> getOrderByOrderIdAndSkuId(Integer orderId, Integer skuId) {
+		// TODO Auto-generated method stub
+		List<Order> list = orderMapper.getOrderByOrderIdAndSkuId(orderId, skuId);
+		if(list != null && list.size()>0){
+			return list;
+		}
+		return null;
+	}
+
 }

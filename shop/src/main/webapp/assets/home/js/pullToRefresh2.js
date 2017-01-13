@@ -132,6 +132,7 @@ var refresher = {
 	//things loader css on pulling,you can wirte it yourself		
 	onPulling:function (pullDownEl,pullDownAction,pullUpEl,pullUpAction){
 		if (pullDownEl.className.match('flip')) {
+			alert("1");
 			pullDownEl.className = 'loading';
 			pullDownEl.querySelector('.pullDownLabel').innerHTML =refresher.info.loadingLable;				
 			pullDownEl.querySelector('.loader').style.display="block";
@@ -139,9 +140,9 @@ var refresher = {
 			if (pullDownAction)
 			pullDownAction();	// Execute custom function (ajax call?)
 		} 	
-		if(refresher.loadflag) {
-			refresher.info.loadingLable = "加载中...";
+		if(refresher.loadflag) {		
 			if (pullUpEl.className.match('flip')) {
+				alert("2");
 				pullUpEl.className = 'loading';
 				pullUpEl.querySelector('.pullUpLabel').innerHTML = refresher.info.loadingLable;		
 				pullUpEl.querySelector('.loader').style.display="block";
@@ -150,11 +151,10 @@ var refresher = {
 				pullUpAction();	// Execute custom function (ajax call?)
 			}
 		}else {
-			refresher.info.pullUpLable = "暂无更多数据...";
-			refresher.info.loadingLable = "暂无更多数据...";
+			alert("3");
 			if (pullUpEl.className.match('flip')) {
 				pullUpEl.className = 'loading';
-				pullUpEl.querySelector('.pullUpLabel').innerHTML = refresher.info.loadingLable;		
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = "暂无更多数据...";		
 				pullUpEl.querySelector('.loader').style.display="none";
 				pullUpEl.style.lineHeight="20px";		
 			}

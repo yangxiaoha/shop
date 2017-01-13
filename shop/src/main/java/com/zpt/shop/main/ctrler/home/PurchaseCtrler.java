@@ -22,14 +22,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.zpt.shop.common.pojo.Msg;
 import com.zpt.shop.common.pojo.MyTime;
 import com.zpt.shop.common.pojo.RandomArray;
 import com.zpt.shop.common.weixin.WxMpConfigStorage;
 import com.zpt.shop.main.entities.Cart;
+import com.zpt.shop.main.entities.Evaluate;
 import com.zpt.shop.main.entities.Order;
 import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.CartService;
+import com.zpt.shop.main.service.EvaluateService;
 import com.zpt.shop.main.service.OrderService;
 import com.zpt.shop.main.service.SkuService;
 import com.zpt.shop.main.service.WxMpService;
@@ -61,6 +64,9 @@ public class PurchaseCtrler {
 	
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private EvaluateService evaluateService;
 	
 	@Autowired
     private WxMpService wxMpService;
@@ -367,7 +373,10 @@ public class PurchaseCtrler {
 		}
 		//查询订单详情
 		List<Order> orderList = orderService.getOrderDetail(user.getId());
+		//查询评价
+		List<Evaluate> evaluatesList = evaluateService.getEvaluateByUserId(user.getId());
 		mv.addObject("orderMsg", orderList);
+		mv.addObject("evaluatesMsg", evaluatesList);
 		return mv;
 	}
 	
@@ -379,6 +388,29 @@ public class PurchaseCtrler {
 		List<Order> orderList = orderService.updateOrderStateByOrderId(orderId, state);
 		mv.addObject("orderMsg", orderList);
 		return mv;
+	}
+
+	//评价
+	@RequestMapping(value="/evaluate/{orderId}/{skuId}", method=RequestMethod.GET)
+	public ModelAndView evaluate(@PathVariable("orderId")Integer orderId, @PathVariable("skuId")Integer skuId) {
+		ModelAndView mv = new ModelAndView("home/evaluate");	
+		List<Order> orderList = orderService.getOrderByOrderIdAndSkuId(orderId, skuId);
+		mv.addObject("orderMsg", orderList);
+		return mv;
+	}
+
+	//评价
+	@ResponseBody
+	@RequestMapping(value="/evaluate/{orderId}/{skuId}", method=RequestMethod.POST)
+	public Msg submitEvaluate(HttpServletRequest request, Integer orderId, Integer skuId, String evaluate) {	
+		Msg msg = new Msg();
+		User user = (User) request.getSession().getAttribute("user");
+		List<Order> orderList = orderService.getOrderByOrderIdAndSkuId(orderId, skuId);
+		Integer goodsId = orderList.get(0).getOrderDetail().get(0).getGoodsId();
+		evaluateService.addEvaluate(orderId, skuId, user.getId(), evaluate);
+		msg.setState(1);
+		msg.setMsg("评论发表成功");
+		return msg;
 	}
 	
 }

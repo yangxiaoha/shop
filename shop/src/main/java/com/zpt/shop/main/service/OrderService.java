@@ -94,4 +94,12 @@ public interface OrderService {
 	 * */
 	public void closeOrder() throws ParseException ;
 
+	/**
+	 * 订单详情
+	 * @param Integer orderId 订单id
+	 * @param Integer skuId 库存id
+	 * @return List<Order>
+	 * */
+	public List<Order> getOrderByOrderIdAndSkuId(Integer orderId, Integer skuId);
+
 }
