@@ -73,6 +73,7 @@
 <script>
 	var type;
 	var atype;
+	var addTypeValidate = "";
 	var settingAdd = {
 		view: {
 			selectedMulti: false
@@ -137,8 +138,12 @@
 		$("#typeSubmit").click(function(){
 			$("#addType").submit();
 		});
+		$('#addTypeModal').on('shown.bs.modal',
+		    function() {
+				addTypeValidate.resetForm();
+		})
 		
-	    $("#addType").validate({
+	    addTypeValidate=$("#addType").validate({
 	        rules: {
 	            name: {
 	        	    required:true,

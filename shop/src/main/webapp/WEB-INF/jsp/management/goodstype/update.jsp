@@ -76,6 +76,7 @@
 	</div>
 </div>
 <script>
+	
 	var zTreeUpdate;
 	var domeIframeUpdate;
 	var et;	
@@ -150,6 +151,9 @@
 		});
  	   $("#update").validate({
  	       rules: {
+ 	    	 pid:{
+ 	    		noEqualTo:"#uid"
+ 	    	 },
  	         name: {
  		       	 required:true,
   		      	 remote: {
@@ -165,12 +169,15 @@
 	    				   }
         			  }	    
         		  }
-       	   	},         	
+       	   	}, 
         },
         messages: {
           name: {
 	        	 required:"请输入商品类型名称",
 	        	 remote:"该类型已存在"
+	      },
+	      pid: {
+	    	  noEqualTo:"上级类型不能是自己！"
 	      }
         },
         submitHandler: function(form) {   

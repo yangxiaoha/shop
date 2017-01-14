@@ -147,7 +147,7 @@
 	<jsp:include page="addPro.jsp"/>
     <script>
     var ue = UE.getEditor('aditor');
-    	$(document).ready(function(){
+    	$(document).ready(function(){    		
         	$("#addProBtn").click(function(){
         		var addVal = "";
         		var addIds = "";
@@ -219,7 +219,6 @@
         	$("#add-sku").click(function() {
         		$("#addSkuModal").show();
         	});
-        	
     		$("#goodsSubmit").click(function(){
     			$("#addGoods").submit();    			
     		});

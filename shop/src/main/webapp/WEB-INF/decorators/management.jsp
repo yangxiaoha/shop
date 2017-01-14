@@ -46,6 +46,7 @@
     <script type="text/javascript" charset="utf-8" src="<%=basePath %>/assets/management/plugin/ueditor/ueditor.all.js"> </script>
     <script src="<%=basePath %>/assets/management/js/plugins/datapicker/bootstrap-datepicker.js"></script>
     <script src="<%=basePath %>/assets/management/js/plugins/validate/jquery.validate.min.js"></script>
+     <script src="<%=basePath %>/assets/management/js/plugins/validate/additional-methods.js"></script>
     <script src="<%=basePath %>/assets/management/js/plugins/validate/validateCss.js"></script>
     <script type="text/javascript" src="<%=basePath %>/assets/management/plugin/ztree/js/jquery.ztree.core.js"></script>
     <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->

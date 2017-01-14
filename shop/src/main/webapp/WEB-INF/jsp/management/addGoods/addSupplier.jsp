@@ -40,6 +40,7 @@
 	</div>
 </div>
 <script>
+	var addSupplierValidate = "";
 	$(document).ready(function(){
 		store = $("#storeTree");
 		store = $.fn.zTree.init(store, storeSetting);
@@ -52,7 +53,12 @@
 			$("#addSupplier").submit();
 		});
 		
-	    $("#addSupplier").validate({
+		$('#addSupplierModal').on('shown.bs.modal',
+		    function() {
+				addSupplierValidate.resetForm();
+	    })
+		
+	    addSupplierValidate=$("#addSupplier").validate({
 	        rules: {
 	        	name: {
 	        	 	required:true,

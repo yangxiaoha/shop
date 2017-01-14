@@ -52,7 +52,10 @@
 		<if test="search != null and search != ''">
 			and (torder.logistics like CONCAT('%',#{search},'%') or
 				torder.logisticsnum like CONCAT('%',#{search},'%') or
-				torder.ordernum like CONCAT('%',#{search},'%'))
+				torder.ordernum like CONCAT('%',#{search},'%') or
+				torder.phone like CONCAT('%',#{search},'%') or
+				torder.address like CONCAT('%',#{search},'%') or
+				torder.name like CONCAT('%',#{search},'%'))
 		</if>
 	</sql>
 	

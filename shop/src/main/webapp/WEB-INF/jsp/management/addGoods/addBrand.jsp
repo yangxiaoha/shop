@@ -54,6 +54,7 @@
 	</div>
 </div>
 <script>
+	var addBrandValidate = "";
 	$(document).ready(function(){
 		brand = $("#brandTree");
 		brand = $.fn.zTree.init(brand, brandSetting);
@@ -63,6 +64,7 @@
 		bTree.selectNode(bTree.getNodeByParam("id", 101));
 		
 		$('#addBrandModal').on('shown.bs.modal', function () {
+			addBrandValidate.resetForm();
 			$('.reg-sel-add').select2({
 				placeholder: "请选择供应商",
 				language:"zh-CN",
@@ -81,7 +83,7 @@
 		$("#brandSubmit").click(function(){
 			$("#addBrand").submit();
 		});
-	    $("#addBrand").validate({
+		addBrandValidate=$("#addBrand").validate({
 	        rules: {
 	        	supplierId:{
 	        		required:true,	        		

@@ -89,7 +89,8 @@
     <script>
 	    $(document).ready(function(){
 			$('.reg-sel-index').select2({
-				  placeholder: "搜索供应商"
+				language:"zh-CN",
+				placeholder: "搜索供应商"
 			});
 		});
     </script>

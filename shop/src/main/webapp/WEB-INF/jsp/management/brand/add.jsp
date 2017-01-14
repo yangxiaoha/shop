@@ -55,7 +55,8 @@
 <script>
 	$(document).ready(function(){
 		$('.reg-sel-add').select2({
-			  placeholder: "请选择供应商"
+			language:"zh-CN",
+			placeholder: "请选择供应商"
 		});
 		$('.datepicker').datepicker();
 		$("#addsubmit").click(function(){

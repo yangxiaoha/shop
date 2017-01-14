@@ -106,14 +106,15 @@ type="text/javascript"></script>
 <script type="text/javascript">	
 	$(document).ready(function(){
 		$('.reg-sel-index').select2({
-			  placeholder: "搜索审核结果"
+			language:"zh-CN",
+			placeholder: "搜索审核结果"
 		});
 	});
 	var start = {
 		elem : "#starttime",
 		format : "YYYY-MM-DD",
 		event : 'click',
-		istime : true,
+		istime : false,
 		istoday : false,
 		choose : function(datas) {
 			select_time();
@@ -123,7 +124,7 @@ type="text/javascript"></script>
 		elem : "#endtime",
 		format : "YYYY-MM-DD",
 		event : 'click',
-		istime : true,
+		istime : false,
 		istoday : false,
 		choose : function(datas) {
 			select_time();

@@ -51,7 +51,7 @@
 		                           </div>
 		                           <div class="col-sm-3">
 	                           			<div class="form-group">
-	                           				<label class="control-label">订单状态</label>	
+	                           				<label class="control-label">订单状态：</label>	
 	                                       	<select class="reg-sel-index form-control" id="state"  name="state">
 												<option value=""></option>
 												<option value="0">全部</option>
@@ -93,7 +93,8 @@
     <script>    	
 	    $(document).ready(function(){
 			$('.reg-sel-index').select2({
-				  placeholder: "搜索订单状态"
+				language:"zh-CN",
+				placeholder: "搜索订单状态"
 			});
 		});
     </script>

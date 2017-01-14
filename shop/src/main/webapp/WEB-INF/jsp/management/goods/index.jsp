@@ -122,7 +122,7 @@
 			}
 			return childNodes;
 		};
-		$(document).ready(function() {
+		$(document).ready(function() {			
 			var t = $("#tree");
 			t = $.fn.zTree.init(t, setting);
 			demoIframe = $("#testIframe");

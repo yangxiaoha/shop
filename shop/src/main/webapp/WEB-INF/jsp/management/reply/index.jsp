@@ -43,7 +43,7 @@
 	                           </div>
 	                           <div class="col-sm-6">
                            			<div class="form-group">
-                                       <label>自定义回复:</label>
+                                       <label>回复内容:</label>
                                        <input type="text" placeholder="搜索回复内容" id="reply" class="form-control">
                                    </div>
 	                           </div>		                           
