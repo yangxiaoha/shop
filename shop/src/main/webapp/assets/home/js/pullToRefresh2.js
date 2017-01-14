@@ -132,7 +132,7 @@ var refresher = {
 	//things loader css on pulling,you can wirte it yourself		
 	onPulling:function (pullDownEl,pullDownAction,pullUpEl,pullUpAction){
 		if (pullDownEl.className.match('flip')) {
-			alert("1");
+			//alert("1");
 			pullDownEl.className = 'loading';
 			pullDownEl.querySelector('.pullDownLabel').innerHTML =refresher.info.loadingLable;				
 			pullDownEl.querySelector('.loader').style.display="block";
@@ -142,7 +142,7 @@ var refresher = {
 		} 	
 		if(refresher.loadflag) {		
 			if (pullUpEl.className.match('flip')) {
-				alert("2");
+				//alert("2");
 				pullUpEl.className = 'loading';
 				pullUpEl.querySelector('.pullUpLabel').innerHTML = refresher.info.loadingLable;		
 				pullUpEl.querySelector('.loader').style.display="block";
@@ -151,7 +151,7 @@ var refresher = {
 				pullUpAction();	// Execute custom function (ajax call?)
 			}
 		}else {
-			alert("3");
+			//alert("3");
 			if (pullUpEl.className.match('flip')) {
 				pullUpEl.className = 'loading';
 				pullUpEl.querySelector('.pullUpLabel').innerHTML = "暂无更多数据...";		

@@ -256,7 +256,7 @@
     		   	    				'<div class="shopping-car-show order-list clearfloat">'+
     		   	    				'<img src="<%=basePath%>'+cartsList.url+'">'+
        			          	  	    '<ul class="shopping-car-detail ph5">'+
-       					            '<li><a href="../mainindex/goodsDetail/'+cartsList.goodsId+'"class="fc-000">'+cartsList.name+'</a></li>'+
+       					            '<li><a href="../mainindex/goodsDetail/'+cartsList.goodsId+'"class="fc-000 goodsName">'+cartsList.name+'</a></li>'+
        					            '<li>商品规格：<span class="goodsValue">'+cartsList.value+'</span></li>'+
        					            '<li><span class="fl goodsPrice">￥'+cartsList.price+'</span><span class="fr">x'+cartsList.num+'</span><input type="hidden" class="goodsNum" value="'+cartsList.num+'" /></li>'+
 									'</ul>'+
@@ -265,6 +265,7 @@
 									'<p class="mt8 iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>'+
 									'<input class="cartId" type="hidden" value="'+cartsList.id+'">'+
 									'<input class="goodsId" type="hidden" value="'+cartsList.goodsId+'">'+
+									'<input class="goodsNameInput" type="hidden" value="'+cartsList.name+'">'+
 									'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
 									'</div>'+
 									'</div>'
@@ -494,7 +495,7 @@
 		    		   	    				'<div class="shopping-car-show order-list clearfloat">'+
 		    		   	    				'<img src="<%=basePath%>'+cartsList.url+'">'+
 		       			          	  	    '<ul class="shopping-car-detail ph5">'+
-		       					            '<li><a href="../mainindex/goodsDetail/'+cartsList.goodsId+'"class="fc-000">'+cartsList.name+'</a></li>'+    
+		       					            '<li><a href="../mainindex/goodsDetail/'+cartsList.goodsId+'"class="fc-000 goodsName">'+cartsList.name+'</a></li>'+    
 		       					            '<li>商品规格：<span class="goodsValue">'+cartsList.value+'</span></li>'+
 		       					            '<li><span class="fl goodsPrice">￥'+cartsList.price+'</span>'+
 		       					            '<span class="fr">x'+cartsList.num+'</span><input type="hidden" class="goodsNum" value="'+cartsList.num+'" /></li>'+
@@ -504,6 +505,7 @@
 											'<p class="mt8 iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>'+
 											'<input class="cartId" type="hidden" value="'+cartsList.id+'">'+
 											'<input class="goodsId" type="hidden" value="'+cartsList.goodsId+'">'+
+											'<input class="goodsNameInput" type="hidden" value="'+cartsList.name+'">'+
 											'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
 											'</div>'+
 											'</div>'
