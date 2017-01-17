@@ -59,11 +59,15 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public String getReply(String skey) {
+	public Reply getReply(String skey) {
 		// TODO Auto-generated method stub
-		String reply = replyMapper.getReply(skey);
 		System.out.println("skey----------------"+skey);
-		return reply;
+		Reply reply = replyMapper.getReply(skey);
+		if(reply != null){
+			return reply;
+		}else {			
+			return null;	
+		}
 	}
 
 	@Override

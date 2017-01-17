@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zpt.shop.common.weixin.TextMessage;
 import com.zpt.shop.common.weixin.WxMpConfigStorage;
+import com.zpt.shop.main.entities.Reply;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.ReplyService;
 import com.zpt.shop.main.service.UserService;
@@ -141,7 +142,7 @@ public class WeixinCtrler {
     		request.setCharacterEncoding("UTF-8");
     		response.setCharacterEncoding("UTF-8");
         	//解析微信发来的请求（XML）
-        	Map<String, String> reqMap = WeixinUtils.parseXml(request);
+        	Map<String, String> reqMap = WeixinUtils.parseXml2(request);
 
         	System.out.println("reqMap:" + reqMap.toString());
     		
@@ -202,10 +203,18 @@ public class WeixinCtrler {
             } else {//接受普通消息    	 
         	    //文本消息
                 if (msgType.equals(WeixinUtils.EVENT_TYPE_TEXT)) {
-                    String skey = new String(reqMap.get("Content").getBytes(), "UTF-8");
-                    System.out.println(skey);
-                    String reply = replyService.getReply(skey);
-                    respContent = reply;
+                    //String skey = new String(reqMap.get("Content").getBytes(), "UTF-8");
+                	String str = new String(reqMap.get("Content").getBytes("UTF-8"),"ISO-8859-1"); 
+
+                	String skey = new String(str.getBytes("ISO-8859-1"),"UTF-8");
+                    System.out.println("输入的信息："+skey);
+                    Reply sreply = replyService.getReply(skey);
+                    System.out.println("输出的信息："+sreply.getReply());
+                    if(sreply != null) {
+                    	respContent = sreply.getReply();
+                    }else {
+                    	respContent = "暂无此查询信息！";
+                    }                   
                 }
             } 
             //设置文本消息的内容

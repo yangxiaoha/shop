@@ -16,6 +16,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>一见喜</title>
 <style>
+	.shopping-car-edit button,
+	.shopping-car-edit a {
+		padding: 0 8px;
+		margin-top: 10px;
+		height: 24px;
+		line-height: 24px;
+		color: #fff;
+		background-color: #c8161d;
+	}
 </style>
 </head>
 <body style="background-color: #ECECF2 !important">
