@@ -69,7 +69,7 @@
 								</div>
 								<div class="col-sm-3">
                            			<div class="form-group">
-                           				<label class="control-label">会员类型：</label>	
+                           				<label class="control-label">会员分销类型：</label>	
                                        	<select class="reg-sel-index form-control" id="isnot"  name="isnot">
 											<option value=""></option>
 											<option value="0">全部</option>
@@ -146,7 +146,7 @@
 		$(document).ready(function(){
 			$('.reg-sel-index').select2({
 				language:"zh-CN",
-				placeholder: "搜索会员"
+				placeholder: "搜索分销会员"
 			});
 		});
 		var start = {

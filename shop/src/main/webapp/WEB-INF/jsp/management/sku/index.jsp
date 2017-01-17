@@ -19,6 +19,7 @@
 <link href="<%=basePath%>assets/management/css/style.min862f.css?v=4.1.0" rel="stylesheet">
 <script type="text/javascript">
  	var goodsId = ${goodsM.id};
+ 	var pageinit = ${pageinitM};
 </script>
 <script src="<%=basePath%>assets/management/js/plugins/iCheck/icheck.min.js"></script>
 <script src="<%=basePath%>assets/management/datatablejs/sku.js" type="text/javascript"></script>
@@ -64,7 +65,9 @@
             <div class="col-sm-9" style="">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>商品管理</h5>
+                    <input id="pageinitval" value = ${pageinitM } type = "hidden"></input>
+                        <h5>商品管理&nbsp;&nbsp;&nbsp;</h5>
+                        <a type="button" id = "pageinit">返回商品列表</a>
                         <div class="ibox-tools">
                             <a data-toggle="modal" href="#addModal" id="add-row">
                                 <i class="fa fa-plus"></i>
@@ -100,8 +103,9 @@
 	<jsp:include page="updateAdd.jsp" />
 	<jsp:include page="see.jsp" />
 	<script type="text/javascript">
-		$(document).ready(function(){
-			alert(tableI.table().page());
+		$("#pageinit").click(function(){
+			var pageinitGoods = $("#pageinitval").val();
+			window.location.href="../goods/index?pageinitGoods="+pageinitGoods; 
 		});
 	</script>
 </body>

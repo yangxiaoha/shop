@@ -35,11 +35,12 @@ public class SkuCtrler {
 	private StockService stockService;
 	
 	@RequestMapping(value = "index",method = RequestMethod.GET)
-	public ModelAndView index(Integer goodsId){
+	public ModelAndView index(Integer goodsId,String pageinit){
 		ModelAndView mv = new ModelAndView();
 		Goods goods = goodsService.getGoodsId(goodsId);
 		mv.setViewName("/management/sku/index");		
 		mv.addObject("goodsM", goods);
+		mv.addObject("pageinitM",pageinit);
 		return mv;		
 	}
 	

@@ -45,17 +45,17 @@ public class AddGoodsCtrler {
 	private SupplierService supplierService;
 	
 	@Autowired
-	private GoodsTypeService goodsTypeService;
+	private GoodsTypeService goodsTypeService;	
 	
 	@RequestMapping(value = "index",method = RequestMethod.GET)
-	public ModelAndView index(){
+	public ModelAndView index(String pageinitAdd){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/management/addGoods/index");
-		
+		mv.setViewName("/management/addGoods/index");		
 		List<Brand> brandList = brandService.getAllBrand();
 		List<Supplier> supplierList = supplierService.getAllSupplier();		
 		mv.addObject("brandMsg", brandList);
 		mv.addObject("supplierMsg", supplierList);
+		mv.addObject("pageinitM",pageinitAdd);
 		return mv;
 	}
 	

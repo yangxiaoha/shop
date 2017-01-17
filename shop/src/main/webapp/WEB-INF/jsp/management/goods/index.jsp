@@ -10,6 +10,9 @@
 <!-- Mirrored from www.zi-han.net/theme/hplus/table_data_tables.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:01 GMT -->
 <head>
     <script src="<%=basePath %>assets/management/datatablejs/goods.js" type="text/javascript"></script>
+	<script type="text/javascript">	
+ 		var pageinitGoods = $("#pageinitGoods").val();	
+</script>
 </head>
 
 <body class="gray-bg">	
@@ -21,12 +24,13 @@
 					<ul id="tree" class="ztree"></ul>
                 </div>
         	</div>
+        	<input id = "pageinitGoods" value = "${pageinitGoodsM }" type = "hidden"></input>
             <div class="col-sm-9" style="">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>商品管理</h5>
                         <div class="ibox-tools">
-                            <a href="../addGoods/index" id="add-row" title="添加">
+                            <a id="add-row" title="添加">
                                 <i class="fa fa-plus"></i>
                             </a>                           
                             <a id="delete-row">
@@ -40,13 +44,13 @@
 	                           <div class="col-sm-6">
                                    <div class="form-group">
                                        <label>商品名称:</label>
-                                       <input type="text" placeholder="请输入商品名称" id="name" class="form-control">
+                                       <input type="text" placeholder="搜索商品名称" id="name" class="form-control">
                                    </div>
 	                           </div>
 	                           <div class="col-sm-6">
                            			<div class="form-group">
                                        <label>商品编码:</label>
-                                       <input type="text" placeholder="请输商品编码" id="code" class="form-control">
+                                       <input type="text" placeholder="搜索商品编码" id="code" class="form-control">
                                    </div>
 	                           </div>
                             </form>
@@ -61,12 +65,12 @@
 										<input id="checkAll" name="checkAll" type="checkbox">
 									</label>
 								</th>
-								<th width="20%">商品名称</th>
-								<th>商品供应商</th>
+								<th width="15%">商品名称</th>
+								<th width="15%">商品供应商</th>
 								<th>商品总量</th>
 								<th>商品编码</th>
-								<th>商品品牌</th>
-								<th>所属门店</th>
+								<th width="15%">商品品牌</th>
+								<th width="15%">所属门店</th>
 								<th>操作</th>
 								<th></th>
 								<th></th>	
@@ -89,9 +93,17 @@
 	
 		var demoIframe;	
 		
+		var pageinitGoods = $("#pageinitGoods").val();
+		
+		var pageinit = pageinit;
+		
+		$("#add-row").click(function(){
+			window.location.href="../addGoods/index?pageinitAdd="+tableI.table().page()*tableI.table().page.len(); 
+		});
+		
 		var setting = {
 			view: {
-				selectedMulti: false				
+				selectedMulti: false
 			},
 			async: {
 				enable: true,
@@ -122,14 +134,14 @@
 			}
 			return childNodes;
 		};
-		$(document).ready(function() {			
+		$(document).ready(function() {
 			var t = $("#tree");
 			t = $.fn.zTree.init(t, setting);
 			demoIframe = $("#testIframe");
 			demoIframe.bind("load", loadReady);
 			var zTree = $.fn.zTree.getZTreeObj("tree");
 			zTree.selectNode(zTree.getNodeByParam("id", 101));
-		
+			
 		});
 		
 		function loadReady() {
@@ -143,7 +155,7 @@
 				h = 530;
 			demoIframe.height(h);
 		}
-	
+		
     </script>
 
 </body>

@@ -11,7 +11,10 @@
 <head>
     <link href="<%=basePath%>/assets/management/js/plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
     <script type="text/javascript" src="<%=basePath %>/assets/management/plugin/ztree/js/jquery.ztree.all.js"></script>
-    <script src="<%=basePath %>assets/management/datatablejs/goods.js" type="text/javascript"></script>
+    
+	<script type="text/javascript">
+		var pageinitAdd = ${pageinitM};
+	</script>
 	<style>
 		.mb10 {margin-bottom: 10px;}
 		.goods-input {
@@ -39,9 +42,13 @@
     <div class="wrapper wrapper-content animated fadeInRight">
 	    <form action="addGoods" id="addGoods" method="post">
 	        <div class="row">
-				<div class="col-sm-6 mb10">
+				<div class="col-sm-6 mb10">					
+					<input id="pageinitAdd" value = "${pageinitM }" type ="hidden"></input>
 	                <label>商品名称(*):</label>
 	                <input type="text" placeholder="请输入商品名称" id="igoodsName" name="name" class="form-control goods-input">
+				</div>
+				<div class="col-sm-6 mb10">
+					<a type="button" id = "pageinit" style="float:right">返回商品列表</a>
 				</div>
 				<!--<div class="col-sm-6 mb10">
 	                <label>商品库存:</label>
@@ -64,7 +71,7 @@
 					<label>供应商管理:</label>
 					<input type="text" placeholder="请选择供应商" readonly="readonly" id="selectSupplier" name="supplierNmae" class="form-control goods-input">
 					<input type="hidden" id="selectSupplierId" class="form-control goods-input">
-					<button data-toggle="modal" href="#addSupplierModal" class="btn btn-primary btn-sm" id="add-supplier">添加供应商</button>
+					<a data-toggle="modal" href="#addSupplierModal" class="btn btn-primary btn-sm" id="add-supplier">添加供应商</a>
 	                <div>	
 						<ul id="storeTree" class="ztree"></ul>
 		            </div>
@@ -74,7 +81,7 @@
 	        			<label>商品品牌(*):</label>
 	        			<input type="text" placeholder="请选择商品品牌" readonly="readonly" id="selectBrand" name="brandName" class="form-control goods-input">
 	        			<input type="hidden" id="selectBrandId" name="brandId" class="form-control goods-input">
-	        			<button data-toggle="modal" href="#addBrandModal" class="btn btn-primary btn-sm" id="add-brand">添加品牌</button>
+	        			<a data-toggle="modal" href="#addBrandModal" class="btn btn-primary btn-sm" id="add-brand">添加品牌</a>
 	        		</div>	        		
 	                <div>	
 						<ul id="brandTree" class="ztree"></ul>
@@ -87,7 +94,7 @@
 	        			<label>商品类型(*):</label>
 	        			<input type="text" placeholder="请选择商品类型" readonly="readonly" id="selectType" name="typeName" class="form-control goods-input">
 	        			<input type="hidden" id="selectTypeId" name="typeId" class="form-control goods-input">
-	        			<button data-toggle="modal" href="#addTypeModal" class="btn btn-primary btn-sm" id="add-type">添加类型</button>
+	        			<a data-toggle="modal" href="#addTypeModal" class="btn btn-primary btn-sm" id="add-type">添加类型</a>
 	        		</div>	        		
 	                <div>	
 						<ul id="typeTree" class="ztree"></ul>
@@ -97,7 +104,7 @@
 	        		<label>选择商品属性(*):</label>
 	        		<input type="text" placeholder="请选择商品属性" readonly="readonly" id="selectPro" name="proName" class="form-control goods-input">
 	        		<input type="hidden" id="selectProId" name="idstemp" class="form-control goods-input">
-	        		<button data-toggle="modal" href="#addProModal" class="btn btn-primary btn-sm" id="add-pro">添加属性</button>
+	        		<a data-toggle="modal" href="#addProModal" class="btn btn-primary btn-sm" id="add-pro">添加属性</a>
 	                <div class="form-group proCheck" style="display: none;width:85%">
 	                	<button type="button" class="btn btn-primary btn-sm mb10" id="addProBtn">添加</button>
 	                	<button type="button" class="btn btn-primary btn-sm mb10" id="deleteProBtn">删除</button>
@@ -146,8 +153,12 @@
 	<jsp:include page="addType.jsp"/>
 	<jsp:include page="addPro.jsp"/>
     <script>
+    $("#pageinit").click(function(){
+		var pageinitGoods = $("#pageinitAdd").val();
+		window.location.href="../goods/index?pageinitGoods="+pageinitGoods; 
+	});
     var ue = UE.getEditor('aditor');
-    	$(document).ready(function(){    		
+    	$(document).ready(function(){
         	$("#addProBtn").click(function(){
         		var addVal = "";
         		var addIds = "";

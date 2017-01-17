@@ -1,10 +1,17 @@
 var tableI = null;
 $(document).ready(function(){
+	if(pageinit == null || pageinit == ""){
+		pageinit = 0;
+	}
+	if(pageinitGoods != null && pageinitGoods !=""){
+		pageinit = pageinitGoods;
+	}
 	tableI=$("#datatable").DatatableExt({
 		"processing": true,
         "serverSide": true,
         "bFilter":false,
-        "ajax": "listData",
+        "ajax": "listData?pageinitGoods="+pageinitGoods,
+        "displayStart": pageinit,
         "language":  "/shop/assets/management/datatablejs/Chinese.json",
         "columns": [
                     { "data": "id","orderable":false,"visible":false},
@@ -33,7 +40,7 @@ $(document).ready(function(){
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
-			                '<a class="table-actions" href="../sku/index?goodsId='+data+'"><i class="fa fa-sitemap" title="商品详情"></i></a>'+
+			                '<a class="table-actions" href="../sku/index?goodsId='+data+'&pageinit='+tableI.table().page()*tableI.table().page.len()+'"><i class="fa fa-sitemap" title="商品详情"></i></a>'+
 			                '<a class="table-actions detail" data-rowid="'+meta.row+'" data-id="'+data+'" href="javascript:void(0)" title="编辑"><i class="fa fa-file-word-o"></i></a>'+
                  			'<a class="table-actions update" data-rowid="'+meta.row+'" href="javascript:void(0)" title="修改"><i class="fa fa-pencil"></i></a>'+
                  			'<a class="table-actions stick" data-id="'+data+'" href="javascript:void(0)" title="置顶"><i class="fa fa-arrow-up"></i></a>'+
@@ -50,6 +57,7 @@ $(document).ready(function(){
         		$("#delModal").modal('show');
         	});
         	
+        	//
         	$(".stick").click(function(){
         		$("#tid").val($(this).data("id"));
         		$("#stickModal").modal('show');
@@ -119,4 +127,5 @@ $(document).ready(function(){
         "ids" : "#name,#code",
         "targets":"2,5"
 	});
+	
 });

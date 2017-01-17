@@ -7,6 +7,7 @@
            "ajax": "listData",
            "language":  "/shop/assets/management/datatablejs/Chinese.json",
            "autoWidth":true,
+           "displayStart": 0,
            "columns": [{}],
            "aoColumnDefs" : [{}],
            "className" : "",
@@ -66,6 +67,7 @@
 					   "sPaginationType": "full_numbers",
 				       "processing": _oSelf.config.processing,
 				       "serverSide": _oSelf.config.serverSide,
+				       "displayStart":_oSelf.config.displayStart,
 				       "language": {
 				           "url": _oSelf.config.language
 				       },

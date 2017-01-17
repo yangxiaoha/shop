@@ -40,12 +40,13 @@ public class GoodsCtrler {
 	private GoodsTypeService goodsTypeService;
 	
 	@RequestMapping(value = "index",method = RequestMethod.GET)
-	public ModelAndView index(){
+	public ModelAndView index(String pageinitGoods){
 		ModelAndView mv = new ModelAndView();
 		List<Brand> brandList = brandService.getAllBrand();
 //		GoodsType goodsType = goodsTypeService.getTypeId(typeId);
 		mv.setViewName("/management/goods/index");
 		mv.addObject("brandMsg", brandList);
+		mv.addObject("pageinitGoodsM",pageinitGoods);
 //		mv.addObject("typeMsg", goodsType);
 		return mv;
 	}
