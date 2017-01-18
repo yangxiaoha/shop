@@ -356,14 +356,6 @@ a, a:link, a:visited, a:hover, a:active {
     background-color: #c8161d;
     border-radius: 45px;  
 }
-#tabs li {
-	float: left;
-	width: 50%;
-	text-align: center;
-}
-#tabs li:first-child {
-	border-right: 1px solid #C7C3C5;
-}
 /************************index结束************************/
 
 /************************type-detail开始************************/
@@ -653,15 +645,6 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .order-detail-tab-bar > li .qr-code {
 	background-position: -40px -45px;
-}
-#evaluateForm {
-	width: 100%;
-    padding: 10px;
-}
-#evaluateForm textarea {
-	width: 100%;
-	height: 200px;
-    resize: none;
 }
 /************************order-detail结束************************/
 

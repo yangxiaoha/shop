@@ -16,7 +16,7 @@ public interface ReplyService {
 	
 	public void updateReply(Reply reply);
 	
-	public String getReply(String skey);
+	public Reply getReply(String skey);
 
 	public void addReply(String skey);
 

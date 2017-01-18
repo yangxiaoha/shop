@@ -6,6 +6,7 @@ public class BaseResMsg {
 	private String FromUserName;//开发者微信号
 	private Long CreateTime;//消息创建时间 （整型）
 	private String MsgType;//消息类型
+	private String content;
 
 	public String getToUserName() {
 		return ToUserName;
@@ -37,6 +38,14 @@ public class BaseResMsg {
 
 	public void setMsgType(String msgType) {
 		MsgType = msgType;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 }

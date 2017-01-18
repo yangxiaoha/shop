@@ -17,6 +17,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>一见喜</title>
 <style>
+	.mt40 {
+		margin-top: 40px;
+	}
     .active {
     	color: #fff !important;
     	background-color: #C8171F !important;	    	
@@ -31,6 +34,14 @@
 	}
 	.tabActive {
 		color: #c8161d;
+	}
+	#tabs li {
+		float: left;
+		width: 50%;
+		text-align: center;
+	}
+	#tabs li:first-child {
+		border-right: 1px solid #C7C3C5;
 	}
 </style>
 </head>

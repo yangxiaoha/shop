@@ -21,6 +21,15 @@
 	    height: 100%;
     	border-radius: 0;    
 	}
+	#evaluateForm {
+		width: 100%;
+	    padding: 10px;
+	}
+	#evaluateForm textarea {
+		width: 100%;
+		height: 200px;
+	    resize: none;
+	}
 </style>
 </head>
 <body style="background-color: #ECECF2 !important">
@@ -58,11 +67,28 @@
 	    <p class="tab-bar"><button type="button" class="btn btn-danger submitEvaluate" id="submitEvaluate">发表评价</button></p>
 	  	
     </div>
+    
+    <!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+		    <div class="modal-content">
+		        <!-- <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			        <h4 class="modal-title ta-center" id="myModalLabel">公告</h4>
+		        </div> -->
+		        <div class="modal-body">
+		        	<p style="width: 60px; height: 60px; margin: 0 auto;"><img src="<%=basePath%>assets/home/images/smile.jpg" style="width: 100%" /></p>
+		        	<p style="text-align: center;">感谢您的评价,我们会继续努力的！</p>		        	
+		        </div>
+		    </div>
+	    </div>
+	</div>
 
 	<script>
 		$(document).ready(function() {
 			$("#submitEvaluate").click(function() {
 				if($.trim($("#evaluate").val()) != "") {
+					$(this).attr("disabled","disabled");
 					$.ajax({
 				   	    url: "evaluate",
 				   		type: "Post",
@@ -74,8 +100,11 @@
 				   	    dataType: "json",
 				   	    success: function(data) {
 							if(data.state == 1) {
-								alert(data.msg);
-								window.location.href='<%=basePath%>home/purchase/orderDetail';
+								$('#myModal').modal('show');
+								setTimeout(function(){
+									$('#myModal').modal('hide');
+									window.location.href='<%=basePath%>home/purchase/orderDetail';
+			        		    },1000);								
 							}						
 				   	    }
 			        })
