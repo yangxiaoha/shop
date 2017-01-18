@@ -32,6 +32,8 @@
 			<result property="name" column="name" />
 			<result property="url" column="url" />
 			<result property="val" column="val" />
+			<result property="provalue" column="provalue" />
+			<result property="proname" column="proname" />
         </collection>
 	</resultMap>
 	
@@ -101,6 +103,24 @@
 	<update id="seeOrder" parameterType="order">
 		update t_order set memo = #{memo},logistics = #{logistics},logisticsnum = #{logisticsnum} where id = #{id}
 	</update>
+	
+	<select id="seeOrderAll" resultMap="resultMap">
+		select torder.id as id,torder.ordertime as ordertime,
+		torder.logisticsnum as logisticsnum,torder.logistics as logistics,torder.state as state,
+		torder.name as name,torder.phone as phone,goods.name as detail_name,torder.totalPrice as totalPrice,
+		torder.memo as memo,torder.ordernum as ordernum,
+		concat(torder.provinceName,torder.cityName,torder.countryName,torder.address) as address,
+		orderDetail.num as detail_num,orderDetail.price as detail_price,orderDetail.totalPrice as detail_totalPrice,
+		t.provalue as detail_provalue,t.proname as detail_proname
+		from t_order as torder
+		left join t_order_detail as orderDetail on orderDetail.orderid = torder.id
+		left join t_goods_sku as sku on sku.id = orderdetail.skuId 
+		left join t_goods as goods on sku.goodsid = goods.id
+		left join (select proval.skuid as skuid,group_concat(pro.name) as proname,
+					GROUP_CONCAT(proval.value SEPARATOR '|#$%|') as provalue from t_goods_pro_val as proVal
+		left join t_goods_pro as pro on pro.id = proVal.proid group by proval.skuid) as t on t.skuid = sku.id		
+		where torder.id = #{orderId}
+	</select>
 
 	<!-- ******************************************************************************** -->
 	

@@ -26,7 +26,7 @@
 			<div class="col-sm-7">
 				<div class="signin-info">
 					<div>
-						<h4>一见喜商城平台</h4>
+						<h1>一见喜商城平台</h1>
 					</div>
 					<div class="m-b"></div>
 				</div>

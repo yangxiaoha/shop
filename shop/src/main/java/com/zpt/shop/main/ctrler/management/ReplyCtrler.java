@@ -49,7 +49,7 @@ public class ReplyCtrler {
 	public Msg add(Reply reply){
 		Msg msg = new Msg();
 		try {
-			replyService.insertBrand(reply);
+			replyService.insertReply(reply);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.ADD_SUCCESS);
 			return msg;
@@ -66,7 +66,7 @@ public class ReplyCtrler {
 	public Msg update(Reply reply){
 		Msg msg = new Msg();
 		try {
-			replyService.updateBrand(reply);
+			replyService.updateReply(reply);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.UPDATE_SUCCESS);
 			return msg;
@@ -82,7 +82,7 @@ public class ReplyCtrler {
 	public Msg delete(String ids){
 		Msg msg = new Msg();
 		try {
-			replyService.deleteBrand(ids);
+			replyService.deleteReply(ids);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.DELETE_SUCCESS);
 			return msg;

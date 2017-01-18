@@ -118,8 +118,7 @@
 	           $(this).attr("disabled","disabled"); 
 			   $("#loading").html("<i class=\"icon-spinner icon-spin\"></i>");
 	           $(form).ajaxSubmit({
-	        	   success:function(data){
-	        		 
+	        	   success:function(data){	        		 
 	        		   if(data.state == 1){
 	        			   $("#loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
 	        		   }else{
@@ -130,7 +129,6 @@
 	        			   $("#brandSubmit").removeAttr("disabled"); 
 	        		   },1000);
 	        		   reset(form);
-	        		   tableI.table().draw();
 	        		   brand.reAsyncChildNodes(null, "refresh");
 	        		 
 	        	   },

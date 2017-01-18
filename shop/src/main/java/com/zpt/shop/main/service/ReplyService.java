@@ -10,11 +10,11 @@ public interface ReplyService {
 	
 	public boolean validate(Reply reply);
 	
-	public void insertBrand(Reply reply);
+	public void insertReply(Reply reply);
 	
-	public void deleteBrand(String ids);
+	public void deleteReply(String ids);
 	
-	public void updateBrand(Reply reply);
+	public void updateReply(Reply reply);
 	
 	public String getReply(String skey);
 

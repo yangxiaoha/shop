@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Evaluate;
 
 /**
@@ -16,6 +17,12 @@ import com.zpt.shop.main.entities.Evaluate;
  * Copyright (C)2014－2017 智平台.All rights reserved. 
  */
 public interface EvaluateMapper {
+	
+	public List<Evaluate> listEvaluate(Query<Evaluate> query);
+	
+	public Integer countEvaluate(Query<Evaluate> query);
+	
+	public void deleteEvaluate(@Param("ids")String ids);
 
 	public void addEvaluate(Evaluate evaluate);
 

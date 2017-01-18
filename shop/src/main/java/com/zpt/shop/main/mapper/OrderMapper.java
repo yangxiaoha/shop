@@ -17,6 +17,8 @@ public interface OrderMapper {
 	
 	public void seeOrder(Order order);
 	
+	public List<Order> seeOrderAll(@Param("orderId")Integer orderId);
+	
 	/*************************************************************************/
 
 	public void addOrder(Order order);

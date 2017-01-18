@@ -41,19 +41,19 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public void insertBrand(Reply reply) {
+	public void insertReply(Reply reply) {
 		// TODO Auto-generated method stub
 		replyMapper.insertReply(reply);
 	}
 
 	@Override
-	public void deleteBrand(String ids) {
+	public void deleteReply(String ids) {
 		// TODO Auto-generated method stub
 		replyMapper.deleteReply(ids);
 	}
 
 	@Override
-	public void updateBrand(Reply reply) {
+	public void updateReply(Reply reply) {
 		// TODO Auto-generated method stub
 		replyMapper.updateReply(reply);
 	}

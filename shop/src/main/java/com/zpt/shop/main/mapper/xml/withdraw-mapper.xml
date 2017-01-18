@@ -52,6 +52,7 @@
 	
 	<select id="countCash" resultType="java.lang.Integer" parameterType="query">
 		select count(cash.id) from t_withdraw_cash as cash
+		left join t_user as user on cash.userId = user.id
 		<include refid="queryCondition"/>
 	</select>	
 	

@@ -236,6 +236,9 @@ function countName(){
 						},
 					},
 				},
+				yaxis:{
+					tickDecimals: 0,
+				},
 				xaxis:{
 					position:"bottom",
 					ticks: x,  

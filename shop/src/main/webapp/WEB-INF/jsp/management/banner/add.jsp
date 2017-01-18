@@ -32,7 +32,7 @@
 									<div class="pic">
 										<div id="preview" class="preview">
 											<img id="imghead" class="imghead" width="240" height="240"
-												src="<%=basePath%>/res/bj_img1.jpg" />
+												src="<%=basePath%>/res/banner.jpg" />
 										</div>
 										<input type="file" name="photourl" class="image_file"
 											id="addphoto" onchange="previewImage(this,'imghead')">
