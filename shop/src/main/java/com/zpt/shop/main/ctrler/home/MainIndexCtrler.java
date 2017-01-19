@@ -1,5 +1,6 @@
 package com.zpt.shop.main.ctrler.home;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
@@ -110,8 +111,9 @@ public class MainIndexCtrler {
 	
 	@ResponseBody
 	@RequestMapping(value="/loadIndex", method=RequestMethod.POST)
-	public Map<String,Object> loadIndex(Integer pageStart, Integer num, String flag, String keyword, String typeId) {
+	public Map<String,Object> loadIndex(HttpServletRequest request, Integer pageStart, Integer num, String flag, String keyword, String typeId) {
 		Map<String,Object> map = new HashMap<String, Object>();
+		
 		//商品数据
 		if(("0").equals(flag) && keyword == null && typeId == null) {
 			List<Goods> goodsList = goodsService.getGoods(pageStart, num, flag, keyword, typeId);
@@ -124,20 +126,25 @@ public class MainIndexCtrler {
 	}
 	
 	@RequestMapping(value="/selectGoods", method=RequestMethod.GET)
-	public ModelAndView selectGoods(HttpServletRequest request, String flag, String keyword, String typeId) {
+	public ModelAndView selectGoods(HttpServletRequest request, String flag, String keyword, String typeId) throws UnsupportedEncodingException {
 		ModelAndView mv = new ModelAndView("home/index");
 		User user = (User) request.getSession().getAttribute("user");
 		String userId = user.getId().toString();
+
+		byte[] bytes=keyword.getBytes("ISO-8859-1");
+		 
+		String key = new String(bytes,"utf-8");
+		
 		//根据商品类型查询商品数据		
 		Integer pageStart = 0;
 		Integer num = 20;
-		List<Goods> goodsList = goodsService.getGoodsByCondition(pageStart, num, flag, keyword, typeId);
+		List<Goods> goodsList = goodsService.getGoodsByCondition(pageStart, num, flag, key, typeId);
 		//商品类型数据
 		List<GoodsType> goodsTypeList = goodsTypeService.getGoodsType();
 		//banner
 		List<Banner> bannerList = bannerService.getAllBanner();
 		//符合商品数量的个数
-		Integer total = goodsService.getGoodsTotal(flag, keyword, typeId);
+		Integer total = goodsService.getGoodsTotal(flag, key, typeId);
 		//购物车数量
 		Integer amount = cartService.selectAmount(userId);
 		mv.addObject("state", true);

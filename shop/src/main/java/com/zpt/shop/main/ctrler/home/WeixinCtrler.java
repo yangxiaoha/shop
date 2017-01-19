@@ -209,7 +209,6 @@ public class WeixinCtrler {
                 	String skey = new String(str.getBytes("ISO-8859-1"),"UTF-8");
                     System.out.println("输入的信息："+skey);
                     Reply sreply = replyService.getReply(skey);
-                    System.out.println("输出的信息："+sreply.getReply());
                     if(sreply != null) {
                     	respContent = sreply.getReply();
                     }else {
