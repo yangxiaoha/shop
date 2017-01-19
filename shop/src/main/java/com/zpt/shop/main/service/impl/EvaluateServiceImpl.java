@@ -8,9 +8,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zpt.shop.common.pojo.Page;
+import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Evaluate;
 import com.zpt.shop.main.entities.Order;
 import com.zpt.shop.main.mapper.EvaluateMapper;
+import com.zpt.shop.main.mapper.OrderMapper;
 import com.zpt.shop.main.service.EvaluateService;
 
 /**
@@ -27,6 +30,9 @@ public class EvaluateServiceImpl implements EvaluateService {
 	
 	@Autowired
 	private EvaluateMapper evaluateMapper;
+	
+	@Autowired
+	private OrderMapper orderMapper;
 
 	@Override
 	public void addEvaluate(Integer orderId, Integer skuId, Integer userId, String content) {
@@ -65,6 +71,34 @@ public class EvaluateServiceImpl implements EvaluateService {
 			return list;
 		}
 		return null;
+	}
+
+	@Override
+	public Page<Evaluate> page(Query<Evaluate> query) {
+		// TODO Auto-generated method stub
+		Page<Evaluate> page = new Page<>();
+		List<Evaluate> list = evaluateMapper.listEvaluate(query);
+		Integer count = evaluateMapper.countEvaluate(query);
+		page.setAaData(list);
+		page.setiTotalDisplayRecords(count);
+		page.setiTotalRecords(count);
+		page.setDraw(query.getDraw());		
+		return page;
+	}
+
+	@Override
+	public void deleteEvaluate(String ids) {
+		// TODO Auto-generated method stub
+		evaluateMapper.deleteEvaluate(ids);
+	}
+
+	@Override
+	public List<Order> seeOrderAll(Integer orderId) {
+		// TODO Auto-generated method stub
+		if(orderId == null){
+			orderId = 0;
+		}
+		return orderMapper.seeOrderAll(orderId);
 	}
 
 }

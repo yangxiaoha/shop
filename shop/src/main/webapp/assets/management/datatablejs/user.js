@@ -31,7 +31,7 @@ $(document).ready(function(){
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
-                 		'<a class="" href="index?userId='+data+'" title="下级会员"><i class="fa fa-sitemap"></i></a>'+
+                 			'<a class="" href="index?userId='+data+'" title="下级会员"><i class="fa fa-sitemap"></i></a>'+
                  		'</div>';
                }
             }

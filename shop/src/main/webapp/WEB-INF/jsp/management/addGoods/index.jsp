@@ -192,39 +192,28 @@
         			}
         		});
         		$("#selectProId").val(addIds);
-        	    swal({
-        	        title: "您确定要删除这些属性吗",
-        	        text: "删除后将无法恢复，请谨慎操作！",
-        	        type: "warning",
-        	        showCancelButton: true,
-        	        confirmButtonColor: "#DD6B55",
-        	        confirmButtonText: "删除",
-        	        closeOnConfirm: false
-        	    }, function () {
-        	    	$.ajax({
-        		   	    url: "deletePro",
-        		   		type: "Post",
-        		   	    data: {
-        		   	    	typeId:$("#selectTypeId").val(),
-        		   	    	ids:$("#selectProId").val()
-        		   	    },
-        		   	    dataType: "json",
-        		   	    success: function(data) {
-        		   	    	$(".proCheck .col-sm-10").html("");
-        	   	    		$.each(data.proMsg, function(i, proList) {   
-        	   	    			$(".proCheck").show();
-        	   	    			$(".proCheck .col-sm-10").append( 
-           	    					'<label class="checkbox-inline i-checks">'+
-           	    					'<input type="checkbox" value="'+proList.name+'" style="position: absolute; opacity: 0;">'+proList.name+   	   	    				
-           	    					'<input type="hidden" value="'+proList.id+'" />'+
-           	    					'</label>'
-        	    				);
-           		  			});
-        	   	    		$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
-        		   	    }
-        	        })
-        	        swal("删除成功！", "您已经永久删除了这条信息。", "success");
-        	    });
+        		$.ajax({
+    		   	    url: "deletePro",
+    		   		type: "Post",
+    		   	    data: {
+    		   	    	typeId:$("#selectTypeId").val(),
+    		   	    	ids:$("#selectProId").val()
+    		   	    },
+    		   	    dataType: "json",
+    		   	    success: function(data) {
+    		   	    	$(".proCheck .col-sm-10").html("");
+    	   	    		$.each(data.proMsg, function(i, proList) {   
+    	   	    			$(".proCheck").show();
+    	   	    			$(".proCheck .col-sm-10").append( 
+       	    					'<label class="checkbox-inline i-checks">'+
+       	    					'<input type="checkbox" value="'+proList.name+'" style="position: absolute; opacity: 0;">'+proList.name+   	   	    				
+       	    					'<input type="hidden" value="'+proList.id+'" />'+
+       	    					'</label>'
+    	    				);
+       		  			});
+    	   	    		$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
+    		   	    }
+    	        })        	    
         	});
         	
         	$("#add-sku").click(function() {

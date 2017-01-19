@@ -118,7 +118,7 @@
 	</update>
 	<update id="updateGoods" parameterType="goods">
 		update t_goods set name = #{name},
-		content = #{content},code = #{code},brandId = #{brandId},store = #{store},
+		content = #{content},code = #{code},brandId = #{brandId},store = #{store}
 		where id = #{id}
 	</update>
 	<update id="stickGoods" parameterType="goods">

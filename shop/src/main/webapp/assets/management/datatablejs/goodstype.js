@@ -48,6 +48,8 @@ $(document).ready(function(){
                 	var treeObj = $.fn.zTree.getZTreeObj("tree");
                 	var nodes = treeObj.getNodesByParam("id",obj.pid, null);
                 	$("#uuname").val(nodes[0].name);
+                }else{
+                	$("#uuname").val("");
                 };
         		$("#uid").val(obj.id);
         		$("#upid").val(obj.pid);

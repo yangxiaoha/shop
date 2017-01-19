@@ -12,7 +12,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>商品类型管理</title>
 <script
-	src="<%=basePath%>assets/management/datatablejs/goodstype.js"	type="text/javascript"></script>
+	src="<%=basePath%>assets/management/datatablejs/goodstype.js" type="text/javascript"></script>
 <style type="text/css">
 .cztree li {
     padding: 3px;

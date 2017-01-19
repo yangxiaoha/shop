@@ -54,7 +54,7 @@
 		<include refid="queryCondition"/>
 	</select>	
 	
-	<select id="validate" resultMap="resultMap" parameterType="pro">
+	<select id="validate" resultMap="resultMap" parameterType="goodstype">
 		select * from t_goods_type
 		<include refid="validateCondition"/>
 	</select>

@@ -180,7 +180,6 @@
 	        			   $("#addsubmit").removeAttr("disabled"); 
 	        		   },1000);
 	        		   reset(form);
-	        		   tableI.table().draw();
 	        		   type.reAsyncChildNodes(null, "refresh");
 	        		   atype.reAsyncChildNodes(null, "refresh");
 	        		   pro.reAsyncChildNodes(null, "refresh");

@@ -50,14 +50,14 @@
 											<div class="form-group divb0">
 												<label for="pid">上级商品类型</label> <input class="form-control"
 													placeholder="请输入商品类型" readonly="readonly" id="uuname"
-													name="" type="text"><input type="hidden"
+													name="" type="text"><input style = "opacity: 0; width: 0px"
 													placeholder="" id="upid" name="pid" type="text">
 													<input type="hidden"	placeholder="" 
 													id="uisParent" name="isParent" type="text">
 											</div>
 											<div>
 												<button class="btn btn-default-outline" style ="float:right;margin:5px" 
-												id = "dupid"	type="button">取消上级类型</button>
+												id = "dupid" type="button">取消上级类型</button>
 											</div>
 										</div>
 									</div>
@@ -69,7 +69,7 @@
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-primary" id="updatesubmit" type="button">保存</button>
-				<button class="btn btn-default-outline" data-dismiss="modal"
+				<button class="btn btn-default-outline" data-dismiss="modal" id="dd"
 					type="button">取消</button>
 			</div>
 		</div>
@@ -80,6 +80,7 @@
 	var zTreeUpdate;
 	var domeIframeUpdate;
 	var et;	
+	var uTypeValidate;
 	var settingUpdate = {
 			view: {
 				selectedMulti: false
@@ -116,6 +117,9 @@
 		$("#uisParent").val(1);
 		$("#uuname").val("");
 	});
+	$("#dd").click(function(){
+		tableI.table().draw();
+	});
 	function filter(treeId, parentNode, childNodes) {
 		if (!childNodes) return null;
 		for (var i=0, l=childNodes.length; i<l; i++) {
@@ -147,9 +151,15 @@
 	$(document).ready(function(){
 		$('.datepicker').datepicker();
 		$("#updatesubmit").click(function(){
-		$("#update").submit();
+			$("#update").submit();
 		});
- 	   $("#update").validate({
+		 
+		$('#updateModal').on('shown.bs.modal',
+		    function() {
+				uTypeValidate.resetForm();
+		})
+		
+		uTypeValidate = $("#update").validate({
  	       rules: {
  	    	 pid:{
  	    		noEqualTo:"#uid"

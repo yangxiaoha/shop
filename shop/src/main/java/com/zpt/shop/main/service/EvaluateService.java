@@ -2,7 +2,10 @@ package com.zpt.shop.main.service;
 
 import java.util.List;
 
+import com.zpt.shop.common.pojo.Page;
+import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Evaluate;
+import com.zpt.shop.main.entities.Order;
 
 /**
  * 功能说明:
@@ -14,6 +17,12 @@ import com.zpt.shop.main.entities.Evaluate;
  * Copyright (C)2014－2017 智平台.All rights reserved. 
  */
 public interface EvaluateService {
+	
+	public Page<Evaluate> page(Query<Evaluate> query);
+	
+	public void deleteEvaluate(String ids);
+	
+	public List<Order> seeOrderAll(Integer orderId);
 
 	public void addEvaluate(Integer orderId, Integer skuId, Integer id, String evaluate);
 

@@ -99,6 +99,8 @@
                             </li>
                             <li><a class="J_menuItem" href="percentage/index">分销管理</a>
                             </li>
+                            <li><a class="J_menuItem" href="evaluate/index">评价管理</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

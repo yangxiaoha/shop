@@ -10,8 +10,47 @@
 		<result property="skuId" column="skuId" />	
 		<result property="userId" column="userId" />
 		<result property="evaluate" column="evaluate" />	
-		<result property="evaluateTime" column="evaluateTime" />		
+		<result property="evaluateTime" column="evaluateTime" />
+		<result property="name" column="name" />
 	</resultMap>
+	
+	<sql id="queryCondition">
+		where 1 = 1
+		<if test="obj.name != null and obj.name != ''">
+			and user.name like CONCAT('%',#{obj.name},'%')
+		</if>
+		<if test="obj.evaluate != null and obj.evaluate != ''">
+			and evaluate.evaluate like CONCAT('%',#{obj.evaluate},'%')
+		</if>	
+		<if test="obj.evaluateTime != null and obj.evaluateTime != ''">
+			and evaluate.evaluateTime like CONCAT('%',#{obj.evaluateTime},'%')
+		</if>	
+		<if test="search != null and search != ''">
+			and (evaluate.userId like CONCAT('%',#{search},'%') or 
+			evaluate.evaluate like CONCAT('%',#{search},'%') or 
+			evaluate.evaluateTime like CONCAT('%',#{search},'%'))
+		</if>		
+	</sql>
+	
+	<select id="listEvaluate" resultMap="resultMap" parameterType="query">
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
+		select evaluate.id as id,evaluate.evaluate as evaluate,evaluate.orderId as orderId,
+		evaluate.evaluatetime as evaluatetime,user.name as name
+		from t_evaluate as evaluate
+		left join t_user as user on evaluate.userId = user.id		
+		<include refid="queryCondition"/>
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
+	</select>
+	
+	<select id="countEvaluate" resultType="java.lang.Integer" parameterType="query">
+		select count(evaluate.id) from t_evaluate as evaluate
+		left join t_user as user on evaluate.userId = user.id
+		<include refid="queryCondition"/>
+	</select>
+	
+	<delete id="deleteEvaluate">
+		delete from t_evaluate where id in (${ids})	
+	</delete>
 	
 	<insert id="addEvaluate">
 		insert into t_evaluate (orderId, skuId, userId, evaluate, evaluateTime) 
