@@ -3,7 +3,7 @@ $(document).ready(function(){
 	tableI=$("#datatable").DatatableExt({
 		"processing": true,
         "serverSide": true,
-        "ajax": "listData?userId="+userId,
+        "ajax": "listData?userId="+userId+"&temp="+temp,
         "language":  "/shop/assets/management/datatablejs/Chinese.json",
         "columns": [
                     { "data": "id","orderable":false,"visible":false},
@@ -30,14 +30,25 @@ $(document).ready(function(){
                "targets": [9],
                "data": "id",
                "render": function(data, type, full,meta) {
-                 return '<div class="action-buttons">'+
-                 			'<a class="" href="index?userId='+data+'" title="下级会员"><i class="fa fa-sitemap"></i></a>'+
-                 		'</div>';
+            	   if(temp<2){            		   
+            		   return '<div class="action-buttons">'+
+            		   '<a href="index?userId='+data+'&temp='+(temp+1)+'" title="下级会员"><i class="fa fa-sitemap"></i></a>'+
+            		   '</div>';
+            	   }else{
+            		   return '<div class="action-buttons">'+
+            		   '<a class="last"><i class="fa fa-close"></i></a>'+
+            		   '</div>';
+            	   }
                }
             }
         ],
         "drawCallback":function(settings){
         	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})
+        	$(".last").click(function(){
+        		swal({
+        			title:"已经是3级分销，木有下一级了！",        			
+        			})
+        	});
         },
         "className" : "User",
         "chosen" : true,

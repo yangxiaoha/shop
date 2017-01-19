@@ -13,6 +13,7 @@
 <title>会员管理</title>
 <script type="text/javascript">
  	var userId = ${id};
+ 	var temp = ${tempM};
 </script>
 <script src="<%=basePath%>assets/management/datatablejs/user.js"
 	type="text/javascript"></script>

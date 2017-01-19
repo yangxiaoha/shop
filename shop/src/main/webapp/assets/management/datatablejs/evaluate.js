@@ -13,7 +13,9 @@ $(document).ready(function(){
                     { "data": "evaluate" },
                     { "data":"id","className": "actions","orderable":false },
                     { "data":"id","className": "actions","orderable":false },
-                    { "data":"orderId","orderable":false,"visible":false }
+                    { "data":"orderId","orderable":false,"visible":false },
+                    { "data": "starttime","orderable":false,"visible":false },
+                    { "data": "endtime","orderable":false,"visible":false }
                 ],
         "aoColumnDefs": [
            {
@@ -121,7 +123,7 @@ $(document).ready(function(){
         },
         "className" : "Evaluate",
         "chosen" : true,
-        "ids" : "#user.name,#evaluateTime,evaluate",
-        "targets":"2,3,4"
+        "ids" : "#name,#evaluate,#endtime,#starttime",
+        "targets":"2,4,8,9"
 	});
 });

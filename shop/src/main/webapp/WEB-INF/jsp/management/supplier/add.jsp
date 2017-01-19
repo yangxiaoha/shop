@@ -40,12 +40,17 @@
 	</div>
 </div>
 <script>
+	var supplierValidate;
 	$(document).ready(function(){
 		$('.datepicker').datepicker();
 		$("#addsubmit").click(function(){
 			$("#add").submit();
 		});
-	    $("#add").validate({
+		$('#addModal').on('shown.bs.modal',
+		    function() {
+				supplierValidate.resetForm();
+	    });
+		supplierValidate=$("#add").validate({
 	        rules: {
 	          name: {
 	        	 required:true,

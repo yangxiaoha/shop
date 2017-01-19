@@ -41,12 +41,16 @@
 	</div>
 </div>
 <script>
+	var ureplyValidate;
 	$(document).ready(function(){
 		$("#updatesubmit").click(function(){			
 			$("#update").submit();
 		});
-		
-	    $("#update").validate({	
+		$('#updateModal').on('shown.bs.modal',
+		    function() {
+				ureplyValidate.resetForm();
+	    });
+	    ureplyValidate=$("#update").validate({	
 	    	rules: {
 	        	reply:{
 	        		required:true,	        		

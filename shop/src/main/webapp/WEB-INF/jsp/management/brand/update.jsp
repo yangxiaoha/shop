@@ -51,12 +51,16 @@
 	</div>
 </div>
 <script>
+	var ubrandValidate;
 	$(document).ready(function(){		
 		$("#updatesubmit").click(function(){			
 			$("#update").submit();
 		});
-		
-	    $("#update").validate({
+		$('#updateModal').on('shown.bs.modal',
+		    function() {
+				ubrandValidate.resetForm();
+	    });
+	    ubrandValidate=$("#update").validate({
 	        rules: {
 	          name: {
 	        	 required:true,

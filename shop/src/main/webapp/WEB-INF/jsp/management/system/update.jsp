@@ -37,12 +37,16 @@
 	</div>
 </div>
 <script>
+	var usysValidate;
 	$(document).ready(function(){
 		$("#updatesubmit").click(function(){			
 			$("#update").submit();
 		});
-		
-	    $("#update").validate({	       	        
+		$('#updateModal').on('shown.bs.modal',
+		    function() {
+				usysValidate.resetForm();
+	    });
+		usysValidate=$("#update").validate({	       	        
 	        messages: {
 		      sysvalue: {
 		        	 required:"请输入sysvalue",		        	

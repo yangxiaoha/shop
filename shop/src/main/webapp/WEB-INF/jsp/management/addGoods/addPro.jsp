@@ -170,12 +170,12 @@
 	       	},
 	        messages: {
 	          	name: {
-		        	required:"请输入商品属性",
-		        	remote:"该属性已存在"
+		        	required:"请输入商品属性名称",
+		        	remote:"该商品属性名称已存在"
 		        },
 		      	typeId: {
-		        	required:"请输入商品类型",
-		        	remote:"该属性已存在"
+		        	required:"请选择商品类型",
+		        	remote:"该商品属性名称已存在"
 		      	}	        
 	        },
 	        submitHandler: function(form) {   

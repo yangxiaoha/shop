@@ -41,12 +41,16 @@
 	</div>
 </div>
 <script>
+	var usupplierValidate;
 	$(document).ready(function(){
 		$("#updatesubmit").click(function(){			
 			$("#update").submit();
 		});
-		
-	    $("#update").validate({
+		$('#updateModal').on('shown.bs.modal',
+		    function() {
+				usupplierValidate.resetForm();
+	    });
+		usupplierValidate=$("#update").validate({
 	        rules: {
 	          name: {
 	        	 required:true,

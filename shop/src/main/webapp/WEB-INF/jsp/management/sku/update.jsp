@@ -95,6 +95,7 @@
 	</div>
 </div>
 <script>
+	var uskuValidate;
 	$(function () {		
 		if ($.validator) {		
 		    //fix: when several input elements shares the same name, but has different id-ies....		
@@ -127,8 +128,11 @@
 		$("#updatesubmit").click(function(){			
 			$("#update").submit();
 		});
-		
-	    $("#update").validate({
+		$('#updateModal').on('shown.bs.modal',
+		    function() {
+				uskuValidate.resetForm();
+	    });	
+		uskuValidate=$("#update").validate({
 	        rules: {
 	        	price:{
 	        		required:true,

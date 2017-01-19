@@ -38,18 +38,19 @@
 											<div class="form-group divb0"
 												style="margin-bottom: 0px !important;">
 												<label for="name">商品属性名称(*)</label><input class="form-control"
-													placeholder="请输入商品属性名称" id="aname" name="name" type="text">
-												<input style = "opacity: 0; width: 0px"
-													placeholder="" id="atypeId" name="typeId" type="text">												
+													placeholder="请输入商品属性名称" id="aname" name="name" type="text">																								
 											</div>
 										</div>
 									</div>
+									<hr>
 									<div class="row">
 										<div class="col-sm-12">
 											<div class="form-group divb0">
 												<label for="typeId">商品类型(*)</label> <input class="form-control"
 													placeholder="" readonly="readonly" id="atypeName"
 													name="typeName" type="text">
+													<input style = "opacity: 0; width: 0px"
+													placeholder="" id="atypeId" name="typeId" type="text">
 											</div>
 										</div>
 									</div>
@@ -70,6 +71,7 @@
 <script>
 	var zTreeAdd;
 	var domeIframeAdd;
+	var proValidate;
 	
 	var settingAdd = {
 			view: {
@@ -124,7 +126,11 @@
 		$("#addsubmit").click(function(){
 			$("#add").submit();
 		});
-	    $("#add").validate({
+		$('#addModal').on('shown.bs.modal',
+		    function() {
+				proValidate.resetForm();
+	    });
+	    proValidate=$("#add").validate({
 	        rules: {
 	          name: {
 	        	 required:true,
@@ -162,11 +168,11 @@
 	        messages: {
 	          name: {
 		        	 required:"请输入商品属性名称",
-		        	 remote:"该属性已存在"
+		        	 remote:"该商品属性名称已存在"
 		      },
 		      typeId: {
-		        	 required:"请输入商品名称",
-		        	 remote:"该属性已存在"
+		        	 required:"请选择商品类型",
+		        	 remote:"该商品属性名称已存在"
 		      }	        
 	        },
 	        submitHandler: function(form) {   

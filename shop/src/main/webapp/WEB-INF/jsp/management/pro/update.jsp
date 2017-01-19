@@ -72,6 +72,7 @@
 <script>
 	var zTreeUpdate;
 	var domeIframeUpdate;
+	var uproValidate;
 
 	var settingUpdate = {
 			view: {
@@ -126,7 +127,11 @@
 		$("#updatesubmit").click(function(){
 		$("#update").submit();
 		});
- 	   $("#update").validate({
+		$('#updateModal').on('shown.bs.modal',
+		    function() {
+				uproValidate.resetForm();
+	    });		
+		uproValidate=$("#update").validate({
  	       rules: {
  	         name: {
  		       	 required:true,

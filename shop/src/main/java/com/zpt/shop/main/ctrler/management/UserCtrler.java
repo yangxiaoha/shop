@@ -20,14 +20,16 @@ public class UserCtrler {
 	private UserService userService;
 	
 	@RequestMapping(value="index",method=RequestMethod.GET)
-	public ModelAndView index(Integer userId){
+	public ModelAndView index(Integer userId,Integer temp){
 		ModelAndView mv = new ModelAndView();
 		if(userId != null){
 			User user = userService.getUserId(userId);
 			mv.addObject("user", user);
 			mv.addObject("id", userId);
+			mv.addObject("tempM", temp);			
 		}else{
 			mv.addObject("id", 0);
+			mv.addObject("tempM", 0);
 		}
 		mv.setViewName("/management/user/index");
 		return mv;

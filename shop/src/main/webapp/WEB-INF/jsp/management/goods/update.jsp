@@ -97,6 +97,7 @@
 	</div>
 </div>
 <script>
+	var goodsValidate;
 	var zTreeUpdate;
 	var domeIframeUpdate;
 	
@@ -171,7 +172,11 @@
 		$("#updatesubmit").click(function(){
 			$("#update").submit();
 		});
- 	    $("#update").validate({
+		$('#updateModal').on('shown.bs.modal',
+		    function() {
+				ugoodsValidate.resetForm();
+	    });
+ 	    ugoodsValidate=$("#update").validate({
  	        rules: {
  	    	  	typeId:{
 	        		required:true,

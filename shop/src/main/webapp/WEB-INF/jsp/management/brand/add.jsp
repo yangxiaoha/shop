@@ -53,6 +53,7 @@
 	</div>
 </div>
 <script>
+	var brandValidate;
 	$(document).ready(function(){
 		$('.reg-sel-add').select2({
 			language:"zh-CN",
@@ -62,7 +63,11 @@
 		$("#addsubmit").click(function(){
 			$("#add").submit();
 		});
-	    $("#add").validate({
+		$('#addModal').on('shown.bs.modal',
+		    function() {
+				brandValidate.resetForm();
+	    });
+	    brandValidate=$("#add").validate({
 	        rules: {
 	        	supplierId:{
 	        		required:true,	        		

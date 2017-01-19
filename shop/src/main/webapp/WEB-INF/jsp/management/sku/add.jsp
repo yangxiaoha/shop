@@ -104,6 +104,7 @@
 	</div>
 </div>
 <script>
+	var skuValidate;
 	$(document).ready(function(){
 		$("#addsubmit").click(function(){
 			$("#add").submit();
@@ -111,7 +112,11 @@
 		$('#addModal').on('hide.bs.modal', function () {
 			$(".loading").html("");
 		});
-	    $("#add").validate({
+		$('#addModal').on('shown.bs.modal',
+		    function() {
+				skuValidate.resetForm();
+	    });
+		skuValidate=$("#add").validate({
 	        rules: {
 	        	price:{
 	        		required:true,

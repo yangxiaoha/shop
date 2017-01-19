@@ -75,6 +75,7 @@
 	</div>
 </div>
 <script>
+	var typeValidate;
 	var zTreeAdd;
 	var domeIframeAdd;
 	var t = $("#atree");
@@ -144,7 +145,11 @@
 		$("#addsubmit").click(function(){
 			$("#add").submit();
 		});
-	    $("#add").validate({
+		$('#addModal').on('shown.bs.modal',
+		    function() {
+				typeValidate.resetForm();
+	    });
+	    typeValidate=$("#add").validate({
 	        rules: {
 	          name: {
 	        	 required:true,

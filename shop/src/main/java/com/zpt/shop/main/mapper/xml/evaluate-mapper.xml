@@ -11,7 +11,9 @@
 		<result property="userId" column="userId" />
 		<result property="evaluate" column="evaluate" />	
 		<result property="evaluateTime" column="evaluateTime" />
-		<result property="name" column="name" />
+		<result property="name" column="name" />		
+		<result property="starttime" column="starttime" />		
+		<result property="endtime" column="endtime" />	
 	</resultMap>
 	
 	<sql id="queryCondition">
@@ -22,13 +24,12 @@
 		<if test="obj.evaluate != null and obj.evaluate != ''">
 			and evaluate.evaluate like CONCAT('%',#{obj.evaluate},'%')
 		</if>	
-		<if test="obj.evaluateTime != null and obj.evaluateTime != ''">
-			and evaluate.evaluateTime like CONCAT('%',#{obj.evaluateTime},'%')
-		</if>	
+		<if test="obj.starttime != null and obj.starttime != '' and obj.endtime != null and obj.endtime != ''">
+			and (evaluate.evaluateTime &gt; #{obj.starttime} and evaluate.evaluateTime &lt; #{obj.endtime})
+		</if>
 		<if test="search != null and search != ''">
 			and (evaluate.userId like CONCAT('%',#{search},'%') or 
-			evaluate.evaluate like CONCAT('%',#{search},'%') or 
-			evaluate.evaluateTime like CONCAT('%',#{search},'%'))
+			evaluate.evaluate like CONCAT('%',#{search},'%'))
 		</if>		
 	</sql>
 	

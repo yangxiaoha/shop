@@ -36,11 +36,16 @@
 	</div>
 </div>
 <script>	
+	var uaskuValidate;
 	$(document).ready(function(){		
 		$("#updateAddsubmit").click(function(){
 			$("#updateAdd").submit();
 		});
-	    $("#updateAdd").validate({	
+		$('#updateAddModal').on('shown.bs.modal',
+		    function() {
+				uaskuValidate.resetForm();
+	    });
+		uaskuValidate=$("#updateAdd").validate({	
 	    	rules: {		        	
 		        	num:{
 		        		required:true,
