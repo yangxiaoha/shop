@@ -177,37 +177,58 @@ public class AddGoodsCtrler {
 	
 	@ResponseBody
 	@RequestMapping(value ="/deleteBrand", method = RequestMethod.POST)
-	public void deleteBrand(Integer id){
+	public Msg deleteBrand(Integer id){
+		Msg msg = new Msg();
 		String ids = id.toString();
 		try {
 			brandService.deleteBrand(ids);
+			msg.setState(Contants.RETURN_INT_SUCCESS);
+			msg.setMsg(Contants.DELETE_SUCCESS);
+			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			msg.setState(Contants.RETURN_INT_FAIL);
+			msg.setMsg(Contants.DELTET_LOST);
+			return msg;
 		}
 	}
 
 	@ResponseBody
 	@RequestMapping(value ="/deleteSupplier", method = RequestMethod.POST)
-	public void deleteSupplier(Integer id){
+	public Msg deleteSupplier(Integer id){
+		Msg msg = new Msg();
 		String ids = id.toString();
 		try {
 			supplierService.deleteSupplier(ids);
+			msg.setState(Contants.RETURN_INT_SUCCESS);
+			msg.setMsg(Contants.DELETE_SUCCESS);
+			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			msg.setState(Contants.RETURN_INT_FAIL);
+			msg.setMsg(Contants.DELTET_LOST);
+			return msg;
 		}
 	}
 	
 	@ResponseBody
 	@RequestMapping(value ="/deleteType", method = RequestMethod.POST)
-	public void deleteType(Integer id){
+	public Msg deleteType(Integer id){
+		Msg msg = new Msg();
 		String ids = id.toString();
 		try {
 			goodsTypeService.deleteGoodsType(ids);
+			msg.setState(Contants.RETURN_INT_SUCCESS);
+			msg.setMsg(Contants.DELETE_SUCCESS);
+			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			msg.setState(Contants.RETURN_INT_FAIL);
+			msg.setMsg(Contants.DELTET_LOST);
+			return msg;
 		}
 	}
 	

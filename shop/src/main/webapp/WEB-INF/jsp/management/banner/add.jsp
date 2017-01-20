@@ -26,7 +26,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
-									<p>请选择图片(大小不超过：300*150)</p>
+									<p>请选择图片(大小不超过：300*280)</p>
 									<input name="url" id="aurl" placeholder="请输入url" />
 									<p class="error" style="display: none;"></p>
 									<div class="pic">

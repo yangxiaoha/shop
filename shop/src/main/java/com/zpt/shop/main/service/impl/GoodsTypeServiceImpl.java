@@ -9,6 +9,7 @@ import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.GoodsType;
 import com.zpt.shop.main.mapper.GoodsTypeMapper;
+import com.zpt.shop.main.mapper.ProMapper;
 import com.zpt.shop.main.service.GoodsTypeService;
 
 @Service
@@ -16,6 +17,9 @@ public class GoodsTypeServiceImpl implements GoodsTypeService {
 
 	@Autowired
 	private GoodsTypeMapper goodsTypeMapper;
+	
+	@Autowired
+	private ProMapper proMapper;
 	
 	@Override
 	public List<GoodsType> selectTypeTree(Integer pid) {
@@ -71,7 +75,7 @@ public class GoodsTypeServiceImpl implements GoodsTypeService {
 	public void deleteGoodsType(String ids) {
 		// TODO Auto-generated method stub
 		goodsTypeMapper.deleteGoodsType(ids);
-		
+		proMapper.deleteProType(ids);
 	}
 
 	@Override
