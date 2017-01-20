@@ -198,7 +198,13 @@
 	       		   	    url: "getGoodsPro",
 	       		   		type: "Post",
 	       		   	    data: {
-	       		   	    	typeId:type.getSelectedNodes()[0].id
+	       		   	    	typeId:function(){
+	       		   	    		if(type.getSelectedNodes()!=null&&type.getSelectedNodes()!=""){	       		   	    			
+		       		   	    		return type.getSelectedNodes()[0].id
+	       		   	    		}else{
+	       		   	    			return ""
+	       		   	    		}
+	       		   	    	}
 	       		   	    },
 	       		   	    dataType: "json",
 	       		   	    success: function(data) {

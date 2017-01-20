@@ -62,6 +62,9 @@
 	<delete id="deletePro">
 		update t_goods_pro set state = 0 where id in (${ids})	
 	</delete>
+	<delete id="deleteProType">
+		update t_goods_pro set state = 0 where typeid in (${ids})	
+	</delete>
 	<update id="updatePro" parameterType="pro">
 		update t_goods_pro set name = #{name},typeId = #{typeId} where id = #{id}
 	</update>

@@ -295,34 +295,6 @@
 		
 		var brand;
 		
-		var brandSetting = {
-			view: {
-				selectedMulti: false				
-			},
-			async: {
-				enable: true,
-				url:"getBrandTree",
-				autoParam:["id"],
-				otherParam:{"supplierid":function(){
-					if(store != null){
-						return store.getSelectedNodes()[0].id;
-					}
-					return "";
-				}},
-				dataFilter: filter
-			},
-			callback:{
-				onClick: zTreeOnClickBrand,
-				onRemove: zTreeOnRemoveBrand
-			},
-			edit: {
-				enable: true,
-				showRemoveBtn: true,
-				showRenameBtn: false,
-				removeTitle: "删除"
-			}
-		};
-		
 		var storeSetting = {
 			view: {
 				selectedMulti: false				
@@ -337,6 +309,37 @@
 			callback:{
 				onClick: zTreeOnClickSupplier,
 				onRemove: zTreeOnRemoveSupplier
+			},
+			edit: {
+				enable: true,
+				showRemoveBtn: true,
+				showRenameBtn: false,
+				removeTitle: "删除"
+			}
+		};
+		
+		var brandSetting = {
+			view: {
+				selectedMulti: false				
+			},
+			async: {
+				enable: true,
+				url:"getBrandTree",
+				autoParam:["id"],
+				otherParam:{"supplierid":function(){
+					if(store != null){
+						if(store.getSelectedNodes()!=null&&store.getSelectedNodes()!=""){
+							return store.getSelectedNodes()[0].id;
+						}
+						return "";
+					}
+					return "";
+				}},
+				dataFilter: filter
+			},
+			callback:{
+				onClick: zTreeOnClickBrand,
+				onRemove: zTreeOnRemoveBrand
 			},
 			edit: {
 				enable: true,
@@ -372,14 +375,12 @@
 		function zTreeOnClickBrand(event, treeId, treeNode) {
 			$("#selectBrand").val(treeNode.name);
 			$("#selectBrandId").val(treeNode.id);
-			tableI.table().columns(10).search(treeNode.id).draw();
 		};
 		
 		function zTreeOnClickSupplier(event, treeId, treeNode) {
 			$("#selectSupplier").val(treeNode.name);
 			$("#selectSupplierId").val(treeNode.id);
 			brand.reAsyncChildNodes(null, "refresh");
-			tableI.table().columns(10).search(treeNode.id).draw();
 		};
 		
 		function zTreeOnClickType(event, treeId, treeNode) {
@@ -428,7 +429,9 @@
 		   	    	id:treeNode.id
 		   	    },
 		   	    dataType: "json",
-		   	    success: function(data) {}
+		   	    success: function(data) {
+					brand.reAsyncChildNodes(null, "refresh");
+		   	    }
 	        })
 		}
 		
@@ -440,11 +443,15 @@
 		   	    	id:treeNode.id
 		   	    },
 		   	    dataType: "json",
-		   	    success: function(data) {}
+		   	    success: function(data) {		   	    	
+			       type.reAsyncChildNodes(null, "refresh");
+		 		   atype.reAsyncChildNodes(null, "refresh");
+		 		   pro.reAsyncChildNodes(null, "refresh");
+		 		   if($("#selectTypeId").val()==treeNode.id){		 			   
+			 		   $(".proCheck").hide();
+		 		   }
+		   	    }
 	        })
-	       type.reAsyncChildNodes(null, "refresh");
- 		   atype.reAsyncChildNodes(null, "refresh");
- 		   pro.reAsyncChildNodes(null, "refresh");
 		}
 	
 		function filter(treeId, parentNode, childNodes) {

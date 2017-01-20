@@ -57,14 +57,14 @@
 							<button type="button" class="btn btn-info" id="btn-inquiry" style="float: right; margin: 0 0 0 15px;" >查询</button>
 						 	<div class="select-time">
 						 		<div>
-                                    <input readonly class="form-control layer-date endtime" id="endtime" placeholder="请选择卖出结束时间" >
+                                    <input readonly class="form-control layer-date endtime" id="endtime" placeholder="请选择评价结束时间" >
                                     <label class="laydate-icon inline demoicon" for="endtime"></label>
                                 </div>
 				            </div>
 			            	<div style="float:right;height:34px;line-height:34px;margin:0 6px;">至</div>
 				            <div class="select-time">				              
 				                <div>
-                                    <input readonly class="form-control layer-date" id="starttime" placeholder="请选择卖出开始时间" >
+                                    <input readonly class="form-control layer-date" id="starttime" placeholder="请选择评价开始时间" >
                                     <label class="laydate-icon inline demoicon" for="starttime"></label>
                                 </div>
 				            </div>			            

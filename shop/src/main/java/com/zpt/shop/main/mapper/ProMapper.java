@@ -13,6 +13,8 @@ public interface ProMapper {
 	
 	public void deletePro(@Param("ids")String ids);
 	
+	public void deleteProType(@Param("ids")String ids);
+	
 	public void updatePro(Pro pro);
 	
 	public Integer countPro(Query<Pro> query);
