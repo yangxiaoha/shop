@@ -2,6 +2,7 @@ package com.zpt.shop.main.entities;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class OrderDetail {
 	
@@ -20,23 +21,33 @@ public class OrderDetail {
 	private String provalue;
 	
 	//商品总价
-	public BigDecimal totalPrice;	
+	private BigDecimal totalPrice;	
 
 	//商品名称
-	public String name;
+	private String name;
 	
 	//商品id
-	public Integer goodsId;
+	private Integer goodsId;
 	
 	//商品图片
-	public String url;
+	private String url;
 	
 	//商品属性
-	public String val;
+	private String val;
 	
 	//下单时间
-	public Date ordertime;	
+	private Date ordertime;	
 	
+	private List<User> user;
+	
+	public List<User> getUser() {
+		return user;
+	}
+
+	public void setUser(List<User> user) {
+		this.user = user;
+	}
+
 	public String getProname() {
 		return proname;
 	}

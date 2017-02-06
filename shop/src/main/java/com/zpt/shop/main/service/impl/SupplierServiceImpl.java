@@ -68,9 +68,9 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
-	public List<Supplier> getAllSupplier() {
+	public List<Supplier> getAllSupplier(String name) {
 		// TODO Auto-generated method stub
-		List<Supplier> list =  supplierMapper.getAllSupplier();
+		List<Supplier> list =  supplierMapper.getAllSupplier(name);
 		if(list != null && list.size() > 0){
 			return list;
 		}

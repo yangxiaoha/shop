@@ -52,7 +52,7 @@ public class AddGoodsCtrler {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/management/addGoods/index");		
 		List<Brand> brandList = brandService.getAllBrand();
-		List<Supplier> supplierList = supplierService.getAllSupplier();		
+		List<Supplier> supplierList = supplierService.getAllSupplier("");		
 		mv.addObject("brandMsg", brandList);
 		mv.addObject("supplierMsg", supplierList);
 		mv.addObject("pageinitM",pageinitAdd);
@@ -61,16 +61,24 @@ public class AddGoodsCtrler {
 	
 	@ResponseBody
 	@RequestMapping("/getSupplierAll")
-	public List<Map<String,String>> getBrandAll(){
-		List<Supplier> supplierList = supplierService.getAllSupplier();		
-		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
-		for(int i = 0; i < supplierList.size(); i++){
-			Map<String,String> brand = new HashMap<String,String>();
-			brand.put("id",supplierList.get(i).getId()+"");
-			brand.put("text",supplierList.get(i).getName());
-			list.add(brand);
+	public List<Map<String,String>> getBrandAll(String term){
+		String name = "";
+		if(term!=null){
+			name = term;
 		}
-		return list;
+		List<Supplier> supplierList = supplierService.getAllSupplier(name);		
+		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+		if(supplierList!=null){			
+			for(int i = 0; i < supplierList.size(); i++){
+				Map<String,String> supplier = new HashMap<String,String>();
+				supplier.put("id",supplierList.get(i).getId()+"");
+				supplier.put("text",supplierList.get(i).getName());
+				list.add(supplier);
+			}
+			return list;
+		}else{
+			return null;
+		}
 	}
 	
 	@ResponseBody
@@ -154,7 +162,7 @@ public class AddGoodsCtrler {
 	public List<Supplier> getSupplierTree(){
 		List<Supplier> list = null;
 		try {
-			list = supplierService.getAllSupplier();
+			list = supplierService.getAllSupplier("");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

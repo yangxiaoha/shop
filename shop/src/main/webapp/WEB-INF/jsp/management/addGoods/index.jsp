@@ -192,28 +192,47 @@
         			}
         		});
         		$("#selectProId").val(addIds);
-        		$.ajax({
-    		   	    url: "deletePro",
-    		   		type: "Post",
-    		   	    data: {
-    		   	    	typeId:$("#selectTypeId").val(),
-    		   	    	ids:$("#selectProId").val()
-    		   	    },
-    		   	    dataType: "json",
-    		   	    success: function(data) {
-    		   	    	$(".proCheck .col-sm-10").html("");
-    	   	    		$.each(data.proMsg, function(i, proList) {   
-    	   	    			$(".proCheck").show();
-    	   	    			$(".proCheck .col-sm-10").append( 
-       	    					'<label class="checkbox-inline i-checks">'+
-       	    					'<input type="checkbox" value="'+proList.name+'" style="position: absolute; opacity: 0;">'+proList.name+   	   	    				
-       	    					'<input type="hidden" value="'+proList.id+'" />'+
-       	    					'</label>'
-    	    				);
-       		  			});
-    	   	    		$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
-    		   	    }
-    	        })        	    
+        		var Confirm = true;
+    			swal({
+        			title: "你确定要删除该属性？",
+        			text: "",
+        			type: "warning",
+        			showCancelButton: true,
+        			showConfirmButton: Confirm,
+        			confirmButtonColor: '#DD6B55',
+        			confirmButtonText: "删除！",
+        			cancelButtonText: "取消！",
+        			closeOnConfirm: false
+        		},
+        		function(isConfirm){
+    	    	    if (isConfirm){
+    	    	    	$.ajax({
+    	    		   	    url: "deletePro",
+    	    		   		type: "Post",
+    	    		   	    data: {
+    	    		   	    	typeId:$("#selectTypeId").val(),
+    	    		   	    	ids:$("#selectProId").val()
+    	    		   	    },
+    	    		   	    dataType: "json",
+    	    		   	    success: function(data) {
+    	    		   	    	$(".proCheck").hide();
+    	    		   	    	$(".proCheck .col-sm-10").html("");
+    	    	   	    		$.each(data.proMsg, function(i, proList) {
+    	    	   	    			$(".proCheck").show();
+    	    	   	    			$(".proCheck .col-sm-10").append( 
+    	       	    					'<label class="checkbox-inline i-checks">'+
+    	       	    					'<input type="checkbox" value="'+proList.name+'" style="position: absolute; opacity: 0;">'+proList.name+   	   	    				
+    	       	    					'<input type="hidden" value="'+proList.id+'" />'+
+    	       	    					'</label>'
+    	    	    				);
+    	       		  			});
+    	    	   	    		$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
+    	    	   	    		swal("删除成功!", "", "success");
+    	    		   	    }
+    	    	        })        	    
+    	    	    }
+        		});
+        		
         	});
         	
         	$("#add-sku").click(function() {
@@ -407,51 +426,111 @@
 	   	    		$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
 		   	    }
 	        })
-		};		
+		};
 		
 		function zTreeOnRemoveBrand(event, treeId, treeNode) {
-	    	$.ajax({
-		   	    url: "deleteBrand",
-		   		type: "Post",
-		   	    data: {
-		   	    	id:treeNode.id
-		   	    },
-		   	    dataType: "json",
-		   	    success: function(data) {}
-	        })
+			var Confirm = true;
+			swal({
+    			title: "你确定要删除该品牌？",
+    			text: "",
+    			type: "warning",
+    			showCancelButton: true,
+    			showConfirmButton: Confirm,
+    			confirmButtonColor: '#DD6B55',
+    			confirmButtonText: "删除！",
+    			cancelButtonText: "取消！",
+    			closeOnConfirm: false
+    		},
+    		function(isConfirm){
+	    	    if (isConfirm){
+	    	    	$.ajax({
+	    		   	    url: "deleteBrand",
+	    		   		type: "Post",
+	    		   	    data: {
+	    		   	    	id:treeNode.id
+	    		   	    },
+	    		   	    dataType: "json",
+	    		   	    success: function(data) {
+	    		   	    	swal("删除成功!", "", "success");
+	    		   	    	brand.reAsyncChildNodes(null, "refresh");
+	    		   	    }
+	    	        })
+	    	    }else{
+	    	    	brand.reAsyncChildNodes(null, "refresh");
+	    	    }
+    		});	    	
 		}		
 		
 		function zTreeOnRemoveSupplier(event, treeId, treeNode) {
-			$.ajax({
-		   	    url: "deleteSupplier",
-		   		type: "Post",
-		   	    data: {
-		   	    	id:treeNode.id
-		   	    },
-		   	    dataType: "json",
-		   	    success: function(data) {
-					brand.reAsyncChildNodes(null, "refresh");
-		   	    }
-	        })
+			var Confirm = true;
+			swal({
+    			title: "你确定要删除该供应商？",
+    			text: "",
+    			type: "warning",
+    			showCancelButton: true,
+    			showConfirmButton: Confirm,
+    			confirmButtonColor: '#DD6B55',
+    			confirmButtonText: "删除！",
+    			cancelButtonText: "取消！",
+    			closeOnConfirm: false
+    		},
+    		function(isConfirm){
+	    	    if (isConfirm){
+	    	    	$.ajax({
+	    		   	    url: "deleteSupplier",
+	    		   		type: "Post",
+	    		   	    data: {
+	    		   	    	id:treeNode.id
+	    		   	    },
+	    		   	    dataType: "json",
+	    		   	    success: function(data) {
+	    		   	    	swal("删除成功!", "", "success");
+	    					brand.reAsyncChildNodes(null, "refresh");
+	    					store.reAsyncChildNodes(null, "refresh");
+	    		   	    }
+	    	        })
+	    	    }else{
+	    	    	store.reAsyncChildNodes(null, "refresh");
+	    	    }
+    		});
 		}
 		
 		function zTreeOnRemoveType(event, treeId, treeNode) {
-			$.ajax({
-		   	    url: "deleteType",
-		   		type: "Post",
-		   	    data: {
-		   	    	id:treeNode.id
-		   	    },
-		   	    dataType: "json",
-		   	    success: function(data) {		   	    	
-			       type.reAsyncChildNodes(null, "refresh");
-		 		   atype.reAsyncChildNodes(null, "refresh");
-		 		   pro.reAsyncChildNodes(null, "refresh");
-		 		   if($("#selectTypeId").val()==treeNode.id){		 			   
-			 		   $(".proCheck").hide();
-		 		   }
-		   	    }
-	        })
+			var Confirm = true;
+			swal({
+    			title: "你确定要删除该类型？",
+    			text: "",
+    			type: "warning",
+    			showCancelButton: true,
+    			showConfirmButton: Confirm,
+    			confirmButtonColor: '#DD6B55',
+    			confirmButtonText: "删除！",
+    			cancelButtonText: "取消！",
+    			closeOnConfirm: false
+    		},
+    		function(isConfirm){
+	    	    if (isConfirm){
+	    	    	$.ajax({
+	    		   	    url: "deleteType",
+	    		   		type: "Post",
+	    		   	    data: {
+	    		   	    	id:treeNode.id
+	    		   	    },
+	    		   	    dataType: "json",
+	    		   	    success: function(data) {
+	    		   	    	swal("删除成功!", "", "success");
+							type.reAsyncChildNodes(null, "refresh");
+							atype.reAsyncChildNodes(null, "refresh");
+							pro.reAsyncChildNodes(null, "refresh");
+							if($("#selectTypeId").val()==treeNode.id){		 			   
+								$(".proCheck").hide();
+							}
+	    		   	    }
+	    	        })
+	    	    }else{
+	    	    	type.reAsyncChildNodes(null, "refresh");
+	    	    }
+    		});			
 		}
 	
 		function filter(treeId, parentNode, childNodes) {

@@ -18,6 +18,6 @@ public interface SupplierService {
 	
 	public void updateSupplier(Supplier supplier);	
 	
-	public List<Supplier> getAllSupplier();
+	public List<Supplier> getAllSupplier(String name);
 
 }
