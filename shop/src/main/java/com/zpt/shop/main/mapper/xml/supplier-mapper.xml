@@ -53,7 +53,7 @@
 	</select>
 	
 	<select id="getAllSupplier" resultMap="resultMap">
-	    select * from t_goods_supplier where state = 1
+	    select * from t_goods_supplier where state = 1 and name like CONCAT('%',#{name},'%')
 	</select>
 	
 	<insert id="insertSupplier" parameterType="supplier">

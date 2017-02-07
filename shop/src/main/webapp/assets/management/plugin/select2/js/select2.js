@@ -3440,7 +3440,7 @@ S2.define('select2/data/ajax',[
     }
 
     var options = $.extend({
-      type: 'GET'
+      type: 'POST'
     }, this.ajaxOptions);
 
     if (typeof options.url === 'function') {

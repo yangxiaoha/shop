@@ -31,7 +31,7 @@ public class BrandCtrler {
 	@RequestMapping(value = "index",method = RequestMethod.GET)
 	public ModelAndView index(){
 		ModelAndView mv = new ModelAndView();
-		List<Supplier> supplierList = supplierService.getAllSupplier();
+		List<Supplier> supplierList = supplierService.getAllSupplier("");
 		mv.setViewName("/management/brand/index");
 		mv.addObject("supplierMsg", supplierList);
 		return mv;
