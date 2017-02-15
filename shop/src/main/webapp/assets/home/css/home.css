@@ -63,6 +63,9 @@ a, a:link, a:visited, a:hover, a:active {
 .mt8 {
 	margin-top: 8px;
 }
+.mt20 {
+	margin-top: 20px;
+}
 .mt40 {
 	margin-top: 40px;
 }
@@ -254,6 +257,7 @@ a, a:link, a:visited, a:hover, a:active {
 	float: left;
 	width: 49%;
 	margin-bottom: 9px;
+	font-size: 1.4rem;
 	text-align: center;
 	border: 1px solid #968f8e;
 }
@@ -331,7 +335,7 @@ a, a:link, a:visited, a:hover, a:active {
 .shopping-cart {
 	position: fixed;
     right: 20px;
-    bottom: 150px;
+    bottom: 120px;
 	display: block;
 	width: 60px;
     height: 60px;   
@@ -940,5 +944,9 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .user-info .member-icon > img {
 	width: 100%;
+}
+.follow-tit {
+	padding: 10px 20px;
+    border-bottom: 1px solid #e6e6e6;
 }
 /************************member-center结束************************/

@@ -12,7 +12,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>pull to refresh</title>
+<title>一见喜</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -23,6 +23,12 @@
 		padding: 0;
 		margin: 0;
 		height: 100%;
+	}
+	.menu {
+		font-size: 1.6rem;
+	}
+	.goods-detail .goods-show {
+		font-size: 1.4rem;
 	}
     .swiper-container {
         width: 100%;
@@ -145,7 +151,7 @@
 	 		<span class="shopping-num">${amount}</span>
 	    </a>
 	    
-	    <form action="selectGoods" method="get" id="selectForm">
+	    <form action="selectGoods" method="post" id="selectForm">
 		    <input id="flag" name="flag" type="hidden" value="0" />
 		    <input id="fKeyword" name="keyword" type="hidden" value="" />
 		    <input id="fTypeId" name="typeId" type="hidden" value="" />

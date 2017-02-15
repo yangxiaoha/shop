@@ -246,9 +246,8 @@ public class MemberCtrler {
 	}
 	
 	//绑定上级
-	@ResponseBody
 	@RequestMapping(value="/myQr/getSuperiorInfo/{openId}", method=RequestMethod.GET)
-	public void getSuperiorInfo(HttpServletRequest request, @PathVariable("openId")String openId) throws WxErrorException {
+	public String getSuperiorInfo(HttpServletRequest request, @PathVariable("openId")String openId) throws WxErrorException {
 		/*String accessToken = wxMpService.getAccessToken(false);
 		String jsonMsg1 = "{\"expire_seconds\": \"604800\", \"action_name\": \"QR_SCENE\", \"action_info\"：{\"scene\": {\"scene_id\": "+openId+"}}}";
 		String jsonMsg = "{\"expire_seconds\": \"604800\", \"action_name\": \"QR_SCENE\", \"action_info\"：{\"scene\": {\"scene_id\": ozmycs6JuZxrpxDuNMluTyvyUDCY}}}";
@@ -277,8 +276,10 @@ public class MemberCtrler {
 			if("0".equals(subscribe)) {//未关注
 				userService.updateUserByScan(userInfo);
 			}
+			return "redirect:/home/member/follow";
 		}else {
 			userService.addUserByScan(userInfo);
+			return "redirect:/home/mainindex/index";
 		}
 	}
 	
@@ -345,4 +346,10 @@ public class MemberCtrler {
 		return mv;
 	}
 
+	//引导关注
+	@RequestMapping(value="/follow", method=RequestMethod.GET)
+	public String follow() throws WxErrorException {
+		return "home/follow";
+	}
+	
 }
