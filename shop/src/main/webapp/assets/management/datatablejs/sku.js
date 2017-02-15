@@ -82,6 +82,7 @@ $(document).ready(function(){
         		var rowid = $(this).data("rowid");
         		var api = new $.fn.dataTable.Api( settings );
                 var obj = api.rows(rowid).data()[0];
+                var temp = 0;
         		$("#uid").val(obj.id);        		
         		$("#uprice").val(obj.price);        		
         		$("#ucode").val(obj.code);
@@ -89,8 +90,12 @@ $(document).ready(function(){
         		$("#uurl").val(obj.url);
         		$("#uids").val(obj.ids);
         		var imghead = $("#basepath").val()+obj.url;
+        		imgmol = imghead;
+        		imgheads = "#uimghead";
+        		var obj2 = document.getElementById('updatephoto') ; 
+				obj2.outerHTML=obj2.outerHTML; 
         		$("#uimghead").attr("src",imghead);
-        		$("#uimghead").css({"margin-top":"16px","width":"238px","height":"179px"});
+        		$("#uimghead").css({"margin-top":"16px","width":"240px","height":"224px"});
         		if(obj.ids != null && obj.ids != ""){        			
         			var str = obj.value.split("|#$%|");
         			var proIds = obj.ids.split(",");

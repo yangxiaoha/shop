@@ -34,6 +34,12 @@ public class Order {
 	
 	//商品总价
 	private BigDecimal totalPrice;
+	
+	//商品总量
+	private Integer nums;
+	
+	//商品名称合并
+	private String goodsnames;
 
 	//订单详情
 	private List<OrderDetail> orderDetail;
@@ -51,6 +57,22 @@ public class Order {
 	private String cityName;	
 	
 	private String countryName;
+	
+	public String getGoodsnames() {
+		return goodsnames;
+	}
+
+	public void setGoodsnames(String goodsnames) {
+		this.goodsnames = goodsnames;
+	}
+
+	public Integer getNums() {
+		return nums;
+	}
+
+	public void setNums(Integer nums) {
+		this.nums = nums;
+	}
 
 	public String getPostalCode() {
 		return postalCode;

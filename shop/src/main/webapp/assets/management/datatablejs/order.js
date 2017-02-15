@@ -79,7 +79,7 @@ $(document).ready(function(){
                 }
              }
         ],
-        "drawCallback":function(settings){  
+        "drawCallback":function(settings){
         	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
         	$(".update").click(function(){
         		var rowid = $(this).data("rowid");
@@ -90,7 +90,13 @@ $(document).ready(function(){
                 	$.ajax({
                 		url:"updateStateS",
                 		type:"post",
-                		data:{id:obj.id,state:ustate},
+                		data:{id:obj.id,
+                			state:ustate,
+                			logistics:obj.logistics,
+                			logisticsnum:obj.logisticsnum,
+                			totalPrice:obj.totalPrice,
+                			nums:obj.nums,
+                			goodsnames:obj.goodsnames},
                 		dataType:"json",
                 		async:true,
                 		success:function(res){        				

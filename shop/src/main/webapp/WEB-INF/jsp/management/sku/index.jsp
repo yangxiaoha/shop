@@ -26,7 +26,7 @@
 <style type="text/css">
 	#add .pic {
 	    width: 240px;
-	    height: 240px;
+	    height: 224px;
 	    position: relative;
 	    border: 1px solid #d2d2d2;
 	    overflow: hidden;

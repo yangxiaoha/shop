@@ -106,7 +106,7 @@
 				</form>
 			</div>			
 			<div class="modal-footer">			
-				<button class="btn btn-primary" id="seesubmit" type="button">确定</button>
+				<button class="btn btn-primary" data-dismiss="modal" type="button">确定</button>
 				<button class="btn btn-default-outline" data-dismiss="modal"
 					type="button">取消</button>
 			</div>

@@ -11,8 +11,21 @@ function previewImage(file,id)
       // var img = document.getElementById('imghead');//获取图片
       var divChild = div[1].childNodes;
       var img = removeWhiteNode(divChild);
+      var _URL = window.URL || window.webkitURL;
+      img1 = new Image();
+      img1.onload = function () {
+    	  if(this.width!=imglong||this.height!=imgwide){
+    		  alert(imgsize);
+    		  $(imgheads).attr("src",imgmol);
+    		  $("#uimghead").css({"width":imglong1,"height":imgwide1});   		  
+    		  imageFlag = false;
+    	  }else{
+    		  imageFlag = true;
+    	  }
+      };
+      img1.src = _URL.createObjectURL(file.files[0]);
       img[0].onload = function(){
-        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img[0].offsetWidth, img[0].offsetHeight);
+        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img[0].offsetWidth, img[0].offsetHeight);        
         img[0].width  =  rect.width;
         img[0].height =  rect.height;
         img[0].style.marginTop = rect.top+'px';

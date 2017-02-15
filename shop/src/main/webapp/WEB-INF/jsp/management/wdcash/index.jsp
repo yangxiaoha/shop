@@ -94,6 +94,7 @@ type="text/javascript"></script>
 								<th></th>
 								<th></th>
 								<th></th>
+								<th></th>
 							</thead>
 						</table>
 					</div>

@@ -24,15 +24,15 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
-									<p>请选择图片(大小不超过：300*280)</p>
+									<p>请选择图片(大小为：700*500)</p>
 									<input name="url" id="uurl" placeholder="请输入url" />
 									<p class="error" style="display: none;"></p>
 									<div class="pic">
 										<div id="preview" class="preview">
-											<img id="uimghead" class="imghead" width="238" height="240" />
+											<img id="uimghead" class="imghead" width="250" height="180" />
 										</div>
 										<input type="file" name="photourl" class="image_file"
-											id="updatephoto" onchange="previewImage(this,'imghead')">
+											id="updatephoto" onchange="previewImage(this,'uimghead')">									
 									</div>
 								</div>
 							</div>
@@ -49,6 +49,9 @@
 	</div>
 </div>
 <script>
+	imageFlag = true;
+	var imglong1 = 250;
+	var imgwide1 = 180;
 	$(document).ready(function(){
 		$('.datepicker').datepicker();
 		$(".update").click(function(){
@@ -56,14 +59,22 @@
 			$("#uimage").val($(this).data("image"));
 			$("#uurl").val($(this).data("url"));
 			var imghead = $("#basepath").val()+$("#uimage").val();
+			imgmol = imghead;
+			imgheads = "#uimghead";
     		$("#uimghead").attr("src",imghead);
-    		$("#uimghead").css({"margin-top":"16px","width":"238px","height":"179px"});
+    		$("#uimghead").css({"width":"250px","height":"180px"});
+    		var obj = document.getElementById('updatephoto') ; 
+			obj.outerHTML=obj.outerHTML; 
     		$("#updateModal").modal("show");
     	});
 		$("#updatesubmit").click(function(){
-//			$(this).attr("disabled","disabled");
+//			$(this).attr("disabled","disabled");			
      	   	$("#loading").html("<i class=\"icon-spinner icon-spin\"></i>");
-     	   	var fileimage = $("#updatephoto").val();     	   		
+     	   	var fileimage = $("#updatephoto").val();
+     	   	if(!imageFlag){     	   		
+				var obj = document.getElementById('updatephoto') ; 
+				obj.outerHTML=obj.outerHTML; 
+     	   	}
    	   		$.ajaxFileUpload({
    	   			data:{     	   				
    	   				id:$("#uid").val(),

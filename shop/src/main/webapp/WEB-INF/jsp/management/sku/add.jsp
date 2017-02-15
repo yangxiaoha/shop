@@ -77,11 +77,11 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<p>请选择图片(大小不超过：300*280)</p>
+											<p>请选择图片(大小为：300*280)</p>
 											<p class="error" style="display: none;"></p>
 											<div class="pic">
 												<div id="preview" class="preview">
-													<img id="imghead" class="imghead" width="240" height="240"
+													<img id="imghead" class="imghead" width="240" height="224"
 														src="<%=basePath%>/res/bj_img1.jpg" />
 												</div>
 												<input type="file" name="photourl" class="image_file"
@@ -104,6 +104,12 @@
 	</div>
 </div>
 <script>
+	var imgsize = "图片大小为300*280！";
+	var imglong = 300;
+	var imgwide = 280;
+	var imageFlag = true;
+	var imgmol = "<%=basePath%>/res/bj_img1.jpg";
+	var imgheads = "#imghead";
 	var skuValidate;
 	$(document).ready(function(){
 		$("#addsubmit").click(function(){
@@ -115,7 +121,7 @@
 		$('#addModal').on('shown.bs.modal',
 		    function() {
 				skuValidate.resetForm();
-	    });
+	    }); 
 		skuValidate=$("#add").validate({
 	        rules: {
 	        	price:{
@@ -152,11 +158,13 @@
 		        	required:"请输入商品价格",
 		        	number:"请输入一个数字"
 		      	}
-	        },
+	        },		   	
 	        submitHandler: function(form) {   
 	           	$(this).attr("disabled","disabled"); 
 			   	$(".loading").html("<i class=\"icon-spinner icon-spin\"></i>");
 			   	var fileimage = $("#addphoto").val();
+			   	var reader = new FileReader();
+	            
 			   	var svalue = new Array();
 			   	var sproId = new Array();
 			   	$(".avalue").each(function(index,e){
@@ -168,7 +176,10 @@
 			   	if(fileimage.length == 0){
    	    			$(".loading").html("<span class=\"label label-danger\">请上传图片</span>");
    	    		};
-				if (fileimage.length != 0) {
+   	    		if(imageFlag == false){
+   	    			$(".loading").html("<span class=\"label label-danger\">请上传图片</span>");   	    			
+   	    		};
+				if (fileimage.length != 0 && imageFlag) {	   	    		
 					$.ajaxFileUpload({
 						data :{
 							num:$("#anum").val(),
@@ -193,7 +204,7 @@
 		        		    },1000);
 		        			$("#acode").val(""); 
 		        			$("#imghead").attr("src","<%=basePath%>/res/bj_img1.jpg");
-		        			$("#imghead").css({"margin-top":"0px","width":"240px","height":"240px"});
+		        			$("#imghead").css({"margin-top":"0px","width":"240px","height":"224px"});
 		        		    tableI.table().draw(false);
 		        	    },
 	        	    	

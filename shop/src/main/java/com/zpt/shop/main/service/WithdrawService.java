@@ -1,5 +1,6 @@
 package com.zpt.shop.main.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.zpt.shop.common.pojo.Page;
@@ -30,5 +31,5 @@ public interface WithdrawService {
 	
 	public boolean validate(Withdraw withdraw);
 	
-	public void updateState(Withdraw withdraw);
+	public void updateState(Withdraw withdraw,BigDecimal usermoney,String openid);
 }

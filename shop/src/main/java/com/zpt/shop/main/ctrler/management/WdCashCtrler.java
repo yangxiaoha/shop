@@ -1,5 +1,6 @@
 package com.zpt.shop.main.ctrler.management;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,10 +55,10 @@ public class WdCashCtrler {
 	
 	@ResponseBody
 	@RequestMapping(value = "/updateState",method = RequestMethod.POST)
-	public Msg update(Withdraw withdraw){
+	public Msg update(Withdraw withdraw,BigDecimal usermoney,String openid){
 		Msg msg = new Msg();
 		try {
-			withdrawService.updateState(withdraw);
+			withdrawService.updateState(withdraw,usermoney,openid);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.UPDATE_SUCCESS);
 			return msg;

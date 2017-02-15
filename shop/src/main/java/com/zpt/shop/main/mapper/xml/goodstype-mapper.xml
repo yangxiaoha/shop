@@ -71,7 +71,7 @@
 		insert into t_goods_type(name,pid,meno,isParent,state) values(#{name},#{pid},#{meno},#{isParent},1)
 	</insert>
 	<delete id="deleteGoodsType">
-		update t_goods_type set state = 0 where id in (${ids})	
+		update t_goods_type set state = 0 where id in (${ids}) or pid in (${ids})
 	</delete>
 	<update id="updateGoodsType" parameterType="goodstype">
 		update t_goods_type set name = #{name},pid = #{pid},meno = #{meno},isParent=#{isParent} 

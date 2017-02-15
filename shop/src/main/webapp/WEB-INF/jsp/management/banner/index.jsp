@@ -20,15 +20,15 @@
 <body class="gray-bg">
 <style type="text/css">
 	#add .pic {
-	    width: 240px;
-	    height: 240px;
+	    width: 250px;
+	    height: 180px;
 	    position: relative;
 	    border: 1px solid #d2d2d2;
 	    overflow: hidden;
 	}
 	#update .pic {
-	    width: 240px;
-	    height: 240px;
+	    width: 250px;
+	    height: 180px;
 	    position: relative;
 	    border: 1px solid #d2d2d2;
 	    overflow: hidden;
@@ -40,7 +40,7 @@
 	}
 	.image_file {
 	    width: 100%;
-	    height: 240px;
+	    height: 180px;
 	    position: absolute;
 	    top: 0;
 	    left: 0;

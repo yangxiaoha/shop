@@ -51,6 +51,9 @@ public class GoodsTypeCtrler {
 	@RequestMapping(value = "/getTreeData",method = RequestMethod.POST)
 	public List<GoodsType> getTreeData(Integer id){
 		List<GoodsType> list = null;
+		if(id!=null){
+			id = -1;
+		}
 		try {
 			list = goodsTypeService.selectTypeTree(id);
 		} catch (Exception e) {

@@ -29,11 +29,19 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -400,10 +408,12 @@ public class WeixinUtils {
 			TrustManager[] tm = { new X509TrustManager() {
 				@Override
 				public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+				
 				}
 
 				@Override
 				public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+				
 				}
 
 				@Override
@@ -474,6 +484,54 @@ public class WeixinUtils {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public static String httpsRequest(String keyPath,String keypwd,String requestUrl, RequestMethodEnum requestMethod, String outputStr) throws Exception {
+		KeyStore keyStore = KeyStore.getInstance("PKCS12");
+
+		FileInputStream instream = new FileInputStream(new File(keyPath));
+		System.out.println("1.0++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+keypwd);
+		System.out.println("2.0++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+keypwd.toCharArray().length);
+		keyStore.load(instream, keypwd.toCharArray());
+
+		instream.close();
+
+		SSLContext sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, keypwd.toCharArray()).build();
+
+		SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslcontext,new String[] { "TLSv1" },null,
+
+		SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
+
+		CloseableHttpClient httpclient = HttpClients.custom() .setSSLSocketFactory(sslsf) .build();
+
+		HttpPost httpost = new HttpPost(requestUrl); // 璁剧疆鍝嶅簲澶翠俊鎭?
+
+		httpost.addHeader("Connection", "keep-alive");
+
+		httpost.addHeader("Accept", "*/*");
+
+		httpost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+
+		httpost.addHeader("Host", "api.mch.weixin.qq.com");
+
+		httpost.addHeader("X-Requested-With", "XMLHttpRequest");
+
+		httpost.addHeader("Cache-Control", "max-age=0");
+
+		httpost.addHeader("User-Agent", "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0) ");
+
+		httpost.setEntity(new StringEntity(outputStr, "UTF-8"));
+
+		CloseableHttpResponse response = httpclient.execute(httpost);
+
+		HttpEntity entity = response.getEntity();
+
+		String jsonStr = EntityUtils .toString(response.getEntity(), "UTF-8");
+
+		EntityUtils.consume(entity);
+		
+		return jsonStr;
+
 	}
 
 	/**
