@@ -125,26 +125,22 @@ public class MainIndexCtrler {
 		return map;
 	}
 	
-	@RequestMapping(value="/selectGoods", method=RequestMethod.GET)
+	@RequestMapping(value="/selectGoods", method=RequestMethod.POST)
 	public ModelAndView selectGoods(HttpServletRequest request, String flag, String keyword, String typeId) throws UnsupportedEncodingException {
 		ModelAndView mv = new ModelAndView("home/index");
 		User user = (User) request.getSession().getAttribute("user");
 		String userId = user.getId().toString();
 
-		byte[] bytes=keyword.getBytes("ISO-8859-1");
-		 
-		String key = new String(bytes,"utf-8");
-		
 		//根据商品类型查询商品数据		
 		Integer pageStart = 0;
 		Integer num = 20;
-		List<Goods> goodsList = goodsService.getGoodsByCondition(pageStart, num, flag, key, typeId);
+		List<Goods> goodsList = goodsService.getGoodsByCondition(pageStart, num, flag, keyword, typeId);
 		//商品类型数据
 		List<GoodsType> goodsTypeList = goodsTypeService.getGoodsType();
 		//banner
 		List<Banner> bannerList = bannerService.getAllBanner();
 		//符合商品数量的个数
-		Integer total = goodsService.getGoodsTotal(flag, key, typeId);
+		Integer total = goodsService.getGoodsTotal(flag, keyword, typeId);
 		//购物车数量
 		Integer amount = cartService.selectAmount(userId);
 		mv.addObject("state", true);

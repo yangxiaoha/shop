@@ -26,7 +26,7 @@
 	      	<img src="${headImg}">
 	      </c:if>	      
 	      <c:choose>
-		    <c:when test="${userMsg.money > 0}">
+		    <c:when test="${peopleNum > 0}">
 		      <p style="color: #fff; font-size: 1.8rem; line-height: 120px;">	 
 	            <span class="member-icon">
 			      <img src="<%=basePath%>assets/home/images/member.png" /> 
