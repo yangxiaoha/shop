@@ -34,10 +34,10 @@
             <span class="iconfont">&#xe7f7;</span>
           </a>
         </div>
-        <p class="order-detail-total p5 clearfloat">
+        <%-- <p class="order-detail-total p5 clearfloat">
           <span class="fl">商品合计：</span>
           <span class="fr font-price">￥${money}</span>
-        </p>
+        </p> --%>
         <c:forEach items="${cartsMsg}" var="cartsList">     
             <div class="order-detail-goods p5">
               <div class="order-show order-list clearfloat">
@@ -73,7 +73,7 @@
           <input type="hidden" id="state" name="state" value="${state}" />
         </form> 
         <div class="tab-bar order-tab-bar">   
-	      <p class="fl">实付款</p>           
+	      <p class="fl">合计：</p>           
 	      <p class="fr payment">付款</p>
 	      <p class="fr font-price">￥${money}</p>
 	    </div>
@@ -130,7 +130,7 @@
             </form>                     
           </div>
           <div class="tab-bar order-tab-bar">   
-	        <p class="fl">实付款</p>           
+	        <p class="fl">合计:</p>           
 	        <p class="fr payment">付款</p>
 	        <p class="fr font-price">￥${orderList.totalPrice}</p>
 	      </div>
@@ -272,9 +272,9 @@
                     $("#addressDetailInfo").val(res.detailInfo);                 
                     $("#telNumber").val(res.telNumber);
                     $("#username").val(res.userName);                   
-                    $("#oldName").text(res.userName);
+                    $("#oldName").text("收货人："+res.userName);
                     $("#oldPhone").text(res.telNumber);
-                    $("#oldAddress").text(addr); 
+                    $("#oldAddress").text("收货地址："+addr); 
                     $(".check-addr").hide();
 	       	    }
             });          

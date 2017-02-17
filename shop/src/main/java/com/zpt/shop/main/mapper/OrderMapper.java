@@ -45,5 +45,7 @@ public interface OrderMapper {
 
 	public List<Order> getOrderByOrderIdAndSkuId(@Param("orderId")Integer orderId, @Param("skuId")Integer skuId);
 
+	public List<Order> getOrderDetailByState(@Param("userId")Integer userId, @Param("state")String state);
+
 
 }

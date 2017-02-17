@@ -20,7 +20,6 @@ import com.zpt.shop.main.mapper.GoodsMapper;
 import com.zpt.shop.main.mapper.OrderDetailMapper;
 import com.zpt.shop.main.mapper.OrderMapper;
 import com.zpt.shop.main.mapper.SkuMapper;
-import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.OrderService;
 
 @Service
@@ -124,8 +123,7 @@ public class OrderServiceImpl implements OrderService {
 					goodsMapper.updateNum(goodsList.getId(), goodsNum);
 				}
 			}
-		}
-		
+		}		
 		// 删除购物车
 		cartMapper.deleteCartInfo(cartIds);
 	}
@@ -280,6 +278,22 @@ public class OrderServiceImpl implements OrderService {
 	public List<Order> getOrderByOrderIdAndSkuId(Integer orderId, Integer skuId) {
 		// TODO Auto-generated method stub
 		List<Order> list = orderMapper.getOrderByOrderIdAndSkuId(orderId, skuId);
+		if(list != null && list.size()>0){
+			return list;
+		}
+		return null;
+	}
+
+	/**
+	 * 根据订单状态查询订单详情
+	 * @param Integer userId userId
+	 * @param String state 订单状态
+	 * @return List<Order>
+	 * */
+	@Override
+	public List<Order> getOrderDetailByState(Integer userId, String state) {
+		// TODO Auto-generated method stub
+		List<Order> list = orderMapper.getOrderDetailByState(userId, state);
 		if(list != null && list.size()>0){
 			return list;
 		}

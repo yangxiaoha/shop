@@ -75,7 +75,7 @@ public class PurchaseCtrler {
 	private WxMpConfigStorage weixin;
 	
 	//微信支付成功后通知地址 必须要求80端口并且地址不能带参数
-	private static String notifyurl = "http://xz.zptmall.com/shop/goodsWsPay/result";
+	private static String notifyurl = "http://weixin.591yjx.com/shop/goodsWsPay/result";
 	
 	//购物车页面
 	@RequestMapping(value="/cart", method=RequestMethod.GET)
@@ -352,11 +352,6 @@ public class PurchaseCtrler {
 			System.out.println("修改订单信息:-----------"); 
 			orderService.updateOrder(order);
 		}
-		//查询订单详情
-		//List<Order> orderList = orderService.getOrderDetail(user.getId());
-		//mv.addObject("orderMsg", orderList);
-		
-		//return mv;
 	}
 	
 	//订单详细页
@@ -378,6 +373,20 @@ public class PurchaseCtrler {
 		mv.addObject("orderMsg", orderList);
 		mv.addObject("evaluatesMsg", evaluatesList);
 		return mv;
+	}
+	
+	//订单详细状态选择
+	@ResponseBody
+	@RequestMapping(value="/orderState", method=RequestMethod.GET)
+	public Map<String,Object> orderState(HttpServletRequest request, String state) {
+		Map<String,Object> map = new HashMap<String, Object>();			
+		User user = (User) request.getSession().getAttribute("user");
+		List<Order> orderList = orderService.getOrderDetailByState(user.getId(), state);
+		//查询评价
+		List<Evaluate> evaluatesList = evaluateService.getEvaluateByUserId(user.getId());
+		map.put("orderMsg", orderList);
+		map.put("evaluatesMsg", evaluatesList);
+		return map;
 	}
 	
 	//确认收货

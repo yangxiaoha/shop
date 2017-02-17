@@ -102,4 +102,12 @@ public interface OrderService {
 	 * */
 	public List<Order> getOrderByOrderIdAndSkuId(Integer orderId, Integer skuId);
 
+	/**
+	 * 根据订单状态查询订单详情
+	 * @param Integer userId userId
+	 * @param String state 订单状态
+	 * @return List<Order>
+	 * */
+	public List<Order> getOrderDetailByState(Integer userId, String state);
+
 }
