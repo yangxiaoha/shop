@@ -177,7 +177,6 @@
 		   <version>2.4</version>
 	   </dependency>  
 	   <!-- http协议工具包 -->
-	   <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
 		<dependency>
 		    <groupId>org.apache.httpcomponents</groupId>
 		    <artifactId>httpcore</artifactId>
@@ -198,6 +197,7 @@
 		    <artifactId>httpmime</artifactId>
 		    <version>4.5.1</version>
 		</dependency>
+
 		<!-- dom解析 -->
 		<dependency>
 			<groupId>jdom</groupId>

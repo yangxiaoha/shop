@@ -1662,6 +1662,7 @@
                     continue;
                 //debug: html.push('<div style="position:absolute;opacity:0.10;background-color:red;left:' + box.left + 'px;top:' + box.top + 'px;width:' + box.width +  'px;height:' + box.height + 'px"></div>')
                 html.push('<div class="' + axis.direction + 'Axis ' + axis.direction + axis.n + 'Axis" style="color:' + axis.options.color + '">');
+                var leftt = 0;
                 for (var i = 0; i < axis.ticks.length; ++i) {
                     var tick = axis.ticks[i];
                     if (!tick.label || tick.v < axis.min || tick.v > axis.max)
@@ -1670,8 +1671,12 @@
                     var pos = {}, align;
 
                     if (axis.direction == "x") {
-                        align = "center";
+                        align = "center";                        
                         pos.left = Math.round(plotOffset.left + axis.p2c(tick.v) - axis.labelWidth/2);
+                        if(i == 0){
+                        	leftt =pos.left - (pos.left/5);
+                        }
+                        pos.left = pos.left-leftt;
                         if (axis.position == "bottom")
                             pos.top = box.top + box.padding;
                         else

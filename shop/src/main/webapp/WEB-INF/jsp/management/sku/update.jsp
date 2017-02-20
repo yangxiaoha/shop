@@ -68,12 +68,12 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<p>请选择图片(大小不超过：300*280)</p>
+											<p>请选择图片(大小为：400*370)</p>
 											<p class="error" style="display: none;"></p>
 											<div class="pic">
 												<div id="preview" class="preview">
 												<input type="hidden" name="url" id="uurl">
-													<img id="uimghead" class="imghead" width="240" height="240">
+													<img id="uimghead" class="imghead" width="240" height="222">
 												</div>
 												<input type="file" name="photourl" class="image_file"
 													id="updatephoto" onchange="previewImage(this,'uimghead')">
@@ -96,6 +96,9 @@
 </div>
 <script>
 	var uskuValidate;
+	var imageFlag = true;
+	var imglong1 = 240;
+	var imgwide1 = 222;
 	$(function () {		
 		if ($.validator) {		
 		    //fix: when several input elements shares the same name, but has different id-ies....		
@@ -130,7 +133,7 @@
 		});
 		$('#updateModal').on('shown.bs.modal',
 		    function() {
-				uskuValidate.resetForm();
+				uskuValidate.resetForm();				
 	    });	
 		uskuValidate=$("#update").validate({
 	        rules: {
@@ -168,6 +171,10 @@
 		           $(this).attr("disabled","disabled"); 
 				   $(".loading").html("<i class=\"icon-spinner icon-spin\"></i>");
 				   var fileimage = $("#updatephoto").val();
+				   if(!imageFlag){     	   		
+						var obj = document.getElementById('updatephoto') ; 
+						obj.outerHTML=obj.outerHTML; 
+		     	   	}
 				   var usvalue = new Array();
 				   var usproId = new Array();
 				   $(".uvalue").each(function(index,e){
@@ -209,7 +216,7 @@
 		         			    $("#updatesubmit").removeAttr("disabled"); 
 		         		    },1000);
 		        	    }
-					});
+					});	   	    		
 				}
 	      });
 	});

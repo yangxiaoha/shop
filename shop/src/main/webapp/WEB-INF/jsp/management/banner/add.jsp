@@ -26,12 +26,12 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
-									<p>请选择图片(大小不超过：300*280)</p>
+									<p>请选择图片(大小为：800*600)</p>
 									<input name="url" id="aurl" placeholder="请输入url" />
 									<p class="error" style="display: none;"></p>
 									<div class="pic">
 										<div id="preview" class="preview">
-											<img id="imghead" class="imghead" width="240" height="240"
+											<img id="imghead" class="imghead" width="240" height="180"
 												src="<%=basePath%>/res/banner.jpg" />
 										</div>
 										<input type="file" name="photourl" class="image_file"
@@ -52,6 +52,12 @@
 	</div>
 </div>
 <script>
+	var imgsize = "图片大小为800*600！";
+	var imglong = 800;
+	var imgwide = 600;
+	var imageFlag = true;
+	var imgmol = "<%=basePath%>/res/banner.jpg";
+	var imgheads = "#imghead";
 	$(document).ready(function(){
 		$('.datepicker').datepicker();
 		$("#addsubmit").click(function(){
@@ -61,7 +67,10 @@
 				if(fileimage.length == 0){
 		    		$(".loading").html("<span class=\"label label-danger\">请上传图片</span>");
 		    	};
-				if (fileimage.length != 0) {
+		    	if(imageFlag == false){
+   	    			$(".loading").html("<span class=\"label label-danger\">请上传图片</span>");   	    			
+   	    		};
+				if (fileimage.length != 0 && imageFlag) {
 					$.ajaxFileUpload({
 						data :{
 							url:$("#aurl").val(),

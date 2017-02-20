@@ -74,14 +74,19 @@
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
 		select torder.id as id,torder.userId as userId,torder.ordertime as ordertime,
 		torder.logisticsnum as logisticsnum,torder.logistics as logistics,torder.state as state,
-		torder.name as name,torder.phone as phone,goods.name as goodsName,torder.totalPrice as totalPrice,
-		torder.memo as memo,torder.ordernum as ordernum,
+		torder.name as name,torder.phone as phone,goods.name as goodsnames,torder.totalPrice as totalPrice,
+		torder.memo as memo,torder.ordernum as ordernum,t.num as nums,t.goodsname as goodsname,
 		concat(torder.provinceName,torder.cityName,torder.countryName,torder.address) as address
 		from t_order as torder 
 		left join t_user as tuser on torder.userId = tuser.id 
 		left join t_order_detail as orderdetail on torder.id = orderdetail.orderId 
 		left join t_goods_sku as sku on sku.id = orderdetail.skuId 
-		left join t_goods as goods on sku.goodsid = goods.id				
+		left join t_goods as goods on sku.goodsid = goods.id
+		left join (SELECT detail.orderid as id,sum(detail.num) as num,group_concat(t_goods.name SEPARATOR ';') 
+		as goodsname from t_order_detail as detail
+		left join t_goods_sku on detail.skuid = t_goods_sku.id
+		left join t_goods on t_goods_sku.goodsid = t_goods.id
+		group by detail.orderid) as t on t.id = torder.id	
 		<include refid="queryCondition"/>
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>

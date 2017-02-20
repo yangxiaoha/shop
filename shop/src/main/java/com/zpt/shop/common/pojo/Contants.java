@@ -58,5 +58,5 @@ public final class Contants {
 	 *
 	 *
 	 */
-	public static final String WX_ORDER_SEND = "uSrGyKm54TwGl2JKKmPOM7vew3cZLCwJ7PO_glL2qj8";
+	public static final String WX_ORDER_SEND = "yXyRVvwrDSXnZGkMxZM4Z4AFzSg7C3nsB3mOhfBz0G4";
 }

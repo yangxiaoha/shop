@@ -54,7 +54,7 @@
                     	<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
 							<thead>
 								<th></th>
-								<th class="check-header hidden-xs">
+								<th class="check-header hidden-xs"  width="7%">
 									<label style="margin-right:0px" class="checkbox-inline i-checks"><input id="checkAll" name="checkAll" type="checkbox"></label>
 								</th>
 								<th width="20%">关键词</th>

@@ -2,14 +2,12 @@ package com.zpt.shop.main.ctrler.management;
 
 import java.util.List;
 
-import org.aspectj.apache.bcel.classfile.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.opensymphony.module.sitemesh.mapper.OSDecoratorMapper;
 import com.zpt.shop.common.pojo.Contants;
 import com.zpt.shop.common.pojo.Msg;
 import com.zpt.shop.common.pojo.Page;
@@ -101,15 +99,16 @@ public class OrderCtrler {
 				message.setTopcolor("#FF0000");
 				message.setTemplate_id(Contants.WX_ORDER_SEND);
 				//跳转到订单详情
-				message.setUrl("");
+				message.setUrl("http://weixin.591yjx.com/shop/home/purchase/orderDetail");
 	
-				message.getData().put("first", new WxMpTemplateData("您好，收到新的物流消息"));
-				message.getData().put("OrderSn",
-						new WxMpTemplateData(order.getId()+""));
+				message.getData().put("first", new WxMpTemplateData("喜事正在赶来\n您好，你的一见喜已经发出，请及时查收！"));
+				message.getData().put("keyword1", new WxMpTemplateData(order.getLogistics()+""));
 			
-				message.getData().put("OrderStatus", new WxMpTemplateData("已发货"));
+				message.getData().put("keyword2", new WxMpTemplateData(order.getLogisticsnum()+""));
+				message.getData().put("keyword3", new WxMpTemplateData(order.getGoodsnames()+"等"));
+				message.getData().put("keyword4", new WxMpTemplateData(order.getNums()+"件\n"));
 		
-				message.getData().put("remark", new WxMpTemplateData("\n做一床有阳光味道的新疆棉被，一见欢喜 \n点击查看详情"));
+				message.getData().put("remark", new WxMpTemplateData("人生一见喜，一床有阳光味道的新疆棉花被，喜事开启！","#FF0000"));
 				String re = wxService.templateSend(message);
 				System.err.println("result---" + re);
 			}

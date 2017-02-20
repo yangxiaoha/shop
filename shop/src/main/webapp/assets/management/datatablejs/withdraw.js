@@ -18,6 +18,7 @@ $(document).ready(function(){
                     { "data": "starttime","orderable":false,"visible":false },
                     { "data": "endtime","orderable":false,"visible":false },              
                     { "data": "userId","orderable":false,"visible":false },              
+                    { "data": "user.openid","orderable":false,"visible":false },              
                 ],
         "aoColumnDefs": [
            {
@@ -93,7 +94,9 @@ $(document).ready(function(){
 		    	    		type:"post",
 		    	    		data:{id:obj.id,
 		    	    			  userId:obj.userId,
-		    	    			  money:obj.money,
+		    	    			  cashMoney:obj.cashMoney,
+		    	    			  usermoney:obj.user.money,
+		    	    			  openid:obj.user.openid,
 		    	    			  state:3},
 		    	    		dataType:"json",
 		    	    		async:true,

@@ -15,6 +15,7 @@ import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.common.pojo.RandomArray;
 import com.zpt.shop.common.weixin.WxMpConfigStorage;
+import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.entities.Withdraw;
 import com.zpt.shop.main.mapper.DistributionMapper;
 import com.zpt.shop.main.mapper.UserMapper;
@@ -137,29 +138,41 @@ public class WithdrawServiceImpl implements WithdrawService {
 	}
 
 	@Override
-	public void updateState(Withdraw withdraw) {
-
+	public void updateState(Withdraw withdraw,BigDecimal usermoney,String openid) {
 		// TODO Auto-generated method stub		
 		Map<String, String> restmap = null;
 		try {
 			String partner_trade_no = "pay"+System.currentTimeMillis();
 			Map<String, String> parm = new HashMap<String, String>();
+			
 			parm.put("mch_appid", wxMpConfigStorage.getAppId()); //公众账号appid
 			parm.put("mchid", wxMpConfigStorage.getPartnerId()); //商户号
 			parm.put("nonce_str", System.currentTimeMillis()+""); //随机字符串
 			parm.put("partner_trade_no", partner_trade_no); //商户订单号
-			parm.put("openid", withdraw.getUser().getOpenid()); //用户openid	
+			parm.put("openid", openid); //用户openid	
 			parm.put("check_name", "NO_CHECK"); //校验用户姓名选项 OPTION_CHECK
 			//parm.put("re_user_name", "安迪"); //check_name设置为FORCE_CHECK或OPTION_CHECK，则必填
-			parm.put("amount", withdraw.getCashMoney()); //转账金额
+			BigDecimal cashmoney = new BigDecimal(withdraw.getCashMoney());
+			cashmoney = cashmoney.multiply(new BigDecimal(100));
+			String a = cashmoney.toString();
+			parm.put("amount", a); //转账金额
 			parm.put("desc", "测试转账到个人"); //企业付款描述信息
 			parm.put("spbill_create_ip", wxMpConfigStorage.getIp()); //Ip地址
 			parm.put("sign", wxMpService.getSign(parm, wxMpConfigStorage.getAppId()));
-			String restxml = WeixinUtils.httpRequest(wxMpConfigStorage.getSslPath(), wxMpConfigStorage.getPartnerId(), "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers",RequestMethodEnum.POST, XmlUtil.xmlFormat(parm, false));
+			String restxml = WeixinUtils.httpsRequest(wxMpConfigStorage.getSslPath(), wxMpConfigStorage.getPartnerId(), "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers",RequestMethodEnum.POST, XmlUtil.xmlFormat(parm, false));
 			restmap = XmlUtil.xmlParse(restxml);
+			System.out.println("1.0=================================================================="+parm);
+			System.out.println("2.0=================================================================="+XmlUtil.xmlFormat(parm, false));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("3.0=================================================================="+CollectionUtil.isNotEmpty(restmap));
+		System.out.println("4.0=================================================================="+restmap.get("result_code"));
+		System.out.println("5.0=================================================================="+restmap.get("result_code"));
+		System.out.println("6.0=================================================================="+restmap.get("result_msg"));
+		System.out.println("7.0=================================================================="+restmap.get("return_code"));
+		System.out.println("8.0=================================================================="+restmap.get("return_msg"));
+		System.out.println("9.0=================================================================="+restmap.get("err_code"));
 		if (CollectionUtil.isNotEmpty(restmap) && "SUCCESS".equals(restmap.get("result_code"))) {
 			//LOG.info("转账成功：" + restmap.get("err_code") + ":" + restmap.get("err_code_des"));
 			Map<String, String> transferMap = new HashMap<>();
@@ -167,7 +180,7 @@ public class WithdrawServiceImpl implements WithdrawService {
 			transferMap.put("payment_no", restmap.get("payment_no")); //微信订单号
 			transferMap.put("payment_time", restmap.get("payment_time")); //微信支付成功时间			
 			BigDecimal cashMoney = new BigDecimal(withdraw.getCashMoney());
-			BigDecimal money = withdraw.getUser().getMoney().subtract(cashMoney);
+			BigDecimal money = usermoney.subtract(cashMoney);
 			userMapper.updateStateMoney(withdraw.getUserId(), money);
 			withdrawMapper.updateState(withdraw);
 		}else {

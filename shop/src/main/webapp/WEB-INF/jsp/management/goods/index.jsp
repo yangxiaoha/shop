@@ -13,72 +13,93 @@
 	<script type="text/javascript">	
  		var pageinitGoods = $("#pageinitGoods").val();	
 </script>
+<style type="text/css">
+.cztree li {
+    padding: 3px;
+}
+.cztree * {
+    font-size: 13.5px;
+}
+</style>
 </head>
 
 <body class="gray-bg">	
     <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">        	
-        	<div class="col-sm-3" style="padding-right:0px">
-        		<div class="ibox-contentTable">	
-        			<h5>商品类型：</h5>
-					<ul id="tree" class="ztree"></ul>
-                </div>
-        	</div>
-        	<input id = "pageinitGoods" value = "${pageinitGoodsM }" type = "hidden"></input>
-            <div class="col-sm-9" style="">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>商品管理</h5>
-                        <div class="ibox-tools">
-                            <a id="add-row" title="添加">
-                                <i class="fa fa-plus"></i>
-                            </a>                           
-                            <a id="delete-row">
-                                <i class="fa fa-trash" title="删除"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="row">
-                            <form role="form">
-	                           <div class="col-sm-6">
-                                   <div class="form-group">
-                                       <label>商品名称:</label>
-                                       <input type="text" placeholder="搜索商品名称" id="name" class="form-control">
-                                   </div>
-	                           </div>
-	                           <div class="col-sm-6">
-                           			<div class="form-group">
-                                       <label>商品编码:</label>
-                                       <input type="text" placeholder="搜索商品编码" id="code" class="form-control">
-                                   </div>
-	                           </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="ibox-contentTable">
-                    	<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
-							<thead>
-								<th></th>
-								<th class="check-header hidden-xs">
-									<label style="margin-right:0px" class="checkbox-inline i-checks">
-										<input id="checkAll" name="checkAll" type="checkbox">
-									</label>
-								</th>
-								<th width="15%">商品名称</th>
-								<th width="15%">商品供应商</th>
-								<th>商品总量</th>
-								<th>商品编码</th>
-								<th width="15%">商品品牌</th>
-								<th width="15%">所属门店</th>
-								<th>操作</th>
-								<th></th>
-								<th></th>	
-							</thead>
-							<tbody>
-							</tbody>
+        <div class="row"> 
+        	<div class="col-sm-12" >
+                <div class="ibox float-e-margins">       	
+		        	<div class="col-sm-3">
+		        		<table border=0 height=600px align=left>
+							<tr>
+								<td width=260px align=left valign=top
+									style="BORDER-RIGHT: #999999 1px dashed;position: relative; ">
+									<div style="position: absolute;right:10px;top:8px">
+									 	<button class="btn btn-xs btn-info-outline" id = "blank">重置</button>
+									</div>
+									<h5>商品类型：</h5>
+									<ul id="tree" class="ztree cztree"
+										style="width: 260px; overflow: auto;"></ul>
+								</td>
+							</tr>
 						</table>
-                    </div>
+		        	</div>
+		        	<input id = "pageinitGoods" value = "${pageinitGoodsM }" type = "hidden"></input>
+		            <div class="col-sm-9">
+		                <div class="ibox float-e-margins">
+		                    <div class="ibox-title">
+		                        <h5>商品管理</h5>
+		                        <div class="ibox-tools">
+		                            <a id="add-row" title="添加">
+		                                <i class="fa fa-plus"></i>
+		                            </a>                           
+		                            <a id="delete-row">
+		                                <i class="fa fa-trash" title="删除"></i>
+		                            </a>
+		                        </div>
+		                    </div>
+		                    <div class="ibox-content">
+		                        <div class="row">
+		                            <form role="form">
+			                           <div class="col-sm-6">
+		                                   <div class="form-group">
+		                                       <label>商品名称:</label>
+		                                       <input type="text" placeholder="搜索商品名称" id="name" class="form-control">
+		                                   </div>
+			                           </div>
+			                           <div class="col-sm-6">
+		                           			<div class="form-group">
+		                                       <label>商品编码:</label>
+		                                       <input type="text" placeholder="搜索商品编码" id="code" class="form-control">
+		                                   </div>
+			                           </div>
+		                            </form>
+		                        </div>
+		                    </div>
+		                    <div class="ibox-contentTable">
+		                    	<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
+									<thead>
+										<th></th>
+										<th class="check-header hidden-xs">
+											<label style="margin-right:0px" class="checkbox-inline i-checks">
+												<input id="checkAll" name="checkAll" type="checkbox">
+											</label>
+										</th>
+										<th width="15%">商品名称</th>
+										<th width="15%">商品供应商</th>
+										<th>商品总量</th>
+										<th>商品编码</th>
+										<th width="15%">商品品牌</th>
+										<th width="15%">所属门店</th>
+										<th>操作</th>
+										<th></th>
+										<th></th>	
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+		                    </div>
+		                </div>
+	                </div>
                 </div>
             </div>
         </div>
