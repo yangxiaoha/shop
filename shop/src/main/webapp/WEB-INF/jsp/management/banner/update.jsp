@@ -24,12 +24,12 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
-									<p>请选择图片(大小为：700*500)</p>
+									<p>请选择图片(大小为：800*600)</p>
 									<input name="url" id="uurl" placeholder="请输入url" />
 									<p class="error" style="display: none;"></p>
 									<div class="pic">
 										<div id="preview" class="preview">
-											<img id="uimghead" class="imghead" width="250" height="180" />
+											<img id="uimghead" class="imghead" width="240" height="180" />
 										</div>
 										<input type="file" name="photourl" class="image_file"
 											id="updatephoto" onchange="previewImage(this,'uimghead')">									
@@ -50,7 +50,7 @@
 </div>
 <script>
 	imageFlag = true;
-	var imglong1 = 250;
+	var imglong1 = 240;
 	var imgwide1 = 180;
 	$(document).ready(function(){
 		$('.datepicker').datepicker();
@@ -62,7 +62,7 @@
 			imgmol = imghead;
 			imgheads = "#uimghead";
     		$("#uimghead").attr("src",imghead);
-    		$("#uimghead").css({"width":"250px","height":"180px"});
+    		$("#uimghead").css({"width":"240px","height":"180px"});
     		var obj = document.getElementById('updatephoto') ; 
 			obj.outerHTML=obj.outerHTML; 
     		$("#updateModal").modal("show");

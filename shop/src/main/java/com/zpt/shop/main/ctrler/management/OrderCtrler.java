@@ -105,7 +105,7 @@ public class OrderCtrler {
 				message.getData().put("keyword1", new WxMpTemplateData(order.getLogistics()+""));
 			
 				message.getData().put("keyword2", new WxMpTemplateData(order.getLogisticsnum()+""));
-				message.getData().put("keyword3", new WxMpTemplateData(order.getGoodsnames()+""));
+				message.getData().put("keyword3", new WxMpTemplateData(order.getGoodsnames()+"等"));
 				message.getData().put("keyword4", new WxMpTemplateData(order.getNums()+"件\n"));
 		
 				message.getData().put("remark", new WxMpTemplateData("人生一见喜，一床有阳光味道的新疆棉花被，喜事开启！","#FF0000"));

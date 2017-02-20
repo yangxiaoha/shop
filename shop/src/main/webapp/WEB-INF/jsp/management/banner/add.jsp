@@ -26,12 +26,12 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
-									<p>请选择图片(大小为：700*500)</p>
+									<p>请选择图片(大小为：800*600)</p>
 									<input name="url" id="aurl" placeholder="请输入url" />
 									<p class="error" style="display: none;"></p>
 									<div class="pic">
 										<div id="preview" class="preview">
-											<img id="imghead" class="imghead" width="250" height="180"
+											<img id="imghead" class="imghead" width="240" height="180"
 												src="<%=basePath%>/res/banner.jpg" />
 										</div>
 										<input type="file" name="photourl" class="image_file"
@@ -52,9 +52,9 @@
 	</div>
 </div>
 <script>
-	var imgsize = "图片大小为700*500！";
-	var imglong = 700;
-	var imgwide = 500;
+	var imgsize = "图片大小为800*600！";
+	var imglong = 800;
+	var imgwide = 600;
 	var imageFlag = true;
 	var imgmol = "<%=basePath%>/res/banner.jpg";
 	var imgheads = "#imghead";
