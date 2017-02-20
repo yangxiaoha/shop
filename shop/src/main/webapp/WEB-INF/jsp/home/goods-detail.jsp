@@ -76,12 +76,6 @@
 	    
 		<ul class="tab-bar index-tab-bar">
 			<li>
-				<a href="../index">
-					<span class="tab-bar-bg customer-service"></span>
-					<span>在线客服</span>
-				</a>
-			</li>
-			<li>
 				<a href="<%=basePath%>home/mainindex/index">
 					<span class="tab-bar-bg home-page"></span>
 					<span>首页</span>
@@ -94,6 +88,12 @@
 			<li class="shopping buy-state">
 				<span class="tab-bar-bg order"></span>
 				<span>立即购买</span>
+			</li>
+			<li>
+				<a href="../index">
+					<span class="tab-bar-bg customer-service"></span>
+					<span>在线客服</span>
+				</a>
 			</li>
 		</ul>
 	

@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<%@ taglib prefix="decorator"
-	uri="http://www.opensymphony.com/sitemesh/decorator"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -16,6 +16,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>一见喜</title>
 <style>
+	.active {
+		border-bottom: 3px solid #C8161D;
+	}
 	.shopping-car-edit button,
 	.shopping-car-edit a {
 		padding: 0 8px;
@@ -40,7 +43,7 @@
 	
 		<c:if test="${!empty orderMsg}">
 		  <ul class="detail-menu">
-			<li class="menu-title">全部<input type="hidden" value="0"></li>
+			<li class="menu-title active">全部<input type="hidden" value="0"></li>
 			<li class="menu-title">待付款<input type="hidden" value="1"></li>
 			<li class="menu-title">待发货<input type="hidden" value="2"></li>
 			<li class="menu-title">待收货<input type="hidden" value="3"></li>
@@ -101,7 +104,8 @@
 		  		  	<a href="receipt/${orderList.id}" class="btn fr">确认收货</a>
 		  		  </c:if>	  
 		      	  <p class="fr">合计：<span class="font-price">￥${orderList.totalPrice}</span></p>
-		      	  <p class="fr mr10">共<span class="pur-total"></span>件商品</p>
+		      	  <c:set var="string" value="${orderList.orderDetail}"/>
+		      	  <p class="fr mr10">共<span class="pur-total">${fn:length(string)}</span>件商品</p>
 		      	</div>
 		      </div>
 			</c:forEach>
@@ -150,14 +154,12 @@
 				$("#orderId").val(id);	
 				$("#orderNum").val(ordernum);
 				$("#paymentForm").submit();
-			});
-			$(".order-state-detail").each(function(){
-			    var num = $(this).find(".order-detail-show").length;
-				$(this).find(".pur-total").text(num); 
-			});			
+			});	
 
 			//订单状态的选择
 			$(".menu-title").click(function() {
+				$(this).siblings().removeClass("active");
+				$(this).addClass("active");
 				var state = $(this).find("input[type=hidden]").val();
 				if(state != "0") {
 					$.ajax({
@@ -168,14 +170,16 @@
 				   	    },
 				   	    dataType: "json",
 				   	    success: function(data) {
+				   	    	var state = true;
+				   	    	var total = 0;
 				   	    	var orderState = "";
 				   	    	var goodsVal = "";
 				   	    	var pay = "";
 				   	    	var evaluates = "";
-				   	    	var val = "";
-				   	    	var state = true;
+				   	    	var val = "";		   	    				   	    	
 			   	    		$(".order-detail").html("");
-			   	    		$.each(data.orderMsg, function(i, orderList) {	   	    			
+			   	    		$.each(data.orderMsg, function(i1, orderList) {
+			   	    			goodsVal = "";
 			   	    			orderState = '<div class="order-state-detail">'+
 					   	 			'<div class="order-state clearfloat">'+
 					   	 			'<p class="fl">下单时间：'+orderList.ordertime+'</p>'+
@@ -185,10 +189,11 @@
 					   	 			(orderList.state == 3?'<p class="fr fc-c8161d">商品出库</p>':'')+
 					   	 			(orderList.state == 4?'<p class="fr fc-c8161d">完成</p>':'')+
 					   	 			'</div>';
-			   					$.each(orderList.orderDetail, function(i, orderDetailList) { 			   		              
+			   					$.each(orderList.orderDetail, function(i2, orderDetailList) { 
+			   						total = i2+1;
 			   						if(orderList.state == 4) {
 			   							if(data.evaluatesMsg != null) {	
-			   								goodsVal = '<div class="order-detail-show order-list clearfloat">'+
+			   								goodsVal += '<div class="order-detail-show order-list clearfloat">'+
 			   								'<img src="<%=basePath%>'+orderDetailList.url+'">'+
 			   								'<ul class="shopping-car-detail p5">'+
 			   								'<li class="fc-595757 mb5">'+orderDetailList.name+'</li>'+
@@ -196,7 +201,7 @@
 			   								'<div class="shopping-car-edit">'+
 			   								'<p class="pv5 font-price">￥<span class="unit-price">'+orderDetailList.price+
 			   								'</span>x<span class="pur-num">'+orderDetailList.num+'</span></p>'
-			   								$.each(data.evaluatesMsg, function(i, evaluatesList) { 	
+			   								$.each(data.evaluatesMsg, function(i3, evaluatesList) { 	
 			   									if(evaluatesList.orderId == orderList.id && evaluatesList.skuId == orderDetailList.skuId) {
 			   										state = false;
 			   										goodsVal += '<a href="javascript:void(0);" class="btn fr">已评价</a>';
@@ -208,7 +213,7 @@
 			   							}
 			   							goodsVal += '</div></div>';
 			   						}else {
-			   							goodsVal = '<div class="order-detail-show order-list clearfloat">'+
+			   							goodsVal += '<div class="order-detail-show order-list clearfloat">'+
 				   						'<img src="<%=basePath%>'+orderDetailList.url+'">'+
 				   						'<ul class="shopping-car-detail p5">'+
 				   						'<li class="fc-595757 mb5">'+orderDetailList.name+'</li>'+
@@ -226,14 +231,14 @@
 	   							'<input type="hidden" value="'+orderList.ordernum+'" class="dOrderNum">':'')+
 	   							(orderList.state == 3?'<a href="receipt/'+orderList.id+'" class="btn fr">确认收货</a>':'')+
 	   							'<p class="fr">合计：<span class="font-price">￥'+orderList.totalPrice+'</span></p>'+
-	   							'<p class="fr mr10">共<span class="pur-total"></span>件商品</p>'+
+	   							'<p class="fr mr10">共<span class="pur-total">'+total+'</span>件商品</p>'+
 	   							'</div>'+
-	   							'</div>'
+	   							'</div>';
+				   	    		val = orderState + goodsVal + pay;
+				   	    		$(val).appendTo(".order-detail");
 			   		  		});
-			   	    		val = orderState + goodsVal + pay;
-			   	    		$(val).appendTo(".order-detail");
 				   	    }
-			        })
+			        });
 				}else {
 					location.reload();
 				}

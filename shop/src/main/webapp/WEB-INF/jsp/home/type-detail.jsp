@@ -103,8 +103,8 @@
 	    		}
 	    	});
 
-	    	var num = 3;
-	        var pageStart = 3;
+	    	var num = 10;
+	        var pageStart = 10;
 	        
     		var typeId = $("#typeId").val();
 			//商品搜索
@@ -126,7 +126,7 @@
 					refresher.loadflag = true;
 					$("#pullDown").css("display", "block");
    	    			$("#pullUp").css("display", "block");
-   	 	            pageStart = 3;
+   	 	            pageStart = 10;
 					showGoodsByType(typeId);
 				}				
 			});
@@ -145,7 +145,7 @@
 					$("#block").remove();
 					$("#pullDown").css("display", "block");
    	    			$("#pullUp").css("display", "block");
-   	    			pageStart = 3;
+   	    			pageStart = 10;
 					showGoodsByType(typeId);
 				}				
 			});
@@ -155,7 +155,7 @@
 			   		type: "Post",
 			   	    data: {
 			   	    	pageStart:0,
-			   	    	num:3,
+			   	    	num:10,
 			   	    	flag:"",
 			   	    	keyword:"",
 			   	    	typeId:typeId

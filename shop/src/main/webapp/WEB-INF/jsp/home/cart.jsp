@@ -144,7 +144,7 @@
                               	<input class="goodsSkuNum" type="hidden" value="${cartsList.skuNum}">
                               	<input class="goodsPrice" type="hidden" value="${cartsList.price}">
 					          	<ul class="fl" style="width: 60px; height: 100%; margin-right: 10px;">
-					          		<li>修改</li>
+					          		<li>数量</li>
 					          		<li class="edit-num mt18" style="overflow: hidden;">
 					          			<span class="reduceNum">-</span>
 					        			<span class="purchaseNum">${cartsList.num}</span>
@@ -252,7 +252,7 @@
 									'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
 									'<input class="goodsPrice" type="hidden" value="'+cartsList.price+'">'+
 									'<ul class="fl" style="width: 60px; height: 100%; margin-right: 10px;">'+
-									'<li>修改</li>'+
+									'<li>数量</li>'+
 									'<li class="edit-num mt18" style="overflow: hidden;">'+
 									'<span class="reduceNum">-</span>'+
 									'<span class="purchaseNum">'+cartsList.num+'</span>'+
@@ -307,7 +307,7 @@
 								'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
 								'<input class="goodsPrice" type="hidden" value="'+cartsList.price+'">'+
 								'<ul class="fl" style="width: 60px; height: 100%; margin-right: 10px;">'+
-								'<li>修改</li>'+
+								'<li>数量</li>'+
 								'<li class="edit-num mt18" style="overflow: hidden;">'+
 								'<span class="reduceNum">-</span>'+
 								'<span class="purchaseNum">'+cartsList.num+'</span>'+

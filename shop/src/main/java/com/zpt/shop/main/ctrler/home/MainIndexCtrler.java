@@ -173,7 +173,7 @@ public class MainIndexCtrler {
 	public ModelAndView goodsType(@PathVariable("typeId") Integer typeId) {
 		ModelAndView mv = new ModelAndView("home/type-detail");	
 		Integer pageStart = 0;
-		Integer num = 3;
+		Integer num = 10;
 		String flag = "";
 		String keyword = "";
 		List<Goods> goodsList = goodsService.getGoodsByTypeId(pageStart, num, Integer.toString(typeId));

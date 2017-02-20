@@ -6,7 +6,7 @@ body, ul, p, h1, h2, h3, h4, h5, h6 {
 	list-style: none;
 }
 body {
-	font-size: 1.2rem;
+	font-size: 1.4rem;
 	background-color: #fff;
 	font-family:"Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu;
 }
@@ -108,6 +108,9 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .fs-12 {
 	font-size: 1.2rem !important;
+}
+.fs-14 {
+	font-size: 1.4rem !important;
 }
 .font-price {
 	color: #c8161d;
@@ -450,7 +453,7 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .shopping-car-show .shopping-car-detail li:nth-child(2) {
 	color: #9fa0a0;
-	font-size: 1rem; 
+	font-size: 1.2rem; 
 }
 .shopping-car-show .shopping-car-detail li:nth-child(3) {
 	height: 30px;
@@ -608,6 +611,8 @@ a, a:link, a:visited, a:hover, a:active {
 .order-tab-bar .payment {
 	width: 60px;
 	margin-left: 5px;
+	color: #fff;
+	background: #c8161d;
 	border-left: 1px solid #968f8e;
 }
 /************************order结束************************/
@@ -627,10 +632,6 @@ a, a:link, a:visited, a:hover, a:active {
     height: 40px;
     line-height: 40px;
     text-align: center;
-    border-right: 1px solid #C7C3C5;
-}
-.detail-menu .menu-title:last-child {
-    border-right: none;
 }
 .red-block {
 	position: absolute;

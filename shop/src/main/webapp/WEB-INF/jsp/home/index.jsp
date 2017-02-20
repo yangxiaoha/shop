@@ -120,13 +120,7 @@
 	    </div>
 
 		<!-- 导航 -->
-		<ul class="tab-bar index-tab-bar">
-			<li>
-				<a href="index">
-					<span class="tab-bar-bg customer-service"></span>
-					<span>在线客服</span>
-				</a>
-			</li>
+		<ul class="tab-bar index-tab-bar">			
 			<li>
 				<a href="<%=basePath%>home/mainindex/index">
 					<span class="tab-bar-bg home-page"></span>
@@ -143,6 +137,12 @@
 				<a href="../member/memberCenter">
 					<span class="tab-bar-bg member-center"></span>
 					<span>会员中心</span>
+				</a>
+			</li>
+			<li>
+				<a href="index">
+					<span class="tab-bar-bg customer-service"></span>
+					<span>在线客服</span>
 				</a>
 			</li>
 		</ul>
