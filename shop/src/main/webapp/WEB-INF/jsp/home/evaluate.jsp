@@ -60,7 +60,7 @@
 		</c:if>	 
 		
 	    <form id="evaluateForm" action="evaluate" method="post">
-	      <label>亲宝贝满足你的期待吗？说说您的评价吧!</label>
+	      <label>亲,宝贝满足你的期待吗？说说您的评价吧!</label>
 	      <textarea name="evaluate" id="evaluate"></textarea>
 	    </form> 
 	    

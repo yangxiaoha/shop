@@ -88,7 +88,7 @@
 		              		</c:if>		              		 			
 		  		  		</c:forEach>
 		  		  		<c:if test="${state}">
-	              			<a href="evaluate/${orderList.id}/${orderDetailList.skuId}" class="btn fr">评价</a>
+	              			<a href="<%=basePath%>home/purchase/evaluate/${orderList.id}/${orderDetailList.skuId}" class="btn fr">评价</a>
 	              		</c:if> 
 		  		  	  </c:if>
 		            </div>
@@ -101,7 +101,7 @@
 		  		  	<input type="hidden" value="${orderList.ordernum}" class="dOrderNum">
 		  		  </c:if> 
 		  		  <c:if test="${orderList.state == 3}">
-		  		  	<a href="receipt/${orderList.id}" class="btn fr">确认收货</a>
+		  		  	<a href="<%=basePath%>home/purchase/receipt/${orderList.id}" class="btn fr">确认收货</a>
 		  		  </c:if>	  
 		      	  <p class="fr">合计：<span class="font-price">￥${orderList.totalPrice}</span></p>
 		      	  <c:set var="string" value="${orderList.orderDetail}"/>
@@ -119,25 +119,25 @@
 	
 	  	<ul class="tab-bar order-detail-tab-bar">
 	      <li>
-	        <a href="../mainindex/index">
+	        <a href="<%=basePath%>home/mainindex/index">
 	          <span class="tab-bar-bg home-page"></span>
 	          <span>首页</span>
 	        </a>
 	      </li>
 	      <li>
-	        <a href="orderDetail">
+	        <a href="<%=basePath%>home/purchase/orderDetail">
 	          <span class="tab-bar-bg order"></span>
 	          <span>我的订单</span>
 	        </a>
 	      </li>
 	      <li>
-	        <a href="../member/memberCenter">
+	        <a href="<%=basePath%>home/member/memberCenter">
 	          <span class="tab-bar-bg member-center"></span>
 	          <span>会员中心</span>
 	        </a>
 	      </li>
 	      <li>
-	        <a href="../member/myQr">
+	        <a href="<%=basePath%>home/member/myQr">
 	          <span class="tab-bar-bg qr-code"></span>
 	          <span>我的二维码</span>
 	        </a>
@@ -193,6 +193,7 @@
 			   						total = i2+1;
 			   						if(orderList.state == 4) {
 			   							if(data.evaluatesMsg != null) {	
+			   								state = true;
 			   								goodsVal += '<div class="order-detail-show order-list clearfloat">'+
 			   								'<img src="<%=basePath%>'+orderDetailList.url+'">'+
 			   								'<ul class="shopping-car-detail p5">'+
@@ -229,7 +230,7 @@
 	   							(orderList.state == 1?'<button class="btn fr goPayment">去支付</button>'+
 	   							'<input type="hidden" value="'+orderList.id+'" class="dOrderId">'+
 	   							'<input type="hidden" value="'+orderList.ordernum+'" class="dOrderNum">':'')+
-	   							(orderList.state == 3?'<a href="receipt/'+orderList.id+'" class="btn fr">确认收货</a>':'')+
+	   							(orderList.state == 3?'<a href="<%=basePath%>home/purchase/receipt/'+orderList.id+'" class="btn fr">确认收货</a>':'')+
 	   							'<p class="fr">合计：<span class="font-price">￥'+orderList.totalPrice+'</span></p>'+
 	   							'<p class="fr mr10">共<span class="pur-total">'+total+'</span>件商品</p>'+
 	   							'</div>'+

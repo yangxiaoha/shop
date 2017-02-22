@@ -110,5 +110,12 @@
 	<select id="getAllGoodsStockInfo" resultMap="resultMap">
 		select * from t_goods_sku
 	</select>
+	
+	<select id="getGoodsImgByGoodsId" resultMap="resultMap">
+		select * from t_goods_image as img 
+		left join t_goods_sku as sku
+		on img.skuid = sku.id 
+		where sku.goodsid = #{goodsId}
+	</select>
 
 </mapper>

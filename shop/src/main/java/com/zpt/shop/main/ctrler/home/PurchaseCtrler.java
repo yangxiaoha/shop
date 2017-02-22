@@ -391,11 +391,15 @@ public class PurchaseCtrler {
 	
 	//确认收货
 	@RequestMapping(value="/receipt/{orderId}", method=RequestMethod.GET)
-	public ModelAndView receipt(@PathVariable("orderId")Integer orderId) {
+	public ModelAndView receipt(HttpServletRequest request, @PathVariable("orderId")Integer orderId) {
 		ModelAndView mv = new ModelAndView("home/order-detail");
 		Integer state = 4;
+		User user = (User) request.getSession().getAttribute("user");
 		List<Order> orderList = orderService.updateOrderStateByOrderId(orderId, state);
+		//查询评价
+		List<Evaluate> evaluatesList = evaluateService.getEvaluateByUserId(user.getId());
 		mv.addObject("orderMsg", orderList);
+		mv.addObject("evaluatesMsg", evaluatesList);
 		return mv;
 	}
 

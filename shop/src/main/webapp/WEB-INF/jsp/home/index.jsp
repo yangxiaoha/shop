@@ -95,19 +95,17 @@
 		</div>
 		
 	    <!-- 商品展示 -->
-	    <div id="wrapper">
+	    <div id="wrapper" style="height: auto;">
 	    	<c:if test="${!empty goodsMsg}">
 		    	<ul class="goods-detail">
 			    	<c:forEach items="${goodsMsg}" var="goodsList">
 				      	<li class="goods-show">
-				    		<a href="goodsDetail/${goodsList.id}">
-				    	  		<img src="<%=basePath%>${goodsList.url}" />
-				    	  		<div style="position: relative; height: 50px;">
-				    	  			<div class="goods-block">
-				    	  				<p class="goods-name">${goodsList.name}</p>
-				    	  			</div>			    	  			
-				    	  		</div>					  		
-						  		<p class="mb5 font-price">￥${goodsList.price}</p>
+				    		<a href="goodsDetail/${goodsList.id}" style="position: relative;">
+				    	  		<img src="<%=basePath%>${goodsList.url}" /> 
+				    	  		<div class="goods-block">
+				    	  			<p class="goods-name">${goodsList.name}</p>				  		
+						  			<p class="font-price">￥${goodsList.price}</p>	
+				    	  		</div>					    	  			    	  		
 				    		</a>
 					  	</li>
 					</c:forEach>
@@ -188,10 +186,6 @@
     <script type="text/javascript">
 	    $(document).ready(function() {
 	    	var flag = "${flag}";
-	    	$(".goods-name").each(function() {
-	    		var pHeight = $(this).height();
-	    		$(this).parent($(".goods-block")).css("margin-top", -(pHeight/2));	    		
-	    	});	
 	    	$(".menu-title").each(function() {
 	    		if(flag == $(this).children("input[type=hidden]").val()) {
 	    			$(this).css("border-bottom", "1px solid #c8161d");

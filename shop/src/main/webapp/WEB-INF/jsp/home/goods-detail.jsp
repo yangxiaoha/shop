@@ -43,11 +43,68 @@
 	#tabs li:first-child {
 		border-right: 1px solid #C7C3C5;
 	}
+	.swiper-container {
+        width: 100%;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+    .swiper-slide > img {
+        width: 100%;
+    }
+    .index-tab-bar li {
+    	border-right: 1px solid #e5e5e5;
+    }
+    .index-tab-bar li:nth-child(3),
+    .index-tab-bar li:nth-child(4) {
+    	border-right: none;
+    }
+    .index-tab-bar .shopping-state,
+    .index-tab-bar .buy-state {
+    	line-height: 50px;
+    }
 </style>
 </head>
 <body>
 	<div id="wrap">
-		<ul class="tabs nav-bar clearfloat" id="tabs">
+		<!-- 轮播图 -->
+	    <div class="swiper-container">
+	        <div class="swiper-wrapper">
+	        	<c:forEach items="${goodsImgMsg}" var="goodsImgList">
+	        	    <div class="swiper-slide"><img src="<%=basePath%>${goodsImgList.url}"></div>	
+	        	</c:forEach>        
+	        </div>
+	    </div>
+	    
+	    <div class="goods-introduce ph15">
+	    	<c:if test="${!empty goodsMsg}">
+		    	<p class="fs-16">${goodsMsg.name}</p>
+		    	<c:if test="${goodsMsg.price != goodsMsg.highprice}">
+	         		<p class="mb20 font-price">￥${goodsMsg.price} ~ ${goodsMsg.highprice}</p>
+	         	</c:if>
+	         	<c:if test="${goodsMsg.price == goodsMsg.highprice}">
+	         		<p class="mb20 font-price">￥${goodsMsg.price}</p>
+	         	</c:if>
+         	</c:if>
+	    </div>
+	
+		<ul class="tabs clearfloat" id="tabs">
 	       <li class="tabActive">商品详情</li>
 	       <li class="">评价</li>
 	    </ul>
@@ -81,20 +138,18 @@
 					<span>首页</span>
 				</a>
 			</li>
-			<li class="shopping shopping-state">
-				<span class="tab-bar-bg add-goods"></span>
-				<span>添加购物车</span>
-			</li>
-			<li class="shopping buy-state">
-				<span class="tab-bar-bg order"></span>
-				<span>立即购买</span>
-			</li>
 			<li>
 				<a href="../index">
 					<span class="tab-bar-bg customer-service"></span>
 					<span>在线客服</span>
 				</a>
 			</li>
+			<li class="shopping shopping-state fs-16">
+				<span style="color: #c8161d">添加购物车</span>
+			</li>
+			<li class="shopping buy-state fs-16" style="color: #fff; background-color: #c8161d">
+				<span>立即购买</span>
+			</li>			
 		</ul>
 	
 		<div id="modifyAttr">
@@ -156,6 +211,16 @@
 	    </a>
     </div>
     
+    <!-- Swiper JS -->
+    <script src="<%=basePath%>assets/home/Swiper-3.4.0/dist/js/swiper.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script type="text/javascript">
+    	var mySwiper = new Swiper('.swiper-container', {
+    		autoplay: 3000,//可选选项，自动滑动
+			loop: true,
+			autoplayDisableOnInteraction : false
+		})
+    </script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			jQuery.jqtab = function(tabtit,tab_conbox,shijian) {
@@ -176,6 +241,20 @@
 		});
 	</script>
     <script type="text/javascript">    
+    
+	    $(document).scroll(function(){ 
+	        scrollTop =$(this).scrollTop();//滚动高度  
+	        if(scrollTop > 350){
+	        	if(!($("#tabs").hasClass("nav-bar"))) {
+	        		$("#tabs").addClass("nav-bar");
+	        	}        	
+	        }else {
+	        	if($("#tabs").hasClass("nav-bar")) {
+	        		$("#tabs").removeClass("nav-bar");
+	        	} 
+	        }  
+	    });  
+    
 	    //清空所选属性
 	    function clear(oldGoods) {
 			$(".classify-detail > li").removeClass("active");

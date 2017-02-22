@@ -112,7 +112,7 @@
 	<div id="wrap">
 		<div class="go-shopping">
 	  		<a href="<%=basePath%>home/mainindex/index" class="fl btn mr5 bc-c8161d">继续购买</a>
-	  		<p class="fl go-shopping-title">购物车：立即结算，抢回还有货的商品</p>
+	  		<p class="fl">返回抢购更多欢喜，就在一见喜</p>
 		</div>
 	    <div class="shopping-car">	    	
 	  		<!--无商品-->
@@ -144,7 +144,7 @@
                               	<input class="goodsSkuNum" type="hidden" value="${cartsList.skuNum}">
                               	<input class="goodsPrice" type="hidden" value="${cartsList.price}">
 					          	<ul class="fl" style="width: 60px; height: 100%; margin-right: 10px;">
-					          		<li>数量</li>
+					          		<li class="fc-9fa0a0 fs-12">数量</li>
 					          		<li class="edit-num mt18" style="overflow: hidden;">
 					          			<span class="reduceNum">-</span>
 					        			<span class="purchaseNum">${cartsList.num}</span>
@@ -152,7 +152,7 @@
 					          		</li>					          						          		
 								</ul>
 					          	<ul class="fr" style="width: 30px; height: 100%;">
-					          		<li>删除</li>
+					          		<li class="fc-9fa0a0 fs-12">删除</li>
 					          		<li>
 					          			<p class="mt8 iconfont order-delete" style="font-size: 2.5rem; text-align: center;">&#xe649;</p>
 					          		</li>
@@ -233,41 +233,54 @@
     		        	$('#loading').show();
     		        },
     		   	    success: function(data) {
+    		   	    	$('#loading').hide();		   	    		
     		   	    	if(data.state){
-    		   	    		$('#loading').hide();
-    		   	    		$(".have-data").html("");
-    		   	    		$.each(data.cartsMsg, function(i, cartsList) {   
-    		   	    			$(".have-data").append( 
-    		   	    				'<div class="shopping-car-show order-list clearfloat">'+
-    		   	    				'<img src="<%=basePath%>'+cartsList.url+'">'+
-       			          	  	    '<ul class="shopping-car-detail ph5">'+
-       					            '<li><a href="../mainindex/goodsDetail/'+cartsList.goodsId+'"class="fc-000 goodsName">'+cartsList.name+'</a></li>'+
-       					            '<li>商品规格：<span class="goodsValue">'+cartsList.value+'</span></li>'+
-       					            '<li><span class="fl goodsPrice">￥'+cartsList.price+'</span><input type="hidden" class="goodsNum" value="'+cartsList.num+'" /></li>'+
-									'</ul>'+
-									'<div class="shopping-car-edit">'+
-									'<input class="cartId" type="hidden" value="'+cartsList.id+'">'+
-									'<input class="skuId" type="hidden" value="'+cartsList.skuId+'">'+
-									'<input class="goodsNameInput" type="hidden" value="'+cartsList.name+'">'+
-									'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
-									'<input class="goodsPrice" type="hidden" value="'+cartsList.price+'">'+
-									'<ul class="fl" style="width: 60px; height: 100%; margin-right: 10px;">'+
-									'<li>数量</li>'+
-									'<li class="edit-num mt18" style="overflow: hidden;">'+
-									'<span class="reduceNum">-</span>'+
-									'<span class="purchaseNum">'+cartsList.num+'</span>'+
-									'<span class="plusNum">+</span>'+
-									'</li></ul>'+
-									'<ul class="fr" style="width: 30px; height: 100%;">'+
-									'<li>删除</li>'+
-									'<li><p class="mt8 iconfont order-delete" style="font-size: 2.5rem; text-align: center;">&#xe649;</p></li>'+
-									'</ul></div>'+
+    		   	    		if(data.cartsMsg == null) {
+    		   	    			$(".shopping-car").html("");
+    		   	    			$(".shopping-car").append(
+    		   	    				'<div class="no-shopping-car-show ta-center">'+
+    		   	    				'<div><img src="<%=basePath%>assets/home/images/no-goods.png" /></div>'+
+    		   	    				'<a href="<%=basePath%>home/mainindex/index" class="btn bc-c8161d">去逛逛</a>'+
 									'</div>'
-    		    				);
-    	   		  			});
-    		   	    		$("#total").text("合计：￥"+data.total);
-    		   	    		$("#totalMoney").val(data.total);
-    		   	    		$("#settlement").text(data.totalNum);
+    		   	    			);
+    		   	    			$("#total").text("合计：￥0.00");
+    	                        $("#totalMoney").val("0.00");
+    	                        $("#settlement").text(0);
+    		   	    		}else {   
+    		   	    			$(".have-data").html("");
+        		   	    		$.each(data.cartsMsg, function(i, cartsList) {   
+        		   	    			$(".have-data").append( 
+        		   	    				'<div class="shopping-car-show order-list clearfloat">'+
+        		   	    				'<img src="<%=basePath%>'+cartsList.url+'">'+
+           			          	  	    '<ul class="shopping-car-detail ph5">'+
+           					            '<li><a href="../mainindex/goodsDetail/'+cartsList.goodsId+'"class="fc-000 goodsName">'+cartsList.name+'</a></li>'+
+           					            '<li>商品规格：<span class="goodsValue">'+cartsList.value+'</span></li>'+
+           					            '<li><span class="fl goodsPrice">￥'+cartsList.price.toFixed(2)+'</span><input type="hidden" class="goodsNum" value="'+cartsList.num+'" /></li>'+
+    									'</ul>'+
+    									'<div class="shopping-car-edit">'+
+    									'<input class="cartId" type="hidden" value="'+cartsList.id+'">'+
+    									'<input class="skuId" type="hidden" value="'+cartsList.skuId+'">'+
+    									'<input class="goodsNameInput" type="hidden" value="'+cartsList.name+'">'+
+    									'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
+    									'<input class="goodsPrice" type="hidden" value="'+cartsList.price+'">'+
+    									'<ul class="fl" style="width: 60px; height: 100%; margin-right: 10px;">'+
+    									'<li class="fc-9fa0a0 fs-12">数量</li>'+
+    									'<li class="edit-num mt18" style="overflow: hidden;">'+
+    									'<span class="reduceNum">-</span>'+
+    									'<span class="purchaseNum">'+cartsList.num+'</span>'+
+    									'<span class="plusNum">+</span>'+
+    									'</li></ul>'+
+    									'<ul class="fr" style="width: 30px; height: 100%;">'+
+    									'<li class="fc-9fa0a0 fs-12">删除</li>'+
+    									'<li><p class="mt8 iconfont order-delete" style="font-size: 2.5rem; text-align: center;">&#xe649;</p></li>'+
+    									'</ul></div>'+
+    									'</div>'
+        		    				);
+        	   		  			});
+        		   	    		$("#total").text("合计：￥"+data.total);
+        		   	    		$("#totalMoney").val(data.total);
+        		   	    		$("#settlement").text(data.totalNum);
+    		   	    		}		  		   	    		
     		   			}
     		   	    }
     	        })
@@ -286,7 +299,7 @@
                 },
                 dataType: "json",
                 success: function(data) {
-                    if(data.state){
+                    if(data.state){	   			
                         $(".car-tab-bar").css("display", "block");                                                                  
                         $("#modifyAttr").hide();
                         $(".goods-parameter-choice").slideUp(); 
@@ -298,7 +311,7 @@
       			          	  	    '<ul class="shopping-car-detail ph5">'+
       					            '<li><a href="../mainindex/goodsDetail/'+cartsList.goodsId+'"class="fc-000 goodsName">'+cartsList.name+'</a></li>'+
       					            '<li>商品规格：<span class="goodsValue">'+cartsList.value+'</span></li>'+
-      					            '<li><span class="fl goodsPrice">￥'+cartsList.price+'</span><input type="hidden" class="goodsNum" value="'+cartsList.num+'" /></li>'+
+      					            '<li><span class="fl goodsPrice">￥'+cartsList.price.toFixed(2)+'</span><input type="hidden" class="goodsNum" value="'+cartsList.num+'" /></li>'+
 								'</ul>'+
 								'<div class="shopping-car-edit">'+
 								'<input class="cartId" type="hidden" value="'+cartsList.id+'">'+
@@ -307,14 +320,14 @@
 								'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
 								'<input class="goodsPrice" type="hidden" value="'+cartsList.price+'">'+
 								'<ul class="fl" style="width: 60px; height: 100%; margin-right: 10px;">'+
-								'<li>数量</li>'+
+								'<li class="fc-9fa0a0 fs-12">数量</li>'+
 								'<li class="edit-num mt18" style="overflow: hidden;">'+
 								'<span class="reduceNum">-</span>'+
 								'<span class="purchaseNum">'+cartsList.num+'</span>'+
 								'<span class="plusNum">+</span>'+
 								'</li></ul>'+
 								'<ul class="fr" style="width: 30px; height: 100%;">'+
-								'<li>删除</li>'+
+								'<li class="fc-9fa0a0 fs-12">删除</li>'+
 								'<li><p class="mt8 iconfont order-delete" style="font-size: 2.5rem; text-align: center;">&#xe649;</p></li>'+
 								'</ul></div>'+
 								'</div>'

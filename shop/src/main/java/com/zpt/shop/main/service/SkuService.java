@@ -57,4 +57,11 @@ public interface SkuService {
 	 * */
 	public List<Sku> getOrderByOrderNum(String orderNum);
 
+	/**
+	 * 商品图片
+	 * @param Integer goodsId 商品Id
+	 * @return List<Sku>
+	 * */
+	public List<Sku> getGoodsImgByGoodsId(Integer goodsId);
+
 }
