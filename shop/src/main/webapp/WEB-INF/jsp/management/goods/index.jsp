@@ -108,6 +108,7 @@
 	<jsp:include page="update.jsp"/>
 	<jsp:include page="stick.jsp"/>
 	<jsp:include page="detailedit.jsp"/>
+	<jsp:include page="down.jsp"/>
     <script>
     	
 		var zTree;

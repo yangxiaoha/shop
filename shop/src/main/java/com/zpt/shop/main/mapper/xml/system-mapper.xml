@@ -59,7 +59,7 @@
 	</select>
 
 	<update id="updateSystem" parameterType="system">
-		update t_system set skey = #{skey},sysvalue = #{sysvalue} where id = #{id}
+		update t_system set sysvalue = #{sysvalue} where skey = '公告'
 	</update>
 	
 	<update id="updateDefined" parameterType="system">

@@ -30,7 +30,9 @@ public final class Contants {
 	
 	//置顶
 	public  static final String ADD_GOODS_STICK = "置顶成功";
+	public  static final String DOWN_GOODS_STICK = "取消置顶成功";
 	public  static final String MSG_GOODS_STICK = "置顶失败，请重试！";
+	public  static final String MSG_GOODS_DOWN = "取消置顶失败，请重试！";
 	
 	//状态存在
 	public static final Integer STATE_IN = 1;

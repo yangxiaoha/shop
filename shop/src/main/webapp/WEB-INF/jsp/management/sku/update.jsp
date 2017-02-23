@@ -68,12 +68,12 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<p>请选择图片(大小为：400*370)</p>
+											<p>请选择图片(大小为：400*420)</p>
 											<p class="error" style="display: none;"></p>
 											<div class="pic">
 												<div id="preview" class="preview">
 												<input type="hidden" name="url" id="uurl">
-													<img id="uimghead" class="imghead" width="240" height="222">
+													<img id="uimghead" class="imghead" width="240" height="252">
 												</div>
 												<input type="file" name="photourl" class="image_file"
 													id="updatephoto" onchange="previewImage(this,'uimghead')">
@@ -98,7 +98,7 @@
 	var uskuValidate;
 	var imageFlag = true;
 	var imglong1 = 240;
-	var imgwide1 = 222;
+	var imgwide1 = 252;
 	$(function () {		
 		if ($.validator) {		
 		    //fix: when several input elements shares the same name, but has different id-ies....		

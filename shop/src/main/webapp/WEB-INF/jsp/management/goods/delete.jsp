@@ -54,6 +54,7 @@
 		        		   $("#delModal").modal('hide');
 		        		   $("#dcontext").html("确认删除当前选项？");
 	        		   },1000);
+	        		   $("#ids").val("");
 	        		   tableI.table().draw();
 	        	   },
 	        	   error:function(){

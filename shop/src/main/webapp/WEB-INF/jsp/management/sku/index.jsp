@@ -26,7 +26,7 @@
 <style type="text/css">
 	#add .pic {
 	    width: 240px;
-	    height: 222px;
+	    height: 252px;
 	    position: relative;
 	    border: 1px solid #d2d2d2;
 	    overflow: hidden;
@@ -37,7 +37,7 @@
 	}
 	.image_file {
 	    width: 100%;
-	    height: 222px;
+	    height: 252px;
 	    position: absolute;
 	    top: 0;
 	    left: 0;

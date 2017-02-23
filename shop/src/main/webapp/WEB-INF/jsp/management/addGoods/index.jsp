@@ -247,7 +247,29 @@
     	        	name:{
     	        		required:true,
     	        		maxlength:20,
+    	        		remote: {
+    	        		    url: "validate",     //后台处理程序
+     		       		    type: "post",               //数据发送方式
+            			    dataType: "json",           //接受数据格式   
+            			    data: {                     //要传递的数据
+            			    	name: function() {
+            		    	        return $("#igoodsName").val();	        		           
+            			       	}
+            			  	}	    
+            		  	}
     	        	},
+    	        	code: {
+   		        	 remote: {
+   		        		    url: "validate",     //后台处理程序
+   		        		    type: "post",               //数据发送方式
+   		        		    dataType: "json",           //接受数据格式   
+   		        		    data: {                     //要传递的数据
+   		        		    	code: function() {
+   		        		            return $("#igoodsCode").val();	        		           
+   		        		       }
+   		        		  	}	    
+   		        		}
+   		     		},
     	        	brandName:{
     	        		required:true,
     	        	},
@@ -263,6 +285,9 @@
     		        	required:"请输入商品名称",
     		        	maxlength:"最多20个字"
     		        },
+    		        code: {
+	   		        	remote:"该编码已存在"
+   		      		},
     		        brandName:{
     	        		required:"请选择商品品牌",
     	        	},

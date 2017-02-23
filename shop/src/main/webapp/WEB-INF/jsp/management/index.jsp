@@ -91,6 +91,8 @@
                         <ul class="nav nav-second-level">
                             <li><a class="J_menuItem" href="system/index">公告发布</a>
                             </li>
+                            <li><a class="J_menuItem" href="intro/index">简介发布</a>
+                            </li>
                             <li><a class="J_menuItem" href="userDefined/index">公众号菜单修改</a>
                             </li>
                             <li><a class="J_menuItem" href="reply/index">自定义回复</a>

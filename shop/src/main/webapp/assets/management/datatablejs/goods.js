@@ -45,6 +45,7 @@ $(document).ready(function(){
                  			'<a class="table-actions update" data-rowid="'+meta.row+'" href="javascript:void(0)" title="修改"><i class="fa fa-pencil"></i></a>'+
                  			'<a class="table-actions stick" data-id="'+data+'" href="javascript:void(0)" title="置顶"><i class="fa fa-arrow-up"></i></a>'+
                  			'<a class="table-actions del" data-id="'+data+'" href="javascript:void(0)" title="删除"><i class="fa fa-trash"></i></a>'+
+                 			'<a class="table-actions down" data-id="'+data+'" href="javascript:void(0)" title="取消置顶"><i class="fa fa-arrow-down"></i></a>'+
                  		'</div>';
                }
             }
@@ -61,6 +62,10 @@ $(document).ready(function(){
         	$(".stick").click(function(){
         		$("#tid").val($(this).data("id"));
         		$("#stickModal").modal('show');
+        	});
+        	$(".down").click(function(){
+        		$("#oid").val($(this).data("id"));
+        		$("#downModal").modal('show');
         	});
         	
         	$(".detail").click(function(){

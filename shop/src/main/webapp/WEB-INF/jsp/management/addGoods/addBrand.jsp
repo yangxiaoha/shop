@@ -23,7 +23,7 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<label class="control-label">供应商名称(*)</label>
+								<label class="">供应商名称(*)</label>
 								<select class="reg-sel-add" style="width: 100%" id="asupplierId" name="supplierId">
 									<option value=""></option>
 									<option value=""></option>

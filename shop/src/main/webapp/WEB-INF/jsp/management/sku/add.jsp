@@ -77,11 +77,11 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<p>请选择图片(大小为：400*370)</p>
+											<p>请选择图片(大小为：400*420)</p>
 											<p class="error" style="display: none;"></p>
 											<div class="pic">
 												<div id="preview" class="preview">
-													<img id="imghead" class="imghead" width="240" height="222"
+													<img id="imghead" class="imghead" width="240" height="252"
 														src="<%=basePath%>/res/bj_img1.jpg" />
 												</div>
 												<input type="file" name="photourl" class="image_file"
@@ -104,9 +104,9 @@
 	</div>
 </div>
 <script>
-	var imgsize = "图片大小为400*370！";
+	var imgsize = "图片大小为400*420！";
 	var imglong = 400;
-	var imgwide = 370;
+	var imgwide = 420;
 	var imageFlag = true;
 	var imgmol = "<%=basePath%>/res/bj_img1.jpg";
 	var imgheads = "#imghead";
@@ -204,7 +204,7 @@
 		        		    },1000);
 		        			$("#acode").val(""); 
 		        			$("#imghead").attr("src","<%=basePath%>/res/bj_img1.jpg");
-		        			$("#imghead").css({"margin-top":"0px","width":"240px","height":"222px"});
+		        			$("#imghead").css({"margin-top":"0px","width":"240px","height":"252px"});
 		        		    tableI.table().draw(false);
 		        	    },
 	        	    	

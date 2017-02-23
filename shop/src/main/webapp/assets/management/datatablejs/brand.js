@@ -64,6 +64,6 @@ $(document).ready(function(){
         "className" : "Brand",
         "chosen" : true,
         "ids" : "#name,#content,#suppliername,#supplierId",
-        "targets":"2,4,3,5"
+        "targets":"2,4,3,6"
 	});
 });

@@ -46,7 +46,7 @@
 		</if>		
 		<if test="search != null and search != ''">
 			and (goods.name like CONCAT('%',#{search},'%') or
-			goods.suppliername like CONCAT('%',#{search},'%') or
+			supplier.name like CONCAT('%',#{search},'%') or
 			goods.quantity like CONCAT('%',#{search},'%') or
 			goods.code like CONCAT('%',#{search},'%') or
 			brand.name like CONCAT('%',#{search},'%') or
@@ -86,8 +86,10 @@
 	</select>
 	
 	<select id="countGoods" resultType="java.lang.Integer" parameterType="query">
-		select count(goods.id) from t_goods as goods left join t_goods_brand as brand on 
-		goods.brandId = brand.id left join t_goods_type as type on goods.typeId = type.id
+		select count(goods.id) from t_goods as goods 
+		left join t_goods_brand as brand on goods.brandId = brand.id 
+		left join t_goods_type as type on goods.typeId = type.id
+		left join t_goods_supplier as supplier on supplier.id = brand.supplierid
 		<include refid="queryCondition"/>
 	</select>
 	
@@ -123,6 +125,10 @@
 	</update>
 	<update id="stickGoods" parameterType="goods">
 		update t_goods set top = #{top} where id = #{id}
+	</update>
+	
+	<update id="downGoods" parameterType="goods">
+		update t_goods set top = null where id = #{id}
 	</update>
 	
 	<update id="updateContent" parameterType="goods">

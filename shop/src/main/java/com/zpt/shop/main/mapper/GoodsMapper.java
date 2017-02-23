@@ -17,6 +17,8 @@ public interface GoodsMapper {
 	
 	public void stickGoods(Goods goods);
 	
+	public void downGoods(Goods goods);
+	
 	public List<Goods> listGoods(Query<Goods> query);
 	
 	public Integer countGoods(Query<Goods> query);

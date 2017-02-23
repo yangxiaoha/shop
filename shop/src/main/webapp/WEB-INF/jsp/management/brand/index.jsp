@@ -49,12 +49,12 @@
 	                           </div>
 	                           <div class="col-sm-4">
                            			<div class="form-group">
-                           				<label class="control-label">供应商名称：</label>	                           				
-                                       	<select class="reg-sel-index form-control" id="suppliername"  name="suppliername">
+                           				<label class="">供应商名称：</label>	                           				
+                                       	<select class="reg-sel-index form-control" id="supplierId"  name="supplierId">
 											<option value=""></option>
-											<option value="">全部</option>
+											<option value="0">全部</option>
 											<c:forEach items="${supplierMsg}" var="supplierList">
-												<option value="${supplierList.name}">${supplierList.name}</option>
+												<option value="${supplierList.id}">${supplierList.name}</option>
 											</c:forEach>
 										</select>											
                                    </div>

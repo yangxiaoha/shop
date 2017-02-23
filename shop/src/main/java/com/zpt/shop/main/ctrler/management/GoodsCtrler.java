@@ -159,6 +159,24 @@ public class GoodsCtrler {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/down",method = RequestMethod.POST)
+	public Msg down(Goods goods){
+		Msg msg = new Msg();
+		try {
+			goodsService.downGoods(goods); 
+			msg.setState(Contants.RETURN_INT_SUCCESS);
+			msg.setMsg(Contants.DOWN_GOODS_STICK);
+			return msg;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			msg.setState(Contants.RETURN_INT_FAIL);
+			msg.setMsg(Contants.MSG_GOODS_DOWN);
+			return msg;
+		}		
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/updateContent",method = RequestMethod.POST)
 	public Msg updateContent(Integer id, String content){
 		Msg msg = new Msg();

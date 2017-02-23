@@ -65,6 +65,12 @@ public class GoodsServiceImpl implements GoodsService {
 		// TODO Auto-generated method stub
 		goodsMapper.stickGoods(goods);
 	}
+	
+	@Override
+	public void downGoods(Goods goods) {
+		// TODO Auto-generated method stub
+		goodsMapper.downGoods(goods);
+	}
 
 	@Override
 	public Page<Goods> page(Query<Goods> query) {

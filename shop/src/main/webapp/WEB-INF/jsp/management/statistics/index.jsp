@@ -198,10 +198,10 @@ function countCity(){
 				e[i] = obj;
 			}
 			$.plot($("#flot-pie-chart"),
-					e,{series:{pie:{show:!0}},
+					e,{series:{pie:{show:!0,}},
 					grid:{hoverable:!0},
-						tooltip:!0,
-						tooltipOpts:{content:"%p.0%, %s",shifts:{x:20,y:0},defaultTheme:!1}
+						tooltip:!0,						
+						tooltipOpts:{content:"%p.2%, %s",shifts:{x:20,y:0},defaultTheme:!1}
 					}
 			);	
 		},
@@ -273,6 +273,7 @@ function countName(){
 	});
 }
 countName();
+
 </script>
 </body>
 </html>

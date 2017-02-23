@@ -186,6 +186,7 @@
 	        	},
  	         	name: {
  		       	 	required:true,
+ 		       		maxlength:20,
   		      	 	remote: {
 	        		    url: "validate",     //后台处理程序
  		       		    type: "post",               //数据发送方式
@@ -234,7 +235,8 @@
         	messages: {
 	          	name: {
 		        	required:"请输入商品名称",
-		        	remote:"该商品已存在"
+		        	remote:"该商品已存在",
+		        	maxlength:"最多20个字"
 		      	},
 		      	exp_name: {
 		        	required:"请输入商品扩充名称",

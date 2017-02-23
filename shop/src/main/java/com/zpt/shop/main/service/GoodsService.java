@@ -18,6 +18,8 @@ public interface GoodsService {
 	
 	public void stickGoods(Goods goods);
 	
+	public void downGoods(Goods goods);
+	
 	public Page<Goods> page(Query<Goods> query);
 	
 	public boolean validate(Goods goods);
