@@ -61,6 +61,12 @@ public interface GoodsService {
 	 * @param long num 购买人数
 	 * */
 	public void updateNum(Integer id, long num);
+	
+	/**
+	 * 修改商品总数
+	 * @param int total 商品总数
+	 * */
+	public void updateTotal(Integer goodsId, int total);
 
 	/**
 	 * 符合查询条件的商品总数
@@ -69,5 +75,5 @@ public interface GoodsService {
 	 * @param String typeId （类型id）
 	 * */
 	public Integer getGoodsTotal(String flag, String keyword, String typeId);
-	
+
 }

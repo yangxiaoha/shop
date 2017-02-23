@@ -29,4 +29,6 @@ public interface OrderDetailService {
 	 * */
 	public List<OrderDetail> getOrderDetail(String ordercode);
 
+	public List<OrderDetail> getOrderByOrderNum(String ordercode);
+
 }

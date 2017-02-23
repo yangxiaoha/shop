@@ -199,7 +199,7 @@ public class Goods {
 	}	
 	
 	//商品购买人数
-	private Long num;
+	private Integer num;
 	
 	//商品的最低价格
 	private BigDecimal price;
@@ -210,11 +210,11 @@ public class Goods {
 	//商品图片路径
 	private String url;
 	
-	public Long getNum() {
+	public Integer getNum() {
 		return num;
 	}
 
-	public void setNum(Long num) {
+	public void setNum(Integer num) {
 		this.num = num;
 	}
 

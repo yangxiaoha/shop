@@ -35,6 +35,10 @@
 	.tabActive {
 		color: #c8161d;
 	}
+	#tabs {
+		padding: 5px 15px;
+		border-top: 1px solid #e5e5e5;
+	}
 	#tabs li {
 		float: left;
 		width: 50%;
@@ -92,14 +96,14 @@
 	        </div>
 	    </div>
 	    
-	    <div class="goods-introduce ph15">
+	    <div class="goods-introduce ph15 mb20">
 	    	<c:if test="${!empty goodsMsg}">
-		    	<p class="fs-16">${goodsMsg.name}</p>
+		    	<p class="fs-16" style="border-bottom: 1px solid #e5e5e5;">${goodsMsg.name}</p>
 		    	<c:if test="${goodsMsg.price != goodsMsg.highprice}">
-	         		<p class="mb20 font-price">￥${goodsMsg.price} ~ ${goodsMsg.highprice}</p>
+	         		<p class="font-price">￥${goodsMsg.price} ~ ${goodsMsg.highprice}</p>
 	         	</c:if>
 	         	<c:if test="${goodsMsg.price == goodsMsg.highprice}">
-	         		<p class="mb20 font-price">￥${goodsMsg.price}</p>
+	         		<p class="font-price">￥${goodsMsg.price}</p>
 	         	</c:if>
          	</c:if>
 	    </div>
@@ -123,15 +127,16 @@
 							<p class="fc-9fa0a0 pv5">${evaluateList.evaluateTime}&nbsp;商品属性:${evaluateList.val}</p>
 							<p>${evaluateList.evaluate}</p>
 						</div>
-					</c:forEach>			
+					</c:forEach>
+					<div class="block60 clearfloat"></div>			
 				</c:if>
 				<c:if test="${empty evaluateMsg}">
-					<p>暂无评论</p>
+					<p style="text-align: center;">暂无评论</p>
 				</c:if>
 	        </li>
 	    </ul>
 	    
-		<ul class="tab-bar index-tab-bar">
+		<ul class="tab-bar index-tab-bar goods-tab-bar">
 			<li>
 				<a href="<%=basePath%>home/mainindex/index">
 					<span class="tab-bar-bg home-page"></span>
@@ -145,7 +150,7 @@
 				</a>
 			</li>
 			<li class="shopping shopping-state fs-16">
-				<span style="color: #c8161d">添加购物车</span>
+				<span style="color: #c8161d">加入购物车</span>
 			</li>
 			<li class="shopping buy-state fs-16" style="color: #fff; background-color: #c8161d">
 				<span>立即购买</span>

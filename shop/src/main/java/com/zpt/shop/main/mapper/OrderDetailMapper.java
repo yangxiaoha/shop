@@ -27,6 +27,8 @@ public interface OrderDetailMapper  {
 	 * @param String skuIds
 	 * */
 	public List<OrderDetail> getOrderDetail(@Param("ordercode")String ordercode);
+
+	public List<OrderDetail> getOrderByOrderNum(@Param("ordercode")String ordercode);
 	
 }
 

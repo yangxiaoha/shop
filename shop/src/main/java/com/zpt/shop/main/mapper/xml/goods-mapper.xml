@@ -217,4 +217,8 @@
 		update t_goods set num = #{num} where id = #{id}
 	</update>
 	
+	<update id="updateTotal">
+		update t_goods set quantity = #{quantity} where id = #{id}
+	</update>
+	
 </mapper>

@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zpt.shop.main.entities.Goods;
 import com.zpt.shop.main.entities.Order;
+import com.zpt.shop.main.entities.OrderDetail;
 import com.zpt.shop.main.entities.PayCallback;
 import com.zpt.shop.main.entities.Percentage;
-import com.zpt.shop.main.entities.Sku;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.DistributionService;
 import com.zpt.shop.main.service.GoodsService;
+import com.zpt.shop.main.service.OrderDetailService;
 import com.zpt.shop.main.service.OrderService;
 import com.zpt.shop.main.service.PercentageService;
-import com.zpt.shop.main.service.SkuService;
 import com.zpt.shop.main.service.UserService;
 import com.zpt.shop.weixin.utils.WeixinUtils;
 /**
@@ -45,7 +45,7 @@ public class GoodsWxPayCtrler {
 	private OrderService orderService;
 	
 	@Autowired
-	private SkuService skuService;
+	private OrderDetailService orderDetailService;
 	
 	@Autowired
 	private GoodsService goodsService;
@@ -79,13 +79,16 @@ public class GoodsWxPayCtrler {
                 Integer state = 2;
      			orderService.updateOrderState(ordercode, state);
      			
-     			//增加购买人数
-     			Long n = new Long(1l);
-     			List<Sku> goodsidList = skuService.getOrderByOrderNum(ordercode);
+     			//增加购买人数/修改商品总数量
+     			//List<Sku> goodsidList = skuService.getOrderByOrderNum(ordercode);
+     			List<OrderDetail> goodsidList = orderDetailService.getOrderByOrderNum(ordercode);
      			if(goodsidList != null && goodsidList.size() > 0) {
          			for(int i=0; i<goodsidList.size(); i++) {
          				Goods goods = goodsService.getGoodsById(goodsidList.get(i).getGoodsId());
-         				goodsService.updateNum(goodsidList.get(i).getGoodsId(), goods.getNum()+n);
+         				goodsService.updateNum(goodsidList.get(i).getGoodsId(), goods.getNum()+1);
+         				System.out.println(goods.getNum());
+         				
+         				goodsService.updateTotal(goodsidList.get(i).getGoodsId(), goods.getQuantity()-goodsidList.get(i).getNum()); 
          			}
      			}
      			
