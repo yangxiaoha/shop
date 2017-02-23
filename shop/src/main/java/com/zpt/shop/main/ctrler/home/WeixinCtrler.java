@@ -169,11 +169,11 @@ public class WeixinCtrler {
                 if (eventType.equals(WeixinUtils.EVENT_TYPE_SUBSCRIBE)) {
                 	User user = userService.getUserByOpenId(fromUserName);
                 	
-                	 long msgCreateTime = Long.parseLong(createTime) * 1000L;  
+                	long msgCreateTime = Long.parseLong(createTime) * 1000L;  
 
-                	 DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+                	DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
 
-                	 String date = format.format(new Date(msgCreateTime));  
+                	String date = format.format(new Date(msgCreateTime));  
             		
             		if(user != null) {//扫过码
             			System.out.println("扫过码" + eventKey);

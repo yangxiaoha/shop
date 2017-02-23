@@ -263,7 +263,6 @@ public class MemberCtrler {
 		
 		String openid = (String) request.getSession().getAttribute("openid");
 		User superiorUser = userService.getUserByOpenId(openId);
-		System.out.println(openId);
 		
 		//判断此用户是否已经存在
 		User user = userService.getUserByOpenId(openid);
@@ -272,14 +271,14 @@ public class MemberCtrler {
 		userInfo.setOpenid(openid);
 		userInfo.setFpid(superiorUser.getId());
 		userInfo.setMoney(new BigDecimal(0));
-		if(user != null && !("".equals(user))) {
-			if("0".equals(subscribe)) {//未关注
+		if(user != null) {	
+			if(user.getPid() == null || ("").equals(user.getPid())) {
 				userService.updateUserByScan(userInfo);
 			}
 			return "redirect:/home/member/follow";
 		}else {
 			userService.addUserByScan(userInfo);
-			return "redirect:/home/mainindex/index";
+			return "redirect:/home/member/follow";
 		}
 	}
 	
@@ -348,7 +347,7 @@ public class MemberCtrler {
 
 	//引导关注
 	@RequestMapping(value="/follow", method=RequestMethod.GET)
-	public String follow() throws WxErrorException {
+	public String follow() {
 		return "home/follow";
 	}
 	

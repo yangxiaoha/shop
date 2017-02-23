@@ -31,16 +31,16 @@
 	            <span class="member-icon">
 			      <img src="<%=basePath%>assets/home/images/member.png" /> 
 			    </span>
-                <span style="display: inline-block; text-indent: 50px;">${name}</span>
+                <span style="display: block; text-indent: 50px;">${name}</span>
 	          </p>
 		    </c:when>
 		    <c:otherwise>
-		      <p style="color: #fff; font-size: 1.8rem; line-height: 120px;">	
-			    <span class="member-icon">
+		      <div style="color: #fff; font-size: 1.8rem;">	
+			    <p class="member-icon" style="display: block; margin-top: 25px;">
 			      <img src="<%=basePath%>assets/home/images/no-member.png" /> 
-			    </span>
-			    <span style="display: inline-block; text-indent: 50px;">${name}</span>     	     
-	          </p>
+			    </p>
+			    <p style="color: #fff; margin-top: 5px;">${name}</p>     	     
+	          </div>
 		    </c:otherwise>
 		  </c:choose>
 	    </div>
@@ -65,7 +65,7 @@
 	          <div class="user-power-title clearfloat p10">
 	          	<span class="fl show-img"><img src="<%=basePath%>assets/home/images/plus.png"></span>
 	            <span class="fl show-title">代理人推广</span>
-	            <i class="fr agency-all-amount">${num}单(￥${price})</i>
+	            <span class="fr agency-all-amount">${num}单(￥${price})</span>
 	          </div>         
 	          <ul class="user-power-detail" style="display: none;">
 	            <li>

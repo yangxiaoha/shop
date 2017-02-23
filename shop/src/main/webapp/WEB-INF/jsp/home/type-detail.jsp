@@ -67,23 +67,20 @@
 	      </div>
 	      
 	      	<div id="wrapper" style="width: 76%; height: 100%; right: 0">
-		      <ul>
+		      <ul class="goods-detail">
 			    <c:forEach items="${goodsMsg}" var="goodsList">
-			      <li>
-			    	<a href="../goodsDetail/${goodsList.id}">
-			    	  <img src="<%=basePath%>${goodsList.url}" />
-					  <div style="position: relative; height: 50px;">
-	    	  			<div class="goods-block">
-	    	  				<p class="goods-name">${goodsList.name}</p>
-	    	  			</div>			    	  			
-	    	  		  </div>
-					  <p class="mb5 font-price">￥${goodsList.price}</p>
+			      <li class="goods-show">
+			    	<a href="../goodsDetail/${goodsList.id}" style="position: relative;">
+			    	  <img src="<%=basePath%>${goodsList.url}" /> 
+					  <div class="goods-block">
+	    	  		  	<p class="goods-name">${goodsList.name}</p>				  		
+			  			<p class="font-price">￥${goodsList.price}</p>	
+	    	  		  </div>		
 			    	</a>
 				  </li>
 				</c:forEach>
 			  </ul>
-		    </div>
-	     
+		    </div>	     
 	    </div>
     </div>
     <script src="<%=basePath%>assets/home/js/iscroll.js"></script>
@@ -92,19 +89,21 @@
     	$(document).ready(function(){
 
     		var wHeight = $(window).height()-$(".nav-bar").innerHeight();
-        	$(".type-detail").css("height", wHeight);  		
+        	$(".type-detail").css("height", wHeight);  
+        	$("#wrapper").css("height", wHeight);
     		
     		$(".goods-name").each(function() {
-	    		var pHeight = $(this).height();
+	    		/* var pHeight = $(this).height();
 	    		var text = $(this).text();
-	    		$(this).parent($(".goods-block")).css("margin-top", -(pHeight/2));	
+	    		$(this).parent($(".goods-block")).css("margin-top", -(pHeight/2)); */
+	    		var text = $(this).text();
 	    		if(text.length > 14) {
 	    			$(this).text(text.substring(0,13)+"...");
 	    		}
 	    	});
 
-	    	var num = 3;
-	        var pageStart = 3;
+	    	var num = 10;
+	        var pageStart = 10;
 	        
     		var typeId = $("#typeId").val();
 			//商品搜索
@@ -126,7 +125,7 @@
 					refresher.loadflag = true;
 					$("#pullDown").css("display", "block");
    	    			$("#pullUp").css("display", "block");
-   	 	            pageStart = 3;
+   	 	            pageStart = 10;
 					showGoodsByType(typeId);
 				}				
 			});
@@ -145,7 +144,7 @@
 					$("#block").remove();
 					$("#pullDown").css("display", "block");
    	    			$("#pullUp").css("display", "block");
-   	    			pageStart = 3;
+   	    			pageStart = 10;
 					showGoodsByType(typeId);
 				}				
 			});
@@ -155,7 +154,7 @@
 			   		type: "Post",
 			   	    data: {
 			   	    	pageStart:0,
-			   	    	num:3,
+			   	    	num:10,
 			   	    	flag:"",
 			   	    	keyword:"",
 			   	    	typeId:typeId
@@ -167,22 +166,15 @@
 		   	    		if(data.goodsMsg != null) { 
 			   	    		$.each(data.goodsMsg, function(i, goodsList) {   
 			   	    			$("#scroller ul").append( 
-			   	    				'<li>'+
-	   			          	  	    '<a href="../goodsDetail/'+goodsList.id+'">'+
+			   	    				'<li class="goods-show">'+
+	   			          	  	    '<a href="../goodsDetail/'+goodsList.id+'" style="position: relative;">'+
 	   					            '<img src="<%=basePath%>'+goodsList.url+'">'+
-	   					            '<div style="position: relative; height: 50px;">'+
 	   					            '<div class="goods-block">'+
-									'<p class="goods-name">'+goodsList.name+'</p>'+
-									'</div></div>'+
-									'<p class="mb5 font-price">￥'+goodsList.price+'</p>'+
-									'</a>'+
-									'</li>'
+	   					            '<p class="goods-name">'+goodsList.name+'</p>'+
+									'<p class="font-price">￥'+goodsList.price+'</p>'+
+									'</div></a></li>'
 			    				);
 		   		  			});
-			   	    		$(".goods-name").each(function() {
-			   		    		var pHeight = $(this).height();
-			   		    		$(this).parent($(".goods-block")).css("margin-top", -(pHeight/2));	    		
-			   		    	});
 		   	    		}else {
 		   	    			refresher.loadflag = false;
 		   	    			$("#pullDown").css("display", "none");
@@ -218,22 +210,15 @@
 	    	                $('#scroller ul').html("");
 	    	                if(data.goodsMsg != null) { 
 	    	                    for(var i = 0; i < data.goodsMsg.length; i++){
-	    	                        result += '<li>'+
-	    			          	  	    	'<a href="goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
-	    					            	'<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
-	    					            	'<div style="position: relative; height: 50px;">'+
-	    	   					            '<div class="goods-block">'+
-	    									'<p class="goods-name">'+data.goodsMsg[i].name+'</p>'+
-	    									'</div></div>'+
-	    									'<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
-	    									'</a>'+
-	    									'</li>';
+	    	                        result += '<li class="goods-show">'+
+	   			          	  	    '<a href="../goodsDetail/'+data.goodsMsg[i].id+'" style="position: relative;">'+
+	   					            '<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
+	   					            '<div class="goods-block">'+
+	   					            '<p class="goods-name">'+data.goodsMsg[i].name+'</p>'+
+									'<p class="font-price">￥'+data.goodsMsg[i].price+'</p>'+
+									'</div></a></li>'
 	    	                    }
 	    	                    $('#scroller ul').append(result);
-	    	                    $(".goods-name").each(function() {
-	    		   		    		var pHeight = $(this).height();
-	    		   		    		$(this).parent($(".goods-block")).css("margin-top", -(pHeight/2));	    		
-	    		   		    	});
 	    	                }	    	               
 	    	            }
 	    	        });	
@@ -261,22 +246,15 @@
 	    	                pageStart = pageStart + num;
 	    	                if(data.goodsMsg != null) {  
 	    	                    for(var i = 0; i < data.goodsMsg.length; i++){
-	    	                        result += '<li>'+
-	    			          	  	    	'<a href="goodsDetail/'+'/'+data.goodsMsg[i].id+'">'+
-	    					            	'<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
-	    					            	'<div style="position: relative; height: 50px;">'+
-	    	   					            '<div class="goods-block">'+
-	    									'<p class="goods-name">'+data.goodsMsg[i].name+'</p>'+
-	    									'</div></div>'+
-	    									'<p class="mb5 font-price">￥'+data.goodsMsg[i].price+'</p>'+
-	    									'</a>'+
-	    									'</li>';
+	    	                    	result += '<li class="goods-show">'+
+	   			          	  	    '<a href="../goodsDetail/'+data.goodsMsg[i].id+'" style="position: relative;">'+
+	   					            '<img src="<%=basePath%>'+data.goodsMsg[i].url+'">'+
+	   					            '<div class="goods-block">'+
+	   					            '<p class="goods-name">'+data.goodsMsg[i].name+'</p>'+
+									'<p class="font-price">￥'+data.goodsMsg[i].price+'</p>'+
+									'</div></a></li>'
 	    	                    }
 	    	                    $('#scroller ul').append(result);
-	    	                    $(".goods-name").each(function() {
-	    		   		    		var pHeight = $(this).height();
-	    		   		    		$(this).parent($(".goods-block")).css("margin-top", -(pHeight/2));	    		
-	    		   		    	});
 	    	                }	    	                
 	    	            }
 	    	        });

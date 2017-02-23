@@ -6,7 +6,7 @@ body, ul, p, h1, h2, h3, h4, h5, h6 {
 	list-style: none;
 }
 body {
-	font-size: 1.2rem;
+	font-size: 1.4rem;
 	background-color: #fff;
 	font-family:"Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu;
 }
@@ -39,6 +39,10 @@ a, a:link, a:visited, a:hover, a:active {
 	padding-left: 10px;
 	padding-right: 10px;
 }
+.ph15 {
+	padding-left: 15px;
+	padding-right: 15px;
+}
 .pv3 {
 	padding-top: 3px;
 	padding-bottom: 3px;
@@ -60,8 +64,17 @@ a, a:link, a:visited, a:hover, a:active {
 .mb5 {
 	margin-bottom: 5px;
 }
+.mb20 {
+	margin-bottom: 20px;
+}
+.mt0 {
+	margin-top: 0 !important;
+}
 .mt8 {
 	margin-top: 8px;
+}
+.mt18 {
+	margin-top: 18px;
 }
 .mt20 {
 	margin-top: 20px;
@@ -102,6 +115,12 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .fs-12 {
 	font-size: 1.2rem !important;
+}
+.fs-14 {
+	font-size: 1.4rem !important;
+}
+.fs-16 {
+	font-size: 1.6rem !important;
 }
 .font-price {
 	color: #c8161d;
@@ -257,8 +276,6 @@ a, a:link, a:visited, a:hover, a:active {
 	float: left;
 	width: 49%;
 	margin-bottom: 9px;
-	font-size: 1.4rem;
-	text-align: center;
 	border: 1px solid #968f8e;
 }
 .goods-detail .goods-show:nth-child(odd) {
@@ -271,16 +288,27 @@ a, a:link, a:visited, a:hover, a:active {
 	display: block;
     text-align: center;
 }
-.goods-name {	
-	display: inline-block;
-	padding: 0 5px;
-	text-align: left;
-	word-break: break-all;
-}
 .goods-block {	
 	position: absolute;
-    width: 100%;
-    top: 50%;
+	left: 0;
+    bottom: 0;
+    padding: 3px;
+    width: 100%;  
+    opacity: 0.7;
+    text-align: left;
+    background-color: #d9d9d9;
+}
+.goods-block .goods-name {	
+	margin: 0;
+	width: 100%; 
+	overflow: hidden; 
+	white-space: nowrap; 
+	text-overflow: ellipsis;
+}
+.goods-block p:last-child > span {
+	position: absolute;
+    bottom: 5px;
+    right: 3px;
 }
 .tab-bar {
 	position: fixed;
@@ -335,7 +363,7 @@ a, a:link, a:visited, a:hover, a:active {
 .shopping-cart {
 	position: fixed;
     right: 20px;
-    bottom: 120px;
+    bottom: 70px;
 	display: block;
 	width: 60px;
     height: 60px;   
@@ -374,12 +402,10 @@ a, a:link, a:visited, a:hover, a:active {
 .type-detail .type-show {
 	width: 24%;
 	height: 100%;
+	border-right: 1px solid #968f8e;
 }
 .type-detail .type-show * {
 	width: 100%;
-}
-.type-detail .type-show {
-	border-right: 1px solid #968f8e;
 }
 .type-detail .type-show div p {
 	height: 40px;
@@ -444,7 +470,7 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .shopping-car-show .shopping-car-detail li:nth-child(2) {
 	color: #9fa0a0;
-	font-size: 1rem; 
+	font-size: 1.2rem; 
 }
 .shopping-car-show .shopping-car-detail li:nth-child(3) {
 	height: 30px;
@@ -453,7 +479,7 @@ a, a:link, a:visited, a:hover, a:active {
 	font-size: 1.5rem; 
 }
 .shopping-car-show .shopping-car-edit {
-	width: 40px;
+	width: 100px;
 	height: 100%;
 }
 .shopping-car-show .shopping-car-edit > p {
@@ -486,7 +512,7 @@ a, a:link, a:visited, a:hover, a:active {
 .nav-bar {
 	position: fixed;
 	top: 0;
-	left: 0;
+	left: 0; 
 	width: 100%;
 	height: 40px;
 	padding: 5px 15px;
@@ -534,7 +560,7 @@ a, a:link, a:visited, a:hover, a:active {
 	position: relative;
 	width: 100%;
 	height: 81px;
-	padding: 0 60px 0 80px;
+	padding: 0 100px 0 80px;
 	border-bottom: 1px solid #C7C3C5;
 } 
 .order-list img {
@@ -555,6 +581,24 @@ a, a:link, a:visited, a:hover, a:active {
 	top: 0;
 	right: 0;
 } 
+.order-list .shopping-car-edit > ul li:first-child {
+	height: 30px; 
+	line-height: 30px;
+	text-align: center;
+}
+.order-list .shopping-car-edit .edit-num > span {
+	float: left;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;  
+}
+.order-list .shopping-car-edit .edit-num > span:first-child,
+.order-list .shopping-car-edit .edit-num > span:last-child {
+	background-color: #E6E6E6;
+    border-radius: 2px;
+}
 .order-remarks {
 	position: relative;
 	height: 80px;
@@ -584,11 +628,28 @@ a, a:link, a:visited, a:hover, a:active {
 .order-tab-bar .payment {
 	width: 60px;
 	margin-left: 5px;
+	color: #fff;
+	background: #c8161d;
 	border-left: 1px solid #968f8e;
 }
 /************************order结束************************/
 
 /************************order-detail开始************************/
+.detail-menu {
+	margin-top: 40px;
+	width: 100%;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #C7C3C5;
+}
+.detail-menu .menu-title {
+	float: left;
+	width: 20%;
+    height: 40px;
+    font-size: 1.6rem;
+    line-height: 40px;
+    text-align: center;
+}
 .red-block {
 	position: absolute;
     top: 10px;
@@ -599,10 +660,10 @@ a, a:link, a:visited, a:hover, a:active {
     background-color: #c8161d;   
 }
 .order-state-detail {
-	margin-bottom: 10px;
-	background-color: #fff;
-	border-top: 1px solid #C7C3C5;
-	border-bottom: 1px solid #C7C3C5;
+	margin: 0 10px 20px 10px;    
+    border: 1px solid #C7C3C5;
+    border-radius: 5px;
+    background-color: #fff;
 }
 .order-state,
 .order-total {
@@ -809,6 +870,11 @@ a, a:link, a:visited, a:hover, a:active {
     background-color: #fff;
     border-bottom: 1px solid #C7C3C5;   
 }
+.goods-introduce p {
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 1px solid #e5e5e5; 
+}
 /************************goods-detail结束************************/
 
 /************************member-center开始************************/
@@ -934,13 +1000,8 @@ a, a:link, a:visited, a:hover, a:active {
     height: 60px !important;
 }
 .user-info .member-icon {
-	display: inline-block;
     width: 50px;
     height: 50px;
-    position: absolute;
-    top: 50%;
-    left: 40%;
-    transform: translateY(-50%);
 }
 .user-info .member-icon > img {
 	width: 100%;

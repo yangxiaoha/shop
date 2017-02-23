@@ -242,4 +242,14 @@ public class SkuServiceImpl implements SkuService{
 		return null;
 	}
 
+	@Override
+	public List<Sku> getGoodsImgByGoodsId(Integer goodsId) {
+		// TODO Auto-generated method stub
+		List<Sku> list = skuMapper.getGoodsImgByGoodsId(goodsId);
+		if(list != null && list.size()>0){
+			return list;
+		}
+		return null;
+	}
+
 }

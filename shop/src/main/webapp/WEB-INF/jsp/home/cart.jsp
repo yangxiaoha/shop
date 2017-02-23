@@ -112,7 +112,7 @@
 	<div id="wrap">
 		<div class="go-shopping">
 	  		<a href="<%=basePath%>home/mainindex/index" class="fl btn mr5 bc-c8161d">继续购买</a>
-	  		<p class="fl go-shopping-title">购物车：立即结算，抢回还有货的商品</p>
+	  		<p class="fl">返回抢购更多欢喜，就在一见喜</p>
 		</div>
 	    <div class="shopping-car">	    	
 	  		<!--无商品-->
@@ -130,21 +130,33 @@
 						<div class="shopping-car-show order-list clearfloat">
 					        <img src="<%=basePath%>${cartsList.url}">
 					        <ul class="shopping-car-detail ph5">
-					          <li><a href="../mainindex/goodsDetail/${cartsList.goodsId}" class="fc-000 goodsName">${cartsList.name}</a></li>
-					          <li>商品规格：<span class="goodsValue">${cartsList.value}</span></li>
-					          <li>
-					          	<span class="fl goodsPrice">￥${cartsList.price}</span>
-					          	<span class="fr">x${cartsList.num}</span>
-					          	<input type="hidden" class="goodsNum" value="${cartsList.num}" />
-					          </li>
+					            <li><a href="../mainindex/goodsDetail/${cartsList.goodsId}" class="fc-000 goodsName">${cartsList.name}</a></li>
+					            <li>商品规格：<span class="goodsValue">${cartsList.value}</span></li>
+					            <li>
+					          		<span class="fl goodsPrice">￥${cartsList.price}</span>
+					          		<input type="hidden" class="goodsNum" value="${cartsList.num}" />
+					            </li>
 					        </ul>
 					        <div class="shopping-car-edit">
-					          <p class="modify">修改</p>
-					          <p class="mt8 iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>
-					          <input class="cartId" type="hidden" value="${cartsList.id}">
-					          <input class="goodsId" type="hidden" value="${cartsList.goodsId}">
-					          <input class="goodsNameInput" type="hidden" value="${cartsList.name}">
-					          <input class="goodsSkuNum" type="hidden" value="${cartsList.skuNum}">
+					        	<input class="cartId" type="hidden" value="${cartsList.id}">
+                                <input class="skuId" type="hidden" value="${cartsList.skuId}">
+                             	<input class="goodsNameInput" type="hidden" value="${cartsList.name}">
+                              	<input class="goodsSkuNum" type="hidden" value="${cartsList.skuNum}">
+                              	<input class="goodsPrice" type="hidden" value="${cartsList.price}">
+					          	<ul class="fl" style="width: 60px; height: 100%; margin-right: 10px;">
+					          		<li class="fc-9fa0a0 fs-12">数量</li>
+					          		<li class="edit-num mt18" style="overflow: hidden;">
+					          			<span class="reduceNum">-</span>
+					        			<span class="purchaseNum">${cartsList.num}</span>
+					        			<span class="plusNum">+</span>	
+					          		</li>					          						          		
+								</ul>
+					          	<ul class="fr" style="width: 30px; height: 100%;">
+					          		<li class="fc-9fa0a0 fs-12">删除</li>
+					          		<li>
+					          			<p class="mt8 iconfont order-delete" style="font-size: 2.5rem; text-align: center;">&#xe649;</p>
+					          		</li>
+								</ul>					         
 					        </div>
 				  	    </div>
 					</c:forEach>
@@ -161,58 +173,7 @@
 	  		<a class="btn fr bc-c8161d" id="submitOrder">结算（<span id="settlement">${totalNum}</span>）</a>
 	  		<p class="fr mr10" id="total" style="font-size: 2rem;">合计：￥${total}</p>
 	    </div>
-	    
-	    <!-- 商品属性的修改 -->	
-		<div id="modifyAttr">
-			<div class="goods-parameter-choice" id="goods-parameter-choice" style="display: none;">
-				<div class="goods-parameter-show order-list clearfloat">
-					<input id="eGoodsId" type="hidden">
-					<input id="eCartId" type="hidden">
-				    <img id="eGoodsImg" />
-			        <ul class="shopping-car-detail p5">
-			         	<li class="fc-c8161d mb5" id="eGoodsPrice"></li>
-			            <li class="fc-9fa0a0 fs-1rem mb5">库存<span id="eGoodsNum" style="display: inline-block;"></span>件</li>
-			            <li class="fc-595757 parameter-show" id="eGoodsSelect">请选择</li>
-			        </ul>
-			        <div class="shopping-car-edit">
-		            	<i id="close"></i>
-		          	</div>
-		        </div>
-		        <div class="goods-parameter-classify">
-		        	<button class="clear-attr">清空</button>
-		        </div>
-		        <div class="goods-purchase-num">
-		        	<div class="fl">购买数量</div>
-		        	<div class="fr">
-		        		<span id="reduceNum">-</span>
-		        		<span class="bc-fff mh5" id="purchaseNum">1</span>
-		        		<span id="plusNum">+</span>
-		        	</div>
-		        </div>
-		        <div class="goods-purchase" style="position: relative; border-top: 1px solid #C7C3C5;">
-		        	<p class="parameter-prompt">请选择商品属性</p>
-		        	<a href="javascript:void(0)" class="purchase" id="purchase">确定</a>
-		        </div>
-			</div>
-		</div>
-		
-		<!-- Modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		    <div class="modal-dialog">
-			    <div class="modal-content">
-			        <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				        <h4 class="modal-title ta-center" id="myModalLabel">公告</h4>
-			        </div>
-			        <div class="modal-body">
-			        	<p style="text-indent: 28px; word-wrap: break-word;">
-			        		替换文字替换文字替换文字替换文字替换文字替换文字替换文字替换文字替换文字
-			        	</p>		        	
-			        </div>
-			    </div>
-		    </div>
-		</div>
-	    
+
 	    <!-- 遮罩动画 -->
 	    <div id="loading">
 			<div id="loading-center">
@@ -226,17 +187,41 @@
 	  
     </div>
 
-	<script type="text/javascript">
+	<script type="text/javascript">   
     	$(document).ready(function() {
-    		//alert($(window).height());
-    		//alert($(".go-shopping").innerHeight());
-    		//alert($(".tab-bar").innerHeight());
     		var wHeight = $(window).height()-$(".go-shopping").innerHeight()-$(".tab-bar").innerHeight();
     		$(".have-data").css("height", wHeight);
     		
+    		//修改数量
+    		$(".shopping-car").on("click", ".reduceNum", function() {
+    			var cartId = $(this).parents(".shopping-car-edit").find(".cartId").val();//购物车Id
+    			var skuId = $(this).parents(".shopping-car-edit").find(".skuId").val();//库存Id
+    			var goodsPrice = $(this).parents(".shopping-car-edit").find(".goodsPrice").val();//商品价格
+    			var goodsNum = $(this).siblings(".purchaseNum").text();//商品数量		
+    			if(parseInt(goodsNum) > 1) {
+    				goodsNum = parseInt(goodsNum)-1;
+    				$(this).siblings(".purchaseNum").text(goodsNum);
+    				editNum(cartId, skuId, goodsNum, goodsPrice);
+                }
+    		});
+			$(".shopping-car").on("click", ".plusNum", function() {
+				var skuNum = $(this).parents(".shopping-car-edit").find(".goodsSkuNum").val();//库存数量
+				var cartId = $(this).parents(".shopping-car-edit").find(".cartId").val();//购物车Id
+    			var skuId = $(this).parents(".shopping-car-edit").find(".skuId").val();//库存Id
+    			var goodsPrice = $(this).parents(".shopping-car-edit").find(".goodsPrice").val();//商品价格
+    			var goodsNum = $(this).siblings(".purchaseNum").text();//商品数量	
+				if(parseInt(goodsNum) > parseInt(skuNum)-1) {
+		    		alert("所选商品数量不可超过库存数！");
+		    	}else {
+		    		goodsNum = parseInt(goodsNum)+1;
+		    		$(this).siblings(".purchaseNum").text(goodsNum);
+		    		editNum(cartId, skuId, goodsNum, goodsPrice);
+		    	}			
+    		});
+
     		//删除商品
     		$(".shopping-car").on("click", ".order-delete", function() {
-    			var cartId = $(this).siblings(".cartId").val();
+    			var cartId = $(this).parents(".shopping-car-edit").find(".cartId").val();//购物车Id
     			$.ajax({
     		   	    url: "<%=basePath%>home/purchase/deleteGoods",
     		   		type: "Post",
@@ -248,401 +233,113 @@
     		        	$('#loading').show();
     		        },
     		   	    success: function(data) {
+    		   	    	$('#loading').hide();		   	    		
     		   	    	if(data.state){
-    		   	    		$('#loading').hide();
-    		   	    		$(".have-data").html("");
-    		   	    		$.each(data.cartsMsg, function(i, cartsList) {   
-    		   	    			$(".have-data").append( 
-    		   	    				'<div class="shopping-car-show order-list clearfloat">'+
-    		   	    				'<img src="<%=basePath%>'+cartsList.url+'">'+
-       			          	  	    '<ul class="shopping-car-detail ph5">'+
-       					            '<li><a href="../mainindex/goodsDetail/'+cartsList.goodsId+'"class="fc-000 goodsName">'+cartsList.name+'</a></li>'+
-       					            '<li>商品规格：<span class="goodsValue">'+cartsList.value+'</span></li>'+
-       					            '<li><span class="fl goodsPrice">￥'+cartsList.price+'</span><span class="fr">x'+cartsList.num+'</span><input type="hidden" class="goodsNum" value="'+cartsList.num+'" /></li>'+
-									'</ul>'+
-									'<div class="shopping-car-edit">'+
-									'<p class="modify">修改</p>'+
-									'<p class="mt8 iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>'+
-									'<input class="cartId" type="hidden" value="'+cartsList.id+'">'+
-									'<input class="goodsId" type="hidden" value="'+cartsList.goodsId+'">'+
-									'<input class="goodsNameInput" type="hidden" value="'+cartsList.name+'">'+
-									'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
-									'</div>'+
+    		   	    		if(data.cartsMsg == null) {
+    		   	    			$(".shopping-car").html("");
+    		   	    			$(".shopping-car").append(
+    		   	    				'<div class="no-shopping-car-show ta-center">'+
+    		   	    				'<div><img src="<%=basePath%>assets/home/images/no-goods.png" /></div>'+
+    		   	    				'<a href="<%=basePath%>home/mainindex/index" class="btn bc-c8161d">去逛逛</a>'+
 									'</div>'
-    		    				);
-    	   		  			});
-    		   	    		$("#total").text("合计：￥"+data.total);
-    		   	    		$("#totalMoney").val(data.total);
-    		   	    		$("#settlement").text(data.totalNum);
+    		   	    			);
+    		   	    			$("#total").text("合计：￥0.00");
+    	                        $("#totalMoney").val("0.00");
+    	                        $("#settlement").text(0);
+    		   	    		}else {   
+    		   	    			$(".have-data").html("");
+        		   	    		$.each(data.cartsMsg, function(i, cartsList) {   
+        		   	    			$(".have-data").append( 
+        		   	    				'<div class="shopping-car-show order-list clearfloat">'+
+        		   	    				'<img src="<%=basePath%>'+cartsList.url+'">'+
+           			          	  	    '<ul class="shopping-car-detail ph5">'+
+           					            '<li><a href="../mainindex/goodsDetail/'+cartsList.goodsId+'"class="fc-000 goodsName">'+cartsList.name+'</a></li>'+
+           					            '<li>商品规格：<span class="goodsValue">'+cartsList.value+'</span></li>'+
+           					            '<li><span class="fl goodsPrice">￥'+cartsList.price.toFixed(2)+'</span><input type="hidden" class="goodsNum" value="'+cartsList.num+'" /></li>'+
+    									'</ul>'+
+    									'<div class="shopping-car-edit">'+
+    									'<input class="cartId" type="hidden" value="'+cartsList.id+'">'+
+    									'<input class="skuId" type="hidden" value="'+cartsList.skuId+'">'+
+    									'<input class="goodsNameInput" type="hidden" value="'+cartsList.name+'">'+
+    									'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
+    									'<input class="goodsPrice" type="hidden" value="'+cartsList.price+'">'+
+    									'<ul class="fl" style="width: 60px; height: 100%; margin-right: 10px;">'+
+    									'<li class="fc-9fa0a0 fs-12">数量</li>'+
+    									'<li class="edit-num mt18" style="overflow: hidden;">'+
+    									'<span class="reduceNum">-</span>'+
+    									'<span class="purchaseNum">'+cartsList.num+'</span>'+
+    									'<span class="plusNum">+</span>'+
+    									'</li></ul>'+
+    									'<ul class="fr" style="width: 30px; height: 100%;">'+
+    									'<li class="fc-9fa0a0 fs-12">删除</li>'+
+    									'<li><p class="mt8 iconfont order-delete" style="font-size: 2.5rem; text-align: center;">&#xe649;</p></li>'+
+    									'</ul></div>'+
+    									'</div>'
+        		    				);
+        	   		  			});
+        		   	    		$("#total").text("合计：￥"+data.total);
+        		   	    		$("#totalMoney").val(data.total);
+        		   	    		$("#settlement").text(data.totalNum);
+    		   	    		}		  		   	    		
     		   			}
     		   	    }
     	        })
     		}); 
     	});
-    </script>
-    
-    <script type="text/javascript">
-  		//清空所选属性
-	    function clear(oldGoods) {
-			$(".classify-detail > li").removeClass("active");
-			$(".classify-detail > li").removeClass("select-active");
-			$(".classify-detail > li").addClass("select-no-active");
-			var attrText = "";
-        	$("#eGoodsImg").attr("src", '<%=basePath%>'+oldGoods.url);
-        	if(oldGoods.price == oldGoods.highprice) {
-        		$("#eGoodsPrice").text('￥'+oldGoods.price);
-        	}else {
-        		$("#eGoodsPrice").text('￥'+oldGoods.price+' ~ '+oldGoods.highprice);
-        	}	
-        	$("#eGoodsNum").text(oldGoods.quantity);
-			if($(".goods-parameter-classify p").length > 0) {
-				$(".goods-parameter-classify p").each(function(){
-					attrText = attrText + '"' + $(this).text() + '"';
-				});
-			}				
-			$("#eGoodsSelect").text("请选择:"+attrText);
-	    }
-  		
-	    //初始化
-  		function Init(goodsStock) {
-   	 		$(".classify-detail").each(function(e){
-				var liAttr = ""
-					$(this).children().each(function(){
-						if(liAttr != ""){
-							liAttr+=","+$(this).text();	
-		        	}else{
-		        		liAttr = $(this).text();
-		        	}
-				})
-				if(goodsStock != null) {
-					for(var i=0; i<goodsStock.length; i++) {
-						var val = goodsStock[i].value;
-					    var valList = val.split(",");
-					    var liAttrList = liAttr.split(",");
-					    for(var j=0; j<liAttrList.length; j++) {
-					    	if(liAttrList[j] == valList[e]) {
-					    		$(this).children().eq(j).removeClass("select-no-active");
-								$(this).children().eq(j).addClass("select-active");
-							}
-					    }
-					}
-				}
-			});
-  		}
-  		
-  		function select(attr, attrIndex, goodsStock) {
-  			var list = "";//符合已选属性的库存数组id
-			for(var i=0; i<goodsStock.length; i++) {
-				var value = goodsStock[i].value;
-				var valList = value.split(",");
-				if(attr == valList[attrIndex]) {						
-					if(list != ""){
-						list+=","+i;	
-		        	}else{
-		        		list = i.toString();
-		        	}
-				}
-			}
-			var goodsList = list.split(",");
-			$(".classify-detail").each(function(e){
-			    $(this).children().each(function(){
-					if(attrIndex != e) {
-						if($(this).hasClass('select-active')) {
-							var total = 0;
-							for(var i=0; i<goodsList.length; i++) {
-								var j = goodsList[i];
-								var value = goodsStock[j].value;
-								var valList = value.split(",");
-								if($(this).text() == valList[e]) {
-									break;
-								}else {
-									total++;
-								}
-							}
-							if(total == goodsList.length) {
-								$(this).removeClass('select-active');
-								$(this).addClass('select-no-active');
-							}
-						}
-					}
-		        });			        
-			});
-  		}
-  		
-	    //属性是否都选了
-	    function checkAll(oldGoods, goodsStock) {
-	    	var select = false;//属性是否已选
-	    	var sub = 0;//数组下标
-	    	var str = "";
-	    	var parameter = "";//未选属性	  
-	    	var judge = "";
-	    	var myAttr = new Array();
-	    	var liNum = $('.classify-detail').length;
-	    	var checkNum = $('.active').length;
-	    	if(liNum == checkNum) {//全选
-	    		//alert("全选");
-	    		select = true;
-	    		$(".active").each(function(e) {
-	    			str+='"'+$(this).text()+'" ';
-	    			myAttr[e] = $(this).text();
-	    		});
-    			$(".parameter-show").text("已选:"+str); 
-    			for(var i=0; i<goodsStock.length; i++) {
-    				var a = 0;
-					for(var j=0; j<myAttr.length; j++) {
-						var value = goodsStock[i].value;
-						var valueList = value.split(",");
-						if(myAttr[j] == valueList[j]) {
-							a++;
-						}else {
-							break;
-						}
-					}
-					if(a == myAttr.length) {
-			    		sub = i;
-			        	$("#eGoodsImg").attr("src", '<%=basePath%>'+goodsStock[sub].url);
-			        	$("#eGoodsPrice").text('￥'+goodsStock[sub].price);
-			        	$("#eGoodsNum").text(goodsStock[sub].num);
-		        		$(".parameter-prompt").text("请选择商品属性");       		
-			        	break;
-					}
-				}
-	    	}else {
-	    		select = false;
-	    		$(".classify-detail").each(function(){
-	    			if(!($(this).children().hasClass('active'))) {
-	    				parameter+='"'+$(this).siblings("p").text()+'" ';
-					}
-	    		});
-	    		$(".parameter-show").text("请选择:"+parameter);
-	        	$("#eGoodsImg").attr("src", '<%=basePath%>'+oldGoods.url);
-	        	if(oldGoods.price == oldGoods.highprice) {
-	        		$("#eGoodsPrice").text('￥'+oldGoods.price);
-	        	}else {
-	        		$("#eGoodsPrice").text('￥'+oldGoods.price+' ~ '+oldGoods.highprice);
-	        	}	
-	        	$("#eGoodsNum").text(oldGoods.quantity);
-	    	}
-	    	judge = select + "," + sub;
-			return judge;
-	    }
-  		
-	    $(document).ready(function(){
-	    	var state = 0;
-	    	var oldGoods = new Array();//商品信息
-	    	var goodsStock = new Array();//现货信息
-	    	var goodsId = $("#goodsId").val();//商品id    	
-	    	
-	    	//关闭选择
-	    	$("#close").click(function() {
-				clear(oldGoods);
-				Init(goodsStock);
-				$("#modifyAttr").hide();
-				$(".goods-parameter-choice").slideUp();
-			});
-	    	
-	    	//清空
-			$(".goods-parameter-choice").on("click", ".clear-attr", function(){				
-				clear(oldGoods);
-				Init(goodsStock);				
-			});
-	    	
-	    	//减少购买数量
-			$("#reduceNum").click(function() {
-				var purchaseNum = parseInt($("#purchaseNum").text(), 10);//购买数量
-				if(purchaseNum > 1) {
-					$("#purchaseNum").text(purchaseNum-1);
-				}
-			});
-	    	
-			//增加购买数量
-			$("#plusNum").click(function() {
-				var purchaseNum = parseInt($("#purchaseNum").text(), 10);//购买数量
-				$("#purchaseNum").text(purchaseNum+1);
-			});
-			
-			//修改商品属性
-			$("#purchase").click(function() {
-				var judge = checkAll(oldGoods, goodsStock);
-				var judgeList = judge.split(",");
-				var select = judgeList[0];
-				var sub = judgeList[1];
-				var purchaseNum = parseInt($("#purchaseNum").text(), 10);//购买数量
-				if(select == "true") {
-					if(purchaseNum > goodsStock[sub].num) {
-		        		$(".parameter-prompt").text("所选商品数不可超过库存数");
-		        		$(".parameter-prompt").fadeIn();
-						setTimeout(function(){$(".parameter-prompt").fadeOut();},2000);
-		        	}else {
-	        			$.ajax({
-					   	    url: "<%=basePath%>home/purchase/modifyCart",
-					   		type: "Post",
-					   		data: {
-					   			cartId:$("#eCartId").val(),
-					   	    	skuId:goodsStock[sub].id,
-					   	    	goodsNum:$("#purchaseNum").text(),
-					   	    	goodsPrice:goodsStock[sub].price
-					   	    },
-					   	    dataType: "json",
-					   	    success: function(data) {
-					   	    	if(data.state){
-					   	    		$(".car-tab-bar").css("display", "block");					   	    										
-									$("#modifyAttr").hide();
-									$(".goods-parameter-choice").slideUp();	
-									$(".have-data").html("");
-		    		   	    		$.each(data.cartsMsg, function(i, cartsList) {   
-		    		   	    			$(".have-data").append( 
-		    		   	    				'<div class="shopping-car-show order-list clearfloat">'+
-		    		   	    				'<img src="<%=basePath%>'+cartsList.url+'">'+
-		       			          	  	    '<ul class="shopping-car-detail ph5">'+
-		       					            '<li><a href="../mainindex/goodsDetail/'+cartsList.goodsId+'"class="fc-000 goodsName">'+cartsList.name+'</a></li>'+    
-		       					            '<li>商品规格：<span class="goodsValue">'+cartsList.value+'</span></li>'+
-		       					            '<li><span class="fl goodsPrice">￥'+cartsList.price+'</span>'+
-		       					            '<span class="fr">x'+cartsList.num+'</span><input type="hidden" class="goodsNum" value="'+cartsList.num+'" /></li>'+
-											'</ul>'+
-											'<div class="shopping-car-edit">'+
-											'<p class="modify">修改</p>'+
-											'<p class="mt8 iconfont order-delete" style="font-size: 2.5rem;">&#xe649;</p>'+
-											'<input class="cartId" type="hidden" value="'+cartsList.id+'">'+
-											'<input class="goodsId" type="hidden" value="'+cartsList.goodsId+'">'+
-											'<input class="goodsNameInput" type="hidden" value="'+cartsList.name+'">'+
-											'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
-											'</div>'+
-											'</div>'
-		    		    				);
-		    	   		  			});
-		    		   	    		$("#total").text("合计：￥"+data.total);
-		    		   	    		$("#totalMoney").val(data.total);
-		    		   	    		$("#settlement").text(data.totalNum);
-					   			}
-					   	    }
-				        })
-		        	}						
-				}else {
-					$(".parameter-prompt").fadeIn();
-					setTimeout(function(){$(".parameter-prompt").fadeOut();},2000);
-				}
-			});
-
-	    	//商品选择展开
-	    	$(".shopping-car").on("click", ".modify", function() {
-	    		var num = $(this).parent().siblings("ul").find("input.goodsNum").val();
-	    		$("#purchaseNum").text(num);
-				$(".car-tab-bar").css("display", "none");
-				$("#modifyAttr").show();
-				$(".car-tab-bar").show();
-				$(".goods-parameter-choice").slideDown();
-				//商品信息
-				var src = $(this).parents("div.shopping-car-show").children("img").attr("src");
-				var spec = $(this).parents("div.shopping-car-show").find(".goodsValue").text();
-				$("#eCartId").val($(this).siblings(".cartId").val());
-				$("#eGoodsImg").attr("src", src);
-				$("#eGoodsPrice").text($(this).parents("div.shopping-car-show").find(".goodsPrice").text());
-				$("#eGoodsNum").text($(this).siblings(".goodsSkuNum").val());
-		  		$("#eGoodsSelect").text("已选 "+spec);	  		
-				//获取库存信息(若库存为0，直接不可点击)
-				$.ajax({
-					url: '<%=basePath%>home/mainindex/getGoodsStockInfo/'+$(this).siblings(".goodsId").val(),
-			   		type: "Post",
-			   	    dataType: "json",
-			   	 	success: function(data) {
-			   	    	if(data.state){
-			   	    		oldGoods = data.goodsMsg;
-			   	    		goodsStock = data.goodsSkuMsg;
-			   	    		$(".goods-parameter-classify").html('<button class="clear-attr">清空</button>');
-			   	    		$(".classify-detail").html('');
-			   	    		//动态加载属性
-			   	    		$.each(data.proMsg, function(i, proList) { 
-			   	    			var value = proList.value.split(",");
-    		   	    			$(".goods-parameter-classify").append( 
-    		   	    				'<div class="clearfloat">'+
-    		   	    				'<p class="fc-595757 pv5">'+proList.name+'</p>'+
-    		   	    				'<input type="hidden" value="'+proList.proId+'">'+
-    		   			        	'<ul class="classify-detail clearfloat">'+
-    		   			        	'</ul>'+
-    		   			        	'</div>'
-    		    				);
-		   				        $.each(value, function(j, value) { 
-	    		   	    			$(".classify-detail").eq(i).append( 	       	    					
-	    		   	    				'<li class="select-no-active">'+value+'</li>'
-           		    				);
-	    	   		  			});	
-    	   		  			});	
-			   	    		
-			   	    		Init(goodsStock);
-
-			   	    	    //默认选中
-			   		    	$(".classify-detail").each(function(e){		   		    		
-			   		    		var val = spec.split(",");
-			   		    		$(this).children().each(function(){
-									if(val[e] == $(this).text()) {
-										$(this).removeClass("select-no-active");
-										$(this).addClass("select-active");									
-										select($(this).text(), e, goodsStock);
-										$(this).addClass("active");
-									}	 
-					        	});
-							});	
-			   	    		
-			   			}
-			   	    }
-				})				
-	    	});
-	    	
-	    	//商品属性选择
-	    	$(".goods-parameter-classify").on("click", ".select-active", function() {
-	    		if($(this).hasClass('active')) {//原本被选中
-	    			$(this).removeClass('active');
-	    			
-	    			//存储已选属性
-	    			var myAttr1 = new Array();
-	    			$(".classify-detail").each(function(e){
-	    				if($(this).children().hasClass("active")) {
-	    					myAttr1[e] = $(this).children(".active").text();
-	    				}else {
-	    					myAttr1[e] = "";
-	    				}
-	    			});	    			
-	    			$(".classify-detail li").removeClass('select-active');
-	    			$(".classify-detail li").addClass("select-no-active");	    			
-	    			Init(goodsStock);
-	    			
-	    			for(var i=0; i<myAttr1.length; i++) {
-	    				if(myAttr1[i] != null && myAttr1[i] != "") {
-	    					select(myAttr1[i], i, goodsStock);
-	    				}
-	    			}
-	    			
-	    		}else if($(this).siblings().hasClass('active')) {//它的同胞被选中
-	    			$(this).siblings().removeClass('active');
-	    			$(this).addClass('active');
-	    			//存储已选属性
-	    			var myAttr1 = new Array();
-	    			$(".classify-detail").each(function(e){
-	    				if($(this).children().hasClass("active")) {
-	    					myAttr1[e] = $(this).children(".active").text();
-	    				}else {
-	    					myAttr1[e] = "";
-	    				}
-	    			});
-	    			$(".classify-detail li").removeClass('select-active');
-	    			$(".classify-detail li").addClass("select-no-active");
-	    			Init(goodsStock);
-	    			for(var i=0; i<myAttr1.length; i++) {
-	    				if(myAttr1[i] != null && myAttr1[i] != "") {
-	    					select(myAttr1[i], i, goodsStock);
-	    				}
-	    			}
-	    		}else {
-	    			var attr = $(this).text();//点击选中的值			
-					var attrIndex = $(this).parents("div").index()-1;//判断是哪个属性
-					select(attr, attrIndex, goodsStock);
-					$(this).siblings().removeClass('active');
-		    		$(this).addClass('active');	
-	    		}
-	    		checkAll(oldGoods, goodsStock);
-			});	    	
-	    })
+    	
+    	function editNum(cartId, skuId, goodsNum, goodsPrice) {
+    		$.ajax({
+                url: "<%=basePath%>home/purchase/modifyCart",
+                type: "Post",
+                data: {
+                    cartId:cartId,
+                    skuId:skuId,
+                    goodsNum:goodsNum,
+                    goodsPrice:goodsPrice
+                },
+                dataType: "json",
+                success: function(data) {
+                    if(data.state){	   			
+                        $(".car-tab-bar").css("display", "block");                                                                  
+                        $("#modifyAttr").hide();
+                        $(".goods-parameter-choice").slideUp(); 
+                        $(".have-data").html("");
+                        $.each(data.cartsMsg, function(i, cartsList) {   
+                            $(".have-data").append( 
+                           		'<div class="shopping-car-show order-list clearfloat">'+
+   		   	    				'<img src="<%=basePath%>'+cartsList.url+'">'+
+      			          	  	    '<ul class="shopping-car-detail ph5">'+
+      					            '<li><a href="../mainindex/goodsDetail/'+cartsList.goodsId+'"class="fc-000 goodsName">'+cartsList.name+'</a></li>'+
+      					            '<li>商品规格：<span class="goodsValue">'+cartsList.value+'</span></li>'+
+      					            '<li><span class="fl goodsPrice">￥'+cartsList.price.toFixed(2)+'</span><input type="hidden" class="goodsNum" value="'+cartsList.num+'" /></li>'+
+								'</ul>'+
+								'<div class="shopping-car-edit">'+
+								'<input class="cartId" type="hidden" value="'+cartsList.id+'">'+
+								'<input class="skuId" type="hidden" value="'+cartsList.skuId+'">'+
+								'<input class="goodsNameInput" type="hidden" value="'+cartsList.name+'">'+
+								'<input class="goodsSkuNum" type="hidden" value="'+cartsList.skuNum+'">'+
+								'<input class="goodsPrice" type="hidden" value="'+cartsList.price+'">'+
+								'<ul class="fl" style="width: 60px; height: 100%; margin-right: 10px;">'+
+								'<li class="fc-9fa0a0 fs-12">数量</li>'+
+								'<li class="edit-num mt18" style="overflow: hidden;">'+
+								'<span class="reduceNum">-</span>'+
+								'<span class="purchaseNum">'+cartsList.num+'</span>'+
+								'<span class="plusNum">+</span>'+
+								'</li></ul>'+
+								'<ul class="fr" style="width: 30px; height: 100%;">'+
+								'<li class="fc-9fa0a0 fs-12">删除</li>'+
+								'<li><p class="mt8 iconfont order-delete" style="font-size: 2.5rem; text-align: center;">&#xe649;</p></li>'+
+								'</ul></div>'+
+								'</div>'
+                            );
+                        });
+                        $("#total").text("合计：￥"+data.total);
+                        $("#totalMoney").val(data.total);
+                        $("#settlement").text(data.totalNum);
+                    }
+                }
+            })
+    	}
     </script>
     
     <script type="text/javascript">

@@ -28,16 +28,16 @@
       <div class="order-detail p10"> 
         <div class="order-detail-addr">
           <p class="check-addr">请选择收货地址</p>
-          <h4><span id="oldName"></span>&nbsp;&nbsp;&nbsp;<span id="oldPhone"></span></h4>
-          <p class="fc-9fa0a0 fs-12 mt5" id="oldAddress"></p>
+          <h4 class="fc-000 fs-14"><span id="oldName"></span>&nbsp;&nbsp;&nbsp;<span id="oldPhone"></span></h4>
+          <p class="fc-9fa0a0 fs-14 mt5" id="oldAddress"></p>
           <a href="javascript:void(0)" class="icon-item" id="getAddr" style="display: block; color: #231815;">
             <span class="iconfont">&#xe7f7;</span>
           </a>
         </div>
-        <p class="order-detail-total p5 clearfloat">
+        <%-- <p class="order-detail-total p5 clearfloat">
           <span class="fl">商品合计：</span>
           <span class="fr font-price">￥${money}</span>
-        </p>
+        </p> --%>
         <c:forEach items="${cartsMsg}" var="cartsList">     
             <div class="order-detail-goods p5">
               <div class="order-show order-list clearfloat">
@@ -73,7 +73,7 @@
           <input type="hidden" id="state" name="state" value="${state}" />
         </form> 
         <div class="tab-bar order-tab-bar">   
-	      <p class="fl">实付款</p>           
+	      <p class="fl">合计：</p>           
 	      <p class="fr payment">付款</p>
 	      <p class="fr font-price">￥${money}</p>
 	    </div>
@@ -84,8 +84,8 @@
         <c:forEach items="${orderMsg}" var="orderList">
           <div class="order-detail p10">      
             <div class="order-detail-addr">
-              <h4 class="mb5"><span id="oldName">${orderList.name}</span>，<span id="oldPhone">${orderList.phone}</span></h4>
-              <p class="fc-9fa0a0 fs-12" id="oldAddress">${orderList.provinceName}&nbsp;${orderList.cityName}&nbsp;${orderList.countryName}&nbsp;${orderList.address}</p>
+              <h4 class="mb5 fc-000 fs-14"><span id="oldName">${orderList.name}</span>，<span id="oldPhone">${orderList.phone}</span></h4>
+              <p class="fc-9fa0a0 fs-14" id="oldAddress">${orderList.provinceName}&nbsp;${orderList.cityName}&nbsp;${orderList.countryName}&nbsp;${orderList.address}</p>
               <a href="javascript:void(0)" class="icon-item" id="getAddr" style="display: block; color: #231815;">
                 <span class="iconfont">&#xe7f7;</span>
               </a>
@@ -130,7 +130,7 @@
             </form>                     
           </div>
           <div class="tab-bar order-tab-bar">   
-	        <p class="fl">实付款</p>           
+	        <p class="fl">合计:</p>           
 	        <p class="fr payment">付款</p>
 	        <p class="fr font-price">￥${orderList.totalPrice}</p>
 	      </div>
@@ -272,9 +272,9 @@
                     $("#addressDetailInfo").val(res.detailInfo);                 
                     $("#telNumber").val(res.telNumber);
                     $("#username").val(res.userName);                   
-                    $("#oldName").text(res.userName);
+                    $("#oldName").text("收货人："+res.userName);
                     $("#oldPhone").text(res.telNumber);
-                    $("#oldAddress").text(addr); 
+                    $("#oldAddress").text("收货地址："+addr); 
                     $(".check-addr").hide();
 	       	    }
             });          

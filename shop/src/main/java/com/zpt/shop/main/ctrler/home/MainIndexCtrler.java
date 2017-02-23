@@ -70,7 +70,7 @@ public class MainIndexCtrler {
 	
 	@Autowired
 	private SystemService systemService;
-	
+
 	@Autowired
 	private BannerService bannerService;
 	
@@ -173,7 +173,7 @@ public class MainIndexCtrler {
 	public ModelAndView goodsType(@PathVariable("typeId") Integer typeId) {
 		ModelAndView mv = new ModelAndView("home/type-detail");	
 		Integer pageStart = 0;
-		Integer num = 3;
+		Integer num = 10;
 		String flag = "";
 		String keyword = "";
 		List<Goods> goodsList = goodsService.getGoodsByTypeId(pageStart, num, Integer.toString(typeId));
@@ -212,12 +212,15 @@ public class MainIndexCtrler {
 		List<Evaluate> evaluateList = evaluateService.getEvaluateByGoodsId(goodsId);
 		//商品数据
 		Goods goodsList = goodsService.getGoodsById(goodsId);
+		//商品图片
+		List<Sku> goodsImgList = skuService.getGoodsImgByGoodsId(goodsId);
 		//商品属性
 		List<ProVal> proList = proValService.getProByTypeId(goodsId);
 		//购物车数量
 		Integer amount = cartService.selectAmount(userId);
 		mv.addObject("evaluateMsg", evaluateList);		
 		mv.addObject("goodsMsg", goodsList);
+		mv.addObject("goodsImgMsg", goodsImgList);
 		mv.addObject("proMsg", proList);
 		mv.addObject("goodsId", goodsId);
 		mv.addObject("amount", amount);
