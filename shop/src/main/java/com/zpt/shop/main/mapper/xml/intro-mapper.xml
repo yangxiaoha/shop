@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.IntroMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="system" id="resultMap">
+		<id property="id" column="id" />
+		<result property="skey" column="skey" />		
+		<result property="sysvalue" column="sysvalue" />								
+	</resultMap>	
+	
+	<sql id="queryCondition">
+		where sys.skey = '简介'
+		<if test="obj.skey != null and obj.skey != ''">
+			and sys.skey like CONCAT('%',#{obj.skey},'%')
+		</if>
+		<if test="obj.sysvalue != null and obj.sysvalue != ''">
+			and sys.sysvalue like CONCAT('%',#{obj.sysvalue},'%')
+		</if>
+		<if test="search != null and search != ''">
+			and (sys.skey like CONCAT('%',#{search},'%') or
+			sys.sysvalue like CONCAT('%',#{search},'%'))
+		</if>	
+	</sql>
+	
+	<sql id="validateCondition">
+		where 1 = 1
+		<if test="id != null and id != ''">
+			and id != #{id}
+		</if>
+	</sql>	
+		
+	<select id="listIntro" resultMap="resultMap" parameterType="query">
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
+		select sys.id as id,sys.skey as skey,sys.sysvalue as sysvalue
+		from t_system as sys		
+		<include refid="queryCondition"/>
+		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
+	</select>
+	
+	<select id="countIntro" resultType="java.lang.Integer" parameterType="query">
+		select count(sys.id) from t_system as sys
+		<include refid="queryCondition"/>
+	</select>	
+	
+	<select id="validate" resultMap="resultMap" parameterType="system">
+		select * from t_system
+		<include refid="validateCondition"/>
+	</select>
+	
+	<update id="updateIntro" parameterType="system">
+		update t_system set sysvalue = #{sysvalue} where skey = '简介'
+	</update>
+</mapper>
