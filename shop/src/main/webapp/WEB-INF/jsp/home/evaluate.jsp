@@ -105,6 +105,10 @@
 									$('#myModal').modal('hide');
 									window.location.href='<%=basePath%>home/purchase/orderDetail';
 			        		    },1000);								
+							}
+							if(data.state == 2) {
+								alert(data.msg);
+								window.location.href='<%=basePath%>home/purchase/orderDetail';									
 							}						
 				   	    }
 			        })

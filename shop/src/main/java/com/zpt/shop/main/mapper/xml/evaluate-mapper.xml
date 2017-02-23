@@ -74,5 +74,10 @@
 		on evaluate.userId = user.id
 		where sku.goodsid = #{goodsId}
 	</select>
+	
+	<select id="getEvaluate" resultMap="resultMap">
+		select * from t_evaluate 
+		where orderId = #{orderId} and skuId = #{skuId} and userId = #{userId}
+	</select>
 
 </mapper>

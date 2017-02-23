@@ -15,6 +15,7 @@
 		<result property="ordertime" column="ordertime" />
 		<result property="proname" column="proname" />
 		<result property="provalue" column="provalue" />
+		<result property="goodsId" column="goodsId" />
 		<collection property="user" columnPrefix="detail_" ofType="User" javaType="ArrayList">    
             <id property="id" column="detail_id" />
             <id property="name" column="name" />
@@ -55,6 +56,13 @@
 		select t_order_detail.* from t_order_detail 
 		left join t_order
 		on t_order_detail.orderid = t_order.id
+		where t_order.ordernum = #{ordercode}
+	</select>
+	
+	<select id="getOrderByOrderNum" resultMap="resultMap">
+		select detail.*, sku.goodsid from t_order_detail as detail 
+		left join t_order on detail.orderid = t_order.id
+		left join t_goods_sku as sku on detail.skuid = sku.id
 		where t_order.ordernum = #{ordercode}
 	</select>
 

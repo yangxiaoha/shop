@@ -30,4 +30,6 @@ public interface EvaluateMapper {
 
 	public List<Evaluate> getEvaluateByGoodsId(@Param("goodsId")Integer goodsId);
 
+	public Evaluate getEvaluate(@Param("orderId")Integer orderId, @Param("skuId")Integer skuId, @Param("userId")Integer userId);
+
 }

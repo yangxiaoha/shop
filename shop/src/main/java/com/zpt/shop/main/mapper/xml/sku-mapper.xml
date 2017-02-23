@@ -102,7 +102,7 @@
 	</select>
 	
 	<select id="getOrderByOrderNum" resultMap="resultMap">
-		select goodsid from t_goods_sku where id in
+		select * from t_goods_sku where id in
 		(select skuid from t_order_detail where orderid in
 		(select id from t_order where ordernum = #{orderNum}))
 	</select>

@@ -101,4 +101,14 @@ public class EvaluateServiceImpl implements EvaluateService {
 		return orderMapper.seeOrderAll(orderId);
 	}
 
+	@Override
+	public Evaluate getEvaluate(Integer orderId, Integer skuId, Integer userId) {
+		// TODO Auto-generated method stub
+		Evaluate list = evaluateMapper.getEvaluate(orderId, skuId, userId);
+		if(list != null && !("").equals(list)){
+			return list;
+		}
+		return null;
+	}
+
 }

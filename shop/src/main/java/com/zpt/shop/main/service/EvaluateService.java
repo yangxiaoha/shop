@@ -32,5 +32,10 @@ public interface EvaluateService {
 	 * 查询评论
 	 * */
 	public List<Evaluate> getEvaluateByGoodsId(Integer goodsId);
+
+	/**
+	 * 查询评论
+	 * */
+	public Evaluate getEvaluate(Integer orderId, Integer skuId, Integer userId);
 	
 }

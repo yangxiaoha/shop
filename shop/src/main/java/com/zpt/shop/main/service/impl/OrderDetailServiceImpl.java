@@ -46,4 +46,15 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		}
 	}
 
+	@Override
+	public List<OrderDetail> getOrderByOrderNum(String ordercode) {
+		// TODO Auto-generated method stub
+		List<OrderDetail> list = orderDetailMapper.getOrderByOrderNum(ordercode);
+		if(list != null && list.size() > 0){
+			return list;
+		}else{
+			return null;			
+		}
+	}
+
 }

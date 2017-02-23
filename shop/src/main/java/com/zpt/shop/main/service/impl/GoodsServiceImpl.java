@@ -194,4 +194,10 @@ public class GoodsServiceImpl implements GoodsService {
 		return total;
 	}
 
+	@Override
+	public void updateTotal(Integer goodsId, int total) {
+		// TODO Auto-generated method stub
+		goodsMapper.updateTotal(goodsId, total);
+	}
+
 }

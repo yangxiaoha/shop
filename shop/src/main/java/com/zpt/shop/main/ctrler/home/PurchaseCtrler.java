@@ -420,9 +420,15 @@ public class PurchaseCtrler {
 		User user = (User) request.getSession().getAttribute("user");
 		List<Order> orderList = orderService.getOrderByOrderIdAndSkuId(orderId, skuId);
 		Integer goodsId = orderList.get(0).getOrderDetail().get(0).getGoodsId();
-		evaluateService.addEvaluate(orderId, skuId, user.getId(), evaluate);
-		msg.setState(1);
-		msg.setMsg("评论发表成功");
+		Evaluate evaluates = evaluateService.getEvaluate(orderId, skuId, user.getId());//判断是否已经评价过
+		if(evaluates == null) {
+			evaluateService.addEvaluate(orderId, skuId, user.getId(), evaluate);//添加评价
+			msg.setState(1);
+			msg.setMsg("评论发表成功");
+		}else {
+			msg.setState(2);
+			msg.setMsg("您已对此商品发表过评论");
+		}
 		return msg;
 	}
 	
