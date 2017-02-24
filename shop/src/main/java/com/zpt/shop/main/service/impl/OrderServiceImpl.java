@@ -117,7 +117,7 @@ public class OrderServiceImpl implements OrderService {
 				if(orderDetailsList.get(i).getSkuId() == goodsSkuList.get(j).getId()) {
 					Goods goodsList = goodsMapper.getGoodsInfo(goodsSkuList.get(j).getGoodsId());
 					Integer num = goodsSkuList.get(j).getNum() - orderDetailsList.get(i).getNum();
-					Integer goodsNum = (int) (goodsList.getNum() - orderDetailsList.get(i).getNum());
+					Integer goodsNum = (int) (goodsList.getQuantity() - orderDetailsList.get(i).getNum());
 					//修改库存数量					
 					skuMapper.updateSkuNum(goodsSkuList.get(j).getId(), num);
 					goodsMapper.updateTotal(goodsList.getId(), goodsNum);
