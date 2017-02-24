@@ -120,7 +120,7 @@ public class OrderServiceImpl implements OrderService {
 					Integer goodsNum = (int) (goodsList.getNum() - orderDetailsList.get(i).getNum());
 					//修改库存数量					
 					skuMapper.updateSkuNum(goodsSkuList.get(j).getId(), num);
-					goodsMapper.updateNum(goodsList.getId(), goodsNum);
+					goodsMapper.updateTotal(goodsList.getId(), goodsNum);
 				}
 			}
 		}		
@@ -264,7 +264,7 @@ public class OrderServiceImpl implements OrderService {
 								Integer goodsNum = (int) (goodsList.getNum() + detailList.get(j).getNum());
 								//更新库存数
 								skuMapper.updateSkuNum(allSkuList.get(s).getId(), num);
-								goodsMapper.updateNum(goodsList.getId(), goodsNum);
+								goodsMapper.updateTotal(goodsList.getId(), goodsNum);
 							}
 						}
 					}					
