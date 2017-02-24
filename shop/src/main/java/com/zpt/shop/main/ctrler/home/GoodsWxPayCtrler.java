@@ -79,16 +79,13 @@ public class GoodsWxPayCtrler {
                 Integer state = 2;
      			orderService.updateOrderState(ordercode, state);
      			
-     			//增加购买人数/修改商品总数量
+     			//增加购买人数
      			//List<Sku> goodsidList = skuService.getOrderByOrderNum(ordercode);
      			List<OrderDetail> goodsidList = orderDetailService.getOrderByOrderNum(ordercode);
      			if(goodsidList != null && goodsidList.size() > 0) {
          			for(int i=0; i<goodsidList.size(); i++) {
          				Goods goods = goodsService.getGoodsById(goodsidList.get(i).getGoodsId());
-         				goodsService.updateNum(goodsidList.get(i).getGoodsId(), goods.getNum()+1);
-         				System.out.println(goods.getNum());
-         				
-         				goodsService.updateTotal(goodsidList.get(i).getGoodsId(), goods.getQuantity()-goodsidList.get(i).getNum()); 
+         				goodsService.updateNum(goodsidList.get(i).getGoodsId(), goods.getNum()+1);        				
          			}
      			}
      			
