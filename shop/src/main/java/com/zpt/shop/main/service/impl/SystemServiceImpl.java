@@ -64,6 +64,23 @@ public class SystemServiceImpl implements SystemService {
 			return null;			
 		}
 	}
+	
+	@Override
+	public void updateIntro(String sysvalue) {
+		// TODO Auto-generated method stub
+		systemMapper.updateIntro(sysvalue);
+	}
+
+	@Override
+	public System selIntro() {
+		// TODO Auto-generated method stub
+		System sys = systemMapper.selIntro();
+		if(sys != null){
+			return sys;
+		}else{
+			return null;			
+		}
+	}
 
 	@Override
 	public String getNotice() {

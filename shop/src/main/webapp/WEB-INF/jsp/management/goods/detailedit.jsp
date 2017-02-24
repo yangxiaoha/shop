@@ -38,16 +38,28 @@
 </div>
 <script>
 	var ue = UE.getEditor('editor');
+	ue.addListener('afterExecCommand',function(t, e, arg){
+		afterUploadImage(e);
+	});
+	function afterUploadImage() {
+		if(arguments[0]=="inserthtml" || arguments[0]=="insertimage"){
+			ue.execCommand( 'insertparagraph' );
+		}
+	}
 	$(document).ready(function() {
 		$("#detailsubmit").click(function(){
+			var str = ue.getContent();
+			var newstr = str.split("<p><br/></p>")
+			var uecontent = newstr.join("");
 			$.ajax({
 				url:"updateContent",
 				async:false,
 				dataType:"json",
 				type:"post",
-				data:{id:$("#did").val(),content:ue.getContent()},
+				data:{id:$("#did").val(),content:uecontent},
 				success:function(data){
 					alert(data.msg);
+					tableI.table().draw();
 				}
 			})
 		//	alert(ue.getContent());

@@ -8,17 +8,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zpt.shop.common.pojo.Contants;
 import com.zpt.shop.common.pojo.Msg;
-import com.zpt.shop.common.pojo.Page;
-import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.System;
-import com.zpt.shop.main.service.IntroService;
+import com.zpt.shop.main.service.SystemService;
 
 @Controller
 @RequestMapping("/management/intro")
 public class IntroCtrler {
 	
 	@Autowired
-	private IntroService introService;
+	private SystemService systemService;
 	
 	@RequestMapping(value = "index",method = RequestMethod.GET)
 	public String index(){
@@ -26,31 +24,18 @@ public class IntroCtrler {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "listData",method = RequestMethod.POST)
-	public Page<System> listData(Query<System> query){
-		Page<System> page = introService.page(query);
-		return page;
+	@RequestMapping(value = "selIntro",method = RequestMethod.POST)
+	public String selIntro(){
+		System sys = systemService.selIntro();
+		return sys.getSysvalue();
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/validate",method = RequestMethod.POST)
-	public boolean validate(System system){
-		boolean flag = false;
-		try {
-			flag = introService.validate(system);
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		return flag;
-	}	
-	
-	@ResponseBody
 	@RequestMapping(value = "/update",method = RequestMethod.POST)
-	public Msg update(System system){
+	public Msg update(String sysvalue){
 		Msg msg = new Msg();
 		try {
-			introService.updateIntro(system);
+			systemService.updateIntro(sysvalue);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.UPDATE_SUCCESS);
 			return msg;
