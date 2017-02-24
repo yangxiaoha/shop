@@ -23,4 +23,6 @@ public interface SystemMapper {
 	public System suserDefined();
 
 	public String getNotice();
+
+	public String getSummary();
 }

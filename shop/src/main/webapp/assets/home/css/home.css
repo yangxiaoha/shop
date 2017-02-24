@@ -888,7 +888,7 @@ a, a:link, a:visited, a:hover, a:active {
 .evaluate-show p {
 	word-wrap:break-word;   
 }
-.goods-introduce p {
+.goods-introduce p:last-child {
 	height: 40px;
 	line-height: 40px;
 }

@@ -57,6 +57,10 @@
 	<select id="getNotice" resultType="java.lang.String">
 		select sysvalue from t_system where skey = '公告'
 	</select>
+	
+	<select id="getSummary" resultType="java.lang.String">
+		select sysvalue from t_system where skey = '简介'
+	</select>
 
 	<update id="updateSystem" parameterType="system">
 		update t_system set sysvalue = #{sysvalue} where skey = '公告'

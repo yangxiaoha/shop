@@ -41,14 +41,14 @@ public interface UserMapper {
 	 * @param String fromUserName 用户openId
 	 * @param String createTime 用户openId
 	 * */
-	public void addUser(@Param("openId")String fromUserName, @Param("regtime")String createTime, @Param("pid")Integer pid, @Param("money")String money);
+	public void addUser(@Param("openId")String fromUserName, @Param("name")String name, @Param("regtime")String createTime, @Param("pid")Integer pid, @Param("money")String money);
 
 	/**
 	 * 修改用户
 	 * @param String fromUserName 用户openId
 	 * @param String createTime 用户openId
 	 * */
-	public void updateUser(@Param("openId")String fromUserName, @Param("regtime")String createTime, @Param("pid")Integer pid);
+	public void updateUser(@Param("openId")String fromUserName, @Param("name")String name, @Param("regtime")String createTime, @Param("pid")Integer pid);
 	
 	/**
 	 * 获取分销信息

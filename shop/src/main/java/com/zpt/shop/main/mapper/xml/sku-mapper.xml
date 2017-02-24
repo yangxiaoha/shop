@@ -116,6 +116,7 @@
 		left join t_goods_sku as sku
 		on img.skuid = sku.id 
 		where sku.goodsid = #{goodsId}
+		limit 5
 	</select>
 
 </mapper>
