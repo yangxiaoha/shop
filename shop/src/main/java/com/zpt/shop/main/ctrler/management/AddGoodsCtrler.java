@@ -48,7 +48,7 @@ public class AddGoodsCtrler {
 	private GoodsTypeService goodsTypeService;	
 	
 	@RequestMapping(value = "index",method = RequestMethod.GET)
-	public ModelAndView index(String pageinitAdd){
+	public ModelAndView index(Integer pageinitAdd){
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/management/addGoods/index");		
 		List<Brand> brandList = brandService.getAllBrand();
@@ -86,6 +86,19 @@ public class AddGoodsCtrler {
 	public Page<Goods> listData(Query<Goods> query){
 		Page<Goods> page = goodsService.page(query);
 		return page;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/validate",method = RequestMethod.POST)
+	public boolean validate(Goods goods){
+		boolean flag = false;
+		try {
+			flag = goodsService.validate(goods);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return flag;
 	}
 	
 	@ResponseBody

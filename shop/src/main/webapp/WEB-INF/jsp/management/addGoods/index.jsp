@@ -283,7 +283,8 @@
     	        messages: {
     	        	name: {
     		        	required:"请输入商品名称",
-    		        	maxlength:"最多20个字"
+    		        	maxlength:"最多20个字",
+    		        	remote:"该名称已存在"
     		        },
     		        code: {
 	   		        	remote:"该编码已存在"
@@ -312,7 +313,7 @@
     	        			   $("#loading").html("");
     	        			   $("#addsubmit").removeAttr("disabled");
     	        			   alert("保存成功！");
-        	        		   window.location.href="index"; 
+        	        		   window.location.reload(); 
     	        		   },1000);
     	        		   reset(form);
     	        	   },

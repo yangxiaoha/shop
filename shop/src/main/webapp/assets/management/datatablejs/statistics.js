@@ -7,7 +7,7 @@ $(document).ready(function(){
         "language":  "/shop/assets/management/datatablejs/Chinese.json",
         "columns": [
                     { "data": "id","orderable":false,"visible":false},
-                    { "data": "id","orderable":false },
+                    { "data": "id","orderable":false,"visible":false},
                     { "data": "cityname" },
                     { "data": "name" },
                     { "data": "ordertime" },

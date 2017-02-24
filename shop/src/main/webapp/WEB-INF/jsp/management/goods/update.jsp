@@ -242,9 +242,6 @@
 		        	required:"请输入商品扩充名称",
 		        	remote:"该名称已存在"
 		      	},
-		     	content: {
-		        	required:"请输入描述信息",		        	
-		      	},
 		      	code: {
 		        	required:"请输入商品编码",
 		        	remote:"该编码已存在"

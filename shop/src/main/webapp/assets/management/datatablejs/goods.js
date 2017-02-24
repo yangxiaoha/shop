@@ -22,7 +22,7 @@ $(document).ready(function(){
                     { "data": "code" },
                     { "data": "brandName" },
                     { "data": "store" },
-                    { "data":"id","className": "actions","orderable":false },                   
+                    { "data": "id","className": "actions","orderable":false },                   
                     { "data": "top","orderable":false,"visible":false }, 
                     { "data": "typeId","orderable":false,"visible":false },
                 ],
@@ -44,8 +44,8 @@ $(document).ready(function(){
 			                '<a class="table-actions detail" data-rowid="'+meta.row+'" data-id="'+data+'" href="javascript:void(0)" title="编辑"><i class="fa fa-file-word-o"></i></a>'+
                  			'<a class="table-actions update" data-rowid="'+meta.row+'" href="javascript:void(0)" title="修改"><i class="fa fa-pencil"></i></a>'+
                  			'<a class="table-actions stick" data-id="'+data+'" href="javascript:void(0)" title="置顶"><i class="fa fa-arrow-up"></i></a>'+
-                 			'<a class="table-actions del" data-id="'+data+'" href="javascript:void(0)" title="删除"><i class="fa fa-trash"></i></a>'+
                  			'<a class="table-actions down" data-id="'+data+'" href="javascript:void(0)" title="取消置顶"><i class="fa fa-arrow-down"></i></a>'+
+                 			'<a class="table-actions del" data-id="'+data+'" href="javascript:void(0)" title="删除"><i class="fa fa-trash"></i></a>'+
                  		'</div>';
                }
             }

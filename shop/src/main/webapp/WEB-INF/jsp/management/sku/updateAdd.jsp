@@ -16,11 +16,12 @@
 					<fieldset>
 						<div class="row">
 						<input type="hidden" id="aid" name="skuId" >	
+						<input type="hidden" id="upnum">	
 						<input type="hidden" name="goodsId" value="${goodsM.id }" type="text">									
 							<div class="col-md-12">
 								<div class="form-group">
-									<label for="num">商品数量(*)</label><input class="form-control"
-										placeholder="请输入商品数量" id="anum" name="num" type="text">
+									<label>商品数量(*)</label><input class="form-control"
+										placeholder="请输入商品数量" id="apnum" name="num" type="text">
 								</div>
 							</div>													
 						</div>
@@ -39,7 +40,11 @@
 	var uaskuValidate;
 	$(document).ready(function(){		
 		$("#updateAddsubmit").click(function(){
-			$("#updateAdd").submit();
+			if((parseInt($("#apnum").val())+parseInt($("#upnum").val()))<0){
+				alert("总数不能低于0！")
+			}else{				
+				$("#updateAdd").submit();
+			}
 		});
 		$('#updateAddModal').on('shown.bs.modal',
 		    function() {

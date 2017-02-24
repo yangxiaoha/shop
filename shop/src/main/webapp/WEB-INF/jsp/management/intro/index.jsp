@@ -8,8 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Mirrored from www.zi-han.net/theme/hplus/table_data_tables.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:01 GMT -->
-<head>
-	<script	src="<%=basePath%>assets/management/datatablejs/intro.js" type="text/javascript"></script>
+<head>	
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>简介管理</title>
@@ -22,25 +21,66 @@
                     <div class="ibox-title">
                         <h5>简介管理</h5>
                     </div>                    
-                    <div class="ibox-contentTable">
-                    	<table class="table table-bordered table-striped table-hover" id="datatable" width="100%">
-							<thead>
-								<th></th>
-								<th class="check-header hidden-xs"  width="10%">
-									<label style="margin-right:0px" class="checkbox-inline i-checks"><input id="checkAll" name="checkAll" type="checkbox"></label>
-								</th>
-								<th  width="20%">菜单</th>
-								<th>内容</th>	
-								<th>操作</th>
-							</thead>
-							<tbody>
-							</tbody>
-						</table>
-                    </div>
+                    <div class="modal-body">
+						<form action="update" id="update" method="post">
+							<fieldset>
+								<div class="col-lg-12">
+									<script id="editor" type="text/plain" style="width:100%;height:100%;"></script>									
+								</div>
+							</fieldset>
+						</form>
+						<div class="modal-footer">
+							<button class="btn btn-primary" id="detailsubmit" type="button">保存</button>
+							<button class="btn btn-default-outline" data-dismiss="modal"
+								type="button">取消</button>
+						</div>
+					</div>
                 </div>
             </div>
         </div>
     </div>  
-	<jsp:include page="detailedit.jsp"/>    
+	<script>
+	var ue = UE.getEditor('editor');
+	ue.addListener('afterExecCommand',function(t, e, arg){
+		afterUploadImage(e);
+	});
+	function afterUploadImage() {
+		if(arguments[0]=="inserthtml" || arguments[0]=="insertimage"){
+			ue.execCommand( 'insertparagraph' );
+		}
+	}
+	$(document).ready(function() {
+		$.ajax({
+			url:"selIntro",
+			async:false,
+			dataType:"json",
+			type:"post",
+			success:function(data){
+				if(data == null){
+					data = "";
+				}
+				ue.addListener("ready",function(){					
+					ue.setContent(data);
+				});
+			}
+		});
+		$("#detailsubmit").click(function(){
+			var str = ue.getContent();
+			var newstr = str.split("<p><br/></p>")
+			var uecontent = newstr.join("");
+			$.ajax({
+				url:"update",
+				async:false,
+				dataType:"json",
+				type:"post",
+				data:{skey:"简介",sysvalue:uecontent},
+				success:function(data){
+					alert(data.msg);
+				}
+			})
+		//	alert(ue.getContent());
+		});
+	});	
+	</script>  
 </body>
 </html>

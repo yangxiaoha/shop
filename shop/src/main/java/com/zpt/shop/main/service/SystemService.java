@@ -16,6 +16,10 @@ public interface SystemService {
 	public void updateDefined(String sysvalue);
 	
 	public System suserDefined();
+	
+	public void updateIntro(String sysvalue);
+	
+	public System selIntro();
 
 	public String getNotice();
 

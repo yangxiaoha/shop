@@ -69,4 +69,12 @@
 	<update id="updateDefined" parameterType="system">
 		update t_system set sysvalue = #{sysvalue} where skey = 'menu'
 	</update>
+	
+	<select id="selIntro" resultMap="resultMap">
+		select sysvalue from t_system where skey = '简介'
+	</select>
+	
+	<update id="updateIntro" parameterType="system">
+		update t_system set sysvalue = #{sysvalue} where skey = '简介'
+	</update>
 </mapper>
