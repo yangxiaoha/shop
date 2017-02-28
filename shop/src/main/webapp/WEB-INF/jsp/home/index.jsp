@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<%@ taglib prefix="decorator"
-	uri="http://www.opensymphony.com/sitemesh/decorator"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -72,9 +72,9 @@
 		<div class="index-menu" style="position: relative;">
 		  	<ul class="menu">
 				<li class="menu-title menu-title-notice" data-toggle="modal" data-target="#myModal">公告</li>
-				<li class="menu-title">最新<input type="hidden" value="1"></li>
-				<li class="menu-title">人气<input type="hidden" value="2"></li>
-				<li class="menu-title">现货<input type="hidden" value="3"></li>
+				<li class="menu-title menu-title-show">最新<input type="hidden" value="1"></li>
+				<li class="menu-title menu-title-show">人气<input type="hidden" value="2"></li>
+				<li class="menu-title menu-title-show">现货<input type="hidden" value="3"></li>
 				<li class="menu-title menu-title-search">
 					<p class="fl screen clearfloat"><span class="glyphicon glyphicon-filter"></span>筛选</p>
 					<p class="fr search clearfloat">
@@ -87,6 +87,9 @@
 		    	<c:forEach items="${goodsTypeMsg}" var="goodsTypeList">
 					<li><a href="goodsType/${goodsTypeList.id}">${goodsTypeList.name}</a></li>
 				</c:forEach>
+				<c:if test="${fn:length(goodsTypeMsg) > 3}">
+					<li><a href="goodsType/${goodsTypeMsg[0].id}">更多</a></li>
+				</c:if>
 		    </ul>
 		    <div class="goods-search" style="display: none;">
 		    	<input id="keyword" placeholder="请输入关键词" value="">
@@ -104,7 +107,7 @@
 				    	  		<img src="<%=basePath%>${goodsList.url}" /> 
 				    	  		<div class="goods-block">
 				    	  			<p class="goods-name">${goodsList.name}</p>				  		
-						  			<p class="font-price">￥${goodsList.price}</p>	
+						  			<p class="font-price fs-14">￥${goodsList.price}</p>	
 				    	  		</div>					    	  			    	  		
 				    		</a>
 					  	</li>
@@ -138,7 +141,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="index">
+				<a href="<%=basePath%>home/member/kefu">
 					<span class="tab-bar-bg customer-service"></span>
 					<span>在线客服</span>
 				</a>
@@ -198,20 +201,16 @@
     	var pageStart = 20;
     	
 	    //最新、人气、现货
-		$(".menu-title").click(function(){
+		$(".menu-title-show").click(function(){
 			$(this).siblings().css("border-bottom", "0");
 			if(!($(this).hasClass('menu-title-notice')) && !($(this).hasClass('menu-title-search'))) {
 				$(".goods-type").hide();
 				$(".goods-search").hide();
 				$(this).css("border-bottom", "1px solid #c8161d");
-				/*flag = $(this).children("input[type=hidden]").val();
-				var keyword = "";
-				var typeId = ""; */
 				$("#flag").val($(this).children("input[type=hidden]").val());
 				$("#fKeyword").val("");
 				$("#fTypeId").val("");
-				$("#selectForm").submit();
-				//showGoods(flag, keyword, typeId);			
+				$("#selectForm").submit();		
 			}				    
 		});
 		$(".menu-title-search .screen").click(function() {
@@ -225,9 +224,6 @@
 		
 		//商品搜索
 		$("#searchKeyword").click(function() {				
-			/* var flag = 0;
-			var keyword = $("#keyword").val();
-			var typeId = ""; */
 			var keyword = $("#keyword").val();
 			$("#flag").val("");
 			$("#fKeyword").val($("#keyword").val());
@@ -235,51 +231,11 @@
 			if($.trim(keyword) == "") {
 				alert("请输入关键字");
 			}else {
-				//showGoods(flag, keyword, typeId);
 				$("#selectForm").submit();
 				$(".goods-search").hide();
 			}		
 			$("#flag").val(0);			
 		});
-    
-	    function showGoods(flag, keyword, typeId) {
-	    	$.ajax({
-		   	    url: "selectGoods",
-		   		type: "Post",
-		   	    data: {
-		   	    	pageStart:0,
-		   	    	num:20,
-		   	    	flag:flag,
-		   	    	keyword:keyword,
-		   	    	typeId:typeId
-		   	    },
-		   	    dataType: "json",
-		   	    success: function(data) {
-		   	    	$("#total").val(data.total);
-		   	    	if(data.state){
-		   	    		$(".goods-detail").html("");
-		   	    		$.each(data.goodsMsg, function(i, goodsList) {   
-		   	    			$(".goods-detail").append( 
-		   	    				'<div class="goods-show">'+
-   			          	  	    '<a href="goodsDetail/'+'/'+goodsList.id+'">'+
-   					            '<img src="<%=basePath%>'+goodsList.url+'">'+
-   					            '<div style="position: relative; height: 50px;">'+
-   					            '<div class="goods-block">'+
-								'<p class="goods-name">'+goodsList.name+'</p>'+
-								'</div></div>'+
-								'<p class="mb5 font-price">￥'+goodsList.price+'</p>'+
-								'</a>'+
-								'</div>'
-		    				);
-	   		  			});
-		   	    		$(".goods-name").each(function() {
-		   		    		var pHeight = $(this).height();
-		   		    		$(this).parent($(".goods-block")).css("margin-top", -(pHeight/2));	    		
-		   		    	});
-		   			}
-		   	    }
-	        })
-	    }
     </script>
 </body>
 </html>

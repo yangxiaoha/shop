@@ -175,8 +175,7 @@ public class WeixinCtrler {
                 	String accessToken = wxMpService.getAccessToken(false);
                 	JSONObject userInfo = WeixinUtils.getWeixinUserBaseInfo(fromUserName, accessToken);
                 	String nickname = userInfo.getString("nickname");
-                	System.out.println("Nickname" + nickname);
-                	
+
                 	User user = userService.getUserByOpenId(fromUserName);
                 	
                 	long msgCreateTime = Long.parseLong(createTime) * 1000L;  
@@ -217,12 +216,26 @@ public class WeixinCtrler {
 
                 	String skey = new String(str.getBytes("ISO-8859-1"),"UTF-8");
                     System.out.println("输入的信息："+skey);
-                    Reply sreply = replyService.getReply(skey);
-                    if(sreply != null) {
-                    	respContent = sreply.getReply();
+                    if(skey.matches("客服")) {
+                    	System.out.println("kefu============");
+                    	
+                    	StringBuilder relayCustomMsg = new StringBuilder();  
+                        relayCustomMsg.append("<xml>");  
+                        relayCustomMsg.append("<ToUserName><![CDATA["+fromUserName+"]]></ToUserName>");  
+                        relayCustomMsg.append("<FromUserName><![CDATA["+toUserName+"]]></FromUserName>");  
+                        relayCustomMsg.append("<CreateTime>"+new Date().getTime()+"</CreateTime>");  
+                        relayCustomMsg.append("<MsgType><![CDATA[transfer_customer_service]]></MsgType>");  
+                        relayCustomMsg.append("</xml>");  
+                        return relayCustomMsg.toString(); 
+                        
                     }else {
-                    	respContent = "暂无此查询信息！";
-                    }                   
+                        Reply sreply = replyService.getReply(skey);
+                        if(sreply != null) {
+                        	respContent = sreply.getReply();
+                        }else {
+                        	respContent = "暂无此查询信息！";
+                        }   
+                    }                
                 }
             } 
             //设置文本消息的内容

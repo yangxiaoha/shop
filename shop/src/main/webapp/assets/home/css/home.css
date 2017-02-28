@@ -124,7 +124,7 @@ a, a:link, a:visited, a:hover, a:active {
 }
 .font-price {
 	color: #c8161d;
-	font-size: 1.6rem !important;
+	font-size: 1.8rem;
 }
 .ta-center {
 	text-align: center;
@@ -418,6 +418,7 @@ a, a:link, a:visited, a:hover, a:active {
 .type-detail .type-show {
 	width: 24%;
 	height: 100%;
+	overflow: auto;
 	border-right: 1px solid #968f8e;
 }
 .type-detail .type-show * {
@@ -780,6 +781,7 @@ a, a:link, a:visited, a:hover, a:active {
 /************************goods-detail开始************************/
 .goods-parameter-detail,
 .goods-parameter-detail img,
+.goods-parameter-detail video,
 .goods-purchase {
 	width: 100%;
 }
