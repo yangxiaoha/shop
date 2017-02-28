@@ -81,9 +81,9 @@ public class UserServiceImpl implements UserService {
 	 * @param String money 可提现金额
 	 * */
 	@Override
-	public void addUser(String fromUserName, String name, String createTime, Integer pid, String money) {
+	public void addUser(String fromUserName, String createTime, Integer pid, String money) {
 		// TODO Auto-generated method stub
-		userMapper.addUser(fromUserName, name, createTime, pid, money);
+		userMapper.addUser(fromUserName, createTime, pid, money);
 	}
 	
 	/**
@@ -93,9 +93,9 @@ public class UserServiceImpl implements UserService {
 	 * @param Integer pid 上级id
 	 * */
 	@Override
-	public void updateUser(String fromUserName, String name, String createTime, Integer pid) {
+	public void updateUser(String fromUserName, String createTime, Integer pid) {
 		// TODO Auto-generated method stub
-		userMapper.updateUser(fromUserName, name, createTime, pid);
+		userMapper.updateUser(fromUserName, createTime, pid);
 	}
 
 	/**

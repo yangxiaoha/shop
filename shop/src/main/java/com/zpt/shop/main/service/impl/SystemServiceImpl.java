@@ -88,12 +88,5 @@ public class SystemServiceImpl implements SystemService {
 		String notice = systemMapper.getNotice();
 		return notice;
 	}
-
-	@Override
-	public String getSummary() {
-		// TODO Auto-generated method stub
-		String summary = systemMapper.getSummary();
-		return summary;
-	}
 	
 }

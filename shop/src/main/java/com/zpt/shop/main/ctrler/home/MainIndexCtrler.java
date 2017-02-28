@@ -249,13 +249,5 @@ public class MainIndexCtrler {
 		map.put("goodsSkuMsg", goodsSkuList);
 		return map;
 	}
-	
-	@RequestMapping(value="/summary", method=RequestMethod.GET)
-	public ModelAndView summary(){
-		ModelAndView mv = new ModelAndView("home/summary");
-		String summary = systemService.getSummary();
-		mv.addObject("summary", summary);
-		return mv;
-	}
 
 }

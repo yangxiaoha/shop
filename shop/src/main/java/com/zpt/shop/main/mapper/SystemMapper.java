@@ -27,6 +27,4 @@ public interface SystemMapper {
 	public System selIntro();
 
 	public String getNotice();
-
-	public String getSummary();
 }

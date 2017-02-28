@@ -277,29 +277,6 @@ public class WeixinUtils {
 	}
 	
 	/**
-	 * 获取用户信息
-	 * https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
-	 * @param openidList 
-	 * @param access_token
-	 * @return
-	 */
-	public static JSONObject getWeixinUserBaseInfo(String openId, String accessToken) {
-		String requestUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + accessToken
-		+ "&openid=" + openId
-		+ "&lang=zh_CN";
-		JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
-		System.out.println(jsonObject + "jsonObject");
-		if (null != jsonObject) {
-			try {
-
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-		return jsonObject;
-	}
-	
-	/**
 	 * 批量获取用户信息
 	 * https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=ACCESS_TOKEN
 	 * @param openidList 

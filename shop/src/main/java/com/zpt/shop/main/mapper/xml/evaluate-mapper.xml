@@ -73,7 +73,6 @@
 		left join t_user as user
 		on evaluate.userId = user.id
 		where sku.goodsid = #{goodsId}
-		order by id desc
 	</select>
 	
 	<select id="getEvaluate" resultMap="resultMap">

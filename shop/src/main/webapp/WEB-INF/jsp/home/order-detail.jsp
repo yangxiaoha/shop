@@ -61,7 +61,7 @@
 		  		  	<p class="fr fc-c8161d">等待买家付款</p>
 		  		  </c:if>	
 		  		  <c:if test="${orderList.state == 2}">
-		  		  	<p class="fr fc-c8161d">待发货</p>
+		  		  	<p class="fr fc-c8161d">待收货</p>
 		  		  </c:if>	
 		  		  <c:if test="${orderList.state == 3}">
 		  		  	<p class="fr fc-c8161d">商品出库</p>
@@ -185,7 +185,7 @@
 					   	 			'<p class="fl">下单时间：'+orderList.ordertime+'</p>'+
 					   	 			(orderList.state == 0?'<p class="fr fc-c8161d">订单关闭</p>':'')+
 					   	 			(orderList.state == 1?'<p class="fr fc-c8161d">等待买家付款</p>':'')+
-					   	 			(orderList.state == 2?'<p class="fr fc-c8161d">待发货</p>':'')+
+					   	 			(orderList.state == 2?'<p class="fr fc-c8161d">待收货</p>':'')+
 					   	 			(orderList.state == 3?'<p class="fr fc-c8161d">商品出库</p>':'')+
 					   	 			(orderList.state == 4?'<p class="fr fc-c8161d">完成</p>':'')+
 					   	 			'</div>';

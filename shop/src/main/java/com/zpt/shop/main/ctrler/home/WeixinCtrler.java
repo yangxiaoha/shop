@@ -19,15 +19,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.zpt.shop.common.weixin.TextMessage;
-import com.zpt.shop.common.weixin.WeixinUserInfo;
 import com.zpt.shop.common.weixin.WxMpConfigStorage;
 import com.zpt.shop.main.entities.Reply;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.ReplyService;
 import com.zpt.shop.main.service.UserService;
-import com.zpt.shop.main.service.WxMpService;
 import com.zpt.shop.weixin.utils.WeixinUtils;
 
 /**
@@ -44,15 +41,15 @@ import com.zpt.shop.weixin.utils.WeixinUtils;
 public class WeixinCtrler {
 	
 	private static Logger logger = LogManager.getLogger(WeixinCtrler.class.getName());
-
+	
+	@Autowired
+	private WxMpConfigStorage weixin;
+	
 	@Autowired
 	private UserService userService;
 	
 	@Autowired
 	private ReplyService replyService;
-	
-	@Autowired
-	private WxMpService wxMpService;
 	
     @ResponseBody
 	@RequestMapping("/index")  
@@ -130,7 +127,7 @@ public class WeixinCtrler {
               // TODO Auto-generated catch block
               e1.printStackTrace();
 	      }          
-          return null;
+          return null ;
     }*/
     
     private String acceptMessage(HttpServletRequest request,
@@ -170,12 +167,15 @@ public class WeixinCtrler {
                 String money = "0";
                 //关注
                 if (eventType.equals(WeixinUtils.EVENT_TYPE_SUBSCRIBE)) {
+<<<<<<< HEAD
                 	
                 	//获取用户名
                 	String accessToken = wxMpService.getAccessToken(false);
                 	JSONObject userInfo = WeixinUtils.getWeixinUserBaseInfo(fromUserName, accessToken);
                 	String nickname = userInfo.getString("nickname");
 
+=======
+>>>>>>> branch 'master' of https://git.oschina.net/liutengda/shop.git
                 	User user = userService.getUserByOpenId(fromUserName);
                 	
                 	long msgCreateTime = Long.parseLong(createTime) * 1000L;  
@@ -187,15 +187,16 @@ public class WeixinCtrler {
             		if(user != null) {//扫过码
             			System.out.println("扫过码" + eventKey);
                     	if(user.getFpid() != null && !("".equals(user.getFpid()))) {//有上级
-                    		System.out.println("有上级" + eventKey);                  		
-                    		userService.updateUser(fromUserName, nickname, date, user.getFpid());
+                    		System.out.println("有上级" + eventKey);
+                    		
+                    		userService.updateUser(fromUserName, date, user.getFpid());
                     	}else {//无上级
                     		System.out.println("无上级" + eventKey);
-                    		userService.updateUser(fromUserName, nickname, date, 0);
+                    		userService.updateUser(fromUserName, date, 0);
                     	}   
             		}else {
-            			System.out.println("关注" + eventKey);           			
-            			userService.addUser(fromUserName, nickname, date, 0, money);
+            			System.out.println("关注" + eventKey);
+            			userService.addUser(fromUserName, date, 0, money);
             		}       	
                 }
                 //扫描带参数二维码
