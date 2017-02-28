@@ -425,12 +425,16 @@
 		function zTreeOnClickSupplier(event, treeId, treeNode) {
 			$("#selectSupplier").val(treeNode.name);
 			$("#selectSupplierId").val(treeNode.id);
+			$("#selectBrand").val("");
+			$("#selectBrandId").val("");
 			brand.reAsyncChildNodes(null, "refresh");
 		};
 		
 		function zTreeOnClickType(event, treeId, treeNode) {
 			$("#selectType").val(treeNode.name);
 			$("#selectTypeId").val(treeNode.id);
+			$("#selectPro").val("");
+			$("#selectProId").val("");
 			$.ajax({
 		   	    url: "getGoodsPro",
 		   		type: "Post",
