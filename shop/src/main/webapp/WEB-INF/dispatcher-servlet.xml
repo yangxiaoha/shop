@@ -55,6 +55,7 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/home/**" />
+			<mvc:exclude-mapping path="/home/member/follow" />
 			<bean class="com.zpt.shop.main.interceptor.WeixinInterceptor" />
 		</mvc:interceptor>
 

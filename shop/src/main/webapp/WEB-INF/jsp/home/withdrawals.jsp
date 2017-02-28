@@ -118,21 +118,21 @@
 							   	    			$("#withdrawals-info-detail > tbody").append( 
 						   	    					'<tr>'+
 						   	    					'<td>'+withdrawsList.cashNum+'</td>'+
-						   	    					'<td>￥'+withdrawsList.cashMoney+'</td>'+
+						   	    					'<td>￥'+withdrawsList.cashMoney.toFixed(2)+'</td>'+
 						   	    					'<td>已提现</td>'
 							    				);
 						   	    			}else if(withdrawsList.state == 2) {
 						   	    				$("#withdrawals-info-detail > tbody").append( 
 						   	    					'<tr>'+
 						   	    					'<td>'+withdrawsList.cashNum+'</td>'+
-						   	    					'<td>￥'+withdrawsList.cashMoney+'</td>'+
+						   	    					'<td>￥'+withdrawsList.cashMoney.toFixed(2)+'</td>'+
 						   	    					'<td>审批不通过</td>'
 							    				);
 						   	    			}else if(withdrawsList.state == 1) {
 							   	    			$("#withdrawals-info-detail > tbody").append( 
 						   	    					'<tr>'+
 						   	    					'<td>'+withdrawsList.cashNum+'</td>'+
-						   	    					'<td>￥'+withdrawsList.cashMoney+'</td>'+
+						   	    					'<td>￥'+withdrawsList.cashMoney.toFixed(2)+'</td>'+
 						   	    					'<td>等待</td>'
 							    				);
 						   	    			}

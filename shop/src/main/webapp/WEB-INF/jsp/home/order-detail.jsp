@@ -148,7 +148,7 @@
     
     <script>
 	    $(document).ready(function(){
-			$(".goPayment").click(function(){
+	    	$("#wrap").on("click", ".goPayment", function() {
 				var id = $(this).siblings(".dOrderId").val();
 				var ordernum = $(this).siblings(".dOrderNum").val();
 				$("#orderId").val(id);	
@@ -200,7 +200,7 @@
 			   								'<li class="fc-595757 mb5">'+orderDetailList.name+'</li>'+
 			   								'<li class="fc-9fa0a0 fs-1rem">商品属性：'+orderDetailList.val+'</li></ul>'+
 			   								'<div class="shopping-car-edit">'+
-			   								'<p class="pv5 font-price">￥<span class="unit-price">'+orderDetailList.price+
+			   								'<p class="pv5 font-price">￥<span class="unit-price">'+orderDetailList.price.toFixed(2)+
 			   								'</span>x<span class="pur-num">'+orderDetailList.num+'</span></p>'
 			   								$.each(data.evaluatesMsg, function(i3, evaluatesList) { 	
 			   									if(evaluatesList.orderId == orderList.id && evaluatesList.skuId == orderDetailList.skuId) {
@@ -221,7 +221,7 @@
 				   						'<li class="fc-9fa0a0 fs-1rem">商品属性:'+orderDetailList.val+'</li>'+
 				   						'</ul>'+
 				   						'<div class="shopping-car-edit">'+
-				   						'<p class="pv5 font-price">￥<span class="unit-price">'+orderDetailList.price+
+				   						'<p class="pv5 font-price">￥<span class="unit-price">'+orderDetailList.price.toFixed(2)+
 				   						'</span>x<span class="pur-num">'+orderDetailList.num+'</span></p>'+
 				   						'</div></div>'
 			   						}										
@@ -231,7 +231,7 @@
 	   							'<input type="hidden" value="'+orderList.id+'" class="dOrderId">'+
 	   							'<input type="hidden" value="'+orderList.ordernum+'" class="dOrderNum">':'')+
 	   							(orderList.state == 3?'<a href="<%=basePath%>home/purchase/receipt/'+orderList.id+'" class="btn fr">确认收货</a>':'')+
-	   							'<p class="fr">合计：<span class="font-price">￥'+orderList.totalPrice+'</span></p>'+
+	   							'<p class="fr">合计：<span class="font-price">￥'+orderList.totalPrice.toFixed(2)+'</span></p>'+
 	   							'<p class="fr mr10">共<span class="pur-total">'+total+'</span>件商品</p>'+
 	   							'</div>'+
 	   							'</div>';

@@ -19,12 +19,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zpt.shop.common.weixin.TextMessage;
 import com.zpt.shop.common.weixin.WxMpConfigStorage;
 import com.zpt.shop.main.entities.Reply;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.ReplyService;
 import com.zpt.shop.main.service.UserService;
+import com.zpt.shop.main.service.WxMpService;
 import com.zpt.shop.weixin.utils.WeixinUtils;
 
 /**
@@ -43,13 +45,13 @@ public class WeixinCtrler {
 	private static Logger logger = LogManager.getLogger(WeixinCtrler.class.getName());
 	
 	@Autowired
-	private WxMpConfigStorage weixin;
-	
-	@Autowired
 	private UserService userService;
 	
 	@Autowired
 	private ReplyService replyService;
+	
+	@Autowired
+	private WxMpService wxMpService;
 	
     @ResponseBody
 	@RequestMapping("/index")  
@@ -167,6 +169,12 @@ public class WeixinCtrler {
                 String money = "0";
                 //关注
                 if (eventType.equals(WeixinUtils.EVENT_TYPE_SUBSCRIBE)) {
+
+                	//获取用户名
+                	String accessToken = wxMpService.getAccessToken(false);
+                	JSONObject userInfo = WeixinUtils.getWeixinUserBaseInfo(fromUserName, accessToken);
+                	String nickname = userInfo.getString("nickname");
+  
                 	User user = userService.getUserByOpenId(fromUserName);
                 	
                 	long msgCreateTime = Long.parseLong(createTime) * 1000L;  
@@ -208,12 +216,26 @@ public class WeixinCtrler {
 
                 	String skey = new String(str.getBytes("ISO-8859-1"),"UTF-8");
                     System.out.println("输入的信息："+skey);
-                    Reply sreply = replyService.getReply(skey);
-                    if(sreply != null) {
-                    	respContent = sreply.getReply();
+                    if(skey.matches("客服")) {
+                    	System.out.println("kefu============");
+                    	
+                    	StringBuilder relayCustomMsg = new StringBuilder();  
+                        relayCustomMsg.append("<xml>");  
+                        relayCustomMsg.append("<ToUserName><![CDATA["+fromUserName+"]]></ToUserName>");  
+                        relayCustomMsg.append("<FromUserName><![CDATA["+toUserName+"]]></FromUserName>");  
+                        relayCustomMsg.append("<CreateTime>"+new Date().getTime()+"</CreateTime>");  
+                        relayCustomMsg.append("<MsgType><![CDATA[transfer_customer_service]]></MsgType>");  
+                        relayCustomMsg.append("</xml>");  
+                        return relayCustomMsg.toString(); 
+                        
                     }else {
-                    	respContent = "暂无此查询信息！";
-                    }                   
+                        Reply sreply = replyService.getReply(skey);
+                        if(sreply != null) {
+                        	respContent = sreply.getReply();
+                        }else {
+                        	respContent = "暂无此查询信息！";
+                        }   
+                    }                
                 }
             } 
             //设置文本消息的内容

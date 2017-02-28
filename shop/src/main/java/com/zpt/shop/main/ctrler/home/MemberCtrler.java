@@ -351,4 +351,10 @@ public class MemberCtrler {
 		return "home/follow";
 	}
 	
+	//引导客服
+	@RequestMapping(value="/kefu", method=RequestMethod.GET)
+	public String kefu() {
+		return "home/kefu";
+	}
+	
 }

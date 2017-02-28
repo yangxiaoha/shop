@@ -143,6 +143,8 @@ public class MainIndexCtrler {
 		Integer total = goodsService.getGoodsTotal(flag, keyword, typeId);
 		//购物车数量
 		Integer amount = cartService.selectAmount(userId);
+		//公告
+		String notice = systemService.getNotice();	
 		mv.addObject("state", true);
 		mv.addObject("flag", flag);
 		mv.addObject("banner", bannerList);
@@ -150,6 +152,7 @@ public class MainIndexCtrler {
 		mv.addObject("amount", amount);
 		mv.addObject("goodsMsg", goodsList);
 		mv.addObject("goodsTypeMsg", goodsTypeList);
+		mv.addObject("notice", notice);
 		return mv;
 	}
 	

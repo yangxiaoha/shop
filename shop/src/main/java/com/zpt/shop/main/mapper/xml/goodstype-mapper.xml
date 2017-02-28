@@ -64,7 +64,9 @@
 	</select>
 	
 	<select id="getGoodsType" resultMap="resultMap">
-		select * from t_goods_type where pid = 0 and state = 1
+		select * from t_goods_type 
+		where pid = 0 and state = 1 
+		limit 3
 	</select>
 	
 	<insert id="insertGoodsType" parameterType="goodstype">

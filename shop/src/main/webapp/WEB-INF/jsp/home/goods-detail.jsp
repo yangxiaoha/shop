@@ -38,6 +38,8 @@
 	#tabs {
 		padding: 5px 15px;
 		border-top: 1px solid #e5e5e5;
+		border-bottom: 1px solid #e5e5e5;
+		margin-bottom: 10px;
 	}
 	#tabs li {
 		float: left;
@@ -98,7 +100,7 @@
 	    
 	    <div class="goods-introduce ph15 mb20">
 	    	<c:if test="${!empty goodsMsg}">
-		    	<p class="fs-16" style="border-bottom: 1px solid #e5e5e5;">${goodsMsg.name}</p>
+		    	<p class="fs-16" style="padding: 8px 0;border-bottom: 1px solid #e5e5e5;">${goodsMsg.name}</p>
 		    	<c:if test="${goodsMsg.price != goodsMsg.highprice}">
 	         		<p class="font-price">￥${goodsMsg.price} ~ ${goodsMsg.highprice}</p>
 	         	</c:if>
@@ -106,6 +108,8 @@
 	         		<p class="font-price">￥${goodsMsg.price}</p>
 	         	</c:if>
          	</c:if>
+         	<video  controls preload="none" width="100px" height="100px" src="http://www.runoob.com/try/demo_source/movie.mp4"></video>
+         	
 	    </div>
 	
 		<ul class="tabs clearfloat" id="tabs">
@@ -113,7 +117,7 @@
 	       <li class="">评价</li>
 	    </ul>
 	    
-		<ul class="tab_conbox mt40" id="tab_conbox">
+		<ul class="tab_conbox" id="tab_conbox">
 	        <li class="tab_con" style="display: none;">
 	           	<c:if test="${!empty goodsMsg}">
 					<div class="goods-parameter-detail mb80">${goodsMsg.content}</div>
@@ -123,7 +127,7 @@
 	           <c:if test="${!empty evaluateMsg}">					
 					<c:forEach items="${evaluateMsg}" var="evaluateList">
 						<div class="evaluate-show">
-							<p>${evaluateList.name}</p>
+							<p class="userName">${evaluateList.name}</p>
 							<p class="fc-9fa0a0 pv5">${evaluateList.evaluateTime}&nbsp;商品属性:${evaluateList.val}</p>
 							<p>${evaluateList.evaluate}</p>
 						</div>
@@ -135,6 +139,7 @@
 				</c:if>
 	        </li>
 	    </ul>
+	    
 	    
 		<ul class="tab-bar index-tab-bar goods-tab-bar">
 			<li>
@@ -226,8 +231,10 @@
 			autoplayDisableOnInteraction : false
 		})
     </script>
+    <script type="text/javascript" src="<%=basePath%>assets/home/js/emoji.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
+			//tab
 			jQuery.jqtab = function(tabtit,tab_conbox,shijian) {
 				$(tab_conbox).find("li").hide();
 				$(tabtit).find("li:first").addClass("thistab").show(); 
@@ -239,15 +246,178 @@
 				  var activeindex = $(tabtit).find("li").index(this);
 				  $(tab_conbox).children().eq(activeindex).show().siblings().hide();
 				  return false;
-				});
-			
+				});			
 			};
 			$.jqtab("#tabs","#tab_conbox","click");
+
 		});
 	</script>
     <script type="text/javascript">    
-    
-	    $(document).scroll(function(){ 
+
+  		$(document).ready(function() {
+  			var state = 0;//判断是加入购物车还是立即购买
+  			var goodsId = $("#goodsId").val();//商品id
+  			var oldGoods = new Array();//商品信息
+	    	var goodsStock = new Array();//现货信息	    	
+	    	
+	    	//关闭选择
+	    	$("#close").click(function() {
+				clear(oldGoods);
+				Init(goodsStock);				
+				$(".index-tab-bar").css("display", "block");
+				$("#modifyAttr").hide();
+				$(".goods-parameter-choice").slideUp();
+			});
+	    	
+	    	//清空
+	    	$(".goods-parameter-choice").on("click", ".clear-attr", function(){	    		
+				clear(oldGoods);
+				Init(goodsStock);
+			});
+	    	
+	    	//减少购买数量
+			$("#reduceNum").click(function() {
+				var purchaseNum = parseInt($("#purchaseNum").text(), 10);//购买数量
+				if(purchaseNum > 1) {
+					$("#purchaseNum").text(purchaseNum-1);
+				}
+			});
+	    	
+			//增加购买数量
+			$("#plusNum").click(function() {
+				var purchaseNum = parseInt($("#purchaseNum").text(), 10);//购买数量
+				$("#purchaseNum").text(purchaseNum+1);
+			});
+			
+	    	//商品选择展开
+	    	$(".shopping").click(function() {
+	    		$(".index-tab-bar").css("display", "none");
+	    		$("#modifyAttr").show();
+				$(".goods-parameter-choice").slideDown();
+				if($(this).hasClass("shopping-state")) {
+					state = 0;
+					$("#purchase").text("加入购物车");
+				}
+				if($(this).hasClass("buy-state")) {
+					state = 1;
+					$("#purchase").text("立即购买");
+				}
+				//获取库存信息(若库存为0，直接不可点击)
+				$.ajax({
+					url: '<%=basePath%>home/mainindex/getGoodsStockInfo/'+goodsId,
+			   		type: "Post",
+			   	    dataType: "json",
+			   	 	success: function(data) {
+			   	    	if(data.state){
+			   	    		oldGoods = data.goodsMsg;//商品属性
+			   	    		goodsStock = data.goodsSkuMsg;//库存属性
+			   	    		Init(goodsStock);
+			   			}
+			   	    }
+				})				
+	    	});
+
+	    	//商品属性选择
+	    	$(".classify-detail").on("click", ".select-active", function(){
+	    		if($(this).hasClass('active')) {//原本被选中
+	    			$(this).removeClass('active');
+	    			
+	    			//存储已选属性
+	    			var myAttr1 = new Array();
+	    			$(".classify-detail").each(function(e){
+	    				if($(this).children().hasClass("active")) {
+	    					myAttr1[e] = $(this).children(".active").text();
+	    				}else {
+	    					myAttr1[e] = "";
+	    				}
+	    			});	    			
+	    			$(".classify-detail li").removeClass('select-active');
+	    			$(".classify-detail li").addClass("select-no-active");	    			
+	    			Init(goodsStock);
+	    			
+	    			for(var i=0; i<myAttr1.length; i++) {
+	    				if(myAttr1[i] != null && myAttr1[i] != "") {
+	    					select(myAttr1[i], i, goodsStock);
+	    				}
+	    			}
+	    			
+	    		}else if($(this).siblings().hasClass('active')) {//它的同胞被选中
+	    			$(this).siblings().removeClass('active');
+	    			$(this).addClass('active');
+	    			//存储已选属性
+	    			var myAttr1 = new Array();
+	    			$(".classify-detail").each(function(e){
+	    				if($(this).children().hasClass("active")) {
+	    					myAttr1[e] = $(this).children(".active").text();
+	    				}else {
+	    					myAttr1[e] = "";
+	    				}
+	    			});
+	    			$(".classify-detail li").removeClass('select-active');
+	    			$(".classify-detail li").addClass("select-no-active");
+	    			Init(goodsStock);
+	    			for(var i=0; i<myAttr1.length; i++) {
+	    				if(myAttr1[i] != null && myAttr1[i] != "") {
+	    					select(myAttr1[i], i, goodsStock);
+	    				}
+	    			}
+	    		}else {
+	    			var attr = $(this).text();//点击选中的值			
+					var attrIndex = $(this).parents("div").index()-1;//判断是哪个属性
+					select(attr, attrIndex, goodsStock);
+					$(this).siblings().removeClass('active');
+		    		$(this).addClass('active');	
+	    		}
+	    		checkAll(oldGoods, goodsStock);
+	    	});  
+	    	
+			//提交订单
+			$("#purchase").click(function() {
+				var judge = checkAll(oldGoods, goodsStock);
+				var judgeList = judge.split(",");
+				var select = judgeList[0];
+				var sub = judgeList[1];
+				var purchaseNum = parseInt($("#purchaseNum").text(), 10);//购买数量
+				if(select == "true") {
+					if(purchaseNum > goodsStock[sub].num) {
+		        		$(".parameter-prompt").text("所选商品数不可超过库存数");
+		        		$(".parameter-prompt").fadeIn();
+						setTimeout(function(){$(".parameter-prompt").fadeOut();},2000);
+		        	}else {
+		        		if(state == 0) {
+		        			$.ajax({
+						   	    url: '<%=basePath%>home/purchase/addCart',
+						   		type: "Post",
+						   		data: {
+						   	    	skuId:goodsStock[sub].id,
+						   	    	num:$("#purchaseNum").text(),
+						   	    	price:goodsStock[sub].price
+						   	    },
+						   	    dataType: "json",
+						   	    success: function(data) {
+						   	    	if(data.state){
+						   	    		$("#shopping-num").text(data.amount);
+						   	    		$(".index-tab-bar").css("display", "block");
+										$(".goods-parameter-choice").slideUp();
+						   			}
+						   	    	$("#modifyAttr").hide();
+						   	    	clear(oldGoods);
+						   	    }
+					        })
+		        		}
+						if(state == 1) {
+							$("#purchase").attr('href','<%=basePath%>home/purchase/buyImmediately/'+goodsStock[sub].id+'/'+$("#purchaseNum").text());
+		        		}
+		        	}						
+				}else {
+					$(".parameter-prompt").text("请选择商品属性");
+					$(".parameter-prompt").fadeIn();
+					setTimeout(function(){$(".parameter-prompt").fadeOut();},2000);
+				}
+			});
+  		});
+  		
+  		$(document).scroll(function(){ 
 	        scrollTop =$(this).scrollTop();//滚动高度  
 	        if(scrollTop > 350){
 	        	if(!($("#tabs").hasClass("nav-bar"))) {
@@ -411,168 +581,6 @@
 			});
   		}
   		
-  		$(document).ready(function() {
-  			var state = 0;//判断是加入购物车还是立即购买
-  			var goodsId = $("#goodsId").val();//商品id
-  			var oldGoods = new Array();//商品信息
-	    	var goodsStock = new Array();//现货信息	    	
-	    	
-	    	//关闭选择
-	    	$("#close").click(function() {
-				clear(oldGoods);
-				Init(goodsStock);				
-				$(".index-tab-bar").css("display", "block");
-				$("#modifyAttr").hide();
-				$(".goods-parameter-choice").slideUp();
-			});
-	    	
-	    	//清空
-	    	$(".goods-parameter-choice").on("click", ".clear-attr", function(){	    		
-				clear(oldGoods);
-				Init(goodsStock);
-			});
-	    	
-	    	//减少购买数量
-			$("#reduceNum").click(function() {
-				var purchaseNum = parseInt($("#purchaseNum").text(), 10);//购买数量
-				if(purchaseNum > 1) {
-					$("#purchaseNum").text(purchaseNum-1);
-				}
-			});
-	    	
-			//增加购买数量
-			$("#plusNum").click(function() {
-				var purchaseNum = parseInt($("#purchaseNum").text(), 10);//购买数量
-				$("#purchaseNum").text(purchaseNum+1);
-			});
-			
-	    	//商品选择展开
-	    	$(".shopping").click(function() {
-	    		$(".index-tab-bar").css("display", "none");
-	    		$("#modifyAttr").show();
-				$(".goods-parameter-choice").slideDown();
-				if($(this).hasClass("shopping-state")) {
-					state = 0;
-					$("#purchase").text("加入购物车");
-				}
-				if($(this).hasClass("buy-state")) {
-					state = 1;
-					$("#purchase").text("立即购买");
-				}
-				//获取库存信息(若库存为0，直接不可点击)
-				$.ajax({
-					url: '<%=basePath%>home/mainindex/getGoodsStockInfo/'+goodsId,
-			   		type: "Post",
-			   	    dataType: "json",
-			   	 	success: function(data) {
-			   	    	if(data.state){
-			   	    		oldGoods = data.goodsMsg;//商品属性
-			   	    		goodsStock = data.goodsSkuMsg;//库存属性
-			   	    		Init(goodsStock);
-			   			}
-			   	    }
-				})				
-	    	});
-
-	    	//商品属性选择
-	    	$(".classify-detail").on("click", ".select-active", function(){
-	    		if($(this).hasClass('active')) {//原本被选中
-	    			$(this).removeClass('active');
-	    			
-	    			//存储已选属性
-	    			var myAttr1 = new Array();
-	    			$(".classify-detail").each(function(e){
-	    				if($(this).children().hasClass("active")) {
-	    					myAttr1[e] = $(this).children(".active").text();
-	    				}else {
-	    					myAttr1[e] = "";
-	    				}
-	    			});	    			
-	    			$(".classify-detail li").removeClass('select-active');
-	    			$(".classify-detail li").addClass("select-no-active");	    			
-	    			Init(goodsStock);
-	    			
-	    			for(var i=0; i<myAttr1.length; i++) {
-	    				if(myAttr1[i] != null && myAttr1[i] != "") {
-	    					select(myAttr1[i], i, goodsStock);
-	    				}
-	    			}
-	    			
-	    		}else if($(this).siblings().hasClass('active')) {//它的同胞被选中
-	    			$(this).siblings().removeClass('active');
-	    			$(this).addClass('active');
-	    			//存储已选属性
-	    			var myAttr1 = new Array();
-	    			$(".classify-detail").each(function(e){
-	    				if($(this).children().hasClass("active")) {
-	    					myAttr1[e] = $(this).children(".active").text();
-	    				}else {
-	    					myAttr1[e] = "";
-	    				}
-	    			});
-	    			$(".classify-detail li").removeClass('select-active');
-	    			$(".classify-detail li").addClass("select-no-active");
-	    			Init(goodsStock);
-	    			for(var i=0; i<myAttr1.length; i++) {
-	    				if(myAttr1[i] != null && myAttr1[i] != "") {
-	    					select(myAttr1[i], i, goodsStock);
-	    				}
-	    			}
-	    		}else {
-	    			var attr = $(this).text();//点击选中的值			
-					var attrIndex = $(this).parents("div").index()-1;//判断是哪个属性
-					select(attr, attrIndex, goodsStock);
-					$(this).siblings().removeClass('active');
-		    		$(this).addClass('active');	
-	    		}
-	    		checkAll(oldGoods, goodsStock);
-	    	});  
-	    	
-			//提交订单
-			$("#purchase").click(function() {
-				var judge = checkAll(oldGoods, goodsStock);
-				var judgeList = judge.split(",");
-				var select = judgeList[0];
-				var sub = judgeList[1];
-				var purchaseNum = parseInt($("#purchaseNum").text(), 10);//购买数量
-				if(select == "true") {
-					if(purchaseNum > goodsStock[sub].num) {
-		        		$(".parameter-prompt").text("所选商品数不可超过库存数");
-		        		$(".parameter-prompt").fadeIn();
-						setTimeout(function(){$(".parameter-prompt").fadeOut();},2000);
-		        	}else {
-		        		if(state == 0) {
-		        			$.ajax({
-						   	    url: '<%=basePath%>home/purchase/addCart',
-						   		type: "Post",
-						   		data: {
-						   	    	skuId:goodsStock[sub].id,
-						   	    	num:$("#purchaseNum").text(),
-						   	    	price:goodsStock[sub].price
-						   	    },
-						   	    dataType: "json",
-						   	    success: function(data) {
-						   	    	if(data.state){
-						   	    		$("#shopping-num").text(data.amount);
-						   	    		$(".index-tab-bar").css("display", "block");
-										$(".goods-parameter-choice").slideUp();
-						   			}
-						   	    	$("#modifyAttr").hide();
-						   	    	clear(oldGoods);
-						   	    }
-					        })
-		        		}
-						if(state == 1) {
-							$("#purchase").attr('href','<%=basePath%>home/purchase/buyImmediately/'+goodsStock[sub].id+'/'+$("#purchaseNum").text());
-		        		}
-		        	}						
-				}else {
-					$(".parameter-prompt").text("请选择商品属性");
-					$(".parameter-prompt").fadeIn();
-					setTimeout(function(){$(".parameter-prompt").fadeOut();},2000);
-				}
-			});
-  		});
     </script>
 </body>
 </html>
