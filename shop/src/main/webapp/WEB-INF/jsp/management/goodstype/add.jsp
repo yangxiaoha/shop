@@ -153,6 +153,7 @@
 	        rules: {
 	          name: {
 	        	 required:true,
+	        	 maxlength:5,
 	        	 remote: {
 	        		    url: "validate",     //后台处理程序
 	        		    type: "post",               //数据发送方式
@@ -168,6 +169,7 @@
 	        messages: {
 	          name: {
 		        	 required:"请输入商品类型名称",
+		        	 maxlength:"最多5个字",
 		        	 remote:"该商品已存在"
 		      }		     
 	        },

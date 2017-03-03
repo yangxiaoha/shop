@@ -103,6 +103,19 @@
                             </li>
                             <li><a class="J_menuItem" href="evaluate/index">评价管理</a>
                             </li>
+                            
+                            <li><a class="J_menuItem" href="lCotton/index">爱棉人</a>
+                            </li>                            
+                            <li><a class="J_menuItem" href="cottonField/index">致大地，致棉田</a>
+                            </li>                            
+                            <li><a class="J_menuItem" href="media/index">媒体报道</a>
+                            </li>                            
+                            <li><a class="J_menuItem" href="likeAgent/index">喜欢代理</a>
+                            </li>                            
+                            <li><a class="J_menuItem" href="contact/index">联系棉花糖</a>
+                            </li>                            
+                            <li><a class="J_menuItem" href="problem/index">常见问题</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

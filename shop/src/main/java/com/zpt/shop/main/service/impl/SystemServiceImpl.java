@@ -88,5 +88,107 @@ public class SystemServiceImpl implements SystemService {
 		String notice = systemMapper.getNotice();
 		return notice;
 	}
+
+	@Override
+	public System selLCotton() {
+		// TODO Auto-generated method stub
+		System sys = systemMapper.selLCotton();
+		if(sys != null){
+			return sys;
+		}else{
+			return null;			
+		}
+	}
+
+	@Override
+	public System selCottonField() {
+		// TODO Auto-generated method stub
+		System sys = systemMapper.selCottonField();
+		if(sys != null){
+			return sys;
+		}else{
+			return null;			
+		}
+	}
+
+	@Override
+	public System selMedia() {
+		// TODO Auto-generated method stub
+		System sys = systemMapper.selMedia();
+		if(sys != null){
+			return sys;
+		}else{
+			return null;			
+		}
+	}
+
+	@Override
+	public System selLikeAgent() {
+		// TODO Auto-generated method stub
+		System sys = systemMapper.selLikeAgent();
+		if(sys != null){
+			return sys;
+		}else{
+			return null;			
+		}
+	}
+
+	@Override
+	public System selContact() {
+		// TODO Auto-generated method stub
+		System sys = systemMapper.selContact();
+		if(sys != null){
+			return sys;
+		}else{
+			return null;			
+		}
+	}
+
+	@Override
+	public System selProblem() {
+		// TODO Auto-generated method stub
+		System sys = systemMapper.selProblem();
+		if(sys != null){
+			return sys;
+		}else{
+			return null;			
+		}
+	}
+
+	@Override
+	public void updateLCotton(String sysvalue) {
+		// TODO Auto-generated method stub
+		systemMapper.updateLCotton(sysvalue);
+	}
+
+	@Override
+	public void updateCottonField(String sysvalue) {
+		// TODO Auto-generated method stub
+		systemMapper.updateCottonField(sysvalue);
+	}
+
+	@Override
+	public void updateMedia(String sysvalue) {
+		// TODO Auto-generated method stub
+		systemMapper.updateMedia(sysvalue);
+	}
+
+	@Override
+	public void updateLikeAgent(String sysvalue) {
+		// TODO Auto-generated method stub
+		systemMapper.updateLikeAgent(sysvalue);
+	}
+
+	@Override
+	public void updateContact(String sysvalue) {
+		// TODO Auto-generated method stub
+		systemMapper.updateContact(sysvalue);
+	}
+
+	@Override
+	public void updateProblem(String sysvalue) {
+		// TODO Auto-generated method stub
+		systemMapper.updateProblem(sysvalue);
+	}
 	
 }
