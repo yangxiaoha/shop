@@ -73,4 +73,52 @@
 	<update id="updateIntro" parameterType="system">
 		update t_system set sysvalue = #{sysvalue} where skey = '简介'
 	</update>
+	
+	<select id="selLCotton" resultMap="resultMap">
+		select sysvalue from t_system where skey = 'lCotton'
+	</select>
+	
+	<update id="updateLCotton" parameterType="system">
+		update t_system set sysvalue = #{sysvalue} where skey = 'lCotton'
+	</update>
+	
+	<select id="selCottonField" resultMap="resultMap">
+		select sysvalue from t_system where skey = 'cottonField'
+	</select>
+	
+	<update id="updateCottonField" parameterType="system">
+		update t_system set sysvalue = #{sysvalue} where skey = 'cottonField'
+	</update>
+	
+	<select id="selMedia" resultMap="resultMap">
+		select sysvalue from t_system where skey = 'media'
+	</select>
+	
+	<update id="updateMedia" parameterType="system">
+		update t_system set sysvalue = #{sysvalue} where skey = 'media'
+	</update>
+	
+	<select id="selLikeAgent" resultMap="resultMap">
+		select sysvalue from t_system where skey = 'likeAgent'
+	</select>
+	
+	<update id="updateLikeAgent" parameterType="system">
+		update t_system set sysvalue = #{sysvalue} where skey = 'likeAgent'
+	</update>
+	
+	<select id="selContact" resultMap="resultMap">
+		select sysvalue from t_system where skey = 'contact'
+	</select>
+	
+	<update id="updateContact" parameterType="system">
+		update t_system set sysvalue = #{sysvalue} where skey = 'contact'
+	</update>
+	
+	<select id="selProblem" resultMap="resultMap">
+		select sysvalue from t_system where skey = 'problem'
+	</select>
+	
+	<update id="updateProblem" parameterType="system">
+		update t_system set sysvalue = #{sysvalue} where skey = 'problem'
+	</update>
 </mapper>

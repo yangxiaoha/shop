@@ -19,7 +19,31 @@ public interface SystemService {
 	
 	public void updateIntro(String sysvalue);
 	
+	public void updateLCotton(String sysvalue);
+	
+	public void updateCottonField(String sysvalue);
+	
+	public void updateMedia(String sysvalue);
+	
+	public void updateLikeAgent(String sysvalue);
+	
+	public void updateContact(String sysvalue);
+	
+	public void updateProblem(String sysvalue);
+	
 	public System selIntro();
+	
+	public System selLCotton();
+	
+	public System selCottonField();
+	
+	public System selMedia();
+	
+	public System selLikeAgent();
+	
+	public System selContact();
+	
+	public System selProblem();
 
 	public String getNotice();
 

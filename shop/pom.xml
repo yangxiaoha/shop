@@ -182,7 +182,30 @@
 		    <artifactId>httpcore</artifactId>
 		    <version>4.4.1</version>
 		</dependency>
-
+		<!-- ueditor地址修改 -->
+		<dependency>    
+		    <groupId>commons-fileupload</groupId>  
+		    <artifactId>commons-fileupload</artifactId>      
+		    <version>1.3.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20160810</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.baidu</groupId>
+		    <!--自定义-->
+		    <artifactId>ueditor</artifactId>
+		    <!--自定义-->
+		    <version>1.0</version>
+		    <!--自定义-->
+		    <scope>system</scope>
+		    <!--system，类似provided，需要显式提供依赖的jar以后，Maven就不会在Repository中查找它-->
+		    <systemPath>${pom.basedir}/src/main/webapp/WEB-INF/lib/ueditor-1.1.2.jar</systemPath>
+		    <!--项目根目录下的lib文件夹下-->
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
 		<dependency>

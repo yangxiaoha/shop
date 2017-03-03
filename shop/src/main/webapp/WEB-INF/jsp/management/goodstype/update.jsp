@@ -165,8 +165,9 @@
  	    		noEqualTo:"#uid"
  	    	 },
  	         name: {
- 		       	 required:true,
-  		      	 remote: {
+ 		       	required:true,
+ 		       	maxlength:5,
+  		      	remote: {
 	        		    url: "validate",     //后台处理程序
  		       		    type: "post",               //数据发送方式
         			    dataType: "json",           //接受数据格式   
@@ -178,12 +179,13 @@
 	    				    	return $("#uid").val();
 	    				   }
         			  }	    
-        		  }
+        		 }
        	   	}, 
         },
         messages: {
           name: {
 	        	 required:"请输入商品类型名称",
+	        	 maxlength:"最多5个字",
 	        	 remote:"该类型已存在"
 	      },
 	      pid: {

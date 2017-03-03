@@ -24,7 +24,31 @@ public interface SystemMapper {
 	
 	public void updateIntro(@Param("sysvalue")String sysvalue);
 	
+	public void updateLCotton(@Param("sysvalue")String sysvalue);
+	
+	public void updateCottonField(@Param("sysvalue")String sysvalue);
+	
+	public void updateMedia(@Param("sysvalue")String sysvalue);
+	
+	public void updateLikeAgent(@Param("sysvalue")String sysvalue);
+	
+	public void updateContact(@Param("sysvalue")String sysvalue);
+	
+	public void updateProblem(@Param("sysvalue")String sysvalue);
+	
 	public System selIntro();
+	
+	public System selLCotton();
+	
+	public System selCottonField();
+	
+	public System selMedia();
+	
+	public System selLikeAgent();
+	
+	public System selContact();
+	
+	public System selProblem();
 
 	public String getNotice();
 }
