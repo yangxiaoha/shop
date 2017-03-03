@@ -74,6 +74,8 @@
 		cache-period="31556926" />
 	<mvc:resources mapping="/upload/**" location="/upload/"
 		cache-period="31556926" />
+	<mvc:resources mapping="/app/**" location="/app/"
+		cache-period="31556926" />
 	<mvc:resources mapping="/test/**" location="/test/"
 		cache-period="31556926" />
 	<mvc:resources mapping="/page/**" location="/page/"

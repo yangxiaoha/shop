@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.zpt.shop.common.pojo.Contants;
 import com.zpt.shop.common.weixin.TextMessage;
 import com.zpt.shop.common.weixin.WxMpConfigStorage;
+import com.zpt.shop.common.weixin.WxMpTemplateData;
+import com.zpt.shop.common.weixin.WxMpTemplateMessage;
 import com.zpt.shop.main.entities.Reply;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.ReplyService;
@@ -186,16 +189,51 @@ public class WeixinCtrler {
             		if(user != null) {//扫过码
             			System.out.println("扫过码" + eventKey);
                     	if(user.getFpid() != null && !("".equals(user.getFpid()))) {//有上级
-                    		System.out.println("有上级" + eventKey);
+                    		System.out.println("有上级" + eventKey);                    		
+                    		userService.updateUser(fromUserName, nickname, date, user.getFpid());
+                    		User u = userService.getUserByUserId(user.getFpid());
+                    		String fOpenId = u.getOpenid();
+
+                        	JSONObject superUserInfo = WeixinUtils.getWeixinUserBaseInfo(fOpenId, accessToken);
+                        	String superNickname = superUserInfo.getString("nickname");
+                        	System.out.println("superNickname==========="+superNickname);
                     		
-                    		userService.updateUser(fromUserName, date, user.getFpid());
+                    		//发送给关注用户
+                    		WxMpTemplateMessage message = new WxMpTemplateMessage();
+                    		message.setTouser(fromUserName);
+            				message.setTopcolor("#FF0000");
+            				message.setTemplate_id(Contants.WX_USER_SEND);
+            				//跳转到会员中心
+            				message.setUrl("http://weixin.591yjx.com/shop/home/member/memberCenter");        	
+            				message.getData().put("first", new WxMpTemplateData(nickname+",您和"+superNickname+"已成为了朋友"));
+            				message.getData().put("keyword1", new WxMpTemplateData(nickname));          			
+            				message.getData().put("keyword2", new WxMpTemplateData(date));
+            				message.getData().put("remark", new WxMpTemplateData("\n您已加入一见喜，成为"+superNickname+"的盟友，继续努力，喜事连连。","#FF0000"));
+            				String re = wxMpService.templateSend(message);
+            				System.err.println("result---" + re);
+            				
+            				//发送给上级用户
+                    		WxMpTemplateMessage superMessage = new WxMpTemplateMessage();
+                    		superMessage.setTouser(fOpenId);
+                    		superMessage.setTopcolor("#FF0000");
+                    		superMessage.setTemplate_id(Contants.WX_USER_SEND);
+            				//跳转到会员中心
+                    		superMessage.setUrl("http://weixin.591yjx.com/shop/home/member/memberCenter");        	
+                    		superMessage.getData().put("first", new WxMpTemplateData(superNickname+"您有新的朋友："+nickname+"加入"));
+                    		superMessage.getData().put("keyword1", new WxMpTemplateData(nickname));          			
+                    		superMessage.getData().put("keyword2", new WxMpTemplateData(date));
+                    		superMessage.getData().put("remark", new WxMpTemplateData("\n"+nickname+"，通过您的二维码关注了公众号，继续努力，喜事连连。","#FF0000"));
+            				String sre = wxMpService.templateSend(superMessage);
+            				System.err.println("result---" + sre);
+                				
+                    		
                     	}else {//无上级
                     		System.out.println("无上级" + eventKey);
-                    		userService.updateUser(fromUserName, date, 0);
+                    		userService.updateUser(fromUserName, nickname, date, 0);
                     	}   
             		}else {
             			System.out.println("关注" + eventKey);
-            			userService.addUser(fromUserName, date, 0, money);
+            			userService.addUser(fromUserName, nickname, date, 0, money);
             		}       	
                 }
                 //扫描带参数二维码
