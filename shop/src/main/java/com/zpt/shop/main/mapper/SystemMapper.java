@@ -36,6 +36,8 @@ public interface SystemMapper {
 	
 	public void updateProblem(@Param("sysvalue")String sysvalue);
 	
+	public void updateDiscount(@Param("sysvalue")String sysvalue);
+	
 	public System selIntro();
 	
 	public System selLCotton();
@@ -51,4 +53,6 @@ public interface SystemMapper {
 	public System selProblem();
 
 	public String getNotice();
+	
+	public System selDiscount();
 }

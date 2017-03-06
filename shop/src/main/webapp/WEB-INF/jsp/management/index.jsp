@@ -116,6 +116,9 @@
                             </li>                            
                             <li><a class="J_menuItem" href="problem/index">常见问题</a>
                             </li>
+                                                        
+                            <li><a class="J_menuItem" href="discount/index">会员优惠</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

@@ -190,5 +190,22 @@ public class SystemServiceImpl implements SystemService {
 		// TODO Auto-generated method stub
 		systemMapper.updateProblem(sysvalue);
 	}
+
+	@Override
+	public void updateDiscount(String sysvalue) {
+		// TODO Auto-generated method stub
+		systemMapper.updateDiscount(sysvalue);
+	}
+
+	@Override
+	public System selDiscount() {
+		// TODO Auto-generated method stub
+		System sys = systemMapper.selDiscount();
+		if(sys != null){
+			return sys;
+		}else{
+			return null;			
+		}
+	}
 	
 }

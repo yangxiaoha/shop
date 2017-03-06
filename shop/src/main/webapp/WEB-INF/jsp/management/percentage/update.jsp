@@ -16,16 +16,22 @@
 					<fieldset>
 						<div class="row">
 							<input type="hidden" id="uid" name="id" >
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<div class="form-group">
 									<label for="name">一级分销比(*)</label><input class="form-control"
 										placeholder="请输入一级分销比" id="ufirst" name="first" type="text">
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<div class="form-group">
 									<label for="name">二级分销比(*)</label><input class="form-control"
 										placeholder="请输入二级分销比" id="usecond" name="second" type="text">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="name">三级分销比(*)</label><input class="form-control"
+										placeholder="请输入二级分销比" id="uthird" name="third" type="text">
 								</div>
 							</div>
 						</div>
@@ -53,6 +59,9 @@
 		      },
 			  second: {
 		       	 required:"请输入二级分销比",		        	
+		      },
+			  third: {
+		       	 required:"请输入三级分销比",		        	
 		      }
 	        },
 	        submitHandler: function(form) { 

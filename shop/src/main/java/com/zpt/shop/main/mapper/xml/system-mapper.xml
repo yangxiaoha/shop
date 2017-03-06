@@ -121,4 +121,12 @@
 	<update id="updateProblem" parameterType="system">
 		update t_system set sysvalue = #{sysvalue} where skey = 'problem'
 	</update>
+	
+	<select id="selDiscount" resultMap="resultMap">
+		select sysvalue from t_system where skey = 'discount'
+	</select>
+	
+	<update id="updateDiscount" parameterType="system">
+		update t_system set sysvalue = #{sysvalue} where skey = 'discount'
+	</update>
 </mapper>

@@ -30,7 +30,7 @@ $(document).ready(function(){
                "targets": [9],
                "data": "id",
                "render": function(data, type, full,meta) {
-            	   if(temp<2){            		   
+            	   if(temp<3){            		   
             		   return '<div class="action-buttons">'+
             		   '<a href="index?userId='+data+'&temp='+(temp+1)+'" title="下级会员"><i class="fa fa-sitemap"></i></a>'+
             		   '</div>';

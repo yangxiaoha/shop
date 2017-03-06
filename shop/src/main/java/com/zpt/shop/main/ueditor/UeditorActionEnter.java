@@ -1,5 +1,6 @@
 package com.zpt.shop.main.ueditor;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,6 +49,12 @@ public class UeditorActionEnter extends ActionEnter {
 	                    conf.put("rootPath", "/app/web/");
 	                    conf.put("savePath", "" + conf.get("savePath"));
 	                    state = (new Uploader(this.request, conf)).doExec();
+	                    try {
+	                    	Runtime.getRuntime().exec("chmod -R 777 /app/web");
+	                    } catch (IOException e) {
+	                    	// TODO Auto-generated catch block
+	                    	e.printStackTrace();
+	                    }
 	                    break;
 	                case 5:
 	                    conf = this.configManager.getConfig(actionCode);

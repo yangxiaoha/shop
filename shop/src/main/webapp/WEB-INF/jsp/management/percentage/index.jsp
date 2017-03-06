@@ -37,6 +37,7 @@
 								</th>
 								<th>一级分销比</th>
 								<th>二级分销比</th>	
+								<th>三级分销比</th>	
 								<th>操作</th>
 							</thead>
 							<tbody>

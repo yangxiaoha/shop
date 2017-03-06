@@ -31,6 +31,8 @@ public interface SystemService {
 	
 	public void updateProblem(String sysvalue);
 	
+	public void updateDiscount(String sysvalue);
+	
 	public System selIntro();
 	
 	public System selLCotton();
@@ -46,5 +48,7 @@ public interface SystemService {
 	public System selProblem();
 
 	public String getNotice();
+	
+	public System selDiscount();
 
 }
