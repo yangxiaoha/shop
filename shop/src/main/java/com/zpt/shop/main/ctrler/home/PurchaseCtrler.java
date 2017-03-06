@@ -35,6 +35,7 @@ import com.zpt.shop.main.service.CartService;
 import com.zpt.shop.main.service.EvaluateService;
 import com.zpt.shop.main.service.OrderService;
 import com.zpt.shop.main.service.SkuService;
+import com.zpt.shop.main.service.SystemService;
 import com.zpt.shop.main.service.WxMpService;
 import com.zpt.shop.weixin.utils.GetWxOrderno;
 import com.zpt.shop.weixin.utils.PrepayUtil;
@@ -73,6 +74,9 @@ public class PurchaseCtrler {
 	
 	@Autowired
 	private WxMpConfigStorage weixin;
+	
+	@Autowired
+	private SystemService systemService;
 	
 	//微信支付成功后通知地址 必须要求80端口并且地址不能带参数
 	private static String notifyurl = "http://weixin.591yjx.com/shop/goodsWsPay/result";
@@ -227,12 +231,11 @@ public class PurchaseCtrler {
         User user = (User) request.getSession().getAttribute("user");  
         
         String ordercode = "";
-        
-        //下单金额
+
         String money = "";
+        BigDecimal discountMoney = new BigDecimal("0.00");
         if(cartIds != null) {
         	money = totalMoney;
-        	
             //订单号
             String code1 = RandomArray.randomArray(0, 9, 2);
             String code2 = RandomArray.randomArray(0, 9, 2);
@@ -240,12 +243,29 @@ public class PurchaseCtrler {
             ordercode = code1 + myTime + code2;
             
         	List<Cart> cartsList = cartService.getCartInfoById(cartIds);
+           
+            //获取会员折扣
+        	String state = "1";           
+            List<Order> orderList = orderService.getOrderDetailByUser(user.getId(), state);
+    		if(orderList != null && orderList.size() > 0) { 
+    			String string = "discount";
+    			String dis = systemService.getSystem(string);
+    			if(dis != null && !("").equals(dis)) {
+        	        discountMoney = new BigDecimal(totalMoney).multiply(new BigDecimal(dis).divide(new BigDecimal("100")));
+        	        money = discountMoney.toString(); 
+    			}else {
+        	        discountMoney = new BigDecimal(totalMoney).multiply(new BigDecimal("1"));
+        	        money = discountMoney.toString();
+    			}
+    		}
+        	
             //订单数据
         	mv.addObject("state", 0);
-        	mv.addObject("money", money);
+        	mv.addObject("money", totalMoney);        	
         	mv.addObject("cartIds", cartIds);
             mv.addObject("cartsMsg", cartsList);
             mv.addObject("ordercode", ordercode);//订单号
+            mv.addObject("discountMoney", discountMoney.setScale(2, BigDecimal.ROUND_HALF_UP));
         }else {
         	ordercode = orderNum;
             List<Order> orderList = orderService.getOrderByOrderId(orderId);
@@ -256,7 +276,7 @@ public class PurchaseCtrler {
             mv.addObject("orderMsg", orderList);
             mv.addObject("ordercode", ordercode);//订单号
         }
-        
+
         String noncestr = Sha1Util.getNonceStr(); //随机字符串
         String timestamp = Sha1Util.getTimeStamp(); //当前时间
         
@@ -324,7 +344,7 @@ public class PurchaseCtrler {
         mv.addObject("paySign", paySign);//支付签名
         
         mv.addObject("addrSign", addrSign);//编辑地址签名
-        
+
         return mv;
 	}
 	

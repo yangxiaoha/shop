@@ -110,4 +110,12 @@ public interface OrderService {
 	 * */
 	public List<Order> getOrderDetailByState(Integer userId, String state);
 
+	/**
+	 * 判断用户购买情况
+	 * @param Integer userId userId
+	 * @param String state 订单状态
+	 * @return List<Order>
+	 * */
+	public List<Order> getOrderDetailByUser(Integer userId, String state);
+
 }

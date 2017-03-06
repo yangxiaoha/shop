@@ -85,8 +85,11 @@
     .index-tab-bar .buy-state {
     	line-height: 50px;
     }
+    .goods-parameter-detail a {
+    	color: #000;
+    }
     video {
-    	 z-index: -10;
+    	object-fit: fill;
     }
 </style>
 </head>

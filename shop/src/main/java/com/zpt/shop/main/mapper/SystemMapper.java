@@ -51,4 +51,6 @@ public interface SystemMapper {
 	public System selProblem();
 
 	public String getNotice();
+
+	public String getSystem(@Param("skey")String string);
 }

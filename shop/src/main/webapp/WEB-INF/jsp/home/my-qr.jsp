@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<%@ taglib prefix="decorator"
-	uri="http://www.opensymphony.com/sitemesh/decorator"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -34,7 +34,12 @@
 	<div id="wrap">
 	  	<p class="nav-bar clearfloat"><span class="red-block"></span>我的二维码</p>
 	
-		<div class="recharge-qr"></div>
+		<c:if test="${empty orderMsg}">
+			<div class="recharge-qr">${msg}</div>
+		</c:if>
+		<c:if test="${!empty orderMsg}">
+			<div class="recharge-qr"></div>
+		</c:if>
 	
 	  	<ul class="tab-bar order-detail-tab-bar">
 	        <li>
@@ -68,8 +73,11 @@
     
 	<script src="<%=basePath%>assets/home/js/qrcode.js"></script>
 	<script type="text/javascript">    	
-		$(document).ready(function() {        
-			qr();		
+		$(document).ready(function() { 
+			var state = "${state}";
+			if(state == "1") {
+				qr();
+			}					
 		});
 		
 		function qr(){

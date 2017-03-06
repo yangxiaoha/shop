@@ -32,6 +32,9 @@ public class Order {
 	//收货人电话
 	private String phone;
 	
+	//商品折后价
+	private BigDecimal discountPrice;
+	
 	//商品总价
 	private BigDecimal totalPrice;
 	
@@ -180,6 +183,14 @@ public class Order {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	
+	public BigDecimal getDiscountPrice() {
+		return discountPrice;
+	}
+
+	public void setDiscountPrice(BigDecimal discountPrice) {
+		this.discountPrice = discountPrice;
 	}
 
 	public BigDecimal getTotalPrice() {

@@ -300,4 +300,14 @@ public class OrderServiceImpl implements OrderService {
 		return null;
 	}
 
+	@Override
+	public List<Order> getOrderDetailByUser(Integer userId, String state) {
+		// TODO Auto-generated method stub
+		List<Order> list = orderMapper.getOrderDetailByUser(userId, state);
+		if(list != null && list.size()>0){
+			return list;
+		}
+		return null;
+	}
+
 }

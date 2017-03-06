@@ -63,6 +63,7 @@
             <input type="hidden" id="addressDetailInfo" name="address" value="" />       
             <input type="hidden" id="telNumber" name="phone" value="" />
             <input type="hidden" id="username" name="name" value="" />
+            <input type="hidden" id="discountPrice" name="discountPrice" value="${discountMoney}" />
             <input type="hidden" id="totalPrice" name="totalPrice" value="${money}" />
             <input type="hidden" id="ordercode" name="ordernum" value="${ordercode}" />
           </div>
@@ -74,8 +75,10 @@
         </form> 
         <div class="tab-bar order-tab-bar">   
 	      <p class="fl">合计：</p>           
-	      <p class="fr payment">付款</p>
-	      <p class="fr font-price">￥${money}</p>
+	      <button class="fr payment">付款</button>
+	      <p class="fr font-price">
+	      	<span class="fc-9fa0a0" style="text-decoration: line-through">￥${money}</span>￥${discountMoney}
+	      </p>
 	    </div>
 	  </div>
       </c:if>
@@ -119,6 +122,7 @@
                 <input type="hidden" id="addressDetailInfo" name="address" value="${orderList.address}" />       
                 <input type="hidden" id="telNumber" name="phone" value="${orderList.phone}" />
                 <input type="hidden" id="username" name="name" value="${orderList.name}" />
+                <input type="hidden" id="discountPrice" name="discountPrice" value="${orderList.discountPrice}" />
                 <input type="hidden" id="totalPrice" name="totalPrice" value="${orderList.totalPrice}" />
                 <input type="hidden" id="ordercode" name="ordernum" value="${ordercode}" />
               </div>
@@ -131,8 +135,11 @@
           </div>
           <div class="tab-bar order-tab-bar">   
 	        <p class="fl">合计:</p>           
-	        <p class="fr payment">付款</p>
-	        <p class="fr font-price">￥${orderList.totalPrice}</p>
+	        <button class="fr payment">付款</button>
+	        <p class="fr font-price">
+        	  <span class="fc-9fa0a0" style="text-decoration: line-through">￥${orderList.totalPrice}</span>
+        	    ￥${orderList.discountPrice} 
+	        </p>
 	      </div>
 	    </c:forEach>
       </c:if>
@@ -210,8 +217,9 @@
         });
         
         $(document).ready(function() {
-            $(".payment").click(function() {
+            $(".payment").click(function() {           	
             	if($("#username").val() != null && $("#username").val() != "") {
+            		$(this).prop("disabled", true);
                     var queryArray = $("#buyGoodsForm").serializeArray();
                     var jsonString= '{';  
                     for (var i = 0; i < queryArray.length; i++) {  

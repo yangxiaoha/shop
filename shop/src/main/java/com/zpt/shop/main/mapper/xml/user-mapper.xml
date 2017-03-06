@@ -118,4 +118,8 @@
 		update t_user set name = #{userName} where openid = #{openid}
 	</update>
 	
+	<select id="getThirdUser" resultType="java.lang.String">
+		select GROUP_CONCAT(id) from t_user where pid in (${userId})
+	</select>
+	
 </mapper>

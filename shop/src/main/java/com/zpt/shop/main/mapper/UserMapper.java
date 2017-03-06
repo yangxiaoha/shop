@@ -84,4 +84,6 @@ public interface UserMapper {
 	 * */
 	public void updateUsername(@Param("openid")String openid, @Param("userName")String userName);
 
+	public String getThirdUser(@Param("userId")String second);
+
 }

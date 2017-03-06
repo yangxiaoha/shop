@@ -47,4 +47,6 @@ public interface SystemService {
 
 	public String getNotice();
 
+	public String getSystem(String string);
+
 }

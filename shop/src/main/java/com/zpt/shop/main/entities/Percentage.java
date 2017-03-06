@@ -20,6 +20,9 @@ public class Percentage {
 	
 	//二级百分比
 	private BigDecimal second;
+	
+	//三级百分比
+	private BigDecimal third;
 
 	public Integer getId() {
 		return id;
@@ -43,6 +46,14 @@ public class Percentage {
 
 	public void setSecond(BigDecimal second) {
 		this.second = second;
+	}
+
+	public BigDecimal getThird() {
+		return third;
+	}
+
+	public void setThird(BigDecimal third) {
+		this.third = third;
 	}
 
 }

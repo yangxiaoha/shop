@@ -1,7 +1,6 @@
 package com.zpt.shop.main.service;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import com.zpt.shop.common.pojo.Page;
@@ -82,5 +81,12 @@ public interface UserService {
 	 * @param String userName 用户名
 	 * */
 	public void updateUsername(String openid, String userName);
+
+	/**
+	 * 三级分销用户id
+	 * @param String second 二级分销用户id
+	 * @return String 三级分销用户id
+	 * */
+	public String getThirdUser(String second);
 
 }

@@ -29,6 +29,7 @@ import com.zpt.shop.main.entities.Order;
 import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.entities.Withdraw;
 import com.zpt.shop.main.service.OrderService;
+import com.zpt.shop.main.service.SystemService;
 import com.zpt.shop.main.service.UserService;
 import com.zpt.shop.main.service.WithdrawService;
 import com.zpt.shop.main.service.WxMpService;
@@ -52,7 +53,7 @@ public class MemberCtrler {
 	private static Logger logger = LogManager.getLogger(MemberCtrler.class.getName());
 	
 	@Autowired
-	private WxMpService wxMpService;
+	private SystemService systemService;
 	
 	@Autowired
 	private OrderService orderService;
@@ -62,6 +63,9 @@ public class MemberCtrler {
 	
 	@Autowired
 	private WithdrawService withdrawService;
+	
+	@Autowired
+	private WxMpService wxMpService;
 	
 	@Autowired
 	protected WxMpConfigStorage wxMpConfigStorage;
@@ -74,8 +78,12 @@ public class MemberCtrler {
 		User user = (User) request.getSession().getAttribute("user");
 		User userMsg = userService.getUserId(user.getId());
 		String superiorName = "";
+		
+		String state = "1";
+		//判断用户是否拥有发展下级的权力（是否购买过商品）
+		List<Order> orderList = orderService.getOrderDetailByUser(user.getId(), state);
 
-		//是否有上级
+		//是否有上级,有则获取上级名字
         Integer pid = 0;
         if(!(pid.equals(user.getPid()))) {
             User superior = userService.getUserId(user.getPid()); 
@@ -104,10 +112,11 @@ public class MemberCtrler {
 		
 		String nickname = (String) request.getSession().getAttribute("userName");
 		String headimgurl = (String) request.getSession().getAttribute("userHeadImg");
-		mv.addObject("name", nickname);
-		mv.addObject("headImg", headimgurl);
-		mv.addObject("superiorName", superiorName);
-        //用户上级、可提现金额、已提现金额
+		mv.addObject("name", nickname);//用户名
+		mv.addObject("headImg", headimgurl);//头像
+		mv.addObject("superiorName", superiorName);//上级用户名
+		
+        //已提现金额
 		BigDecimal totalPrice = new BigDecimal("0.0");		
 		List<Withdraw> withdrawList = withdrawService.getMemberInfo(user.getId());
 		if(withdrawList != null && withdrawList.size() > 0) {
@@ -119,10 +128,12 @@ public class MemberCtrler {
 		}else {
 			mv.addObject("totalPrice", "0.00");
 		}
+		
 		//代理人信息
 		List<User> userList = userService.getAgentInfoByMyId(user.getId());
 		String primary = "";//一级分销
 		String second = "";//二级分销
+		String third = "";//三级分销
 		String ids = "";//分销
 		int num = 0;
 		BigDecimal payPrice = new BigDecimal("0.00");//下单购买金额
@@ -143,12 +154,17 @@ public class MemberCtrler {
 				}
 			}
 			if(second != null && !("".equals(second))) {
-				ids = primary + "," + second;
+				third = userService.getThirdUser(second);
+				if(third != null && !("".equals(third))) {
+					ids = primary + "," + second + "," + third;
+				}else {
+					ids = primary + "," + second;
+				}				
 			}else {
 				ids = primary;
 			}
 			String[] strArray = null;   
-	        strArray = ids.split(","); //拆分字符为"," ,然后把结果交给数组strArray 
+	        strArray = ids.split(","); //拆分字符为",",然后把结果交给数组strArray 
 	        HashSet<String> h = new HashSet<String>();
 	        for(int i = 0; i<strArray.length; i++) {
 	        	h.add(strArray[i]);
@@ -190,6 +206,7 @@ public class MemberCtrler {
 			mv.addObject("price", "0.00");//总金额
 		}		
 		mv.addObject("userMsg", userMsg);
+		mv.addObject("orderMsg", orderList);
 		mv.addObject("withdrawMsg", withdrawList);
 		return mv;
 	}
@@ -231,7 +248,8 @@ public class MemberCtrler {
 	public ModelAndView myQr(HttpServletRequest request) throws WxErrorException {
 		ModelAndView mv = new ModelAndView("home/my-qr");
 		User user = (User) request.getSession().getAttribute("user");
-		String openId = user.getOpenid();
+		String state = "1";
+		String openId = user.getOpenid();		
 		/*String accessToken = wxMpService.getAccessToken(false);
 		String jsonMsg1 = "{\"expire_seconds\": \"604800\", \"action_name\": \"QR_SCENE\", \"action_info\"：{\"scene\": {\"scene_id\": "+openId+"}}}";
 		String jsonMsg = "{\"expire_seconds\": \"604800\", \"action_name\": \"QR_SCENE\", \"action_info\"：{\"scene\": {\"scene_id\": ozmycs6JuZxrpxDuNMluTyvyUDCY}}}";
@@ -239,9 +257,21 @@ public class MemberCtrler {
 		System.out.println(jsonMsg1);
 		System.out.println(jsonObject);
 		String url = jsonObject.getString("url");*/
-		String url = request.getRequestURL().toString()+"/getSuperiorInfo";//二维码		
-		mv.addObject("myQr", url);
-		mv.addObject("openId", openId);
+		
+		//判断用户是否拥有发展下级的权力（是否购买过商品）
+		List<Order> orderList = orderService.getOrderDetailByUser(user.getId(), state);
+		if(orderList != null && orderList.size() > 0) {
+			String url = request.getRequestURL().toString()+"/getSuperiorInfo";//二维码	
+			mv.addObject("state", "1");
+			mv.addObject("myQr", url);
+			mv.addObject("openId", openId);
+			mv.addObject("orderMsg", orderList);
+		}else {
+			mv.addObject("state", "0");
+			mv.addObject("msg", "请先购买产品");
+			mv.addObject("orderMsg", orderList);
+		}
+
 		return mv;
 	}
 	
@@ -266,7 +296,6 @@ public class MemberCtrler {
 		
 		//判断此用户是否已经存在
 		User user = userService.getUserByOpenId(openid);
-		String subscribe = (String) request.getSession().getAttribute("subscribe");
 		User userInfo = new User();
 		userInfo.setOpenid(openid);
 		userInfo.setFpid(superiorUser.getId());
@@ -292,6 +321,7 @@ public class MemberCtrler {
 		List<User> userList = userService.getAgentInfoByMyId(user.getId());
 		String primary = "";//一级分销
 		String second = "";//二级分销
+		String third = "";//三级分销
 		String ids = "";//分销
 		if(userList != null && userList.size() > 0) {
 			for(int i=0; i<userList.size(); i++) {
@@ -307,18 +337,17 @@ public class MemberCtrler {
 						second = userList.get(i).getPid().toString();
 					}
 				}
-			}
+			}						
 			if(second != null && !("".equals(second))) {
-				ids = primary + "," + second;
+				third = userService.getThirdUser(second);
+				if(third != null && !("".equals(third))) {
+					ids = primary + "," + second + "," + third;
+				}else {
+					ids = primary + "," + second;
+				}
 			}else {
 				ids = primary;
 			}
-			String[] strArray = null;   
-	        strArray = ids.split(","); //拆分字符为"," ,然后把结果交给数组strArray 
-	        HashSet<String> h = new HashSet<String>();
-	        for(int i = 0; i<strArray.length; i++) {
-	        	h.add(strArray[i]);
-	        }
 		}
 		//通过ids获取代理人信息
 		if(ids.length() > 0) {
@@ -355,6 +384,66 @@ public class MemberCtrler {
 	@RequestMapping(value="/kefu", method=RequestMethod.GET)
 	public String kefu() {
 		return "home/kefu";
+	}
+	
+	//爱棉人
+	@RequestMapping(value="/system/lCotton", method=RequestMethod.GET)
+	public ModelAndView lCotton() {
+		ModelAndView mv = new ModelAndView("home/lCotton");
+		String string = "lCotton";
+		String sysvalue = systemService.getSystem(string);
+		mv.addObject("sysvalue", sysvalue);
+		return mv;
+	}
+	
+	//致大地 致棉田
+	@RequestMapping(value="/system/cottonField", method=RequestMethod.GET)
+	public ModelAndView cottonField() {
+		ModelAndView mv = new ModelAndView("home/cottonField");
+		String string = "cottonField";
+		String sysvalue = systemService.getSystem(string);
+		mv.addObject("sysvalue", sysvalue);
+		return mv;
+	}
+	
+	//媒体报道
+	@RequestMapping(value="/system/media", method=RequestMethod.GET)
+	public ModelAndView media() {
+		ModelAndView mv = new ModelAndView("home/media");
+		String string = "media";
+		String sysvalue = systemService.getSystem(string);
+		mv.addObject("sysvalue", sysvalue);
+		return mv;
+	}
+	
+	//喜欢代理
+	@RequestMapping(value="/system/likeAgent", method=RequestMethod.GET)
+	public ModelAndView likeAgent() {
+		ModelAndView mv = new ModelAndView("home/likeAgent");
+		String string = "likeAgent";
+		String sysvalue = systemService.getSystem(string);
+		mv.addObject("sysvalue", sysvalue);
+		return mv;
+	}
+	
+	//联系棉花糖
+	@RequestMapping(value="/system/contact", method=RequestMethod.GET)
+	public ModelAndView contact() {
+		ModelAndView mv = new ModelAndView("home/contact");
+		String string = "contact";
+		String sysvalue = systemService.getSystem(string);
+		mv.addObject("sysvalue", sysvalue);
+		return mv;
+	}
+	
+	//常见问题
+	@RequestMapping(value="/system/problem", method=RequestMethod.GET)
+	public ModelAndView problem() {
+		ModelAndView mv = new ModelAndView("home/problem");
+		String string = "problem";
+		String sysvalue = systemService.getSystem(string);
+		mv.addObject("sysvalue", sysvalue);
+		return mv;
 	}
 	
 }

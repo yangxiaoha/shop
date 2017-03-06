@@ -190,5 +190,12 @@ public class SystemServiceImpl implements SystemService {
 		// TODO Auto-generated method stub
 		systemMapper.updateProblem(sysvalue);
 	}
+
+	@Override
+	public String getSystem(String string) {
+		// TODO Auto-generated method stub
+		String sysvalue = systemMapper.getSystem(string);
+		return sysvalue;
+	}
 	
 }

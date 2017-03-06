@@ -142,4 +142,16 @@ public class UserServiceImpl implements UserService {
 		userMapper.updateUsername(openid, userName);
 	}
 
+	/**
+	 * 三级分销用户id
+	 * @param String second 二级分销用户id
+	 * @return String 三级分销用户id
+	 * */
+	@Override
+	public String getThirdUser(String second) {
+		// TODO Auto-generated method stub
+		String str = userMapper.getThirdUser(second);
+		return str;
+	}
+
 }

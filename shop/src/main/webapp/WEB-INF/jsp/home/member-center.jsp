@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<%@ taglib prefix="decorator"
-	uri="http://www.opensymphony.com/sitemesh/decorator"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -26,7 +26,7 @@
 	      	<img src="${headImg}">
 	      </c:if>	      
 	      <c:choose>
-		    <c:when test="${peopleNum > 0}">
+		    <c:when test="${!empty orderMsg}">
 		      <p style="color: #fff; font-size: 1.8rem;">	 
 	            <span class="member-icon" style="display: block; margin-top: 20px;">
 			      <img src="<%=basePath%>assets/home/images/member.png" /> 

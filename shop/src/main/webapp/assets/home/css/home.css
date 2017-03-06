@@ -1,4 +1,4 @@
-/************************公共样式开始************************/
+/************************鍏叡鏍峰紡寮�濮�************************/
 body, ul, p, h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 	padding: 0;
@@ -8,7 +8,7 @@ body, ul, p, h1, h2, h3, h4, h5, h6 {
 body {
 	font-size: 1.4rem;
 	background-color: #fff;
-	font-family:"Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu;
+	font-family:"Microsoft YaHei",寰蒋闆呴粦,"MicrosoftJhengHei",鍗庢枃缁嗛粦,STHeiti,MingLiu;
 }
 a, a:link, a:visited, a:hover, a:active {
 	color: #fff; text-decoration: none;
@@ -150,7 +150,7 @@ a, a:link, a:visited, a:hover, a:active {
 	width: 100%;
 	height: 60px;
 }
-/*清除浮动代码*/ 
+/*娓呴櫎娴姩浠ｇ爜*/ 
 .clearfloat:after {
 	display: block;
 	clear: both;
@@ -159,9 +159,9 @@ a, a:link, a:visited, a:hover, a:active {
 	height: 0
 } 
 .clearfloat{zoom: 1} 
-/************************公共样式结束************************/
+/************************鍏叡鏍峰紡缁撴潫************************/
 
-/************************iconfont开始************************/
+/************************iconfont寮�濮�************************/
 @font-face {
   font-family: "iconfont";
   src: url('../font/iconfont.eot?t=1479203338063'); /* IE9*/
@@ -183,9 +183,9 @@ a, a:link, a:visited, a:hover, a:active {
 .icon-dizhi:before { content: "\e602"; }
 .icon-dizhi1:before { content: "\e642"; }
 .icon-iconfontxingming:before { content: "\e68d"; }
-/************************iconfont结束************************/
+/************************iconfont缁撴潫************************/
 
-/************************商品属性修改开始************************/
+/************************鍟嗗搧灞炴�т慨鏀瑰紑濮�************************/
 #modifyAttr {
 	display: none;
 	position: fixed;
@@ -196,9 +196,9 @@ a, a:link, a:visited, a:hover, a:active {
     background-color: rgba(0,0,0,.5);
     z-index: 999;
 }
-/************************商品属性修改结束************************/
+/************************鍟嗗搧灞炴�т慨鏀圭粨鏉�************************/
 
-/************************index开始************************/
+/************************index寮�濮�************************/
 #wrap {
 	width: 100%;
 }
@@ -404,9 +404,9 @@ a, a:link, a:visited, a:hover, a:active {
     background-color: #c8161d;
     border-radius: 45px;  
 }
-/************************index结束************************/
+/************************index缁撴潫************************/
 
-/************************type-detail开始************************/
+/************************type-detail寮�濮�************************/
 .type-detail {
 	/* position: absolute;
 	top: 40px;
@@ -437,9 +437,9 @@ a, a:link, a:visited, a:hover, a:active {
 	text-align: center;
 	border-bottom: 1px solid #968f8e;
 }
-/************************type-detail结束************************/
+/************************type-detail缁撴潫************************/
 
-/************************car开始************************/
+/************************car寮�濮�************************/
 .no-shopping-car-show {
 	position: absolute;
     top: 50%;
@@ -523,9 +523,9 @@ a, a:link, a:visited, a:hover, a:active {
     width: 100%;
     overflow: auto;
 }
-/************************car结束************************/
+/************************car缁撴潫************************/
 
-/************************order开始************************/
+/************************order寮�濮�************************/
 .nav-bar {
 	position: fixed;
 	top: 0;
@@ -647,11 +647,12 @@ a, a:link, a:visited, a:hover, a:active {
 	margin-left: 5px;
 	color: #fff;
 	background: #c8161d;
+	border: 0;
 	border-left: 1px solid #968f8e;
 }
-/************************order结束************************/
+/************************order缁撴潫************************/
 
-/************************order-detail开始************************/
+/************************order-detail寮�濮�************************/
 .detail-menu {
 	margin-top: 40px;
 	width: 100%;
@@ -728,9 +729,9 @@ a, a:link, a:visited, a:hover, a:active {
 .order-detail-tab-bar > li .qr-code {
 	background-position: -40px -45px;
 }
-/************************order-detail结束************************/
+/************************order-detail缁撴潫************************/
 
-/************************addr开始************************/
+/************************addr寮�濮�************************/
 .addr-form p {
 	padding: 10px 0;
 	vertical-align: middle;
@@ -776,9 +777,9 @@ a, a:link, a:visited, a:hover, a:active {
     background-color: #c8161d; 
     transform: translateY(50%);   
 }
-/************************addr结束************************/
+/************************addr缁撴潫************************/
 
-/************************goods-detail开始************************/
+/************************goods-detail寮�濮�************************/
 .goods-parameter-detail,
 .goods-parameter-detail img,
 .goods-parameter-detail video,
@@ -894,9 +895,9 @@ a, a:link, a:visited, a:hover, a:active {
 	height: 40px;
 	line-height: 40px;
 }
-/************************goods-detail结束************************/
+/************************goods-detail缁撴潫************************/
 
-/************************member-center开始************************/
+/************************member-center寮�濮�************************/
 .user-info {
 	position: relative;
 	width: 100%;
@@ -1029,4 +1030,4 @@ a, a:link, a:visited, a:hover, a:active {
 	padding: 10px 20px;
     border-bottom: 1px solid #e6e6e6;
 }
-/************************member-center结束************************/
+/************************member-center缁撴潫************************/

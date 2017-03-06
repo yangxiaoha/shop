@@ -14,6 +14,7 @@
 		<result property="state" column="state" />
 		<result property="name" column="name" />
 		<result property="phone" column="phone" />
+		<result property="discountPrice" column="discountPrice" />
 		<result property="totalPrice" column="totalPrice" />
 		<result property="memo" column="memo" />
 		<result property="ordernum" column="ordernum" />
@@ -132,8 +133,8 @@
 	<!-- ******************************************************************************** -->
 	
 	<insert id="addOrder" parameterType="order">
-	    insert into t_order (userId, address, postalCode, provinceName, cityName, countryName, ordertime, name, phone, totalPrice, memo, ordernum, state) 
-		values (#{userId}, #{address}, #{postalCode}, #{provinceName}, #{cityName}, #{countryName}, #{ordertime}, #{name}, #{phone}, #{totalPrice}, #{memo}, #{ordernum}, #{state})
+	    insert into t_order (userId, address, postalCode, provinceName, cityName, countryName, ordertime, name, phone, discountPrice, totalPrice, memo, ordernum, state) 
+		values (#{userId}, #{address}, #{postalCode}, #{provinceName}, #{cityName}, #{countryName}, #{ordertime}, #{name}, #{phone}, #{discountPrice}, #{totalPrice}, #{memo}, #{ordernum}, #{state})
 	</insert>
 	
 	<update id="updateOrder">
@@ -229,6 +230,10 @@
 	
 	<select id="getOrderByState" resultMap="resultMap">
 		select * from t_order where state = #{state}
+	</select>
+	
+	<select id="getOrderDetailByUser" resultMap="resultMap">
+		select * from t_order where userId = #{userId} and state &gt; #{state}
 	</select>
 
 </mapper>

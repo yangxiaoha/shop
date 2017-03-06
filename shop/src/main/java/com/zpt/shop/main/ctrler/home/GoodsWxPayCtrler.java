@@ -97,20 +97,28 @@ public class GoodsWxPayCtrler {
      			Integer pid = 0;
      			BigDecimal orderMoney = order.getTotalPrice();//订单金额
      			
-     			if(pid != user.getPid()) {//有上级
+     			if(pid != user.getPid()) {//一级
      				User superior = userService.getUserByUserId(user.getPid());//上级信息
      				BigDecimal percentageMoney = orderMoney.multiply(percentage.getFirst().divide(new BigDecimal("100")));
      				BigDecimal money = superior.getMoney().add(percentageMoney);
      				userService.updateMoney(superior.getId(), money);
      				//添加分销信息
      				distributionService.addDistribution(superior.getId(), order.getId(), percentageMoney);
-     				if(pid != superior.getPid()) {//上级的上级
+     				if(pid != superior.getPid()) {//二级
      					User superiorInfo = userService.getUserByUserId(superior.getPid());//上级的上级的信息
          				BigDecimal percentageMoneyInfo = orderMoney.multiply(percentage.getSecond().divide(new BigDecimal("100")));
          				BigDecimal moneyInfo = superiorInfo.getMoney().add(percentageMoneyInfo);
          				userService.updateMoney(superiorInfo.getId(), moneyInfo);
          				//添加分销信息
          				distributionService.addDistribution(superiorInfo.getId(), order.getId(), percentageMoneyInfo);
+         				if(pid != superiorInfo.getPid()) {//三级
+         					User superiorInfo2 = userService.getUserByUserId(superiorInfo.getPid());//上级的上级的上级的信息
+         					BigDecimal percentageMoneyInfo2 = orderMoney.multiply(percentage.getThird().divide(new BigDecimal("100")));
+         					BigDecimal moneyInfo2 = superiorInfo2.getMoney().add(percentageMoneyInfo2);
+         					userService.updateMoney(superiorInfo2.getId(), moneyInfo2);
+             				//添加分销信息
+             				distributionService.addDistribution(superiorInfo2.getId(), order.getId(), percentageMoneyInfo2);
+         				}
      				}
      			}
              }else {
