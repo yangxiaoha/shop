@@ -8,6 +8,7 @@
 		<id property="id" column="id" />
 		<result property="first" column="first" />
 		<result property="second" column="second" />
+		<result property="third" column="third" />
 	</resultMap>
 	
 	<select id="listPercentage" resultMap="resultMap" parameterType="query">
@@ -21,7 +22,7 @@
 	</select>	
 	
 	<update id="updatePercentage" parameterType="percentage">
-		update t_percentage set first = #{first},second = #{second} where id = #{id}
+		update t_percentage set first = #{first},second = #{second},third = #{third} where id = #{id}
 	</update>
 	
 	<select id="getPercentage" resultMap="resultMap">

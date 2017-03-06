@@ -20,7 +20,7 @@ public class Percentage {
 	
 	//二级百分比
 	private BigDecimal second;
-	
+
 	//三级百分比
 	private BigDecimal third;
 

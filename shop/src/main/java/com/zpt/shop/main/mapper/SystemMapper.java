@@ -36,6 +36,8 @@ public interface SystemMapper {
 	
 	public void updateProblem(@Param("sysvalue")String sysvalue);
 	
+	public void updateDiscount(@Param("sysvalue")String sysvalue);
+	
 	public System selIntro();
 	
 	public System selLCotton();
@@ -53,4 +55,6 @@ public interface SystemMapper {
 	public String getNotice();
 
 	public String getSystem(@Param("skey")String string);
+
+	public System selDiscount();
 }

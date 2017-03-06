@@ -10,6 +10,7 @@ $(document).ready(function(){
                     { "data": "id","orderable":false,"visible":false},
                     { "data": "first" },
                     { "data": "second" },
+                    { "data": "third" },
                     { "data":"id","className": "actions","orderable":false }
                 ],
         "aoColumnDefs": [
@@ -21,7 +22,7 @@ $(document).ready(function(){
              }
            },
            {
-               "targets": [4],
+               "targets": [5],
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
@@ -39,12 +40,13 @@ $(document).ready(function(){
         		$("#uid").val(obj.id);
         		$("#ufirst").val(obj.first);
         		$("#usecond").val(obj.second);
+        		$("#uthird").val(obj.third);
         		$("#updateModal").modal("show");
         	});
         },
         "className" : "Percentage",
         "chosen" : true,
-        "ids" : "#first,#second",
-        "targets":"2,3"
+        "ids" : "#first,#second，#third",
+        "targets":"2,3,4"
 	});
 });
