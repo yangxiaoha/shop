@@ -40,7 +40,7 @@ public interface UserService {
 	 * @param Integer pid 上级id
 	 * @param String money 可提现金额
 	 * */
-	public void addUser(String fromUserName, String createTime, Integer pid, String money);
+	public void addUser(String fromUserName, String userName, String createTime, Integer pid, String money);
 	
 	/**
 	 * 修改用户
@@ -49,7 +49,7 @@ public interface UserService {
 	 * @param Integer pid 上级id
 	 * @param String money 可提现金额
 	 * */
-	public void updateUser(String fromUserName, String createTime, Integer fpid);
+	public void updateUser(String fromUserName, String userName, String createTime, Integer fpid);
 
 	/**
 	 * 获取分销信息

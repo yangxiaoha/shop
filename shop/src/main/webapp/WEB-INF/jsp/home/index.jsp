@@ -84,7 +84,7 @@
 		    </ul>			    
 		    <input id="total" type="hidden" value="${total}" />
 		    <ul class="goods-type" style="display: none;">
-		    	<c:forEach items="${goodsTypeMsg}" var="goodsTypeList">
+		    	<c:forEach items="${goodsTypeMsg}" var="goodsTypeList" begin="0" end="2" step="1">
 					<li><a href="goodsType/${goodsTypeList.id}">${goodsTypeList.name}</a></li>
 				</c:forEach>
 				<c:if test="${fn:length(goodsTypeMsg) > 3}">

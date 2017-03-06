@@ -77,12 +77,13 @@
 	</select>
 	
 	<insert id="addUser">
-		insert into t_user (openid, regtime, pid, money) 
-		values (#{openId}, #{regtime}, #{pid}, #{money})
+		insert into t_user (openid, name, regtime, pid, money) 
+		values (#{openId}, #{name}, #{regtime}, #{pid}, #{money})
 	</insert>
 	
 	<update id="updateUser" parameterType="user">
 		update t_user set 
+		name = #{name},
 		regtime = #{regtime},
 		pid = #{pid}
 		where openid = #{openId}
