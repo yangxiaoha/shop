@@ -55,8 +55,8 @@ public class WeixinInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception {
 		System.out.println("w333"+request.getSession().getAttribute(Contants.SESSION_OPENID));
-		/*request.getSession().setAttribute(Contants.SESSION_OPENID,
-		"oWPBkwdzbtxJwOrBBz86j7rdxFB4");*/
+		request.getSession().setAttribute(Contants.SESSION_OPENID,
+		"oWPBkwdzbtxJwOrBBz86j7rdxFB4");
 		if (request.getSession().getAttribute(Contants.SESSION_OPENID) == null
 				|| request.getSession().getAttribute(Contants.SESSION_OPENID) == "") {
 			

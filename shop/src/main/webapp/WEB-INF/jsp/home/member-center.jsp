@@ -27,16 +27,16 @@
 	      </c:if>	      
 	      <c:choose>
 		    <c:when test="${peopleNum > 0}">
-		      <p style="color: #fff; font-size: 1.8rem; line-height: 120px;">	 
-	            <span class="member-icon">
+		      <p style="color: #fff; font-size: 1.8rem;">	 
+	            <span class="member-icon" style="display: block; margin-top: 20px;">
 			      <img src="<%=basePath%>assets/home/images/member.png" /> 
 			    </span>
-                <span style="display: block; text-indent: 50px;">${name}</span>
+                <span>${name}</span>
 	          </p>
 		    </c:when>
 		    <c:otherwise>
 		      <div style="color: #fff; font-size: 1.8rem;">	
-			    <p class="member-icon" style="display: block; margin-top: 25px;">
+			    <p class="member-icon" style="display: block; margin-top: 20px;">
 			      <img src="<%=basePath%>assets/home/images/no-member.png" /> 
 			    </p>
 			    <p style="color: #fff; margin-top: 5px;">${name}</p>     	     

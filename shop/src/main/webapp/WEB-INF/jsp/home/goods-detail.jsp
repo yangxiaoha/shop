@@ -85,6 +85,9 @@
     .index-tab-bar .buy-state {
     	line-height: 50px;
     }
+    video {
+    	 z-index: -10;
+    }
 </style>
 </head>
 <body>
@@ -108,7 +111,6 @@
 	         		<p class="font-price">￥${goodsMsg.price}</p>
 	         	</c:if>
          	</c:if>
-         	<video  controls preload="none" width="100px" height="100px" src="http://www.runoob.com/try/demo_source/movie.mp4"></video>
          	
 	    </div>
 	
@@ -120,7 +122,7 @@
 		<ul class="tab_conbox" id="tab_conbox">
 	        <li class="tab_con" style="display: none;">
 	           	<c:if test="${!empty goodsMsg}">
-					<div class="goods-parameter-detail mb80">${goodsMsg.content}</div>
+					<div class="goods-parameter-detail mb80" style="position: absolute;">${goodsMsg.content}</div>
 				</c:if>
 	        </li>
 	        <li class="tab_con" style="display: none; margin-bottom: 60px;">
@@ -149,7 +151,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="../index">
+				<a href="<%=basePath%>home/member/kefu">
 					<span class="tab-bar-bg customer-service"></span>
 					<span>在线客服</span>
 				</a>
@@ -163,6 +165,7 @@
 		</ul>
 	
 		<div id="modifyAttr">
+			<iframe style="position:absolute; visibility:inherit; top:0px; left:0px; width:100%; height:100%; z-index:9999; filter='Alpha(style=0,opacity=0)';"></iframe>
 			<div class="goods-parameter-choice" id="goods-parameter-choice" style="display: none;">
 				<div class="goods-parameter-show order-list clearfloat">
 					<input id="goodsId" type="hidden" value="${goodsId}">
