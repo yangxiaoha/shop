@@ -78,7 +78,7 @@
 								<th width="9%">物流商家</th>		
 								<th>物流编号</th>		
 								<th>订单编号</th>		
-								<th>订单状态</th>
+								<th width="9%">订单状态</th>
 								<th>详情</th>
 							</thead>
 							<tbody>
@@ -90,6 +90,7 @@
         </div>
     </div>
     <jsp:include page="see.jsp"/>
+    <jsp:include page="update.jsp"/>
     <script>    	
 	    $(document).ready(function(){
 			$('.reg-sel-index').select2({

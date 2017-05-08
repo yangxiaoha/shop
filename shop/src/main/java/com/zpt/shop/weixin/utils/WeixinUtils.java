@@ -503,8 +503,6 @@ public class WeixinUtils {
 		KeyStore keyStore = KeyStore.getInstance("PKCS12");
 
 		FileInputStream instream = new FileInputStream(new File(keyPath));
-		System.out.println("1.0++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+keypwd);
-		System.out.println("2.0++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+keypwd.toCharArray().length);
 		keyStore.load(instream, keypwd.toCharArray());
 
 		instream.close();

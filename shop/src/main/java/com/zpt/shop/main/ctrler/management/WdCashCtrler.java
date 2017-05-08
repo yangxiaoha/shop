@@ -58,9 +58,12 @@ public class WdCashCtrler {
 	public Msg update(Withdraw withdraw,BigDecimal usermoney,String openid){
 		Msg msg = new Msg();
 		try {
-			withdrawService.updateState(withdraw,usermoney,openid);
+			String code_des = withdrawService.updateState(withdraw,usermoney,openid);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.UPDATE_SUCCESS);
+			if(code_des!=null&&code_des!=""){
+				msg.setCode_des(code_des);
+			}
 			return msg;
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -31,5 +31,5 @@ public interface WithdrawService {
 	
 	public boolean validate(Withdraw withdraw);
 	
-	public void updateState(Withdraw withdraw,BigDecimal usermoney,String openid);
+	public String updateState(Withdraw withdraw,BigDecimal usermoney,String openid);
 }

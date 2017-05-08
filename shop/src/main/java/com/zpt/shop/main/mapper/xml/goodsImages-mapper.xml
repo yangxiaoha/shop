@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zpt.shop.main.mapper.GoodsImagesMapper">
+
+	<!-- ********** ResultMap ********** -->
+	<resultMap type="goodsImages" id="resultMap">
+		<id property="id" column="id" />
+		<result property="url1" column="url1" />
+		<result property="url2" column="url2" />
+		<result property="url3" column="url3" />
+		<result property="goodsId" column="goodsId" />		
+	</resultMap>
+	
+	<insert id="insertImages" parameterType="goodsImages">
+		insert into t_goods_images (url1,url2,url3, goodsId)
+		values (#{url1},#{url2},#{url3}, #{goodsId})
+	</insert>
+		
+</mapper>

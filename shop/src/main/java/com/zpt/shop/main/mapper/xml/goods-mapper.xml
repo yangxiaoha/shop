@@ -21,6 +21,9 @@
 		<result property="num" column="num" />
 		<result property="price" column="price" />
 		<result property="url" column="url" />		
+		<result property="url1" column="url1" />		
+		<result property="url2" column="url2" />		
+		<result property="url3" column="url3" />		
 		<result property="state" column="state" />		
 		<result property="suppliername" column="suppliername" />		
 		<collection property="pros" column="pros" ofType="Pro">    
@@ -31,7 +34,7 @@
 	
 	
 	<sql id="queryCondition">
-		where 1 = 1 and goods.state = 1
+		where 1 = 1 and (goods.state = 1 or goods.state =2)
 		<if test="obj.name != null and obj.name != ''">
 			and goods.name like CONCAT('%',#{obj.name},'%')
 		</if>
@@ -56,7 +59,7 @@
 	</sql>
 	
 	<sql id="validateCondition">
-		where 1 = 1 and state = 1
+		where 1 = 1 and (state = 1 or state =2)
 		<if test="id != null and id != ''">
 			and id != #{id}
 		</if>
@@ -94,16 +97,18 @@
 	</select>
 	
 	<select id="getGoodsId" resultMap="resultMap">
-		select goods.id as id,goods.name as name,goods.exp_name as exp_name,goods.typeId as typeId,goods.top as top,
-		goods.quantity as quantity,goods.content as content,goods.code as code,goods.searchval as searchval,
-		goods.brandId as brandId,goods.ids as ids,brand.name as brandName,type.name as typename,goods.store as store,
-		pro.name as proname,pro.id as proId,goods.state as state,supplier.name as suppliername
-		from t_goods as goods 
-		left join t_goods_brand as brand on goods.brandId = brand.id 
-		left join t_goods_type as type on goods.typeId = type.Id 
-		left join t_goods_pro as pro on pro.typeId = type.id 
-		left join t_goods_supplier as supplier on supplier.id = brand.supplierid
-		where goods.state = 1 and goods.id = #{goodsId} and concat(',',goods.ids,',') like CONCAT('%,',pro.id,',%')	
+		SELECT goods.id AS id,goods.name AS NAME,goods.exp_name AS exp_name,goods.typeId AS typeId,goods.top AS top,
+		goods.quantity AS quantity,goods.content AS content,goods.code AS CODE,goods.searchval AS searchval,
+		goods.brandId AS brandId,goods.ids AS ids,brand.name AS brandName,type.name AS typename,goods.store AS store,
+		pro.name AS proname,pro.id AS proId,goods.state AS state,supplier.name AS suppliername,images.url1 AS url1,
+		images.url2 AS url2,images.url3 AS url3
+		FROM t_goods AS goods 
+		LEFT JOIN t_goods_brand AS brand ON goods.brandId = brand.id 
+		LEFT JOIN t_goods_type AS TYPE ON goods.typeId = type.Id 
+		LEFT JOIN t_goods_pro AS pro ON pro.typeId = type.id 
+		LEFT JOIN t_goods_supplier AS supplier ON supplier.id = brand.supplierid
+		LEFT JOIN t_goods_images AS images ON images.goodsid = goods.id
+		WHERE (goods.state = 1 or goods.state =2) AND goods.id = #{goodsId} and concat(',',goods.ids,',') like CONCAT('%,',pro.id,',%')
 	</select>
 	<!-- 验证当前数据是否存在 -->
 	<select id="validate" resultMap="resultMap" parameterType="goods">
@@ -111,9 +116,9 @@
 		<include refid="validateCondition"/>
 	</select>
 		
-	<insert id="insertGoods" parameterType="goods">
+	<insert id="insertGoods" parameterType="goods" useGeneratedKeys="true" keyProperty="id">
 		insert into t_goods(name,exp_name,quantity,content,code,brandId,store,typeId,ids,state,num) 
-		values(#{name},#{exp_name},#{quantity},#{content},#{code},#{brandId},#{store},#{typeId},#{ids},1,0)
+		values(#{name},#{exp_name},#{quantity},#{content},#{code},#{brandId},#{store},#{typeId},#{ids},2,0)
 	</insert>
 	<update id="deleteGoods" parameterType="goods">
 		update t_goods set state = 0 where id in (${ids})
@@ -136,6 +141,10 @@
 	
 	<update id="updateQuantity" parameterType="goods">
 		update t_goods set quantity = (#{quantity}+t_goods.quantity) where id = #{id}
+	</update>
+	
+	<update id="updateState">
+		update t_goods set state = #{state} where id = #{id}
 	</update>
 	
 	<select id="getGoods" resultMap="resultMap">

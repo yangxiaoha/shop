@@ -82,18 +82,14 @@ public class OrderCtrler {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/updateStateS",method = RequestMethod.POST)
+	@RequestMapping(value = "/update",method = RequestMethod.POST)
 	public Msg update(Order order){
 		Msg msg = new Msg();
 		try {
-			orderService.updateState(order);
-			msg.setState(Contants.RETURN_INT_SUCCESS);
-			msg.setMsg(Contants.UPDATE_SUCCESS);
 			WxMpTemplateMessage message = new WxMpTemplateMessage();
 
 			User u=uService.getUserByUserId(orderService.getOrderByOrderId(order.getId()).get(0).getUserId());
 			String openid = u.getOpenid();
-			System.out.println(openid + "openid------");
 			if (openid != null) {
 				message.setTouser(openid);
 				message.setTopcolor("#FF0000");
@@ -110,7 +106,9 @@ public class OrderCtrler {
 		
 				message.getData().put("remark", new WxMpTemplateData("人生一见喜，一床有阳光味道的新疆棉花被，喜事开启！","#FF0000"));
 				String re = wxService.templateSend(message);
-				System.err.println("result---" + re);
+				orderService.updateState(order);
+				msg.setState(Contants.RETURN_INT_SUCCESS);
+				msg.setMsg(Contants.UPDATE_SUCCESS);
 			}
 			return msg;
 		} catch (Exception e) {

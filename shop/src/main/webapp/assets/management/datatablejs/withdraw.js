@@ -40,6 +40,8 @@ $(document).ready(function(){
             		   temp = "不通过";
             	   }else if(data == 3) {
             		   temp = "已通过";
+            	   }else if(data == 4) {
+            		   temp = "状态异常！";
             	   }
             	   return temp;            	   
                }
@@ -100,8 +102,12 @@ $(document).ready(function(){
 		    	    			  state:3},
 		    	    		dataType:"json",
 		    	    		async:true,
-		    	    		success:function(res){   
-		    	    			swal("通过审核!", "", "success");
+		    	    		success:function(res){
+		    	    			if(res.code_des!=null&&res.code_des!=""){  					
+		    	    				swal(res.code_des, "", "error");
+		    	    			}else{
+		    	    				swal("通过审核,支付成功!", "", "success");		    	    				
+		    	    			}
 		    	    		},
 		    	    		error:function(res){
 		    	    			

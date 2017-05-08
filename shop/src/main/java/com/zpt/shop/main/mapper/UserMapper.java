@@ -75,7 +75,7 @@ public interface UserMapper {
 	 * */
 	public void updateMoney(@Param("id")Integer id, @Param("money")BigDecimal money);
 	
-	public void updateStateMoney(@Param("id")Integer id, @Param("money")BigDecimal money);
+	public void updateStateMoney(@Param("userId")Integer userId, @Param("money")BigDecimal money);
 
 	/**
 	 * 修改用户名

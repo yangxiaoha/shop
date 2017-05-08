@@ -27,6 +27,8 @@ public interface GoodsMapper {
 	
 	public void updateQuantity(@Param("id")Integer id,@Param("quantity")Integer quantity);
 	
+	public void updateState(@Param("id")Integer id,@Param("state")Integer state);
+	
 	public List<Goods> getGoodsByBrand(@Param("brandId")String brandId);
 	
 	public Goods getGoodsId(@Param("goodsId")Integer goodsId);

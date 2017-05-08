@@ -81,7 +81,7 @@
 								<div class="col-md-12">
 								<div class="form-group" style="margin-right:15px;margin-left:15px">									
 								<label class="control-label" style="color: black">
-								<span style="color: red">*</span>物流商家：</label>
+								<span>*</span>物流商家：</label>
 								<input class="form-control" type="text" id="ulogistics" name="logistics" placeholder="请输入物流商家">										
 								</div>
 									
@@ -91,7 +91,7 @@
 							<div class="col-md-12" >
 								<div class="form-group" style="margin-right:15px;margin-left:15px">
 								<label class="control-label" style="color: black">
-								<span style="color: red">*</span>物流编号：</label>
+								<span>*</span>物流编号：</label>
 								<input class="form-control" type="text" id="ulogisticsnum" name="logisticsnum" placeholder="请输入物流编号">										
 								</div>
 							</div>

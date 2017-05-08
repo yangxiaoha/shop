@@ -25,8 +25,8 @@
 <script src="<%=basePath%>assets/management/datatablejs/sku.js" type="text/javascript"></script>
 <style type="text/css">
 	#add .pic {
-	    width: 240px;
-	    height: 252px;
+	    width: 120px;
+	    height: 126px;
 	    position: relative;
 	    border: 1px solid #d2d2d2;
 	    overflow: hidden;
@@ -37,7 +37,7 @@
 	}
 	.image_file {
 	    width: 100%;
-	    height: 252px;
+	    height: 100%;
 	    position: absolute;
 	    top: 0;
 	    left: 0;

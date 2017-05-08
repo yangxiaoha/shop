@@ -90,7 +90,7 @@ public class GoodsCtrler {
 		Msg msg = new Msg();
 		try {
 			goods.setTop(System.currentTimeMillis());
-			goodsService.insertGoods(goods); 
+			goodsService.insertGoods(goods,null,null); 
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.ADD_SUCCESS);
 			return msg;
@@ -135,6 +135,24 @@ public class GoodsCtrler {
 			e.printStackTrace();
 			msg.setState(Contants.RETURN_INT_FAIL);
 			msg.setMsg(Contants.UPDATE_LOST);			
+			return msg;
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/updateState",method = RequestMethod.POST)
+	public Msg updateState(Integer id,Integer state){
+		Msg msg = new Msg();
+		try {
+			goodsService.updateState(id, state);
+			msg.setState(Contants.RETURN_INT_SUCCESS);
+			msg.setMsg(Contants.UPDATE_STATE_SUCCESS);
+			return msg;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			msg.setState(Contants.RETURN_INT_FAIL);
+			msg.setMsg(Contants.UPDATE_STATE_LOST);			
 			return msg;
 		}
 	}

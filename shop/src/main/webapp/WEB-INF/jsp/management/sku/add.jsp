@@ -7,7 +7,7 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<script src="<%=basePath%>assets/management/js/uploadphoto.js"
+<script src="<%=basePath%>assets/management/js/uploadphoto2.js"
 	type="text/javascript"></script>
 <script src="<%=basePath%>assets/management/js/ajaxfileupload.js"
 	type="text/javascript"></script>
@@ -77,15 +77,48 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<p>请选择图片(大小为：400*420)</p>
+											<p>请选择图片(大小为：400*420)</p>											
 											<p class="error" style="display: none;"></p>
-											<div class="pic">
-												<div id="preview" class="preview">
-													<img id="imghead" class="imghead" width="240" height="252"
-														src="<%=basePath%>/res/bj_img1.jpg" />
+											<div class="col-sm-6">
+												<div class="form-group">
+													<div class="pic">
+								                        <div class="pic" width="120" height="126">
+								                            <img id="aimghead1" class="imghead" width="120" height="126" alt="image" width="100%" src="<%=basePath%>${goodsM.url1}">	                            
+								                        	<input type="hidden" id="url1" value="${goodsM.url1}" type="text">
+								                        </div>
+								                    </div>
 												</div>
-												<input type="file" name="photourl" class="image_file"
-													id="addphoto" onchange="previewImage(this,'imghead')">
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<div class="pic">
+								                        <div class="pic" width="120" height="126">
+								                            <img id="aimghead2" class="imghead" width="120" height="126" alt="image" width="100%" src="<%=basePath%>${goodsM.url2}">	 
+								                            <input type="hidden" id="url2" value="${goodsM.url2}" type="text">                           
+								                        </div>
+								                    </div>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<div class="pic">
+								                        <div class="pic" width="120" height="126">
+								                            <img id="aimghead3" class="imghead" width="120" height="126" alt="image" width="100%" src="<%=basePath%>${goodsM.url3}">	
+								                            <input type="hidden" id="url3" value="${goodsM.url3}" type="text">                               
+								                        </div>
+								                    </div>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="pic">
+													<div id="preview" class="preview">
+														<img id="imghead" class="imghead" width="120" height="126"
+															src="<%=basePath%>/res/bj_img1.jpg" />
+													</div>
+													<input type="file" name="photourl" class="image_file"
+														id="addphoto" onchange="previewImage(this,'imghead')">
+													<input type="hidden" id="" name="imageUrl" type="text">
+												</div>
 											</div>
 										</div>
 									</div>
@@ -111,7 +144,24 @@
 	var imgmol = "<%=basePath%>/res/bj_img1.jpg";
 	var imgheads = "#imghead";
 	var skuValidate;
+	var imageUrl;
 	$(document).ready(function(){
+		$("#aimghead1").click(function(){
+			path = $("#aimghead1")[0].src; 
+			imageUrl = $("#url1").val();
+			$("#imghead").attr('src',path); 
+		});
+		$("#aimghead2").click(function(){
+			path = $("#aimghead2")[0].src; 
+			imageUrl = $("#url2").val();
+			$("#imghead").attr('src',path); 
+		});
+		$("#aimghead3").click(function(){
+			path = $("#aimghead3")[0].src; 
+			imageUrl = $("#url3").val();
+			$("#imghead").attr('src',path); 
+		});
+		
 		$("#addsubmit").click(function(){
 			$("#add").submit();
 		});
@@ -173,50 +223,43 @@
 			   	$(".aproId").each(function(index,e){
 				   	sproId[index] = $(e).val();
 			   	});
-			   	if(fileimage.length == 0){
-   	    			$(".loading").html("<span class=\"label label-danger\">请上传图片</span>");
-   	    		};
-   	    		if(imageFlag == false){
-   	    			$(".loading").html("<span class=\"label label-danger\">请上传图片</span>");   	    			
-   	    		};
-				if (fileimage.length != 0 && imageFlag) {	   	    		
-					$.ajaxFileUpload({
-						data :{
-							num:$("#anum").val(),
-							price:$("#aprice").val(),
-							code:$("#acode").val(),
-							goodsId:"${goodsM.id}",
-							value:svalue,	
-							proId:sproId
-						},
-						url: 'add',   
-			            type: 'post',  
-			            secureuri: false, //一般设置为false  
-			            fileElementId: 'addphoto', // 上传文件的id、name属性名  
-			            dataType: 'json', //返回值类型，一般设置为json、application/json  
-			            //elementIds: elementIds, //传递参数到服务器
-						success:function(data){
-						$("#add")[0].reset();
-		        			$(".loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
-		        			setTimeout(function(){
-		        			   $(".loading").html("");
-		        			   $("#addsubmit").removeAttr("disabled"); 
-		        		    },1000);
-		        			$("#acode").val(""); 
-		        			$("#imghead").attr("src","<%=basePath%>/res/bj_img1.jpg");
-		        			$("#imghead").css({"margin-top":"0px","width":"240px","height":"252px"});
-		        		    tableI.table().draw(false);
-		        	    },
-	        	    	
-		        	    error:function(e){
-		        		    $(".loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
-		         		    setTimeout(function(){
-		         			    $(".loading").html("");
-		         			    $("#addsubmit").removeAttr("disabled"); 
-		         		    },1000);
-		        	    }
-					});
-				}	   
+				$.ajaxFileUpload({
+					data :{
+						num:$("#anum").val(),
+						price:$("#aprice").val(),
+						code:$("#acode").val(),
+						goodsId:"${goodsM.id}",
+						value:svalue,	
+						proId:sproId,
+						imageUrl:imageUrl,
+					},
+					url: 'add',   
+		            type: 'post',  
+		            secureuri: false, //一般设置为false  
+		            fileElementId: 'addphoto', // 上传文件的id、name属性名  
+		            dataType: 'json', //返回值类型，一般设置为json、application/json  
+		            //elementIds: elementIds, //传递参数到服务器
+					success:function(data){
+					$("#add")[0].reset();
+	        			$(".loading").html("<span class=\"label label-success\">"+data.msg+"</span>");
+	        			setTimeout(function(){
+	        			   $(".loading").html("");
+	        			   $("#addsubmit").removeAttr("disabled"); 
+	        		    },1000);
+	        			$("#acode").val(""); 
+	        			$("#imghead").attr("src","<%=basePath%>/res/bj_img1.jpg");
+	        			$("#imghead").css({"margin-top":"0px","width":"120px","height":"126px"});
+	        		    tableI.table().draw(false);
+	        	    },
+        	    	
+	        	    error:function(e){
+	        		    $(".loading").html("<span class=\"label label-danger\">网络故障，稍后重试</span>");
+	         		    setTimeout(function(){
+	         			    $(".loading").html("");
+	         			    $("#addsubmit").removeAttr("disabled"); 
+	         		    },1000);
+	        	    }
+				});   
 	        } 
 	    });
 	});	

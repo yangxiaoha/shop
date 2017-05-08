@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,14 +51,13 @@ public class AddGoodsCtrler {
 	private GoodsTypeService goodsTypeService;	
 	
 	@RequestMapping(value = "index",method = RequestMethod.GET)
-	public ModelAndView index(Integer pageinitAdd){
+	public ModelAndView index(){
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/management/addGoods/index");		
 		List<Brand> brandList = brandService.getAllBrand();
 		List<Supplier> supplierList = supplierService.getAllSupplier("");		
 		mv.addObject("brandMsg", brandList);
 		mv.addObject("supplierMsg", supplierList);
-		mv.addObject("pageinitM",pageinitAdd);
 		return mv;
 	}
 	
@@ -340,11 +342,12 @@ public class AddGoodsCtrler {
 	
 	@ResponseBody
 	@RequestMapping(value = "/addGoods",method = RequestMethod.POST )
-	public Msg addGoods(Goods goods){
+	public Msg addGoods(Goods goods,HttpServletRequest request, HttpSession session){
 		Msg msg = new Msg();
 		try {
 			goods.setTop(System.currentTimeMillis());
-			goodsService.insertGoods(goods); 
+			goodsService.insertGoods(goods,request,session); 
+			msg.setGoodsId(goods.getId());
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.ADD_SUCCESS);
 			return msg;

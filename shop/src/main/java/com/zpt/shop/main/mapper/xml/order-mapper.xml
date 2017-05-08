@@ -105,7 +105,7 @@
 	</select>
 	
 	<update id="updateState" parameterType="order">
-		update t_order set state = #{state} where id = #{id}
+		update t_order set state = #{state},logistics = #{logistics},logisticsnum = #{logisticsnum} where id = #{id}
 	</update>
 	
 	<update id="seeOrder" parameterType="order">

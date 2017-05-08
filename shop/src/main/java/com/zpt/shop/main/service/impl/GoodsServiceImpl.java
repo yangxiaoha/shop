@@ -1,14 +1,28 @@
 package com.zpt.shop.main.service.impl;
 
+import java.io.File;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.zpt.shop.common.pojo.Page;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Goods;
+import com.zpt.shop.main.entities.GoodsImages;
+import com.zpt.shop.main.mapper.GoodsImagesMapper;
 import com.zpt.shop.main.mapper.GoodsMapper;
 import com.zpt.shop.main.service.GoodsService;
 
@@ -17,9 +31,12 @@ public class GoodsServiceImpl implements GoodsService {
 	
 	@Autowired
 	private GoodsMapper goodsMapper;
+	
+	@Autowired
+	private GoodsImagesMapper goodsImagesMapper;
 
 	@Override
-	public void insertGoods(Goods goods) {
+	public void insertGoods(Goods goods,HttpServletRequest request, HttpSession session) {
 		// TODO Auto-generated method stub
 		StringBuffer ids = new StringBuffer();
 		if(goods.getIdstemp()!= null&&goods.getIdstemp().size()>0){			
@@ -33,7 +50,57 @@ public class GoodsServiceImpl implements GoodsService {
 		goods.setIds(ids.toString());
 		goods.setQuantity(0);
 		goodsMapper.insertGoods(goods);
+		//转型为MultipartHttpRequest 
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		//创建一个通用的多部分解析器 
+		CommonsMultipartFile file = null;
+		String[] backPath = new String[3];//上传服务器后返回的值
+		int i = 0;
+		for (Iterator it = multipartRequest.getFileNames(); it.hasNext();) {
+			String key = (String) it.next();
+			file = (CommonsMultipartFile) multipartRequest.getFile(key);//取得上传文件  
+			String path = request.getSession().getServletContext().getRealPath("upload");		
+			String fileName = file.getOriginalFilename();
+			if(file != null){
+				backPath[i] = this.uploadPhoto(file, path,i);
+				i++;
+			}
+		}
+		if (backPath.length != 0){			
+			GoodsImages goodsImages = new GoodsImages();
+			goodsImages.setGoodsId(goods.getId());
+			goodsImages.setUrl1(backPath[0]);
+			goodsImages.setUrl2(backPath[1]);
+			goodsImages.setUrl3(backPath[2]);
+			goodsImagesMapper.insertImages(goodsImages);
+		}		
 
+	}
+	
+	@Override
+	public String uploadPhoto(CommonsMultipartFile cmFile, String relaPath,Integer i) {
+		// TODO Auto-generated method stub
+		String fileName = null;
+		String path = null;
+		if (cmFile != null) {
+			if (!cmFile.isEmpty()) {
+				fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + i + "."
+						+ FilenameUtils.getExtension(cmFile.getOriginalFilename()); 
+				File targetFile = new File(relaPath, fileName);
+				if (!targetFile.exists()) {
+					targetFile.mkdirs();
+				}
+				// 保存
+				try {
+					cmFile.transferTo(targetFile);
+				} catch (Exception e) {
+					e.printStackTrace();
+					return "0";
+				}
+				path = "upload" + "/" + fileName;
+			}
+		}
+		return path;
 	}
 
 	@Override
@@ -198,6 +265,12 @@ public class GoodsServiceImpl implements GoodsService {
 	public void updateTotal(Integer goodsId, int total) {
 		// TODO Auto-generated method stub
 		goodsMapper.updateTotal(goodsId, total);
+	}
+
+	@Override
+	public void updateState(Integer id, Integer state) {
+		// TODO Auto-generated method stub
+		goodsMapper.updateState(id, state);
 	}
 
 }

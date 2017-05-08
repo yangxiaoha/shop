@@ -2,15 +2,18 @@ package com.zpt.shop.main.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.zpt.shop.common.pojo.Page;
-import com.zpt.shop.common.pojo.PageQuery;
 import com.zpt.shop.common.pojo.Query;
 import com.zpt.shop.main.entities.Goods;
 
 public interface GoodsService {
 	
-	public void insertGoods(Goods goods);
+	public void insertGoods(Goods goods,HttpServletRequest request, HttpSession session);
 	
 	public void deleteGoods(String ids);
 	
@@ -29,6 +32,8 @@ public interface GoodsService {
 	public List<Goods> getGoodsByBrandId(String brandId);
 	
 	public void updateContent(Integer id, String content);
+	
+	public void updateState(Integer id, Integer state);
 	
 	/**
 	 * 分页查找商品
@@ -77,5 +82,8 @@ public interface GoodsService {
 	 * @param String typeId （类型id）
 	 * */
 	public Integer getGoodsTotal(String flag, String keyword, String typeId);
+	
+	//上传图片到服务器
+	public String uploadPhoto(CommonsMultipartFile cmFile, String relaPath,Integer i);
 
 }

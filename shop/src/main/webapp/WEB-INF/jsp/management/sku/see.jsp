@@ -50,7 +50,7 @@
 										<div class="row">										
 										<p></p>
 									</c:if>
-									<div class="col-sm-6">
+									<div class="col-sm-4">
 										<div class="form-group">
 											<span>${p.name }:</span>
 											<input class="form-control" placeholder="请输入${p.name }"
@@ -73,7 +73,7 @@
 											<p class="error" style="display: none;"></p>
 											<div class="pic">
 												<div id="preview" class="preview">
-													<img id="simghead" class="imghead" width="240" height="240">
+													<img id="simghead" class="imghead" width="240" height="252">
 												</div>
 											</div>
 										</div>

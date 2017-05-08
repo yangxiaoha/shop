@@ -20,6 +20,10 @@ public final class Contants {
 	public static final String ADD_SUCCESS = "添加成功";
 	public static final String ADD_LOST = "添加失败";
 	
+	//发布
+	public static final String UPDATE_STATE_SUCCESS = "发布成功";
+	public static final String UPDATE_STATE_LOST = "发布失败";
+	
 	//删除
 	public static final String DELETE_SUCCESS = "删除成功";
 	public static final String DELTET_LOST = "删除失败";

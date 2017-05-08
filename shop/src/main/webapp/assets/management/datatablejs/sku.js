@@ -67,7 +67,7 @@ $(document).ready(function(){
         		$("#svalue").html(obj.value);
         		var imghead = $("#basepath").val()+obj.url;
         		$("#simghead").attr("src",imghead);
-        		$("#simghead").css({"margin-top":"16px","width":"238px","height":"179px"});
+        		$("#simghead").css({"margin-top":"0px","width":"200px","height":"210px"});
         		if(obj.ids != null && obj.ids != ""){        			
         			var str = obj.value.split("|#$%|");
         			for(var i=0;i<str.length;i++){

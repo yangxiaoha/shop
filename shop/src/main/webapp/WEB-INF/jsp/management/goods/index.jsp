@@ -90,6 +90,7 @@
 										<th>商品编码</th>
 										<th width="15%">商品品牌</th>
 										<th width="15%">所属门店</th>
+										<th width="7%">发布商品</th>
 										<th>操作</th>
 										<th></th>
 										<th></th>	
@@ -120,7 +121,7 @@
 		var pageinit = pageinit;
 		
 		$("#add-row").click(function(){
-			window.location.href="../addGoods/index?pageinitAdd="+tableI.table().page()*tableI.table().page.len(); 
+			window.location.href="../addGoods/index"; 
 		});
 		
 		var setting = {
@@ -140,13 +141,13 @@
 		};
 		
 		$("#blank").click(function(){
-			tableI.table().columns(10).search("").draw();
+			tableI.table().columns(11).search("").draw();
 			var treeObj = $.fn.zTree.getZTreeObj("tree");
 			treeObj.cancelSelectedNode();
 		});
 		
 		function zTreeOnClick(event, treeId, treeNode) {
-			tableI.table().columns(10).search(treeNode.id).draw();
+			tableI.table().columns(11).search(treeNode.id).draw();
 		};
 	
 		function filter(treeId, parentNode, childNodes) {

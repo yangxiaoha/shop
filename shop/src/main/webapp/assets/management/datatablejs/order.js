@@ -16,7 +16,7 @@ $(document).ready(function(){
                     { "data": "logistics" },
                     { "data": "logisticsnum", "width":"9%","className":"noautowidth" },
                     { "data": "ordernum" ,"width":"9%","className":"noautowidth"},
-                    { "data": "state" },                  
+                    { "data":"id","className": "actions","orderable":false },                  
                     { "data":"id","className": "actions","orderable":false },
                 ],
         "aoColumnDefs": [
@@ -43,30 +43,16 @@ $(document).ready(function(){
            },
            {
                "targets": [9],
-               "data": "state",
+               "data": "id",
                "render": function(data, type, full,meta) {
             	   var temp = "未付款";
-            	   if(data == 2) {
-            		   temp = "未发货";
-            	   }else if(data == 3) {
-            		   temp = "已发货";
-            	   }else if(data == 4) {
-            		   temp = "已收货";            		  
-            	   } 
-            	   var returnhtml = '<div class="btn-group">'+
-            	   '<button class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" ><i class="icon-reorder"></i>'+temp+'<span class="caret"></span></button>';
-            	   if(data == 2){
-            		   var lasthtml= '<ul class="dropdown-menu">'+
-	            	   '<li>'+
-	            	   '<a class="update" data-action="3" data-rowid="'+meta.row+'" href="javascript:void(0)"><i class="icon-edit"></i>发货</a>'+
-	            	   '</li>'+
-	            	   '</ul>';
-	            	   
-            	   }else if(data == 3||data == 4){
-            		   lasthtml = "";
+            	   if(full.state == 2) {
+            		   return '<div style="text-align: center;padding-right:8px"><a style="margin:0px" class="btn btn-sm btn-primary-outline update" data-rowid="'+meta.row+'" >未发货</a></div>';
+            	   }else if(full.state == 3) {
+            		   return '<div style="text-align: center;padding-right:8px"><a style="margin:0px" class="btn btn-sm btn-primary-outline" disabled="true">已发货</a></div>';
+            	   }else if(full.state == 4) {
+            		   return '<div style="text-align: center;padding-right:8px"><a style="margin:0px" class="btn btn-sm btn-primary-outline" disabled="true">已收货</a></div>';          		  
             	   }
-            	    returnhtml = returnhtml + lasthtml + '</div>';
-            	return returnhtml;
                }
            },           
            {
@@ -84,31 +70,13 @@ $(document).ready(function(){
         	$(".update").click(function(){
         		var rowid = $(this).data("rowid");
         		var api = new $.fn.dataTable.Api( settings );
-                var obj = api.rows(rowid).data()[0];   
-                var ustate = $(this).data("action");
-                if(obj.logistics!=null&&obj.logistics!=""&&obj.logisticsnum!=null&&obj.logisticsnum!=""){
-                	$.ajax({
-                		url:"updateStateS",
-                		type:"post",
-                		data:{id:obj.id,
-                			state:ustate,
-                			logistics:obj.logistics,
-                			logisticsnum:obj.logisticsnum,
-                			totalPrice:obj.totalPrice,
-                			nums:obj.nums,
-                			goodsnames:obj.goodsnames},
-                		dataType:"json",
-                		async:true,
-                		success:function(res){        				
-                			tableI.table().draw();
-                		},
-                		error:function(res){
-                			
-                		}
-                	});
-                }else{
-                	alert("请先输入物流商家跟编号！");
-                }
+                var obj = api.rows(rowid).data()[0]; 
+                $("#uuid").val(obj.id); 
+                $("#uulogistics").val(obj.logistics);
+        		$("#uulogisticsnum").val(obj.logisticsnum);
+        		$("#totalPrice").val(obj.totalPrice);
+        		$("#nums").val(obj.nums);
+        		$("#goodsnames").val(obj.goodsnames);
         		$("#updateModal").modal("show");
         	});
         	

@@ -4,7 +4,7 @@ $(document).ready(function(){
 		pageinit = 0;
 	}
 	if(pageinitGoods != null && pageinitGoods !=""){
-		pageinit = pageinitGoods;
+		pageinit = parseInt(pageinitGoods);
 	}
 	tableI=$("#datatable").DatatableExt({
 		"processing": true,
@@ -22,6 +22,7 @@ $(document).ready(function(){
                     { "data": "code" },
                     { "data": "brandName" },
                     { "data": "store" },
+                    { "data": "id","className": "actions","orderable":false },
                     { "data": "id","className": "actions","orderable":false },                   
                     { "data": "top","orderable":false,"visible":false }, 
                     { "data": "typeId","orderable":false,"visible":false },
@@ -34,9 +35,20 @@ $(document).ready(function(){
              "render": function(data, type, full,meta) {
                 return '<label style="margin-right:0px" class="checkbox-inline i-checks"><input name = "id" type="checkbox" value="'+data+'"></label>';
              }
-           },          
+           },
            {
                "targets": [8],
+               "data": "id",
+               "render": function(data, type, full,meta) {
+            	 if(full.state == 2){            		 
+              		 return '<div style="text-align: center;padding-right:8px"><a style="margin:0px" class="btn btn-sm btn-primary-outline updateState" data-rowid="'+meta.row+'" >未发布</a></div>';
+              	 }else if(full.state == 1){
+              		 return '<div style="text-align: center;padding-right:8px"><a style="margin:0px" class="btn btn-sm btn-primary-outline" disabled="true">已发布</a></div>';
+              	 }
+               }
+           },           
+           {
+               "targets": [9],
                "data": "id",
                "render": function(data, type, full,meta) {
                  return '<div class="action-buttons">'+
@@ -58,7 +70,27 @@ $(document).ready(function(){
         		$("#delModal").modal('show');
         	});
         	
-        	//
+        	$(".updateState").click(function(){
+        		var rowid = $(this).data("rowid");
+        		var api = new $.fn.dataTable.Api( settings );
+                var obj = api.rows(rowid).data()[0]; 
+                $.ajax({
+                	url:"updateState",
+                	type:"post",
+                	data:{id:obj.id,                		
+                		state:1},
+                		dataType:"json",
+                		async:true,
+                		success:function(res){   
+                			alert("商品发布！");
+                			tableI.table().draw();
+                		},
+                		error:function(res){
+                			alert("发布失败！");
+                		}
+                });	    	      		
+        	});
+
         	$(".stick").click(function(){
         		$("#tid").val($(this).data("id"));
         		$("#stickModal").modal('show');

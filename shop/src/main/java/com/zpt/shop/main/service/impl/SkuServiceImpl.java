@@ -46,7 +46,7 @@ public class SkuServiceImpl implements SkuService{
 	private GoodsMapper goodsMapper;
 
 	@Override
-	public void insertSku(Sku sku,Integer[] proId,String[] value,HttpServletRequest request, HttpSession session) {
+	public void insertSku(Sku sku,String imageUrl,Integer[] proId,String[] value,HttpServletRequest request, HttpSession session) {
 		// TODO Auto-generated method stub
 		skuMapper.insertSku(sku);
 		//转型为MultipartHttpRequest 
@@ -63,6 +63,9 @@ public class SkuServiceImpl implements SkuService{
 		String fileName = file.getOriginalFilename();
 		if(file != null){
 			backPath = this.uploadPhoto(file, path);
+		}
+		if(backPath == null){
+			backPath = imageUrl;
 		}
 		if (backPath != "0"){			
 			Image image = new Image();
