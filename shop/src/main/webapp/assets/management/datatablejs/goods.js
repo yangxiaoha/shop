@@ -126,6 +126,15 @@ $(document).ready(function(){
         		$("#utypename").val(obj.typename);
         		$("#utypeId").val(obj.typeId);
         		$("#uids").val(obj.ids); 
+        		var uurl1 = $("#basepath").val()+obj.url1;
+        		var uurl2 = $("#basepath").val()+obj.url2;
+        		var uurl3 = $("#basepath").val()+obj.url3;
+        		$("#uurl1").val(uurl1);
+        		$("#uurl2").val(uurl2);
+        		$("#uurl3").val(uurl3);
+        		$("#uimghead1").attr("src",uurl1);
+        		$("#uimghead2").attr("src",uurl2);
+        		$("#uimghead3").attr("src",uurl3);
         		$.ajax({
         			url:"getPro",
         			type:"post",

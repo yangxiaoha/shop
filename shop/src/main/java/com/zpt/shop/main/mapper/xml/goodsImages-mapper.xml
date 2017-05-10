@@ -16,5 +16,25 @@
 		insert into t_goods_images (url1,url2,url3, goodsId)
 		values (#{url1},#{url2},#{url3}, #{goodsId})
 	</insert>
-		
+	
+	<sql id="update_url">
+		<trim suffix="" suffixOverrides=",">
+		<if test = "url1 != null and url1 != ''">
+			url1 = #{url1},
+		</if>		
+		<if test = "url2 != null and url2 != ''">
+			url2 = #{url2},
+		</if>
+		<if test="url3 != null and url3 != ''">
+			url3 = #{url3},
+		</if>
+		</trim>
+	</sql>
+
+	
+	<update id="updateImages">
+		update t_goods_images set
+		<include refid="update_url" />
+		where goodsId = #{goodsId}
+	</update>		
 </mapper>

@@ -62,7 +62,7 @@
 	
 	<select id="getMemberInfo" resultMap="resultMap">
 		select user.*, cash.id as cashid, cash.cashtime as cashTime, 
-		cash.money as money, cash.state as state from t_user as user 
+		cash.money as cashMoney, cash.state as state from t_user as user 
 		left join t_withdraw_cash as cash
 		on user.id = cash.userid
 		where user.id = #{userId} and cash.state = 3

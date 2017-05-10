@@ -74,8 +74,8 @@
 		
 		$("#updateModal").on('show.bs.modal',function(){
 			document.getElementsByName("logis")[1].checked="checked";
-			$("#uulogistics").removeAttr("disabled"); 
-			$("#uulogisticsnum").removeAttr("disabled"); 
+			$("#uulogistics").removeAttr("readonly"); 
+			$("#uulogisticsnum").removeAttr("readonly");
 		});
 		$("#updatesubmit").click(function(){
 			$("#update").submit();

@@ -3,6 +3,9 @@ package com.zpt.shop.main.ctrler.management;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -123,10 +126,10 @@ public class GoodsCtrler {
 	
 	@ResponseBody
 	@RequestMapping(value = "/update",method = RequestMethod.POST)
-	public Msg update(Goods goods){
+	public Msg update(Goods goods,HttpServletRequest request, HttpSession session){
 		Msg msg = new Msg();
 		try {
-			goodsService.updateGoods(goods);
+			goodsService.updateGoods(goods,request, session);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.UPDATE_SUCCESS);
 			return msg;

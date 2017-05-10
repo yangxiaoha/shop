@@ -111,7 +111,7 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public void updateGoods(Goods goods) {
+	public void updateGoods(Goods goods,HttpServletRequest request, HttpSession session) {
 		// TODO Auto-generated method stub
 		StringBuffer ids = new StringBuffer();
 		if(goods.getIdstemp()!= null&&goods.getIdstemp().size()>0){			
@@ -124,6 +124,31 @@ public class GoodsServiceImpl implements GoodsService {
 		}
 		goods.setIds(ids.toString());
 		goodsMapper.updateGoods(goods);
+		
+		//转型为MultipartHttpRequest 
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		//创建一个通用的多部分解析器 
+		CommonsMultipartFile file = null;
+		String[] backPath = new String[3];//上传服务器后返回的值
+		int i = 0;
+		for (Iterator it = multipartRequest.getFileNames(); it.hasNext();) {
+			String key = (String) it.next();
+			file = (CommonsMultipartFile) multipartRequest.getFile(key);//取得上传文件  
+			String path = request.getSession().getServletContext().getRealPath("upload");		
+			String fileName = file.getOriginalFilename();
+			if(file != null){
+				backPath[i] = this.uploadPhoto(file, path,i);
+				i++;
+			}
+		}
+		if (backPath.length != 0){			
+			GoodsImages goodsImages = new GoodsImages();
+			goodsImages.setGoodsId(goods.getId());
+			goodsImages.setUrl1(backPath[0]);
+			goodsImages.setUrl2(backPath[1]);
+			goodsImages.setUrl3(backPath[2]);
+			goodsImagesMapper.updateImages(goodsImages);
+		}		
 
 	}
 	

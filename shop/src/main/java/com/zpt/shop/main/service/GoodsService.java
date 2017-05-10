@@ -17,7 +17,7 @@ public interface GoodsService {
 	
 	public void deleteGoods(String ids);
 	
-	public void updateGoods(Goods goods);
+	public void updateGoods(Goods goods,HttpServletRequest request, HttpSession session);
 	
 	public void stickGoods(Goods goods);
 	

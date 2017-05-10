@@ -14,7 +14,7 @@
 	<script src="<%=basePath%>assets/management/js/uploadphoto1.js"
 	type="text/javascript"></script>
 	<script src="<%=basePath%>assets/management/js/ajaxfileupload2.js"
-	type="text/javascript"></script>
+	type="text/javascript"></script>	
 	<style>
 		.mb10 {margin-bottom: 10px;}
 		.goods-input {
@@ -43,15 +43,15 @@
 		}
 		
 		.pic div {
-		    width: 80%;
+		    width: 250px;
 		    cursor: pointer;
 		}
 		.image_file {
-		    width: 80%;
+		    width: 250px;
 		    height: 100%;
 		    position: absolute;
-		    top: 0;
-		    left: 0;
+		    top: 10px;
+		    left: 10px;
 		    cursor: pointer;
 		    opacity: 0;
 		    z-index: 9999;
@@ -205,7 +205,7 @@
 	        		<button type="button" class="btn btn-primary btn-block m-t" id="addSku">下一步</button>
 	        	</div>
 	        	<div class="col-sm-4">
-	        		<a href="<%=basePath%>management/goods/index" class="btn btn-primary btn-block m-t">返回上一步</a>
+	        		<a href="<%=basePath%>management/goods/index" class="btn btn-primary btn-block m-t">返回商品列表</a>
 	        	</div>
 	       	</div>
        	</form>
@@ -223,9 +223,9 @@
 	var imageFlag = true;
 	var imgmol = "<%=basePath%>/res/bj_img1.jpg";
 	var imgheads = "";
-	var ue;
 	var imgBigArrar = [];
-	var goodsId;
+	var goodsId;	
+	var ue;	
 	
 	$("#addSku").click(function(){
 		$("#addGoods").submit();
@@ -239,7 +239,8 @@
 		window.location.href="../goods/index"; 
 	});
     
-   	$(document).ready(function(){    		
+   	$(document).ready(function(){
+   		
    		$('.datepicker').datepicker();
    		ue = UE.getEditor('aditor');
    		
@@ -388,36 +389,54 @@
       	          	}
    	        },
    	        submitHandler: function(form) {
-   	           $(this).attr("disabled","disabled"); 
-   			   $.ajaxFileUpload({
-  					data :{
-  						name:$("#igoodsName").val(),
-  						code:$("#igoodsCode").val(),
-  						store:$("#istore").val(),
-  						brandId:$("#selectBrandId").val(),
-  						typeId:$("#selectTypeId").val(),
-  						idstemp:$("#selectProId").val(),
-  						content:ue.getContent(),
-  					},
-  					url: 'addGoods',   
-  		            type: 'post',  
-  		            secureuri: false, //一般设置为false  
-  		            fileElementId: imgBigArrar, // 上传文件的id、name属性名  
-  		            dataType: 'json', //返回值类型，一般设置为json、application/json  
-  		            //elementIds: elementIds, //传递参数到服务器
-  					success:function(data){
-  	        			goodsId = data.goodsId;
-  	        			setTimeout(function(){
-  	        			   $("#addsubmit").removeAttr("disabled"); 
-  	        		    },1000);
-  	        			window.location.href="../addSku/index?goodsId="+goodsId; 
-  	        	    },	        	    	
-  	        	    error:function(e){
-  	         		    setTimeout(function(){
-  	         			    $("#addsubmit").removeAttr("disabled"); 
-  	         		    },1000);
-  	        	    }
-  				});
+   	           $(this).attr("disabled","disabled");
+   	           
+	   	        var str = ue.getContent();
+				var newstr = str.split("<p><br/></p>")
+				var uecontent = newstr.join("");
+				
+				   	           
+   	           	var fileimage1 = $("#addphoto1").val();
+   	           	var fileimage2 = $("#addphoto2").val();
+   	           	var fileimage3 = $("#addphoto3").val();
+   	           	var reader = new FileReader();
+	   	        if(fileimage1.length == 0 || fileimage2.length == 0 || fileimage3.length == 0){
+	   	        	alert("请上传图片！");
+	    		};
+	    		if(imageFlag == false){
+	    			alert("请上传图片！");  	    			
+	    		};
+   	           if(fileimage1.length != 0 && fileimage2.length != 0 && fileimage3.length != 0 && imageFlag){   	        	   
+	  			   $.ajaxFileUpload({
+	 					data :{
+	 						name:$("#igoodsName").val(),
+	 						code:$("#igoodsCode").val(),
+	 						store:$("#istore").val(),
+	 						brandId:$("#selectBrandId").val(),
+	 						typeId:$("#selectTypeId").val(),
+	 						idstemp:$("#selectProId").val(),
+	 						content:uecontent
+	 					},
+	 					url: 'addGoods',   
+	 		            type: 'post',  
+	 		            secureuri: false, //一般设置为false  
+	 		            fileElementId: imgBigArrar, // 上传文件的id、name属性名  
+	 		            dataType: 'json', //返回值类型，一般设置为json、application/json  
+	 		            //elementIds: elementIds, //传递参数到服务器
+	 					success:function(data){
+	 	        			goodsId = data.goodsId;
+	 	        			setTimeout(function(){
+	 	        			   $("#addsubmit").removeAttr("disabled"); 
+	 	        		    },1000);
+	 	        			window.location.href="../addSku/index?goodsId="+goodsId; 
+	 	        	    },	        	    	
+	 	        	    error:function(e){
+	 	         		    setTimeout(function(){
+	 	         			    $("#addsubmit").removeAttr("disabled"); 
+	 	         		    },1000);
+	 	        	    }
+	 				});
+   	           }
    	        }  
    	      });
    	});

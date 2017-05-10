@@ -17,7 +17,7 @@ function previewImage(file,id)
     	  if(this.width!=imglong||this.height!=imgwide){
     		  alert(imgsize);
     		  $(imgheads).attr("src",imgmol);
-    		  $("#uimghead").css({"width":imglong1,"height":imgwide1});   		  
+    		  $(imgheads).css({"width":imglong1,"height":imgwide1});   		  
     		  imageFlag = false;
     	  }else{
     		  imageFlag = true;
@@ -58,18 +58,19 @@ function previewImage(file,id)
 //图片居中显示
 function clacImgZoomParam( maxWidth, maxHeight, width, height ) {
     var param = {top:0, left:0, width:width, height:height};
-    if(width != 0 && height != 0){
+    param.width =  120;
+	param.height = 126;
+	param.left = 0;
+	param.top = 0;
+   /* if(width != 0 && height != 0){
     	if( width>maxWidth || height>maxHeight )
     	{
     		rateWidth = width / maxWidth;
     		rateHeight = height / maxHeight;
-    		param.width =  120;
-    		param.height = 126;
     		
     	}
-    	param.left = 0;
-    	param.top = 0;
-    }
+    	
+    }*/
     return param;
 }
 //移除空白字符

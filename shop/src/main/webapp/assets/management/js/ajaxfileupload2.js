@@ -33,6 +33,7 @@ jQuery.extend({
 		{
 			for(var i in data)
 			{
+				data[i] = data[i].replace(/\"/g,"'");
 				jQuery('<input type="hidden" name="' + i + '" value="' + data[i] + '" />').appendTo(form);
 			}			
 		}		

@@ -76,14 +76,16 @@
 		
 	<select id="listGoods" resultMap="resultMap" parameterType="query">
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.beginSplitPage"/>
-		select goods.id as id,goods.name as name,goods.exp_name as exp_name,goods.typeId as typeId,goods.top as top,
-		goods.quantity as quantity,goods.content as content,goods.code as code,goods.searchval as searchval,
-		goods.brandId as brandId,goods.ids as ids,brand.name as brandName,type.name as typename,
-		goods.store as store,goods.state as state,type.pid as pid,supplier.name as suppliername
-		from t_goods as goods 
-		left join t_goods_brand as brand on goods.brandId = brand.id 
-		left join t_goods_type as type on goods.typeId = type.id 
-		left join t_goods_supplier as supplier on supplier.id = brand.supplierid
+		SELECT goods.id AS id,goods.name AS NAME,goods.exp_name AS exp_name,goods.typeId AS typeId,goods.top AS top,
+		goods.quantity AS quantity,goods.content AS content,goods.code AS CODE,goods.searchval AS searchval,
+		goods.brandId AS brandId,goods.ids AS ids,brand.name AS brandName,type.name AS typename,
+		goods.store AS store,goods.state AS state,type.pid AS pid,supplier.name AS suppliername,
+		images.url1 AS url1,images.url2 AS url2,images.url3 AS url3
+		FROM t_goods AS goods 
+		LEFT JOIN t_goods_images AS images ON images.goodsid = goods.id
+		LEFT JOIN t_goods_brand AS brand ON goods.brandId = brand.id 
+		LEFT JOIN t_goods_type AS TYPE ON goods.typeId = type.id 
+		LEFT JOIN t_goods_supplier AS supplier ON supplier.id = brand.supplierid
 		<include refid="queryCondition"/>
 		<include refid="com.zpt.shop.main.mapper.CommonMapper.endSplitPage"/>
 	</select>

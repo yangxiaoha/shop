@@ -13,7 +13,7 @@ import com.zpt.shop.main.entities.Sku;
 
 public interface SkuService {
 	
-	public void insertSku(Sku sku,String imageUrl,Integer[] proId,String[] value,HttpServletRequest request, HttpSession session);
+	public void insertSku(Sku sku,Integer[] proId,String[] value,HttpServletRequest request, HttpSession session);
 	
 	public void deleteSku(String ids);
 	

@@ -10,9 +10,13 @@
 <!-- Mirrored from www.zi-han.net/theme/hplus/table_data_tables.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:01 GMT -->
 <head>
     <script src="<%=basePath %>assets/management/datatablejs/goods.js" type="text/javascript"></script>
+    <script src="<%=basePath%>assets/management/js/uploadphoto2.js"
+	type="text/javascript"></script>
+	<script src="<%=basePath%>assets/management/js/ajaxfileupload2.js"
+	type="text/javascript"></script>	
 	<script type="text/javascript">	
  		var pageinitGoods = $("#pageinitGoods").val();	
-</script>
+	</script>
 <style type="text/css">
 .cztree li {
     padding: 3px;

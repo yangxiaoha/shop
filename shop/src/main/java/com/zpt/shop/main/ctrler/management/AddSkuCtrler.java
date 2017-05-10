@@ -52,7 +52,7 @@ public class AddSkuCtrler {
 	
 	@ResponseBody
 	@RequestMapping(value = "/addSku",method = RequestMethod.POST)
-	public Msg addSku(Sku sku,String imageUrl,String proId,String value,HttpServletRequest request, HttpSession session){
+	public Msg addSku(Sku sku,String proId,String value,HttpServletRequest request, HttpSession session){
 		Msg msg = new Msg();
 		try {
 			String[] sproId = proId.split(",");
@@ -61,7 +61,7 @@ public class AddSkuCtrler {
 				proIds[i] = Integer.valueOf(sproId[i]);
 			}
 			String[] values = value.split(",");
-			skuService.insertSku(sku,imageUrl,proIds, values, request, session);
+			skuService.insertSku(sku,proIds, values, request, session);
 			msg.setState(Contants.RETURN_INT_SUCCESS);
 			msg.setMsg(Contants.ADD_SUCCESS);
 			return msg;

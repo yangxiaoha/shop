@@ -13,7 +13,7 @@
 <head>
     <script src="<%=basePath%>assets/management/js/uploadphoto1.js"
 	type="text/javascript"></script>
-	<script src="<%=basePath%>assets/management/js/ajaxfileupload1.js"
+	<script src="<%=basePath%>assets/management/js/ajaxfileupload.js"
 	type="text/javascript"></script>
 	<script type="text/javascript">
 		var asgoodsId = ${goodsM.id};
@@ -96,38 +96,8 @@
 			</c:forEach>
 	    	<hr>
 			<label>请选择图片:</label>
-	        <div class="row">
-				<div class="col-sm-3">
-					<div class="form-group">
-						<div class="pic">
-	                        <div class="pic" width="240" height="252">
-	                            <img id="asimghead1" class="imghead" width="240" height="252" alt="image" width="100%" src="<%=basePath%>${goodsM.url1}">	                            
-	                        	<input type="hidden" id="url1" value="${goodsM.url1}" type="text">
-	                        </div>
-	                    </div>
-					</div>
-				</div>
-				<div class="col-sm-3">
-					<div class="form-group">
-						<div class="pic">
-	                        <div class="pic" width="240" height="252">
-	                            <img id="asimghead2" class="imghead" width="240" height="252" alt="image" width="100%" src="<%=basePath%>${goodsM.url2}">	 
-	                            <input type="hidden" id="url2" value="${goodsM.url2}" type="text">                           
-	                        </div>
-	                    </div>
-					</div>
-				</div>
-				<div class="col-sm-3">
-					<div class="form-group">
-						<div class="pic">
-	                        <div class="pic" width="240" height="252">
-	                            <img id="asimghead3" class="imghead" width="240" height="252" alt="image" width="100%" src="<%=basePath%>${goodsM.url3}">	
-	                            <input type="hidden" id="url3" value="${goodsM.url3}" type="text">                               
-	                        </div>
-	                    </div>
-					</div>
-				</div>				
-				<div class="col-sm-3">
+	        <div class="row">				
+				<div class="col-sm-4">
 					<div class="form-group">
 						<p class="error" style="display: none;"></p>
 						<div class="pic">
@@ -137,7 +107,6 @@
 							</div>
 							<input type="file" name="photourl" class="image_file"
 								id="asaddphoto" onchange="previewImage(this,'asimghead')">
-							<input type="hidden" id="" name="imageUrl" type="text">
 						</div>
 					</div>
 				</div>
@@ -145,13 +114,13 @@
 			<hr>
 			<div style="width: 50%; margin: 0 auto;">
 	        	<div class="col-sm-4">
-	        		<button type="button" class="btn btn-primary btn-block m-t" id="addsubmit">保存</button>
+	        		<button type="button" class="btn btn-primary btn-block m-t" id="addsubmit">继续添加</button>
 	        	</div>
 	        	<div class="col-sm-4">
 	        		<button type="button" class="btn btn-primary btn-block m-t" id="updateState">发布</button>
 	        	</div>	        	
 	        	<div class="col-sm-4">
-	        		<a href="<%=basePath%>management/addGoods/index" class="btn btn-primary btn-block m-t">返回上一步</a>
+	        		<a type="button" id = "addGoods" class="btn btn-primary btn-block m-t">保存</a>
 	        	</div>
 	       	</div>
        	</form>
@@ -166,25 +135,13 @@
 	var imageFlag = true;
 	var imgmol = "<%=basePath%>/res/bj_img1.jpg";
 	var imgheads = "#asimghead";
-	var skuValidate;
 	var path;
-	var imageUrl;
-	$(document).ready(function(){		
-		$("#asimghead1").click(function(){
-			path = $("#asimghead1")[0].src; 
-			imageUrl = $("#url1").val();
-			$("#asimghead").attr('src',path); 
-		});
-		$("#asimghead2").click(function(){
-			path = $("#asimghead2")[0].src; 
-			imageUrl = $("#url2").val();
-			$("#asimghead").attr('src',path); 
-		});
-		$("#asimghead3").click(function(){
-			path = $("#asimghead3")[0].src; 
-			imageUrl = $("#url3").val();
-			$("#asimghead").attr('src',path); 
-		});
+	$(document).ready(function(){	
+		
+		$("#addGoods").click(function(){
+			$("#addSku").submit();
+			window.location.href="../goods/index"; 
+		});		
 		
 		$("#updateState").click(function(){
 			$(this).attr("disabled","disabled"); 
@@ -196,7 +153,6 @@
 				data:{state:1,goodsId:$("#asgoodsId").val()},
 				success:function(data){
 					alert(data.msg);
-					window.location.reload();
 				}
 			});
 		});
@@ -243,7 +199,10 @@
 	        },		   	
 	        submitHandler: function(form) {   
 	           	$(this).attr("disabled","disabled"); 
-			   
+	           	$(".loading").html("<i class=\"icon-spinner icon-spin\"></i>");
+			   	var fileimage = $("#asaddphoto").val();
+			   	var reader = new FileReader();
+	            
 			   	var svalue = new Array();
 			   	var sproId = new Array();
 			   	$(".asvalue").each(function(index,e){
@@ -252,35 +211,42 @@
 			   	$(".asproId").each(function(index,e){
 				   	sproId[index] = $(e).val();
 			   	});
-				$.ajaxFileUpload({
-					data :{
-						num:$("#asnum").val(),
-						price:$("#asprice").val(),
-						code:$("#ascode").val(),
-						goodsId:"${goodsM.id}",
-						value:svalue,	
-						proId:sproId,
-						imageUrl:imageUrl,
-					},
-					url: 'addSku',   
-		            type: 'post',  
-		            secureuri: false, //一般设置为false
-		            fileElementId: 'asaddphoto', // 上传文件的id、name属性名  
-		            dataType: 'json', //返回值类型，一般设置为json、application/json  
-		            //elementIds: elementIds, //传递参数到服务器
-					success:function(data){
-	        			setTimeout(function(){
-	        			   $("#addsubmit").removeAttr("disabled"); 
-	        		    },1000);
-	        			window.location.reload();
-	        	    }, 
-        	    	
-	        	    error:function(e){
-	         		    setTimeout(function(){
-	         			    $("#addsubmit").removeAttr("disabled"); 
-	         		    },1000);
-	        	    }
-				});				   
+			   	if(fileimage.length == 0){
+   	    			$(".loading").html("<span class=\"label label-danger\">请上传图片</span>");
+   	    		};
+   	    		if(imageFlag == false){
+   	    			$(".loading").html("<span class=\"label label-danger\">请上传图片</span>");   	    			
+   	    		};
+   	    		if(fileimage.length != 0 && imageFlag){   	    			
+					$.ajaxFileUpload({
+						data :{
+							num:$("#asnum").val(),
+							price:$("#asprice").val(),
+							code:$("#ascode").val(),
+							goodsId:"${goodsM.id}",
+							value:svalue,	
+							proId:sproId,
+						},
+						url: 'addSku',   
+			            type: 'post',  
+			            secureuri: false, //一般设置为false
+			            fileElementId: 'asaddphoto', // 上传文件的id、name属性名  
+			            dataType: 'json', //返回值类型，一般设置为json、application/json  
+			            //elementIds: elementIds, //传递参数到服务器
+						success:function(data){
+		        			setTimeout(function(){
+		        			   $("#addsubmit").removeAttr("disabled"); 
+		        		    },1000);
+		        			window.location.reload();
+		        	    }, 
+		       	    	
+		        	    error:function(e){
+		         		    setTimeout(function(){
+		         			    $("#addsubmit").removeAttr("disabled"); 
+		         		    },1000);
+		        	    }
+					});				   
+   	    		}
 	        } 
 	    });
 	});	    
