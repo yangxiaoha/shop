@@ -36,5 +36,9 @@
 		update t_goods_images set
 		<include refid="update_url" />
 		where goodsId = #{goodsId}
-	</update>		
+	</update>
+	
+	<select id="getGoodsImg" resultMap="resultMap">
+		select url1, url2, url3 from t_goods_images where goodsId = #{goodsId}
+	</select>
 </mapper>

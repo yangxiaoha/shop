@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zpt.shop.main.entities.Banner;
 import com.zpt.shop.main.entities.Evaluate;
 import com.zpt.shop.main.entities.Goods;
+import com.zpt.shop.main.entities.GoodsImages;
 import com.zpt.shop.main.entities.GoodsType;
 import com.zpt.shop.main.entities.ProVal;
 import com.zpt.shop.main.entities.Sku;
@@ -28,6 +29,7 @@ import com.zpt.shop.main.entities.User;
 import com.zpt.shop.main.service.BannerService;
 import com.zpt.shop.main.service.CartService;
 import com.zpt.shop.main.service.EvaluateService;
+import com.zpt.shop.main.service.GoodsImagesService;
 import com.zpt.shop.main.service.GoodsService;
 import com.zpt.shop.main.service.GoodsTypeService;
 import com.zpt.shop.main.service.OrderService;
@@ -52,6 +54,9 @@ public class MainIndexCtrler {
 	
 	@Autowired
 	private GoodsService goodsService;
+	
+	@Autowired
+	private GoodsImagesService goodsImagesService;
 	
 	@Autowired
 	private SkuService skuService;
@@ -215,10 +220,12 @@ public class MainIndexCtrler {
 		List<Evaluate> evaluateList = evaluateService.getEvaluateByGoodsId(goodsId);
 		//商品数据
 		Goods goodsList = goodsService.getGoodsById(goodsId);
-		//商品图片
-		List<Sku> goodsImgList = skuService.getGoodsImgByGoodsId(goodsId);
+		/*//商品图片
+		List<Sku> goodsImgList = skuService.getGoodsImgByGoodsId(goodsId);*/
 		//商品属性
 		List<ProVal> proList = proValService.getProByTypeId(goodsId);
+		//商品轮播图
+		List<GoodsImages> goodsImgList = goodsImagesService.getGoodsImg(goodsId);
 		//购物车数量
 		Integer amount = cartService.selectAmount(userId);
 		mv.addObject("evaluateMsg", evaluateList);		
