@@ -86,7 +86,7 @@
 										data-url="${bannerList.url}" data-image="${bannerList.image}" title="修改"></i></a>
 			                        </div>
 			                    </li>
-		                    </c:forEach>
+		                    </c:forEach>                   
 		                </ul>
 					</div>
                 </div>

@@ -115,12 +115,12 @@
 			<div style="width: 50%; margin: 0 auto;">
 	        	<div class="col-sm-4">
 	        		<button type="button" class="btn btn-primary btn-block m-t" id="addsubmit">继续添加</button>
-	        	</div>
-	        	<div class="col-sm-4">
-	        		<button type="button" class="btn btn-primary btn-block m-t" id="updateState">发布</button>
-	        	</div>	        	
+	        	</div>       	
 	        	<div class="col-sm-4">
 	        		<a type="button" id = "addGoods" class="btn btn-primary btn-block m-t">保存</a>
+	        	</div>
+	        	<div class="col-sm-4">
+	        		<a type="button" id = "returnGoods" class="btn btn-primary btn-block m-t">返回商品列表</a>
 	        	</div>
 	       	</div>
        	</form>
@@ -136,11 +136,16 @@
 	var imgmol = "<%=basePath%>/res/bj_img1.jpg";
 	var imgheads = "#asimghead";
 	var path;
-	$(document).ready(function(){	
+	var type = 0;
+	$(document).ready(function(){
+		
+		$("#returnGoods").click(function(){
+			window.location.href="../goods/index";
+		});
 		
 		$("#addGoods").click(function(){
+			type = 1;
 			$("#addSku").submit();
-			window.location.href="../goods/index"; 
 		});		
 		
 		$("#updateState").click(function(){
@@ -238,6 +243,11 @@
 		        			   $("#addsubmit").removeAttr("disabled"); 
 		        		    },1000);
 		        			window.location.reload();
+		        			if(type == 1){
+		        				window.location.href="../goods/index"; 
+		        			}else{
+		        				window.location.reload();
+		        			}
 		        	    }, 
 		       	    	
 		        	    error:function(e){

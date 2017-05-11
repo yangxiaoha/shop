@@ -29,6 +29,7 @@
 
 <body class="gray-bg">	
     <div class="wrapper wrapper-content animated fadeInRight">
+    <input type="hidden" name="id" id="pid">
         <div class="row"> 
         	<div class="col-sm-12" >
                 <div class="ibox float-e-margins">       	
@@ -128,6 +129,12 @@
 			window.location.href="../addGoods/index"; 
 		});
 		
+		function preview(){
+			var goodsid = $("#pid").val();
+			var url = '<%=basePath%>/home/mainindex/preview/'+goodsid;
+			window.open(url, '预览', 'height=560, width=380, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no');
+		}
+				
 		var setting = {
 			view: {
 				selectedMulti: false

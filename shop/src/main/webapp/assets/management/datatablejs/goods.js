@@ -58,6 +58,7 @@ $(document).ready(function(){
                  			'<a class="table-actions stick" data-id="'+data+'" href="javascript:void(0)" title="置顶"><i class="fa fa-arrow-up"></i></a>'+
                  			'<a class="table-actions down" data-id="'+data+'" href="javascript:void(0)" title="取消置顶"><i class="fa fa-arrow-down"></i></a>'+
                  			'<a class="table-actions del" data-id="'+data+'" href="javascript:void(0)" title="删除"><i class="fa fa-trash"></i></a>'+
+                 			'<a class="table-actions preview" data-id="'+data+'" href="javascript:void(0)" title="预览"><i class="fa fa-eye"></i></a>'+
                  		'</div>';
                }
             }
@@ -67,7 +68,12 @@ $(document).ready(function(){
         	$(".del").click(function(){
         		$("#dcontext").html("确认删除当前选项？");
         		$("#ids").val($(this).data("id"));
-        		$("#delModal").modal('show');
+        		$("#delModal").modal('show');        		
+        	});
+        	
+        	$(".preview").click(function(){
+        		$("#pid").val($(this).data("id"));
+        		preview();
         	});
         	
         	$(".updateState").click(function(){

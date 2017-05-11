@@ -104,6 +104,9 @@
                             <li><a class="J_menuItem" href="evaluate/index">评价管理</a>
                             </li>
                             
+                            <li><a class="J_menuItem" href="discount/index">会员优惠</a>
+                            </li>
+                            
                             <li><a class="J_menuItem" href="lCotton/index">爱棉人</a>
                             </li>                            
                             <li><a class="J_menuItem" href="cottonField/index">致大地，致棉田</a>
@@ -115,10 +118,7 @@
                             <li><a class="J_menuItem" href="contact/index">联系棉花糖</a>
                             </li>                            
                             <li><a class="J_menuItem" href="problem/index">常见问题</a>
-                            </li>
-                                                        
-                            <li><a class="J_menuItem" href="discount/index">会员优惠</a>
-                            </li>
+                            </li> 
                         </ul>
                     </li>
                 </ul>

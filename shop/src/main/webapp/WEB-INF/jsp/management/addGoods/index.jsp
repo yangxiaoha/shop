@@ -198,13 +198,10 @@
 		   		</div>
 	        </div>
 	       	<div style="width: 50%; margin: 0 auto;">
-	        	<div class="col-sm-4">
-	        		<button type="button" class="btn btn-primary btn-block m-t" id="">预览</button>
-	        	</div>
-	        	<div class="col-sm-4">
+	        	<div class="col-sm-6">
 	        		<button type="button" class="btn btn-primary btn-block m-t" id="addSku">下一步</button>
 	        	</div>
-	        	<div class="col-sm-4">
+	        	<div class="col-sm-6">
 	        		<a href="<%=basePath%>management/goods/index" class="btn btn-primary btn-block m-t">返回商品列表</a>
 	        	</div>
 	       	</div>
@@ -229,7 +226,7 @@
 	
 	$("#addSku").click(function(){
 		$("#addGoods").submit();
-	});	
+	});
 	
 	imgBigArrar.push("addphoto1");
 	imgBigArrar.push("addphoto2");

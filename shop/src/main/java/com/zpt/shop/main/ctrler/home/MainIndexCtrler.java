@@ -237,6 +237,29 @@ public class MainIndexCtrler {
 		return mv;
 	}
 	
+	//商品详细页
+		@RequestMapping(value="/preview/{goodsId}", method=RequestMethod.GET)
+		public ModelAndView preview(HttpServletRequest request, @PathVariable("goodsId") Integer goodsId) {
+			ModelAndView mv = new ModelAndView("home/preview");			
+			//评论		
+			List<Evaluate> evaluateList = evaluateService.getEvaluateByGoodsId(goodsId);
+			//商品数据
+			Goods goodsList = goodsService.getGoodsById(goodsId);
+			/*//商品图片
+			List<Sku> goodsImgList = skuService.getGoodsImgByGoodsId(goodsId);*/
+			//商品属性
+			List<ProVal> proList = proValService.getProByTypeId(goodsId);
+			//商品轮播图
+			List<GoodsImages> goodsImgList = goodsImagesService.getGoodsImg(goodsId);
+			//购物车数量
+			mv.addObject("evaluateMsg", evaluateList);		
+			mv.addObject("goodsMsg", goodsList);
+			mv.addObject("goodsImgMsg", goodsImgList);
+			mv.addObject("proMsg", proList);
+			mv.addObject("goodsId", goodsId);
+			return mv;
+		}
+	
 	//商品详细页(库存信息)
 	@ResponseBody
 	@RequestMapping(value="/getGoodsStockInfo/{goodsId}", method=RequestMethod.POST)

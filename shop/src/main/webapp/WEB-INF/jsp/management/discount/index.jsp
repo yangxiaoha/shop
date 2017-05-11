@@ -9,7 +9,6 @@
 <html>
 <!-- Mirrored from www.zi-han.net/theme/hplus/table_data_tables.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:01 GMT -->
 <head>
-	<script	src="<%=basePath%>assets/management/datatablejs/discount.js" type="text/javascript"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>会员优惠</title>
@@ -26,7 +25,7 @@
                 <div class="ibox float-e-margins">
                 	<div class="col-md-12">
                     <div class="ibox-title">
-                        <h5>会员优惠</h5>
+                        <h5>会员优惠（折）</h5>
                     </div>   
                     </div>                 
                     <div class="col-md-12">
@@ -37,8 +36,9 @@
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-primary" id="detailsubmit" type="button">保存</button>
-						<button class="btn btn-default-outline" data-dismiss="modal"
-							type="button">取消</button>
+					</div>
+					<div class="col-md-12">
+						<p>示例：商品原价200，折扣95，商品实际价格为200*0.95=190</p>
 					</div>
                 </div>
             </div>
@@ -59,17 +59,21 @@
 			}
 		});
 		$("#detailsubmit").click(function(){
-			$.ajax({
-				url:"update",
-				async:false,
-				dataType:"json",
-				type:"post",
-				data:{skey:"discount",sysvalue:$("#discount").val()},
-				success:function(data){
-					alert(data.msg);
-				}
-			})
-		//	alert(ue.getContent());
+			if(!/^\+?[1-9][0-9]*$/.test($("#discount").val())||$("#discount").val()>100){
+				alert("请输入0~100之间的整数！");
+				return;
+			}else{				
+				$.ajax({
+					url:"update",
+					async:false,
+					dataType:"json",
+					type:"post",
+					data:{skey:"discount",sysvalue:$("#discount").val()},
+					success:function(data){
+						alert(data.msg);
+					}
+				})
+			}
 		});
 	});	
     

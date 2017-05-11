@@ -38,6 +38,7 @@ public class LoginCtrler {
 		AdminUser adminUser = adminUserService.login(username, password);		
 		if(adminUser != null){
 			session.setAttribute("adminUser", adminUser);
+			session.setAttribute(Contants.SESSION_OPENID,"oWPBkwWRUpBW4nDRz1Xw25-rldqY");
 			AdminUser adminUserSession = (AdminUser)session.getAttribute("adminUser");
 			Date now = new Date();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

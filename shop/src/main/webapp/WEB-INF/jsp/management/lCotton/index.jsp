@@ -31,8 +31,6 @@
 						</form>
 						<div class="modal-footer">
 							<button class="btn btn-primary" id="detailsubmit" type="button">保存</button>
-							<button class="btn btn-default-outline" data-dismiss="modal"
-								type="button">取消</button>
 						</div>
 					</div>
                 </div>
